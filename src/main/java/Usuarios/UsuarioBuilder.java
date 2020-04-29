@@ -21,4 +21,8 @@ public class UsuarioBuilder {
     public void setAutenticador(Autenticador autenticador) {
         this.autenticador = autenticador;
     }
+
+    public UsuarioBuilder (Autenticador aut) {
+        this.autenticador = aut;
+    }
 }

@@ -30,4 +30,8 @@ public class Login {
         this.usuarioBuilder = builder;
         this.autenticador = autenticador;
     }
+
+    public RepoUsuarios getRepoUsuarios() {
+        return repoUsuarios;
+    }
 }

@@ -18,7 +18,7 @@ public class RepoUsuarios {
         return user.getPassword() == password;
     }
 
-    private Usuario buscarPorNombre(String nombre) {
+    public Usuario buscarPorNombre(String nombre) {
         Usuario unUsuario = this.usuarios.stream()
                 .filter(usuario -> nombre.equals(usuario.getNombre()))
                 .findAny()

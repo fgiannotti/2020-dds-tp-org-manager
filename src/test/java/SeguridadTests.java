@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SeguridadTests {
-    private Login login;
     private RepoUsuarios repoUsuarios = new RepoUsuarios();
-    private UsuarioBuilder builder = new UsuarioBuilder();
     private Autenticador autenticador = new Autenticador();
+    private UsuarioBuilder builder = new UsuarioBuilder(autenticador);
+    private Login login = new Login(repoUsuarios, builder, autenticador);
 
     @Before
     public void Setup () {
@@ -30,4 +30,22 @@ public class SeguridadTests {
         Boolean bool = this.autenticador.controlDePassword(":JM!VbT+y'-#?9c98`d,");
         Assertions.assertTrue(bool);
     }
+
+    @Test
+    public void puedoRegistrarUsuario() {
+        login.register("Nacho", ":JM!VbT+y'-#?9c98`d,");
+        Assertions.assertEquals(login.getRepoUsuarios().buscarPorNombre("Nacho").getNombre(), "Nacho");
+    }
+
+    @Test
+    public void tiraErrorLuegoDe3IntentosFallidos() {
+        login.register("Nacho", ":JM!VbT+y'-#?9c98`d,");
+        login.login("Nacho", "asd");
+        login.login("Nacho", "asd");
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            login.login("Nacho", "asd");
+        });
+    }
+
+
 }
