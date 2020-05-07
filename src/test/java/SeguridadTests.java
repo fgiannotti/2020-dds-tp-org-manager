@@ -10,13 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SeguridadTests {
     private RepoUsuarios repoUsuarios = new RepoUsuarios();
-    private Autenticador autenticador = new Autenticador();
-    private UsuarioBuilder builder = new UsuarioBuilder(autenticador);
-    private Login login = new Login(repoUsuarios, builder, autenticador);
+    private UsuarioBuilder builder = new UsuarioBuilder();
+    private Autenticador autenticador = new Autenticador(repoUsuarios, builder);
+    private Login login = new Login(autenticador);
 
     @Before
     public void Setup () {
-        this.login = new Login(repoUsuarios, builder, autenticador);
+        this.login = new Login(autenticador);
     }
 
     @Test
@@ -34,16 +34,17 @@ public class SeguridadTests {
     @Test
     public void puedoRegistrarUsuario() {
         login.register("Nacho", ":JM!VbT+y'-#?9c98`d,");
-        Assertions.assertEquals(login.getRepoUsuarios().buscarPorNombre("Nacho").getNombre(), "Nacho");
+        Assertions.assertEquals(autenticador.getRepoUsuarios().buscarPorNombre("Nacho").getNombre(), "Nacho");
     }
 
     @Test
     public void tiraErrorLuegoDe3IntentosFallidos() {
-        login.register("Nacho", ":JM!VbT+y'-#?9c98`d,");
-        login.login("Nacho", "asd");
-        login.login("Nacho", "asd");
+        login.register("Nachooo", ":JM!VbT+y'-#?9c98`d,");
+        login.login("Nachooo", "asd");
+        login.login("Nachooo", "asd");
+        login.login("Nachooo", "asd");
         Assertions.assertThrows(RuntimeException.class, () -> {
-            login.login("Nacho", "asd");
+            login.login("Nachooo", "asd");
         });
     }
 

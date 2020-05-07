@@ -13,11 +13,6 @@ public class RepoUsuarios {
         usuarios = new ArrayList<Usuario>();
     }
 
-    public Boolean checkUser (String nombre, String password) {
-        Usuario user = this.buscarPorNombre(nombre);
-        return user.getPassword() == password;
-    }
-
     public Usuario buscarPorNombre(String nombre) {
         Usuario unUsuario = this.usuarios.stream()
                 .filter(usuario -> nombre.equals(usuario.getNombre()))

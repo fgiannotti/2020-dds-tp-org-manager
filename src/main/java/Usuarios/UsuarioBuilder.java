@@ -7,10 +7,7 @@ public class UsuarioBuilder {
     private Autenticador autenticador;
 
     //Sólo acá creamos usuarios para mantener un control sobre la creación de los mismos
-    public Usuario crearUsuario (ClaseUsuario clase, String nombre, String password, Organizacion organizacion) throws RuntimeException {
-        if (! autenticador.controlDePassword(password) ) {
-            throw new RuntimeException("Tu contraseña es malarda");
-        }
+    public Usuario crearUsuario (ClaseUsuario clase, String nombre, String password, Organizacion organizacion){
         return new Usuario(nombre, password, organizacion, clase);
     }
 
@@ -22,7 +19,5 @@ public class UsuarioBuilder {
         this.autenticador = autenticador;
     }
 
-    public UsuarioBuilder (Autenticador aut) {
-        this.autenticador = aut;
-    }
+    public UsuarioBuilder () {}
 }

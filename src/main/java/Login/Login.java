@@ -7,31 +7,30 @@ import Usuarios.UsuarioBuilder;
 
 public class Login {
     private Autenticador autenticador;
-    private UsuarioBuilder usuarioBuilder;
-    private RepoUsuarios repoUsuarios;
 
     public Boolean login (String nombre, String password) {
-        return this.repoUsuarios.checkUser(nombre, password);
+        try {
+            return this.autenticador.checkUser(nombre, password);
+        }
+        catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+            if (e.getMessage().equals("Contraseña incorrecta")){
+                return false;
+            }
+            throw(e);
+        }
     }
 
     public void register (String nombre, String password) {
         try {
-            Usuario nuevoUsuario = usuarioBuilder.crearUsuario(null, nombre, password, null);
-            repoUsuarios.agregar(nuevoUsuario);
+            autenticador.crearUsuario(nombre, password);
         }
         catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
-    public Login (RepoUsuarios repo, UsuarioBuilder builder, Autenticador autenticador) {
-        this.repoUsuarios = repo;
-        this.usuarioBuilder = builder;
+    public Login (Autenticador autenticador) {
         this.autenticador = autenticador;
-    }
-
-    public RepoUsuarios getRepoUsuarios() {
-        return repoUsuarios;
     }
 }
