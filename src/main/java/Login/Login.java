@@ -7,7 +7,6 @@ import Usuarios.UsuarioBuilder;
 
 public class Login {
     private Autenticador autenticador;
-
     public Boolean login (String nombre, String password) {
         try {
             return this.autenticador.checkUser(nombre, password);
