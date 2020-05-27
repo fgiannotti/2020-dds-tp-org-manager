@@ -7,4 +7,14 @@ public class Item {
     private String descripcion;
     private String nombre;
     private List<Articulo> articulos;
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "precioTotal=" + precioTotal +
+                ", descripcion='" + descripcion + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", articulos=" + articulos +
+                '}';
+    }
 }

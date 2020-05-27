@@ -32,6 +32,52 @@ public class OperacionEgreso implements Operacion{
         this.descripcion = descripcion;
     }
 
+    public void setComprobante(Comprobante comprobante) {
+        this.comprobante = comprobante;
+    }
+
+    public void getFecha(){
+        return this.fechaOperacion;
+    }
+
+    public void setFechaOperacion(Date fechaOperacion) {
+        this.fechaOperacion = fechaOperacion;
+    }
+
+    public Proveedor getProveedor() {
+        retur this.proveedor.toString();
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+
+
+    public void adjuntarDocumento(Comprobante comprobante, int numero_operacion) {
+        this.comprobante = comprobante;
+        this.comprobante.setNumero_comprobante(numero_operacion);
+        this.comprobante.setOrganizacion();
+        this.comprobante.setItems(this.items);                  //  Al adjuntar el comprobante al
+    }                                                           //  documento ambos deben tener los mismos items
+
+    public Comprobante getDocumento() {
+        return this.comprobante.toString();
+    }
+
+    public addItem(Item item){
+        this.items.add(item)
+    }
+
+    public removeItem(Item item){
+        this.items.remove(item):
+    }
+    
+    public verItems(){
+        for (Item target: item) {
+            System.out.println(item.toString());
+        }
+    }
+
     public void realizarOperacion(){
 
     }
@@ -39,9 +85,4 @@ public class OperacionEgreso implements Operacion{
     public void registrarEgreso(int numero_operacion, MedioDePago medio_pago){
 
     }
-
-    public void adjuntarDocumento(Documento documento, int numero_operacion){
-
-    }
-
 }

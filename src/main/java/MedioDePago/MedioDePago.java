@@ -1,8 +1,8 @@
 package MedioDePago;
 
 public abstract class MedioDePago {
-   private String medio;
-   private int numero;
+   protected String medio;
+   protected int numero;
 
    public String getMedio() {
       return medio;
@@ -18,5 +18,18 @@ public abstract class MedioDePago {
 
    public void setNumero(int numero) {
       this.numero = numero;
+   }
+
+   public MedioDePago(String medio, int numero) {
+      this.medio = medio;
+      this.numero = numero;
+   }
+
+   @Override
+   public String toString() {
+      return "MedioDePago{" +
+              "medio='" + medio + '\'' +
+              ", numero=" + numero +
+              '}';
    }
 }

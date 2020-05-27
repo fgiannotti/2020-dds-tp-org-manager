@@ -1,6 +1,5 @@
 package Operaciones;
 
-
 public interface Operacion {
     public void realizarOperacion();
     public int getMontoTotal();

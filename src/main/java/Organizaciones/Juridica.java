@@ -1,11 +1,10 @@
 package Organizaciones;
 
 public abstract class Juridica extends Organizacion {
-    private String razonSocial;
-    private int cuit;
-    private int dirPostal;
-    private int codigo;
-    private Base base;
+    protected String razonSocial;
+    protected int cuit;
+    protected int dirPostal;
+    protected int codigo;
 
     public String getRazonSocial() {
         return razonSocial;
@@ -39,11 +38,4 @@ public abstract class Juridica extends Organizacion {
         this.codigo = codigo;
     }
 
-    public Base getBase() {
-        return base;
-    }
-
-    public void setBase(Base base) {
-        this.base = base;
-    }
 }
