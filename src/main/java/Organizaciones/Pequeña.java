@@ -1,4 +1,12 @@
 package Organizaciones;
 
-public class Pequeña implements TipoEmpresa {
+public class Pequeña extends TipoEmpresa {
+    public Pequeña() {
+        super();
+    }
+
+    @Override
+    public String toString() {
+        return "Pequeña{}";
+    }
 }

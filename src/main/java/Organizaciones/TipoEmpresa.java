@@ -1,4 +1,7 @@
 package Organizaciones;
 
-public interface TipoEmpresa {
+public abstract class TipoEmpresa{
+    public abstract TipoEmpresa() {
+    }
+    public abstract toString(){}
 }

@@ -1,41 +1,27 @@
 package Organizaciones;
 
+import Usuarios.Usuario;
+
+import java.util.Arrays;
+import java.util.HashSet;
+
 public abstract class Juridica extends Organizacion {
     protected String razonSocial;
-    protected int cuit;
-    protected int dirPostal;
-    protected int codigo;
+    protected Integer cuit;
+    protected Integer dirPostal;
+    protected Integer codigoInscripcion;
+    protected HashSet<Base> entidadesHijas;
 
-    public String getRazonSocial() {
-        return razonSocial;
+    public void addEntidadHija(Base... base){
     }
 
-    public void setRazonSocial(String razonSocial) {
+    public Juridica(String nombreFicticio, Usuario usuario, String razonSocial, Integer cuit, Integer dirPostal, Integer codigoInscripcion, _entidadHija) {
+        super(nombre_ficticio, usuario);
         this.razonSocial = razonSocial;
-    }
-
-    public int getCuit() {
-        return cuit;
-    }
-
-    public void setCuit(int cuit) {
         this.cuit = cuit;
-    }
-
-    public int getDirPostal() {
-        return dirPostal;
-    }
-
-    public void setDirPostal(int dirPostal) {
         this.dirPostal = dirPostal;
+        this.codigoInscripcion = codigoInscripcion;
+        this.entidadHija = new HashSet<Base>();
+        entidadHija.add(_entidadHija);
     }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
 }

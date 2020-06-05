@@ -3,18 +3,21 @@ package Organizaciones;
 import Usuarios.Usuario;
 
 public abstract class Organizacion {
-    protected String nombre_ficticio;
+
+    protected String nombreFicticio;
+
+    protected Usuario usuario;
 
     public String getNombre_ficticio() {
-        return nombre_ficticio;
+        return nombreFicticio;
     }
 
     public void setNombre_ficticio(String nombre_ficticio) {
         this.nombre_ficticio = nombre_ficticio;
     }
 
-
-    public Organizacion(String nombre_ficticio, Usuario user) {
+    public Organizacion(String nombre_ficticio, Usuario usuario) {
         this.nombre_ficticio = nombre_ficticio;
+        this.usuario = usuario;
     }
 }
