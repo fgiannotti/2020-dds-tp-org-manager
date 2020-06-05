@@ -16,6 +16,18 @@ public class OperacionEgreso implements Operacion{
     private Comprobante comprobante;
     private List<Item> items;
 
+    public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items){
+        this.montoTotal = montoTotal;
+        this.descripcion = descripcion;
+        this.proveedor = proveedor;
+        this.medioDePago = medioDePago;
+        this.fechaOperacion = fechaOperacion;
+        this.tipoDocumento = tipoDocumento;
+        this.comprobante = comprobante;
+        this.items = items;
+
+    }
+
     public int getMontoTotal(){
         return montoTotal;
     }
