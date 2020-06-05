@@ -8,21 +8,21 @@ public class Categorizador{
     }
 
     public TipoEmpresa categorizar(Integer cantidadPersonal, Actividad actividad, Float promedioVentas){
-        switch (promedioVentas.intValue()){
-            case (promedioVentas<=actividad.getTopeMicro()):
-                tipo = new Micro();
-                return tipo;
-            case (actividad.getTopeMicro() < promedioVentas && promedioVentas <= actividad.getTopePeq()):
-                tipo = new Pequenia();
-                return tipo;
-            case (actividad.getTopePeq() < promedioVentas && promedioVentas  <= actividad.getTopeMedTram1()):
-                tipo = new MedianaTramo1();
-                return tipo;
-            case (actividad.getTopeMedTram1() < promedioVentas && promedioVentas <= actividad.getTopeMedTram2()):
-                tipo = new MedianaTramo2();
-                return tipo;
-            default:
-                throw new RuntimeException("Empresa no puede ser categorizada, las ventas anuales superan el maximo ventas para Mediana Tramo 2");
+        int promedioEnInt = promedioVentas.intValue();
+        if(promedioEnInt<=actividad.getTopeMicro()) {
+            tipo = new Micro();
+            return tipo;
+        }else if(actividad.getTopeMicro() < promedioEnInt && promedioEnInt <= actividad.getTopePeq()) {
+            tipo = new Pequenia();
+            return tipo;
+        }else if(actividad.getTopePeq() < promedioEnInt && promedioEnInt  <= actividad.getTopeMedTram1()) {
+            tipo = new MedianaTramo1();
+            return tipo;
+        }else if(actividad.getTopeMedTram1() < promedioEnInt && promedioEnInt <= actividad.getTopeMedTram2()) {
+            tipo = new MedianaTramo2();
+            return tipo;
+        }else{
+            throw new RuntimeException("Empresa no puede ser categorizada, las ventas anuales superan el maximo ventas para Mediana Tramo 2");
         }
     }
 
