@@ -5,6 +5,8 @@ import Operaciones.Comprobante;
 import Operaciones.Operacion;
 import Operaciones.OperacionEgreso;
 import Operaciones.Proveedor;
+import Organizaciones.Actividad;
+import Organizaciones.Empresa;
 import Organizaciones.Organizacion;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
@@ -24,10 +26,10 @@ public class OperacionesTest {
 
     @Before
     public void setup(){
-        proveedor = new Proveedor("Nachito deliveries", "123123", "Calle falsa 123");
+        Proveedor proveedor = new Proveedor("Nachito deliveries", "123123", "Calle falsa 123");
         double price = 50.0;
         Articulo articulo = new Articulo("CocoWater", (float)price, "Agua de coco 500 ml", proveedor);
-        articulos = new ArrayList<Articulo>(){};
+        articulos = new ArrayList<Articulo>();
         articulos.add(articulo);
         articulos.add(articulo);
         articulos.add(articulo);
@@ -40,7 +42,7 @@ public class OperacionesTest {
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
         medioDePago = new Debito("Visa debito", 1000);
-        organizacion = new Organizacion("La del claudio"){};
+        Empresa empresa = new Empresa("La del claudio", "Claudio Perez", 1325011222, 1410, 300, Actividad.COMERCIO, 200000);
         operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, new Date(), "DNI", null, items);
         organizacion.agregarOperacion(operacion);
     }

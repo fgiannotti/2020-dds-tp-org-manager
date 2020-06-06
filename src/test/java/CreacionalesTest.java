@@ -47,4 +47,5 @@ public class CreacionalesTest {
         Proveedor proveedorTest = new Proveedor("Ruben Phillips", "23623656", "4694");
         Assert.assertEquals("23623656", proveedorTest.getDocumento());
     }
+
 }
