@@ -36,8 +36,7 @@ public class Empresa extends Juridica {
                 ", dirPostal=" + dirPostal +
                 ", codigoInscripcion=" + codigoInscripcion +
                 ", entidadesHijas=" + entidadesHijas +
-                ", nombreFicticio='" + nombreFicticio + '\'' +
-                ", usuario=" + usuario +
+                ", nombreFicticio='" + this.getNombreFicticio() + '\'' +
                 '}';
     }
 }

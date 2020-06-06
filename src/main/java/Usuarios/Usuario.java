@@ -1,5 +1,6 @@
 package Usuarios;
 
+import Operaciones.Operacion;
 import Organizaciones.*;
 
 public class Usuario {
@@ -17,6 +18,10 @@ public class Usuario {
         this.password = password;
         this.organizacionALaQuePertenece = organizacion;
         this.claseUsuario = clase;
+    }
+
+    public void agregarOperacion (Operacion operacion) {
+        this.organizacionALaQuePertenece.agregarOperacion(operacion);
     }
 
 

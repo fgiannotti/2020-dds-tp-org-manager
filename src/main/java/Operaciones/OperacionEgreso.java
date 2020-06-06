@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class OperacionEgreso implements Operacion{
+    private int numeroOperacion;
     private int montoTotal;
     private String descripcion;
     private Proveedor proveedor;
@@ -17,6 +18,7 @@ public class OperacionEgreso implements Operacion{
     private List<Item> items;
 
     public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items){
+        this.numeroOperacion = getNuevoNumeroOperacion();
         this.montoTotal = montoTotal;
         this.descripcion = descripcion;
         this.proveedor = proveedor;
@@ -25,7 +27,10 @@ public class OperacionEgreso implements Operacion{
         this.tipoDocumento = tipoDocumento;
         this.comprobante = comprobante;
         this.items = items;
+    }
 
+    private int getNuevoNumeroOperacion() {
+        return this.hashCode();
     }
 
     public int getMontoTotal(){
@@ -60,20 +65,30 @@ public class OperacionEgreso implements Operacion{
         return this.proveedor;
     }
 
+    public MedioDePago getMedioDePago() {
+        return this.medioDePago;
+    }
+
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
 
+    public List<Item> getItems(){
+        return this.items;
+    }
 
     public void adjuntarDocumento(Comprobante comprobante, int numero_operacion) {
         this.comprobante = comprobante;
-        this.comprobante.setNumero_comprobante(String.valueOf(numero_operacion));
         //this.comprobante.setOrganizacion();
         this.comprobante.setItems(this.items);                  //  Al adjuntar el comprobante al
     }                                                           //  documento ambos deben tener los mismos items
 
     public Comprobante getDocumento() {
         return this.comprobante;
+    }
+
+    public int getNumeroOperacion() {
+        return numeroOperacion;
     }
 
     public void addItem(Item item){

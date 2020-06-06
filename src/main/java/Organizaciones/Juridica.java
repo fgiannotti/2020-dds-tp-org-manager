@@ -16,7 +16,7 @@ public abstract class Juridica extends Organizacion {
     }
 
     public Juridica(String nombreFicticio, Usuario usuario, String razonSocial, Integer cuit, Integer dirPostal, Integer codigoInscripcion, Base _entidadHija) {
-        super(nombreFicticio, usuario);
+        super(nombreFicticio);
         this.razonSocial = razonSocial;
         this.cuit = cuit;
         this.dirPostal = dirPostal;
