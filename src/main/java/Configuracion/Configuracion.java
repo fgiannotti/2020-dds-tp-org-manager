@@ -9,39 +9,61 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 public class Configuracion {
+
+    public Configuracion() {
+        this.levantarConfiguracion();
+    }
+
+    public int getPasswordScoreMinimo() {
+        return passwordScoreMinimo;
+    }
+
+    public void setPasswordScoreMinimo(String passwordScoreMinimo) {
+        Integer result = Integer.parseInt(passwordScoreMinimo);
+        this.passwordScoreMinimo = result;
+    }
+
+    public int getPasswordLengthMinimo() {
+        return passwordLengthMinimo;
+    }
+
+    public void setPasswordLengthMinimo(String passwordLengthMinimo) {
+        Integer result = Integer.parseInt(passwordLengthMinimo);
+        this.passwordLengthMinimo = result;
+    }
+
+    public int getIntentosMaximos() {
+        return intentosMaximos;
+    }
+
+    public void setIntentosMaximos(String intentosMaximos) {
+        Integer result = Integer.parseInt(intentosMaximos);
+        this.intentosMaximos = result;
+    }
+
     private int passwordScoreMinimo;
     private int passwordLengthMinimo;
     private int intentosMaximos;
 
-    public static void main(String[] args) {
-        try {
-            levantarConfiguracion();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void levantarConfiguracion() {
+    public void levantarConfiguracion() {
         try {
             File archivo = new File("config.xml");
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = factory.newDocumentBuilder();
             Document archivoDeConfiguracion = documentBuilder.parse(archivo);
-
             archivoDeConfiguracion.getDocumentElement().normalize();
 
-            Node nodo = archivoDeConfiguracion.getElementById("Autenticador");
-            System.out.println("Elemento: " + nodo.getNodeName());
+            Node nodo = archivoDeConfiguracion.getElementsByTagName("Autenticador").item(0);
 
             if(nodo.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodo;
+                this.setPasswordScoreMinimo(element.getElementsByTagName("passwordScoreMinimo").item(0).getTextContent());
+                this.setPasswordLengthMinimo(element.getElementsByTagName("passwordLengthMinimo").item(0).getTextContent());
+                this.setIntentosMaximos(element.getElementsByTagName("intentosMaximos").item(0).getTextContent());
 
-                System.out.println("passwordScoreMinimo: " + element.getElementsByTagName("passwordScoreMinimo").item(0).getTextContent());
-                System.out.println("passwordLengthMinimo: " + element.getElementsByTagName("passwordLengthMinimo").item(0).getTextContent());
-                System.out.println("intentosMaximos: " + element.getElementsByTagName("intentosMaximos").item(0).getTextContent());
-
-                System.out.println("");
+            } else{
+                System.out.println("No es un ELEMENT_NODE");
             }
 
         } catch(Exception e) {

@@ -1,5 +1,6 @@
 package Seguridad;
 
+import Configuracion.Configuracion;
 import Organizaciones.Organizacion;
 import Repos.RepoUsuarios;
 import Usuarios.Usuario;
@@ -14,17 +15,18 @@ public class Autenticador {
     private UsuarioBuilder usuarioBuilder;
     private RepoUsuarios repoUsuarios;
     private Map<String, Integer> intentosPorUsuario = new HashMap<String, Integer>();
+    private Configuracion configuracion;
 
     public Boolean controlDePassword(String password) {
         Zxcvbn zxcvbn = new Zxcvbn();
         Strength strength = zxcvbn.measure(password);
-        return (strength.getScore() > 2 && password.length() > 8);
+        return (strength.getScore() > configuracion.getPasswordScoreMinimo() && password.length() > configuracion.getPasswordLengthMinimo());
     }
 
     public Boolean checkUser(String nombre, String password) throws RuntimeException {
         Usuario user = repoUsuarios.buscarPorNombre(nombre);
         int intentos = intentosPorUsuario.getOrDefault(nombre, 0);
-        if (intentos > 2) {
+        if (intentos > configuracion.getIntentosMaximos()) {
             throw new RuntimeException("Usuario bloqueado");
         }
         if (user.getPassword() != password) {
@@ -61,5 +63,6 @@ public class Autenticador {
     public Autenticador (RepoUsuarios repo, UsuarioBuilder builder) {
         this.repoUsuarios = repo;
         this.usuarioBuilder = builder;
+        this.configuracion = new Configuracion();
     }
 }

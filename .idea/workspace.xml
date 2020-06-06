@@ -20,7 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d398e23e-5c70-4dc6-a48f-86824f99246f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Configuracion/Configuracion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Configuracion/Configuracion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Seguridad/Autenticador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Seguridad/Autenticador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/CreacionalesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CreacionalesTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Configuracion/Configuracion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Configuracion/Configuracion.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +80,7 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
-  <component name="RunManager" selected="JUnit.SeguridadTest.tiraErrorLuegoDe3IntentosFallidos">
+  <component name="RunManager" selected="Application.Configuracion">
     <configuration name="Configuracion" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Configuracion.Configuracion" />
       <module name="2020-mi-no-group-05" />
@@ -122,10 +126,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Configuracion" />
         <item itemvalue="JUnit.SeguridadTest.tiraErrorLuegoDe3IntentosFallidos" />
         <item itemvalue="JUnit.SeguridadTest.puedoRegistrarUsuario" />
         <item itemvalue="JUnit.SeguridadTests" />
-        <item itemvalue="Application.Configuracion" />
       </list>
     </recent_temporary>
   </component>
@@ -167,15 +171,19 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="510" y="93" key="#com.intellij.ide.util.MemberChooser" timestamp="1591418525418">
+    <state x="510" y="48" key="#com.intellij.ide.util.MemberChooser" timestamp="1591457515629">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="510" y="93" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591418525418" />
+    <state x="510" y="48" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591457515629" />
     <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1591335979643" />
     <state x="670" y="409" key="#com.intellij.refactoring.memberPushDown.PushDownDialog" timestamp="1591329904262">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="670" y="409" key="#com.intellij.refactoring.memberPushDown.PushDownDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591329904262" />
+    <state x="244" y="265" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1591457542893">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="244" y="265" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591457542893" />
     <state x="460" y="174" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1591407323402">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -185,22 +193,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590548456848" />
-    <state width="1237" height="216" key="GridCell.Tab.0.bottom" timestamp="1591454714136">
+    <state width="1237" height="187" key="GridCell.Tab.0.bottom" timestamp="1591456292039">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="216" key="GridCell.Tab.0.bottom/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454714136" />
-    <state width="1237" height="216" key="GridCell.Tab.0.center" timestamp="1591454714136">
+    <state width="1237" height="187" key="GridCell.Tab.0.bottom/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591456292039" />
+    <state width="1237" height="187" key="GridCell.Tab.0.center" timestamp="1591456292039">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="216" key="GridCell.Tab.0.center/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454714136" />
-    <state width="1237" height="216" key="GridCell.Tab.0.left" timestamp="1591454714136">
+    <state width="1237" height="187" key="GridCell.Tab.0.center/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591456292039" />
+    <state width="1237" height="187" key="GridCell.Tab.0.left" timestamp="1591456292039">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="216" key="GridCell.Tab.0.left/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454714136" />
-    <state width="1237" height="216" key="GridCell.Tab.0.right" timestamp="1591454714136">
+    <state width="1237" height="187" key="GridCell.Tab.0.left/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591456292039" />
+    <state width="1237" height="187" key="GridCell.Tab.0.right" timestamp="1591456292039">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="216" key="GridCell.Tab.0.right/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454714136" />
+    <state width="1237" height="187" key="GridCell.Tab.0.right/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591456292039" />
     <state x="490" y="175" key="Maven.ArtifactSearchDialog" timestamp="1590875843891">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
