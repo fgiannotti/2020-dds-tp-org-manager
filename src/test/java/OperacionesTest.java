@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 public class OperacionesTest {
-    public Organizacion organizacion;
+    public Empresa organizacion;
     public Operacion operacion;
     public Proveedor proveedor;
     public MedioDePago medioDePago;
@@ -26,7 +26,7 @@ public class OperacionesTest {
 
     @Before
     public void setup(){
-        Proveedor proveedor = new Proveedor("Nachito deliveries", "123123", "Calle falsa 123");
+        proveedor = new Proveedor("Nachito deliveries", "123123", "Calle falsa 123");
         double price = 50.0;
         Articulo articulo = new Articulo("CocoWater", (float)price, "Agua de coco 500 ml", proveedor);
         articulos = new ArrayList<Articulo>();
@@ -42,7 +42,7 @@ public class OperacionesTest {
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
         medioDePago = new Debito("Visa debito", 1000);
-        Empresa empresa = new Empresa("La del claudio", "Claudio Perez", 1325011222, 1410, 300, Actividad.COMERCIO, 200000);
+        organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, 1410, 300, 5, Actividad.COMERCIO, (float)20000.0);
         operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, new Date(), "DNI", null, items);
         organizacion.agregarOperacion(operacion);
     }
@@ -61,7 +61,7 @@ public class OperacionesTest {
     public void laOperacionPuedeSerGuardadaSinComprobante(){
         this.setup();
         Assertions.assertDoesNotThrow( () -> {
-            new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, new Date(), "DNI", null, items);
+            new OperacionEgreso(1000, "Pago de AGUITA", this.proveedor, medioDePago, new Date(), "DNI", null, items);
         });
     }
 
