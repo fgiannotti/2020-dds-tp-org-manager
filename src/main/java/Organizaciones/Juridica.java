@@ -15,13 +15,13 @@ public abstract class Juridica extends Organizacion {
     public void addEntidadHija(Base... base){
     }
 
-    public Juridica(String nombreFicticio, Usuario usuario, String razonSocial, Integer cuit, Integer dirPostal, Integer codigoInscripcion, _entidadHija) {
-        super(nombre_ficticio, usuario);
+    public Juridica(String nombreFicticio, Usuario usuario, String razonSocial, Integer cuit, Integer dirPostal, Integer codigoInscripcion, Base _entidadHija) {
+        super(nombreFicticio, usuario);
         this.razonSocial = razonSocial;
         this.cuit = cuit;
         this.dirPostal = dirPostal;
         this.codigoInscripcion = codigoInscripcion;
-        this.entidadHija = new HashSet<Base>();
-        entidadHija.add(_entidadHija);
+        this.entidadesHijas = new HashSet<Base>();
+        entidadesHijas.add(_entidadHija);
     }
 }

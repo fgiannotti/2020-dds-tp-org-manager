@@ -36,7 +36,7 @@ public class OperacionEgreso implements Operacion{
         this.comprobante = comprobante;
     }
 
-    public void getFecha(){
+    public Date getFecha(){
         return this.fechaOperacion;
     }
 
@@ -45,7 +45,7 @@ public class OperacionEgreso implements Operacion{
     }
 
     public Proveedor getProveedor() {
-        retur this.proveedor.toString();
+        return this.proveedor;
     }
 
     public void setProveedor(Proveedor proveedor) {
@@ -55,25 +55,25 @@ public class OperacionEgreso implements Operacion{
 
     public void adjuntarDocumento(Comprobante comprobante, int numero_operacion) {
         this.comprobante = comprobante;
-        this.comprobante.setNumero_comprobante(numero_operacion);
-        this.comprobante.setOrganizacion();
+        this.comprobante.setNumero_comprobante(String.valueOf(numero_operacion));
+        //this.comprobante.setOrganizacion();
         this.comprobante.setItems(this.items);                  //  Al adjuntar el comprobante al
     }                                                           //  documento ambos deben tener los mismos items
 
     public Comprobante getDocumento() {
-        return this.comprobante.toString();
+        return this.comprobante;
     }
 
-    public addItem(Item item){
-        this.items.add(item)
+    public void addItem(Item item){
+        this.items.add(item);
     }
 
-    public removeItem(Item item){
-        this.items.remove(item):
+    public void removeItem(Item item){
+        this.items.remove(item);
     }
     
-    public verItems(){
-        for (Item target: item) {
+    public void verItems(){
+        for (Item item: items) {
             System.out.println(item.toString());
         }
     }

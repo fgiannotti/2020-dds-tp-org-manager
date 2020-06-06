@@ -8,12 +8,12 @@ public class Categorizador{
     }
 
     public TipoEmpresa categorizar(Integer cantidadPersonal, Actividad actividad, Float promedioVentas){
-        switch (promedioVentas){
+        switch (promedioVentas.intValue()){
             case (promedioVentas<=actividad.getTopeMicro()):
                 tipo = new Micro();
                 return tipo;
             case (actividad.getTopeMicro() < promedioVentas && promedioVentas <= actividad.getTopePeq()):
-                tipo = new Pequeña();
+                tipo = new Pequenia();
                 return tipo;
             case (actividad.getTopePeq() < promedioVentas && promedioVentas  <= actividad.getTopeMedTram1()):
                 tipo = new MedianaTramo1();

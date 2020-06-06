@@ -1,8 +1,6 @@
 package Organizaciones;
 
 import Usuarios.Usuario;
-import categorizadorEmpresas.Categorizador;
-
 import java.util.Arrays;
 
 public class Empresa extends Juridica {
@@ -13,7 +11,7 @@ public class Empresa extends Juridica {
     private Categorizador categorizador;
 
     public Empresa(String nombreFicticio, Usuario usuario, String razonSocial, Integer cuit, Integer dirPostal, Integer codigoInscripcion, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {
-        super(nombreFicticio, usuario, razonSocial, cuit, dirPostal, codigoInscripcion);
+        super(nombreFicticio, usuario, razonSocial, cuit, dirPostal, codigoInscripcion, null);
         this.categorizador = new Categorizador();
         this.tipo = this.categorizador.categorizar(cantidadPersonal, actividad, promedioVentas);
     }

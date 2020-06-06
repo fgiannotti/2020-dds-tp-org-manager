@@ -9,8 +9,8 @@ public class Base extends Organizacion {
     public Base(String nombre_ficticio, Usuario usuario, String descripcion, Juridica padre) {
         super(nombre_ficticio, usuario);
         this.descripcion = descripcion;
-        this.entidadPadre = org_padre;
-        padre.addEntidadHija(Self);
+        this.entidadPadre = padre;
+        padre.addEntidadHija(this);
     }
 
     public void setDescripcion(String descripcion) {
@@ -25,8 +25,8 @@ public class Base extends Organizacion {
     public String toString() {
         return "Base{" +
                 "descripcion='" + descripcion + '\'' +
-                ", org_padre=" + org_padre +
-                ", nombre_ficticio='" + nombre_ficticio + '\'' +
+                ", org_padre=" + entidadPadre +
+                ", nombre_ficticio='" + descripcion + '\'' +
                 ", usuario=" + usuario +
                 '}';
     }

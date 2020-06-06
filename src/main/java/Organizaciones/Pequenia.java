@@ -1,7 +1,7 @@
 package Organizaciones;
 
-public class Pequeña extends TipoEmpresa {
-    public Pequeña() {
+public class Pequenia extends TipoEmpresa {
+    public Pequenia() {
         super();
     }
 

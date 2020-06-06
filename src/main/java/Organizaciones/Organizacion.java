@@ -13,11 +13,11 @@ public abstract class Organizacion {
     }
 
     public void setNombre_ficticio(String nombre_ficticio) {
-        this.nombre_ficticio = nombre_ficticio;
+        this.nombreFicticio = nombre_ficticio;
     }
 
     public Organizacion(String nombre_ficticio, Usuario usuario) {
-        this.nombre_ficticio = nombre_ficticio;
+        this.nombreFicticio = nombre_ficticio;
         this.usuario = usuario;
     }
 }

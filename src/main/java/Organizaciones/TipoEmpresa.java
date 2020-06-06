@@ -1,7 +1,8 @@
 package Organizaciones;
 
 public abstract class TipoEmpresa{
-    public abstract TipoEmpresa() {
+    public void TipoEmpresa(){};
+    public String toString(){
+        return "Holis";
     }
-    public abstract toString(){}
 }
