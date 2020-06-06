@@ -19,7 +19,7 @@ public class Usuario {
         this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
         this.password = Objects.requireNonNull(password, "La contraseña no puede ser nula");
         this.organizacionALaQuePertenece = Objects.requireNonNull(organizacion, "La organizacion no puede ser nula");
-        this.claseUsuario = Objects.requireNonNull(clase, "La clase de usuario no puede ser nula");
+        this.claseUsuario = clase;
     }
 
     public void agregarOperacion (Operacion operacion) {

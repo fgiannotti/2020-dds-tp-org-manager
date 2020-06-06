@@ -10,7 +10,7 @@ public class Base extends Organizacion {
 
     public Base(String nombre_ficticio, Usuario usuario, String descripcion, Juridica padre) {
         super(nombre_ficticio);
-        this.descripcion = descripcion;
+        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
         this.entidadPadre = padre;
         padre.addEntidadHija(this);
     }

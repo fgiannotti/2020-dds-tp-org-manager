@@ -20,7 +20,7 @@ public abstract class Organizacion {
     }
 
     public Organizacion(String nombreFicticio) {
-        this.nombreFicticio = Objects.requireNonNull(nombre_ficticio, "El nombre ficticio no puede ser nulo");
+        this.nombreFicticio = Objects.requireNonNull(nombreFicticio, "El nombre ficticio no puede ser nulo");
         this.operacionesRealizadas = new ArrayList<Operacion>();
     }
 

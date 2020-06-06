@@ -1,10 +1,14 @@
 import Login.Login;
+import Organizaciones.*;
 import Repos.RepoUsuarios;
 import Seguridad.Autenticador;
+import Usuarios.Usuario;
 import Usuarios.UsuarioBuilder;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,13 +37,34 @@ public class SeguridadTest {
 
     @Test
     public void puedoRegistrarUsuario() {
-        login.register("Nacho", ":JM!VbT+y'-#?9c98`d,");
+        Float promedio = Float.valueOf(13550);
+        Empresa unaEmpresa = new Empresa("juridica.SA",
+                null,
+                "unaRazon",
+                123456,
+                1714,
+                5949,
+                Actividad.COMERCIO,
+                promedio);
+        Base organizacion = new Base("organizacionDeBase.SRL",null,"Descripcion",unaEmpresa);
+        login.register("Nacho", organizacion,":JM!VbT+y'-#?9c98`d,");
         Assertions.assertEquals(autenticador.getRepoUsuarios().buscarPorNombre("Nacho").getNombre(), "Nacho");
     }
 
     @Test
     public void tiraErrorLuegoDe3IntentosFallidos() {
-        login.register("Nachooo", ":JM!VbT+y'-#?9c98`d,");
+        Float promedio = Float.valueOf(13550);
+        Empresa unaEmpresa = new Empresa("juridica.SA",
+                null,
+                "unaRazon",
+                123456,
+                1714,
+                5949,
+                Actividad.COMERCIO,
+                promedio);
+        Base organizacion = new Base("organizacionDeBase.SRL",null,"Descripcion",unaEmpresa);
+
+        login.register("Nachooo",organizacion, ":JM!VbT+y'-#?9c98`d,");
         login.login("Nachooo", "asd");
         login.login("Nachooo", "asd");
         login.login("Nachooo", "asd");

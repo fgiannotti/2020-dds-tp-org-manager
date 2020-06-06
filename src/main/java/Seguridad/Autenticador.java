@@ -1,5 +1,6 @@
 package Seguridad;
 
+import Organizaciones.Organizacion;
 import Repos.RepoUsuarios;
 import Usuarios.Usuario;
 import Usuarios.UsuarioBuilder;
@@ -44,9 +45,9 @@ public class Autenticador {
         intentosPorUsuario.put(nombre, x);
     }
 
-    public void crearUsuario(String nombre, String password) throws RuntimeException {
+    public void crearUsuario(String nombre, Organizacion organizacion ,String password) throws RuntimeException {
         if (this.controlDePassword(password)) {
-            Usuario nuevoUsuario = usuarioBuilder.crearUsuario(null, nombre, password, null);
+            Usuario nuevoUsuario = usuarioBuilder.crearUsuario(null, nombre, password, organizacion);
             repoUsuarios.agregar(nuevoUsuario);
         } else {
             throw new RuntimeException("Tu contraseña es malarda");
