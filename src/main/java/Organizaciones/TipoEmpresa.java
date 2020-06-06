@@ -1,8 +1,8 @@
 package Organizaciones;
 
-public abstract class TipoEmpresa{
-    public void TipoEmpresa(){};
-    public String toString(){
-        return "Holis";
-    }
+public enum TipoEmpresa {
+    MICRO,
+    PEQUENIA,
+    MEDIANATRAMO1,
+    MEDIANATRAMO2
 }

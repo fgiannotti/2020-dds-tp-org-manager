@@ -2,6 +2,8 @@ package Organizaciones;
 
 import Usuarios.Usuario;
 
+import java.util.Objects;
+
 public class Base extends Organizacion {
     private String descripcion;
     private Juridica entidadPadre;

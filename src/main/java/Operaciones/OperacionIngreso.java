@@ -1,12 +1,14 @@
 package Operaciones;
 
+import java.util.Objects;
+
 public class OperacionIngreso implements Operacion {
     private int montoTotal;
     private String descripcion;
 
     public OperacionIngreso(int montoTotal, String descripcion){
-        this.montoTotal = montoTotal;
-        this.descripcion = descripcion;
+        this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
+        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
     }
 
     public int getMontoTotal(){

@@ -5,6 +5,7 @@ import Usuarios.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Organizacion {
     private String nombreFicticio;
@@ -19,7 +20,7 @@ public abstract class Organizacion {
     }
 
     public Organizacion(String nombreFicticio) {
-        this.nombreFicticio = nombreFicticio;
+        this.nombreFicticio = Objects.requireNonNull(nombre_ficticio, "El nombre ficticio no puede ser nulo");
         this.operacionesRealizadas = new ArrayList<Operacion>();
     }
 

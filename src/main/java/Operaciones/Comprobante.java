@@ -5,6 +5,7 @@ import Organizaciones.Organizacion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Comprobante {
     private int numero_comprobante;
