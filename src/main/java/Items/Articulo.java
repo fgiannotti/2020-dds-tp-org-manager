@@ -17,4 +17,8 @@ public class Articulo {
         this.descripcion = descripcion;
         this.proveedor = proveedor;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
 }

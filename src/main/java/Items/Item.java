@@ -15,6 +15,18 @@ public class Item {
         this.articulos = articulos;
     }
 
+    public Float getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
