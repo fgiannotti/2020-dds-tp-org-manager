@@ -8,7 +8,7 @@ public class Base extends Organizacion {
     private String descripcion;
     private Juridica entidadPadre;
 
-    public Base(String nombre_ficticio, Usuario usuario, String descripcion, Juridica padre) {
+    public Base(String nombre_ficticio, String descripcion, Juridica padre) {
         super(nombre_ficticio);
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
         this.entidadPadre = padre;
@@ -21,6 +21,10 @@ public class Base extends Organizacion {
 
     public void setEntidadPadre(Juridica org_padre) {
         this.entidadPadre = org_padre;
+    }
+
+    public Juridica getEntidadPadre() {
+        return entidadPadre;
     }
 
     @Override

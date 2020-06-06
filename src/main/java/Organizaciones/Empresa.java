@@ -10,18 +10,23 @@ public class Empresa extends Juridica {
     private TipoEmpresa tipo;
     private Categorizador categorizador;
 
-    public Empresa(String nombreFicticio, Usuario usuario, String razonSocial, Integer cuit, Integer dirPostal, Integer codigoInscripcion, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {
-        super(nombreFicticio, usuario, razonSocial, cuit, dirPostal, codigoInscripcion, null);
+    public Empresa(String nombreFicticio, String razonSocial, Integer cuit, Integer dirPostal, Integer codigoInscripcion, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {
+        super(nombreFicticio, razonSocial, cuit, dirPostal, codigoInscripcion, null);
         this.categorizador = new Categorizador();
-        this.tipo = this.categorizador.categorizar(cantidadPersonal, actividad, promedioVentas);
-    }
-
-    public Empresa(String nombreFicticio, Usuario usuario, String razonSocial, Integer cuit, Integer dirPostal, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {
-    this(nombreFicticio, usuario, razonSocial, cuit, dirPostal,0, cantidadPersonal, actividad, promedioVentas);
+        try {
+            this.tipo = this.categorizador.categorizar(cantidadPersonal, actividad, promedioVentas);
+        }
+        catch (RuntimeException e){
+            throw (e);
+        }
     }
 
     public void addEntidadHija(Base... base){
         entidadesHijas.addAll(Arrays.asList(base));
+    }
+
+    public TipoEmpresa getTipo() {
+        return tipo;
     }
 
     @Override
