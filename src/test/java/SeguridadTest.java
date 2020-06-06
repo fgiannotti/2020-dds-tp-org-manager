@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SeguridadTests {
+public class SeguridadTest {
     private RepoUsuarios repoUsuarios = new RepoUsuarios();
     private UsuarioBuilder builder = new UsuarioBuilder();
     private Autenticador autenticador = new Autenticador(repoUsuarios, builder);
@@ -20,13 +20,13 @@ public class SeguridadTests {
     }
 
     @Test
-    public void weakPasswordIsWeak() {
+    public void weakPasswordIsWeakTest_testCase1() {
         Boolean bool = this.autenticador.controlDePassword("weak");
         Assertions.assertFalse(bool);
     }
 
     @Test
-    public void strongPasswordIsStrong() {
+    public void Test2() {
         Boolean bool = this.autenticador.controlDePassword(":JM!VbT+y'-#?9c98`d,");
         Assertions.assertTrue(bool);
     }

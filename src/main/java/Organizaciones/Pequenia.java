@@ -7,6 +7,6 @@ public class Pequenia extends TipoEmpresa {
 
     @Override
     public String toString() {
-        return "Pequeña{}";
+        return "Pequenia{}";
     }
 }
