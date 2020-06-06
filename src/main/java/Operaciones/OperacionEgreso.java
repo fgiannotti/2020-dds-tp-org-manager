@@ -5,6 +5,7 @@ import MedioDePago.MedioDePago;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class OperacionEgreso implements Operacion{
     private int montoTotal;
@@ -17,14 +18,14 @@ public class OperacionEgreso implements Operacion{
     private List<Item> items;
 
     public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items){
-        this.montoTotal = montoTotal;
-        this.descripcion = descripcion;
-        this.proveedor = proveedor;
-        this.medioDePago = medioDePago;
-        this.fechaOperacion = fechaOperacion;
-        this.tipoDocumento = tipoDocumento;
-        this.comprobante = comprobante;
-        this.items = items;
+        this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
+        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
+        this.proveedor = Objects.requireNonNull(proveedor, "El proveedor no puede ser nulo");
+        this.medioDePago = Objects.requireNonNull(medioDePago, "El medio de pago no puede ser nulo");
+        this.fechaOperacion = Objects.requireNonNull(fechaOperacion, "La fecha de operacion no puede ser nula");
+        this.tipoDocumento = Objects.requireNonNull(tipoDocumento, "El tipo de documento no puede ser nulo");
+        this.comprobante = Objects.requireNonNull(comprobante, "El comprobante no puede ser nulo");
+        this.items = Objects.requireNonNull(items, "Los items no pueden ser nulos");
 
     }
 

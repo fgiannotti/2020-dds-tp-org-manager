@@ -2,6 +2,8 @@ package Organizaciones;
 
 import Usuarios.Usuario;
 
+import java.util.Objects;
+
 public abstract class Organizacion {
 
     protected String nombreFicticio;
@@ -17,7 +19,7 @@ public abstract class Organizacion {
     }
 
     public Organizacion(String nombre_ficticio, Usuario usuario) {
-        this.nombreFicticio = nombre_ficticio;
-        this.usuario = usuario;
+        this.nombreFicticio = Objects.requireNonNull(nombre_ficticio, "El nombre ficticio no puede ser nulo");
+        this.usuario = Objects.requireNonNull(usuario, "El usuario no puede ser nulo");
     }
 }

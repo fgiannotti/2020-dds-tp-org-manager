@@ -2,6 +2,8 @@ package Usuarios;
 
 import Organizaciones.*;
 
+import java.util.Objects;
+
 public class Usuario {
     private ClaseUsuario claseUsuario;
     private Organizaciones.Organizacion organizacionALaQuePertenece;
@@ -13,10 +15,10 @@ public class Usuario {
     }
 
     public Usuario (String nombre, String password, Organizacion organizacion, ClaseUsuario clase) {
-        this.nombre = nombre;
-        this.password = password;
-        this.organizacionALaQuePertenece = organizacion;
-        this.claseUsuario = clase;
+        this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
+        this.password = Objects.requireNonNull(password, "La contraseña no puede ser nula");
+        this.organizacionALaQuePertenece = Objects.requireNonNull(organizacion, "La organizacion no puede ser nula");
+        this.claseUsuario = Objects.requireNonNull(clase, "La clase de usuario no puede ser nula");
     }
 
 

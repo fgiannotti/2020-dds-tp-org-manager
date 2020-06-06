@@ -1,5 +1,7 @@
 package MedioDePago;
 
+import java.util.Objects;
+
 public abstract class MedioDePago {
 
    protected String medio;
@@ -14,7 +16,7 @@ public abstract class MedioDePago {
    }
 
    public MedioDePago(String medio, int numero) {
-      this.medio = medio;
-      this.numero = numero;
+      this.medio = Objects.requireNonNull(medio, "El medio no puede ser nulo");
+      this.numero = Objects.requireNonNull(numero, "El numero no puede ser nulo");
    }
 }

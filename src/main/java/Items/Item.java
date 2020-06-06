@@ -1,6 +1,7 @@
 package Items;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Item {
     private Float precioTotal;
@@ -9,10 +10,10 @@ public class Item {
     private List<Articulo> articulos;
 
     public Item(Float precioTotal, String descripcion, String nombre, List<Articulo> articulos){
-        this.precioTotal = precioTotal;
-        this.descripcion = descripcion;
-        this.nombre = nombre;
-        this.articulos = articulos;
+        this.precioTotal = Objects.requireNonNull(precioTotal, "El precio total no puede ser nulo");
+        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
+        this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
+        this.articulos = Objects.requireNonNull(articulos, "Los articulos no pueden ser nulos");
     }
 
     public Float getPrecioTotal() {

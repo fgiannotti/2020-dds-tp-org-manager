@@ -2,14 +2,16 @@ package Organizaciones;
 
 import Usuarios.Usuario;
 
+import java.util.Objects;
+
 public class Base extends Organizacion {
     private String descripcion;
     private Juridica entidadPadre;
 
     public Base(String nombre_ficticio, Usuario usuario, String descripcion, Juridica padre) {
         super(nombre_ficticio, usuario);
-        this.descripcion = descripcion;
-        this.entidadPadre = padre;
+        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
+        this.entidadPadre = Objects.requireNonNull(entidadPadre, "La entidad padre no puede ser nula");
         padre.addEntidadHija(this);
     }
 
