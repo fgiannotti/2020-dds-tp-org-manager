@@ -1,5 +1,7 @@
 package Seguridad;
 
+import Configuracion.Configuracion;
+import Organizaciones.Organizacion;
 import Repos.RepoUsuarios;
 import Usuarios.Usuario;
 import Usuarios.UsuarioBuilder;
@@ -13,17 +15,18 @@ public class Autenticador {
     private UsuarioBuilder usuarioBuilder;
     private RepoUsuarios repoUsuarios;
     private Map<String, Integer> intentosPorUsuario = new HashMap<String, Integer>();
+    private Configuracion configuracion;
 
     public Boolean controlDePassword(String password) {
         Zxcvbn zxcvbn = new Zxcvbn();
         Strength strength = zxcvbn.measure(password);
-        return (strength.getScore() > 2 && password.length() > 8);
+        return (strength.getScore() > configuracion.getPasswordScoreMinimo() && password.length() > configuracion.getPasswordLengthMinimo());
     }
 
     public Boolean checkUser(String nombre, String password) throws RuntimeException {
         Usuario user = repoUsuarios.buscarPorNombre(nombre);
         int intentos = intentosPorUsuario.getOrDefault(nombre, 0);
-        if (intentos > 2) {
+        if (intentos > configuracion.getIntentosMaximos()) {
             throw new RuntimeException("Usuario bloqueado");
         }
         if (user.getPassword() != password) {
@@ -44,9 +47,9 @@ public class Autenticador {
         intentosPorUsuario.put(nombre, x);
     }
 
-    public void crearUsuario(String nombre, String password) throws RuntimeException {
+    public void crearUsuario(String nombre, Organizacion organizacion ,String password) throws RuntimeException {
         if (this.controlDePassword(password)) {
-            Usuario nuevoUsuario = usuarioBuilder.crearUsuario(null, nombre, password, null);
+            Usuario nuevoUsuario = usuarioBuilder.crearUsuario(null, nombre, password, organizacion);
             repoUsuarios.agregar(nuevoUsuario);
         } else {
             throw new RuntimeException("Tu contraseña es malarda");
@@ -60,5 +63,6 @@ public class Autenticador {
     public Autenticador (RepoUsuarios repo, UsuarioBuilder builder) {
         this.repoUsuarios = repo;
         this.usuarioBuilder = builder;
+        this.configuracion = new Configuracion();
     }
 }

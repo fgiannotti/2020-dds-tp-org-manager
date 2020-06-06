@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Autenticador>
+    <passwordScoreMinimo>2</passwordScoreMinimo>
+    <passwordLengthMinimo>8</passwordLengthMinimo>
+    <intentosMaximos>2</intentosMaximos>
+</Autenticador>

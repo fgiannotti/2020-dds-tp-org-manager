@@ -1,4 +1,8 @@
 package Organizaciones;
 
-public interface TipoEmpresa {
+public enum TipoEmpresa {
+    MICRO,
+    PEQUENIA,
+    MEDIANATRAMO1,
+    MEDIANATRAMO2
 }

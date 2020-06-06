@@ -2,21 +2,40 @@ package Organizaciones;
 
 import Usuarios.Usuario;
 
+import java.util.Objects;
+
 public class Base extends Organizacion {
     private String descripcion;
-    private Juridica org_padre;
+    private Juridica entidadPadre;
 
-    public Base(String nombre_ficticio, String descripcion, Juridica org_padre) {
+    public Base(String nombre_ficticio, String descripcion, Juridica padre) {
         super(nombre_ficticio);
-        this.descripcion = descripcion;
-        this.org_padre = org_padre;
+        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
+        this.entidadPadre = padre;
+        padre.addEntidadHija(this);
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    public void setOrg_padre(Juridica org_padre) {
-        this.org_padre = org_padre;
+    public void setEntidadPadre(Juridica org_padre) {
+        this.entidadPadre = org_padre;
+    }
+
+    public Juridica getEntidadPadre() {
+        return entidadPadre;
+    }
+
+    @Override
+    public String toString() {
+        return "Base{" +
+                "descripcion='" + descripcion + '\'' +
+                ", org_padre=" + entidadPadre +
+                ", nombre_ficticio='" + descripcion + '\'' +
+                '}';
     }
 }
+
+
+
