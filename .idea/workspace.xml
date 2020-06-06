@@ -20,27 +20,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d398e23e-5c70-4dc6-a48f-86824f99246f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_annotations_1_0_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Categorizador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2020-mi-no-group-05.iml" beforeDir="false" afterPath="$PROJECT_DIR$/2020-mi-no-group-05.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MedioDePago/ATM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MedioDePago/ATM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MedioDePago/AccountMoney.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MedioDePago/AccountMoney.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MedioDePago/Credito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MedioDePago/Credito.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MedioDePago/Debito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MedioDePago/Debito.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MedioDePago/MedioDePago.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MedioDePago/MedioDePago.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Actividad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Actividad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Base.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Base.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Empresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Empresa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Juridica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Juridica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/MedianaTramo1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/MedianaTramo1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/MedianaTramo2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/MedianaTramo2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Micro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Micro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/OSC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/OSC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Organizacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Organizacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Pequeña.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Pequeña.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/TipoEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/TipoEmpresa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Categorizador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Categorizador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/MedianaTramo1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/MedianaTramo2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Micro.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Pequenia.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/TipoEmpresa.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Items/Articulo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Items/Articulo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Items/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Items/Item.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/ATM.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/ATM.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/AccountMoney.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/AccountMoney.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/Credito.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/Credito.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/Debito.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/Debito.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/MedioDePago.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/MedioDePago.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/Ticket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/Ticket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/Comprobante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/Comprobante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/Documento.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/Documento.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/OperacionEgreso.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/OperacionEgreso.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/OperacionIngreso.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/OperacionIngreso.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/Proveedor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/Proveedor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Actividad.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Actividad.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Base.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Base.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Empresa.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Empresa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Juridica.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Juridica.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/MedianaTramo1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/MedianaTramo1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/MedianaTramo2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/MedianaTramo2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Micro.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Micro.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/OSC.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/OSC.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Organizacion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Organizacion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Pequeña.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/TipoEmpresa.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/TipoEmpresa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/SeguridadTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,8 +66,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -63,6 +75,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1cTGl3GtCrka3CGjeNx3Fs2RABK" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -95,6 +110,7 @@
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
@@ -121,17 +137,6 @@
       <workItem from="1589914036045" duration="4514000" />
     </task>
     <servers />
-  </component>
-  <component name="TestHistory">
-    <history-entry file="SeguridadTests - 2020.04.29 at 19h 05m 15s.xml">
-      <configuration name="SeguridadTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="SeguridadTests - 2020.05.16 at 15h 18m 32s.xml">
-      <configuration name="SeguridadTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="SeguridadTests - 2020.05.16 at 15h 19m 15s.xml">
-      <configuration name="SeguridadTests" configurationId="JUnit" />
-    </history-entry>
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="7452000" />
@@ -160,9 +165,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="670" y="409" key="#com.intellij.refactoring.memberPushDown.PushDownDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591329904262" />
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1590548228770">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="460" y="174" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1591407323402">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
+    <state x="460" y="174" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591407323402" />
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590548228770" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1590548456848">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -180,80 +186,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="755" y="267" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591331654377" />
+    <state x="433" y="199" key="scopes" timestamp="1591406495462">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="433" y="199" key="scopes/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591406495462" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1591329391290">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1591329391290" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

@@ -19,9 +19,7 @@ public enum Actividad{
         this.topeMedTram2 = topeMedTram2;
     }
 
-    public int getTopeMicro() {
-        return topeMicro;
-    }
+    public int getTopeMicro() {return topeMicro;}
 
     public int getTopePeq() {
         return topePeq;
@@ -33,5 +31,21 @@ public enum Actividad{
 
     public int getTopeMedTram2() {
         return topeMedTram2;
+    }
+
+    public TipoEmpresa categorizar(int ventas) {
+        if(ventas > this.getTopeMedTram2()){
+            throw new RuntimeException("Empresa no puede ser categorizada, las ventas anuales superan el maximo ventas para Mediana Tramo 2");
+        }else if(ventas > this.getTopeMedTram1()){
+            return TipoEmpresa.MEDIANATRAMO2;
+        }else if(ventas > this.getTopePeq()){
+            return TipoEmpresa.MEDIANATRAMO1;
+        }else if(ventas > this.getTopeMicro()){
+            return TipoEmpresa.PEQUENIA;
+        }else if (ventas >= 0){
+            return TipoEmpresa.MICRO;
+        }else{
+            throw new RuntimeException("Ventas es menor a cero");
+        }
     }
 }
