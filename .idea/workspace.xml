@@ -20,35 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d398e23e-5c70-4dc6-a48f-86824f99246f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_annotations_1_0_SNAPSHOT.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2020-mi-no-group-05.iml" beforeDir="false" afterPath="$PROJECT_DIR$/2020-mi-no-group-05.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Login/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Login/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Base.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Base.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Organizacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Organizacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Seguridad/Autenticador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Seguridad/Autenticador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Usuarios/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Usuarios/Usuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/CreacionalesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CreacionalesTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SeguridadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SeguridadTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Items/Articulo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Items/Articulo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Items/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Items/Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Login/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Login/Login.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/2020-mi-no-group-05.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/MedioDePago.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/MedioDePago.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/Comprobante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/Comprobante.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/Documento.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/OperacionEgreso.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/OperacionEgreso.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/OperacionIngreso.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/OperacionIngreso.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/Proveedor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/Proveedor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Actividad.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Actividad.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Base.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Base.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Empresa.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Empresa.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Juridica.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Juridica.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Organizacion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Organizacion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Seguridad/Autenticador.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Seguridad/Autenticador.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Usuarios/Usuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Usuarios/Usuario.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,22 +185,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590548456848" />
-    <state width="1237" height="267" key="GridCell.Tab.0.bottom" timestamp="1591454469805">
+    <state width="1237" height="216" key="GridCell.Tab.0.bottom" timestamp="1591454714136">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="267" key="GridCell.Tab.0.bottom/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454469805" />
-    <state width="1237" height="267" key="GridCell.Tab.0.center" timestamp="1591454469805">
+    <state width="1237" height="216" key="GridCell.Tab.0.bottom/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454714136" />
+    <state width="1237" height="216" key="GridCell.Tab.0.center" timestamp="1591454714136">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="267" key="GridCell.Tab.0.center/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454469805" />
-    <state width="1237" height="267" key="GridCell.Tab.0.left" timestamp="1591454469805">
+    <state width="1237" height="216" key="GridCell.Tab.0.center/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454714136" />
+    <state width="1237" height="216" key="GridCell.Tab.0.left" timestamp="1591454714136">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="267" key="GridCell.Tab.0.left/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454469805" />
-    <state width="1237" height="267" key="GridCell.Tab.0.right" timestamp="1591454469805">
+    <state width="1237" height="216" key="GridCell.Tab.0.left/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454714136" />
+    <state width="1237" height="216" key="GridCell.Tab.0.right" timestamp="1591454714136">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="267" key="GridCell.Tab.0.right/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454469805" />
+    <state width="1237" height="216" key="GridCell.Tab.0.right/0.0.1280.680/-1360.0.1360.728@0.0.1280.680" timestamp="1591454714136" />
     <state x="490" y="175" key="Maven.ArtifactSearchDialog" timestamp="1590875843891">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
