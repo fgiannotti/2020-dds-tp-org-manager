@@ -23,36 +23,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Actividad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Actividad.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Categorizador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Organizaciones/Categorizador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/MedianaTramo1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/MedianaTramo2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Micro.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/Pequenia.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Organizaciones/TipoEmpresa.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Items/Articulo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Items/Articulo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Items/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Items/Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/ATM.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/ATM.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/AccountMoney.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/AccountMoney.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/Credito.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/Credito.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/Debito.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/Debito.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/MedioDePago.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/MedioDePago.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MedioDePago/Ticket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MedioDePago/Ticket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/Comprobante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/Comprobante.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/Documento.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/Documento.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/OperacionEgreso.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/OperacionEgreso.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/OperacionIngreso.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/OperacionIngreso.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Operaciones/Proveedor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Operaciones/Proveedor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Actividad.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Actividad.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Base.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Base.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Empresa.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Empresa.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Juridica.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Juridica.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/MedianaTramo1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/MedianaTramo1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/MedianaTramo2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/MedianaTramo2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Micro.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Micro.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/OSC.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/OSC.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Organizacion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/Organizacion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/Pequeña.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Organizaciones/TipoEmpresa.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Organizaciones/TipoEmpresa.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/SeguridadTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
