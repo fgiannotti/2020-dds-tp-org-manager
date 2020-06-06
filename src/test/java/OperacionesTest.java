@@ -32,7 +32,7 @@ public class OperacionesTest {
         articulos.add(articulo);
         articulos.add(articulo);
         articulos.add(articulo);
-        Item aguitasDeCoco = new Item((float)200, "Pack de aguitas de coco, vienen 5. Si, cinco.", "packDeAguitas", articulos);
+        Item aguitasDeCoco = new Item("refrescante", "Pack de aguitas de coco, vienen 5. Si, cinco.", articulos);
         items = new ArrayList<Item>() {};
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
@@ -59,7 +59,7 @@ public class OperacionesTest {
     public void laOperacionPuedeSerGuardadaSinComprobante(){
         this.setup();
         Assertions.assertDoesNotThrow( () -> {
-                new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, new Date(), "DNI", null, items);
+            new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, new Date(), "DNI", null, items);
         });
     }
 
@@ -99,5 +99,5 @@ public class OperacionesTest {
         Assertions.assertEquals(this.medioDePago.getNumero(), OE.getMedioDePago().getNumero());
     }
 
-    
+
 }

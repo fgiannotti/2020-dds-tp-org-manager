@@ -24,14 +24,14 @@ public class CreacionalesTest {
         this.login = new Login(autenticador);
     }
     Proveedor proveedorTest0 = new Proveedor("Jorge Guaymallen", "6321456", "1714");
-    Articulo articuloTest0 = new Articulo("Auriculares", 20, "Maximo sonido", proveedorTest);
-    Articulo articuloTest1 = new Articulo("Pendrive", 10, "Maxima capacidad", proveedorTest);
-    Articulo articuloTest2 = new Articulo("Salsa", 280, "Maximo sabor", proveedorTest);
+    Articulo articuloTest0 = new Articulo("Auriculares", 20, "Maximo sonido", proveedorTest0);
+    Articulo articuloTest1 = new Articulo("Pendrive", 10, "Maxima capacidad", proveedorTest0);
+    Articulo articuloTest2 = new Articulo("Salsa", 280, "Maximo sabor", proveedorTest0);
     List<Articulo> articulos = Arrays.asList(articuloTest0,articuloTest1,articuloTest2);
 
     @Test
     public void testCreacionItem(){
-        Item itemTest = new Item(500, "Alegra tus fiestas", "Combo magico", articulos);
+        Item itemTest = new Item ("Combo Navideno", "Alegra tus fiestas", articulos);
         Float result = (float)500;
         Assert.assertEquals(result, itemTest.getPrecioTotal());
     }
