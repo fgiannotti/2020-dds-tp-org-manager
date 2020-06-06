@@ -1,14 +1,16 @@
 package Operaciones;
 
+import java.util.Objects;
+
 public class Proveedor {
     private String nombre_apellido_razon;
     private String documento;
     private String direccionPostal;
 
     public Proveedor(String nombre_apellido_razon, String documento, String direccionPostal) {
-        this.nombre_apellido_razon = nombre_apellido_razon;
-        this.documento = documento;
-        this.direccionPostal = direccionPostal;
+        this.nombre_apellido_razon = Objects.requireNonNull(nombre_apellido_razon, "El nombre_apellido_razon no puede ser nulo");
+        this.documento = Objects.requireNonNull(documento, "El documento no puede ser nulo");
+        this.direccionPostal = Objects.requireNonNull(direccionPostal, "La direccion postal no puede ser nula");
     }
 
     public String getNombre_apellido_razon() {

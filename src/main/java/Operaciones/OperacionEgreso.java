@@ -5,8 +5,10 @@ import MedioDePago.MedioDePago;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class OperacionEgreso implements Operacion{
+    private int numeroOperacion;
     private int montoTotal;
     private String descripcion;
     private Proveedor proveedor;
@@ -15,6 +17,22 @@ public class OperacionEgreso implements Operacion{
     private String tipoDocumento;
     private Comprobante comprobante;
     private List<Item> items;
+
+    public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items){
+        this.numeroOperacion = getNuevoNumeroOperacion();
+        this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
+        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
+        this.proveedor = Objects.requireNonNull(proveedor, "El proveedor no puede ser nulo");
+        this.medioDePago = Objects.requireNonNull(medioDePago, "El medio de pago no puede ser nulo");
+        this.fechaOperacion = Objects.requireNonNull(fechaOperacion, "La fecha de operacion no puede ser nula");
+        this.tipoDocumento = Objects.requireNonNull(tipoDocumento, "El tipo de documento no puede ser nulo");
+        this.comprobante = comprobante;
+        this.items = Objects.requireNonNull(items, "Los items no pueden ser nulos");
+    }
+
+    private int getNuevoNumeroOperacion() {
+        return this.hashCode();
+    }
 
     public int getMontoTotal(){
         return montoTotal;
@@ -36,7 +54,7 @@ public class OperacionEgreso implements Operacion{
         this.comprobante = comprobante;
     }
 
-    public void getFecha(){
+    public Date getFecha(){
         return this.fechaOperacion;
     }
 
@@ -45,35 +63,45 @@ public class OperacionEgreso implements Operacion{
     }
 
     public Proveedor getProveedor() {
-        retur this.proveedor.toString();
+        return this.proveedor;
+    }
+
+    public MedioDePago getMedioDePago() {
+        return this.medioDePago;
     }
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
 
+    public List<Item> getItems(){
+        return this.items;
+    }
 
     public void adjuntarDocumento(Comprobante comprobante, int numero_operacion) {
         this.comprobante = comprobante;
-        this.comprobante.setNumero_comprobante(numero_operacion);
-        this.comprobante.setOrganizacion();
+        //this.comprobante.setOrganizacion();
         this.comprobante.setItems(this.items);                  //  Al adjuntar el comprobante al
     }                                                           //  documento ambos deben tener los mismos items
 
     public Comprobante getDocumento() {
-        return this.comprobante.toString();
+        return this.comprobante;
     }
 
-    public addItem(Item item){
-        this.items.add(item)
+    public int getNumeroOperacion() {
+        return numeroOperacion;
     }
 
-    public removeItem(Item item){
-        this.items.remove(item):
+    public void addItem(Item item){
+        this.items.add(item);
+    }
+
+    public void removeItem(Item item){
+        this.items.remove(item);
     }
     
-    public verItems(){
-        for (Item target: item) {
+    public void verItems(){
+        for (Item item: items) {
             System.out.println(item.toString());
         }
     }

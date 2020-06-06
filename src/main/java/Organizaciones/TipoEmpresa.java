@@ -1,7 +1,8 @@
 package Organizaciones;
 
-public abstract class TipoEmpresa{
-    public abstract TipoEmpresa() {
-    }
-    public abstract toString(){}
+public enum TipoEmpresa {
+    MICRO,
+    PEQUENIA,
+    MEDIANATRAMO1,
+    MEDIANATRAMO2
 }

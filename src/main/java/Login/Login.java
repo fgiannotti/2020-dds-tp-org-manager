@@ -1,5 +1,6 @@
 package Login;
 
+import Organizaciones.Organizacion;
 import Repos.RepoUsuarios;
 import Seguridad.Autenticador;
 import Usuarios.Usuario;
@@ -20,9 +21,9 @@ public class Login {
         }
     }
 
-    public void register (String nombre, String password) {
+    public void register (String nombre, Organizacion organizacion, String password) {
         try {
-            autenticador.crearUsuario(nombre, password);
+            autenticador.crearUsuario(nombre, organizacion, password);
         }
         catch (RuntimeException e) {
             System.out.println(e.getMessage());

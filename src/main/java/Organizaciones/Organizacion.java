@@ -1,23 +1,34 @@
 package Organizaciones;
 
+import Operaciones.Operacion;
 import Usuarios.Usuario;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public abstract class Organizacion {
+    private String nombreFicticio;
+    private List<Operacion> operacionesRealizadas;
 
-    protected String nombreFicticio;
-
-    protected Usuario usuario;
-
-    public String getNombre_ficticio() {
+    public String getNombreFicticio() {
         return nombreFicticio;
     }
 
-    public void setNombre_ficticio(String nombre_ficticio) {
-        this.nombre_ficticio = nombre_ficticio;
+    public void setNombreFicticio(String nombreFicticio) {
+        this.nombreFicticio = nombreFicticio;
     }
 
-    public Organizacion(String nombre_ficticio, Usuario usuario) {
-        this.nombre_ficticio = nombre_ficticio;
-        this.usuario = usuario;
+    public Organizacion(String nombreFicticio) {
+        this.nombreFicticio = Objects.requireNonNull(nombreFicticio, "El nombre ficticio no puede ser nulo");
+        this.operacionesRealizadas = new ArrayList<Operacion>();
+    }
+
+    public void agregarOperacion(Operacion operacion){
+        this.operacionesRealizadas.add(operacion);
+    }
+
+    public List<Operacion> getOperacionesRealizadas(){
+        return this.operacionesRealizadas;
     }
 }
