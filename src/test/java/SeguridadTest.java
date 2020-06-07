@@ -64,4 +64,9 @@ public class SeguridadTest {
             login.login("Nachooo", "asd");
         });
     }
+
+    @Test
+    public void trueIsTrue() {
+        Assertions.assertTrue(true);
+    }
 }

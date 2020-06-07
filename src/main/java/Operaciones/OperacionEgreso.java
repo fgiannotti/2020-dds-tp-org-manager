@@ -113,4 +113,8 @@ public class OperacionEgreso implements Operacion{
     public void registrarEgreso(int numero_operacion, MedioDePago medio_pago){
 
     }
+
+    public Comprobante getComprobante() {
+        return comprobante;
+    }
 }
