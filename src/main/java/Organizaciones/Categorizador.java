@@ -21,7 +21,7 @@ public class Categorizador{
         }else if (promedioEnInt >= 0 && cantidadPersonal < actividad.getTopeMicroPersonal()){
             return TipoEmpresa.MICRO;
         }else{
-            throw new RuntimeException("Ventas es menor a cero");
+            throw new RuntimeException("No corresponde la cantidad de personal con la cantidad de facturacion por tramo");
         }
     }
 

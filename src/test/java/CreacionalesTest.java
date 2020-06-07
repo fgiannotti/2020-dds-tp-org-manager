@@ -97,28 +97,28 @@ public class CreacionalesTest {
 
     @Test
     public void testCreacionMicro(){
-        Empresa acme = new Empresa("acme company" , "acme systems", 01040501, 2030, 30, 300, Actividad.SERVICIOS, (float)10000.00);
+        Empresa acme = new Empresa("acme company" , "acme systems", 01040501, 2030, 30, 5, Actividad.SERVICIOS, (float)10000.00);
         Assertions.assertEquals("acme company", acme.getNombreFicticio());
         Assertions.assertEquals(TipoEmpresa.MICRO, acme.getTipo());
     }
 
     @Test
     public void testCreacionPequenia(){
-        Empresa dia = new Empresa("DIA" , "Supermercados Dia SRL", 201629002, 5010, 600, 1000, Actividad.COMERCIO, (float)31000000.00);
+        Empresa dia = new Empresa("DIA" , "Supermercados Dia SRL", 201629002, 5010, 600, 30, Actividad.COMERCIO, (float)31000000.00);
         Assertions.assertEquals("DIA", dia.getNombreFicticio());
         Assertions.assertEquals(TipoEmpresa.PEQUENIA, dia.getTipo());
     }
 
     @Test
     public void testCreacionMedianaTramo1(){
-        Empresa piramides = new Empresa("Piramides constructora" , "Martin Lopez", 20152909, 2020, 3000, 10000, Actividad.CONSTRUCCION, (float)400000000.00);
+        Empresa piramides = new Empresa("Piramides constructora" , "Martin Lopez", 20152909, 2020, 3000, 185, Actividad.CONSTRUCCION, (float)400000000.00);
         Assertions.assertEquals("Piramides constructora", piramides.getNombreFicticio());
         Assertions.assertEquals(TipoEmpresa.MEDIANATRAMO1, piramides.getTipo());
     }
 
     @Test
     public void testCreacionMedianaTramo2() {
-        Empresa Mercadolibre = new Empresa("Mercadolibre", "Marcos Galperin",90807060, 8810, 12000, 30000, Actividad.INDUSTRIAYMINERIA, (float)600000000.00);
+        Empresa Mercadolibre = new Empresa("Mercadolibre", "Marcos Galperin",90807060, 8810, 12000, 600, Actividad.INDUSTRIAYMINERIA, (float)1709590000.00);
         Assertions.assertEquals("Mercadolibre", Mercadolibre.getNombreFicticio());
         Assertions.assertEquals(TipoEmpresa.MEDIANATRAMO2, Mercadolibre.getTipo());
     }
