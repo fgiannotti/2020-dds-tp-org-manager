@@ -1,6 +1,10 @@
 import Items.Articulo;
 import Items.Item;
 import Login.Login;
+import MedioDePago.Credito;
+import MedioDePago.Debito;
+import Operaciones.Comprobante;
+import Operaciones.OperacionEgreso;
 import Operaciones.Proveedor;
 import Organizaciones.Base;
 import Organizaciones.Juridica;
@@ -57,8 +61,8 @@ public class CreacionalesTest {
         Juridica organizacion = new Juridica("organizacionJuridica.SRL","Sarasa", 2023123123, 1680, 1, null);
         Assert.assertEquals("Sarasa", organizacion.getRazonSocial());
     }
-    
-   @Test
+
+    @Test
     public void testCreacionComprobante(){
         Comprobante comprobantePrueba1 = new Comprobante(itemsTest1);
         Assert.assertEquals(itemsTest1, comprobantePrueba1.getItems());
@@ -70,7 +74,7 @@ public class CreacionalesTest {
         Assertions.assertEquals(310, operacionPrueba1.getMontoTotal());
         Assertions.assertEquals(comprobanteTest2, operacionPrueba1.getComprobante());
         Assertions.assertEquals(itemsTest1, operacionPrueba1.getItems());
-        }
+    }
 
     @Test
     public void testCreacionMedioDePago(){
