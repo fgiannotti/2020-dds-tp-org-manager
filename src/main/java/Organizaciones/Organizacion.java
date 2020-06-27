@@ -11,6 +11,9 @@ public abstract class Organizacion {
     private String nombreFicticio;
     private List<Operacion> operacionesRealizadas;
 
+    protected Organizacion() {
+    }
+
     public String getNombreFicticio() {
         return nombreFicticio;
     }

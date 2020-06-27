@@ -1,7 +1,7 @@
 package Organizaciones;
 
-import Usuarios.Usuario;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class Empresa extends Juridica {
     private Integer cantidadPersonal;
@@ -21,12 +21,52 @@ public class Empresa extends Juridica {
         }
     }
 
+    public Empresa(){
+        super.entidadesHijas = new HashSet<>();
+    }
+
     public void addEntidadHija(Base... base){
         entidadesHijas.addAll(Arrays.asList(base));
     }
 
     public TipoEmpresa getTipo() {
         return tipo;
+    }
+
+    public Integer getCantidadPersonal() {
+        return cantidadPersonal;
+    }
+
+    public void setCantidadPersonal(Integer cantidadPersonal) {
+        this.cantidadPersonal = cantidadPersonal;
+    }
+
+    public Actividad getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(Actividad actividad) {
+        this.actividad = actividad;
+    }
+
+    public Float getPromedioVentas() {
+        return promedioVentas;
+    }
+
+    public void setPromedioVentas(Float promedioVentas) {
+        this.promedioVentas = promedioVentas;
+    }
+
+    public void setTipo(TipoEmpresa tipo) {
+        this.tipo = tipo;
+    }
+
+    public Categorizador getCategorizador() {
+        return categorizador;
+    }
+
+    public void setCategorizador(Categorizador categorizador) {
+        this.categorizador = categorizador;
     }
 
     @Override

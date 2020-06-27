@@ -1,9 +1,7 @@
 package Items;
 
 import Operaciones.Proveedor;
-import jdk.nashorn.internal.runtime.PrototypeObject;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Articulo {
