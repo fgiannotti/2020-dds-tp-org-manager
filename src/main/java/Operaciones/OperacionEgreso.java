@@ -1,5 +1,6 @@
 package Operaciones;
 
+import Items.Articulo;
 import Items.Item;
 import MedioDePago.MedioDePago;
 
@@ -9,14 +10,16 @@ import java.util.Objects;
 
 public class OperacionEgreso implements Operacion{
     private int numeroOperacion;
+    private Proveedor proveedor;
+    private Date fechaOperacion;
+    private MedioDePago medioDePago;
+    private String tipoDocumento;
+    private Comprobante comprobante ;
     private int montoTotal;
     private String descripcion;
-    private Proveedor proveedor;
-    private MedioDePago medioDePago;
-    private Date fechaOperacion;
-    private String tipoDocumento;
-    private Comprobante comprobante;
     private List<Item> items;
+    private List<Presupuesto> presupuestosPreliminares;
+    private Articulo articulo;
 
     public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items){
         this.numeroOperacion = getNuevoNumeroOperacion();
@@ -116,5 +119,14 @@ public class OperacionEgreso implements Operacion{
 
     public Comprobante getComprobante() {
         return comprobante;
+    }
+
+
+    public List<Presupuesto> getPresupuestosPreliminares() {
+        return presupuestosPreliminares;
+    }
+
+    public void setPresupuestosPreliminares(List<Presupuesto> presupuestosPreliminares) {
+        this.presupuestosPreliminares = presupuestosPreliminares;
     }
 }

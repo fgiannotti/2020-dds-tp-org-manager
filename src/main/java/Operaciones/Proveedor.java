@@ -6,6 +6,7 @@ public class Proveedor {
     private String nombre_apellido_razon;
     private String documento;
     private String direccionPostal;
+    private Presupuesto presupuesto;
 
     public Proveedor(String nombre_apellido_razon, String documento, String direccionPostal) {
         this.nombre_apellido_razon = Objects.requireNonNull(nombre_apellido_razon, "El nombre_apellido_razon no puede ser nulo");
@@ -36,6 +37,15 @@ public class Proveedor {
     public void setDireccionPostal(String direccionPostal) {
         this.direccionPostal = direccionPostal;
     }
+
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
+    }
+
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+
 
     @Override
     public String toString() {
