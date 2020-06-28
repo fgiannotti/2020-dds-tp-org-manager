@@ -1,5 +1,7 @@
 package Organizaciones;
 
+import Estrategias.CategorizadorEmpresa;
+
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -8,13 +10,14 @@ public class Empresa extends Juridica {
     private Actividad actividad;
     private Float promedioVentas;
     private TipoEmpresa tipo;
-    private Categorizador categorizador;
+    private CategorizadorEmpresa categorizadorEmpresa;
 
     public Empresa(String nombreFicticio, String razonSocial, Integer cuit, Integer dirPostal, Integer codigoInscripcion, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {
         super(nombreFicticio, razonSocial, cuit, dirPostal, codigoInscripcion, null);
-        this.categorizador = new Categorizador();
+        this.actividad = actividad;
+        this.categorizadorEmpresa = new CategorizadorEmpresa();
         try {
-            this.tipo = this.categorizador.categorizar(cantidadPersonal, actividad, promedioVentas);
+            this.tipo = this.categorizadorEmpresa.categorizar(cantidadPersonal, actividad, promedioVentas);
         }
         catch (RuntimeException e){
             throw (e);
@@ -61,12 +64,12 @@ public class Empresa extends Juridica {
         this.tipo = tipo;
     }
 
-    public Categorizador getCategorizador() {
-        return categorizador;
+    public CategorizadorEmpresa getCategorizadorEmpresa() {
+        return categorizadorEmpresa;
     }
 
-    public void setCategorizador(Categorizador categorizador) {
-        this.categorizador = categorizador;
+    public void setCategorizadorEmpresa(CategorizadorEmpresa categorizadorEmpresa) {
+        this.categorizadorEmpresa = categorizadorEmpresa;
     }
 
     @Override

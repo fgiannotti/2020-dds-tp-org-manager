@@ -1,21 +1,14 @@
+import Builders.EmpresaBuilder;
+import Factorys.EmpresaBuilderFactory;
 import Items.Articulo;
 import Items.Item;
-import Login.Login;
 import MedioDePago.Credito;
 import MedioDePago.Debito;
 import Operaciones.Comprobante;
 import Operaciones.OperacionEgreso;
 import Operaciones.Proveedor;
-import Organizaciones.Base;
-import Organizaciones.Juridica;
 import Organizaciones.*;
-import Repos.RepoUsuarios;
-import Seguridad.Autenticador;
-import Usuarios.Admin;
-import Usuarios.Usuario;
-import Usuarios.UsuarioBuilder;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -23,9 +16,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-public class CreacionalesTest {
+public class CreacionalesTest<nuevaEmpresa> {
     Proveedor proveedorTest0 = new Proveedor("Jorge Guaymallen", "6321456", "1714");
     Articulo articuloTest0 = new Articulo("Auriculares", 20, "Maximo sonido", proveedorTest0);
     Articulo articuloTest1 = new Articulo("Pendrive", 10, "Maxima capacidad", proveedorTest0);
@@ -97,28 +88,28 @@ public class CreacionalesTest {
 
     @Test
     public void testCreacionMicro(){
-        Empresa acme = new Empresa("acme company" , "acme systems", 01040501, 2030, 30, 5, Actividad.SERVICIOS, (float)10000.00);
+        Empresa acme = new Empresa("acme company" , "acme systems", 01040501, 2030, 30, 5, new Servicios(), (float)10000.00);
         Assertions.assertEquals("acme company", acme.getNombreFicticio());
         Assertions.assertEquals(TipoEmpresa.MICRO, acme.getTipo());
     }
 
     @Test
     public void testCreacionPequenia(){
-        Empresa dia = new Empresa("DIA" , "Supermercados Dia SRL", 201629002, 5010, 600, 30, Actividad.COMERCIO, (float)31000000.00);
+        Empresa dia = new Empresa("DIA" , "Supermercados Dia SRL", 201629002, 5010, 600, 30, new Comercio(), (float)38000000.00);
         Assertions.assertEquals("DIA", dia.getNombreFicticio());
         Assertions.assertEquals(TipoEmpresa.PEQUENIA, dia.getTipo());
     }
 
     @Test
     public void testCreacionMedianaTramo1(){
-        Empresa piramides = new Empresa("Piramides constructora" , "Martin Lopez", 20152909, 2020, 3000, 185, Actividad.CONSTRUCCION, (float)400000000.00);
+        Empresa piramides = new Empresa("Piramides constructora" , "Martin Lopez", 20152909, 2020, 3000, 185, new Construccion(), (float)400000000.00);
         Assertions.assertEquals("Piramides constructora", piramides.getNombreFicticio());
         Assertions.assertEquals(TipoEmpresa.MEDIANATRAMO1, piramides.getTipo());
     }
 
     @Test
     public void testCreacionMedianaTramo2() {
-        Empresa Mercadolibre = new Empresa("Mercadolibre", "Marcos Galperin",90807060, 8810, 12000, 600, Actividad.INDUSTRIAYMINERIA, (float)1709590000.00);
+        Empresa Mercadolibre = new Empresa("Mercadolibre", "Marcos Galperin",90807060, 8810, 12000, 600, new IndustriaYMineria(), (float)1709590000.00);
         Assertions.assertEquals("Mercadolibre", Mercadolibre.getNombreFicticio());
         Assertions.assertEquals(TipoEmpresa.MEDIANATRAMO2, Mercadolibre.getTipo());
     }
@@ -127,6 +118,41 @@ public class CreacionalesTest {
     public void baseTieneUnaJuridicaParticular(){
         Juridica organizacion = new Juridica("JuridicaEjemplar","Sarasa", 2023123123, 1680, 1, null);
         Base orgBase = new Base("Base", "Tengo solo un padre", organizacion);
-        Assert.assertEquals("JuridicaEjemplar",orgBase.getEntidadPadre().getNombreFicticio());
+        Assert.assertEquals("JuridicaEjemplar", orgBase.getEntidadPadre().getNombreFicticio());
     }
-}
+
+    @Test
+    public void testBuilderEmpresa() {
+
+        EmpresaBuilderFactory builderFactory = new EmpresaBuilderFactory();
+
+        EmpresaBuilder empresaBuilder = builderFactory.createBuilder();
+
+        Agropecuario agro = new Agropecuario();
+
+        Empresa nuevaEmpresa = null;
+        try {
+            nuevaEmpresa = empresaBuilder.agregarNombre("pepito")
+                    .agregarRazonSocial("Jorge Lopez")
+                    .agregarCuit(20302030L)
+                    .agregarCodigoPostal(1410)
+                    .agregarCantidadDePersonal(30)
+                    .agregarActividad(new Agropecuario())
+                    .agregarPromedioDeVentas((float)345429999)
+                    .agregarCodigoDeInscripcion(13030)
+                    .build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Assertions.assertNotNull(nuevaEmpresa);
+        Assertions.assertEquals("pepito", nuevaEmpresa.getNombreFicticio());
+        Assertions.assertEquals("Jorge Lopez", nuevaEmpresa.getRazonSocial());
+        Assertions.assertEquals(20302030, nuevaEmpresa.getCuit());
+        Assertions.assertEquals(1410, nuevaEmpresa.getDirPostal());
+        Assertions.assertEquals(30, nuevaEmpresa.getCantidadPersonal());
+        Assertions.assertEquals("Agropecuario" , nuevaEmpresa.getActividad().getNombre());
+        Assertions.assertEquals(345429999f, nuevaEmpresa.getPromedioVentas());
+        Assertions.assertEquals(TipoEmpresa.MEDIANATRAMO1, nuevaEmpresa.getTipo());
+    }
+    }

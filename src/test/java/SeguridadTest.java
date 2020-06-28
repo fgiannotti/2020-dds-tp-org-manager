@@ -1,16 +1,13 @@
 import Login.Login;
-import Organizaciones.*;
+import Organizaciones.Comercio;
+import Organizaciones.Empresa;
+import Organizaciones.Juridica;
 import Repos.RepoUsuarios;
 import Seguridad.Autenticador;
-import Usuarios.Usuario;
 import Usuarios.UsuarioBuilder;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.Objects;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class SeguridadTest {
     private RepoUsuarios repoUsuarios = new RepoUsuarios();
@@ -37,7 +34,7 @@ public class SeguridadTest {
 
     @Test
     public void puedoRegistrarUsuario() {
-        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, 1680, 1, 5, Actividad.COMERCIO, (float)150000.0){};
+        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, 1680, 1, 5, new Comercio(), (float)150000.0){};
         Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, 1680, 1, null);
         login.register("Nacho", organizacion,":JM!VbT+y'-#?9c98`d,");
         Assertions.assertEquals(autenticador.getRepoUsuarios().buscarPorNombre("Nacho").getNombre(), "Nacho");
@@ -46,7 +43,7 @@ public class SeguridadTest {
     @Test
     public void puedoLoggearmeUnaVezRegistradoUsuario() {
         this.Setup();
-        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, 1680, 1, 5, Actividad.COMERCIO, (float)150000.0){};
+        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, 1680, 1, 5, new Comercio(), (float)150000.0){};
         Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, 1680, 1, null);
         login.register("Nacho", organizacion,":JM!VbT+y'-#?9c98`d,");
         login.login("Nacho", ":JM!VbT+y'-#?9c98`d,");
@@ -54,7 +51,7 @@ public class SeguridadTest {
 
     @Test
     public void tiraErrorLuegoDe3IntentosFallidos() {
-        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, 1680, 1, 5, Actividad.COMERCIO, (float)150000.0){};
+        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, 1680, 1, 5, new Comercio(), (float)150000.0){};
         Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, 1680, 1, null);
         login.register("Nachooo", organizacion, ":JM!VbT+y'-#?9c98`d,");
         login.login("Nachooo", "asd");

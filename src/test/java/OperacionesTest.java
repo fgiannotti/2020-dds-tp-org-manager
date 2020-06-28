@@ -1,13 +1,13 @@
 import Items.Articulo;
 import Items.Item;
-import MedioDePago.*;
+import MedioDePago.Debito;
+import MedioDePago.MedioDePago;
 import Operaciones.Comprobante;
 import Operaciones.Operacion;
 import Operaciones.OperacionEgreso;
 import Operaciones.Proveedor;
-import Organizaciones.Actividad;
+import Organizaciones.Comercio;
 import Organizaciones.Empresa;
-import Organizaciones.Organizacion;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ public class OperacionesTest {
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
         medioDePago = new Debito("Visa debito", 1000);
-        organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, 1410, 300, 5, Actividad.COMERCIO, (float)20000.0);
+        organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, 1410, 300, 5, new Comercio(), (float)20000.0);
         operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, new Date(), "DNI", null, items);
         organizacion.agregarOperacion(operacion);
     }

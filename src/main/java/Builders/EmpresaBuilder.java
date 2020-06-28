@@ -1,5 +1,6 @@
 package Builders;
 
+import Estrategias.CategorizadorEmpresa;
 import Organizaciones.*;
 
 import static java.util.Objects.isNull;
@@ -15,7 +16,7 @@ public class EmpresaBuilder {
     private Actividad actividad;
     private Float promedioVentas;
     private TipoEmpresa tipo;
-    private Categorizador categorizador;
+    private CategorizadorEmpresa categorizadorEmpresa;
     private Empresa empresa;
 
     public EmpresaBuilder(){
@@ -98,12 +99,12 @@ public class EmpresaBuilder {
         this.tipo = tipo;
     }
 
-    public Categorizador getCategorizador() {
-        return categorizador;
+    public CategorizadorEmpresa getCategorizadorEmpresa() {
+        return categorizadorEmpresa;
     }
 
-    public void setCategorizador(Categorizador categorizador) {
-        this.categorizador = categorizador;
+    public void setCategorizadorEmpresa(CategorizadorEmpresa categorizadorEmpresa) {
+        this.categorizadorEmpresa = categorizadorEmpresa;
     }
 
     public void setEmpresa(Empresa empresa) {
@@ -149,6 +150,18 @@ public class EmpresaBuilder {
         return this;
     }
 
+    public EmpresaBuilder agregarActividad(String actividad){
+        switch (actividad){
+            case "Agropecuario": this.empresa.setActividad(new Agropecuario()); break;
+            case "Comercio": this.empresa.setActividad(new Comercio()); break;
+            case "Construccion": this.empresa.setActividad(new Construccion()); break;
+            case "IndustriaYMineria": this.empresa.setActividad(new IndustriaYMineria()); break;
+            case "Servicios": this.empresa.setActividad(new Servicios()); break;
+            default : throw new RuntimeException("Nombre de actividad no valido, ingrese uno de los siguientes: Agropecuario, Comercio, Construccion, IndustriaYMineria, Servicios");
+        }
+        return this;
+    }
+
     public EmpresaBuilder agregarPromedioDeVentas(Float promedioVentas){
         this.empresa.setPromedioVentas(promedioVentas);
         return this;
@@ -188,10 +201,6 @@ public class EmpresaBuilder {
             throw new Exception("No se asigno promedio de ventas");
         }
 
-        if (isNull(this.empresa.getTipo())) {
-            throw new Exception("No se asigno el tipo de empresa");
-        }
-
         if(!this.cumpleVentasTotales()) {
             throw new Exception("La cantidad de ventas anuales debe ser un valor entre 9_900_000 y 676_810_000, el valor actual es:" + this.empresa.getPromedioVentas());
         }
@@ -200,11 +209,17 @@ public class EmpresaBuilder {
             throw new Exception("La cantidad de personal debe ser un valor entre 12 y 215, el valor actual es:" + this.empresa.getCantidadPersonal());
         }
 
-        if(this.categorizador == null) {
-            this.categorizador = new Categorizador();
+        if(this.categorizadorEmpresa == null) {
+            this.categorizadorEmpresa = new CategorizadorEmpresa();
         }
 
-        this.tipo = this.categorizador.categorizar(this.cantidadPersonal, this.actividad, this.promedioVentas);
+        TipoEmpresa tipo = this.categorizadorEmpresa.categorizar(this.empresa.getCantidadPersonal(), this.empresa.getActividad(), this.empresa.getPromedioVentas());
+        this.empresa.setTipo(tipo);
+
+        if (isNull(this.empresa.getTipo())) {
+            throw new Exception("No se categorizo correctamente");
+        }
+
 
         return this.empresa;
 

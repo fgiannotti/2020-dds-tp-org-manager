@@ -1,16 +1,7 @@
-import Login.Login;
 import Organizaciones.*;
-import Repos.RepoUsuarios;
-import Seguridad.Autenticador;
-import Usuarios.Usuario;
-import Usuarios.UsuarioBuilder;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.Objects;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class OrganizacionesTest {
     public Empresa empresaMicro;
@@ -20,10 +11,10 @@ public class OrganizacionesTest {
     public Empresa empresaCareta;
     @Before
     public void Setup () {
-        empresaMicro = new Empresa("EmpresaMicro", "Empresita", 2023123123, 1680, 1, 5, Actividad.COMERCIO, (float)150000.0){};
-        empresaPequenia = new Empresa("EmpresaConstructora", "MiEmpresita", 203123123, 1685, 2, 44, Actividad.CONSTRUCCION, (float)80000000.0){};
-        empresaTramo1 = new Empresa("Los servicios de manaOS", "La de tramo 1, para testear, capo", 12354479, 6969, 420, 164, Actividad.SERVICIOS, (float)325000000.0){};
-        empresaTramo2 = new Empresa("FriendlyCows", "FriendlyCows&co.", 85416645, 4200, 3, 214, Actividad.AGROPECUARIO, (float)546000000.0){};
+        empresaMicro = new Empresa("EmpresaMicro", "Empresita", 2023123123, 1680, 1, 5, new Comercio(), (float)150000.0){};
+        empresaPequenia = new Empresa("EmpresaConstructora", "MiEmpresita", 203123123, 1685, 2, 44, new Construccion(), (float)80000000.0){};
+        empresaTramo1 = new Empresa("Los servicios de manaOS", "La de tramo 1, para testear, capo", 12354479, 6969, 420, 164, new Servicios(), (float)325000000.0){};
+        empresaTramo2 = new Empresa("FriendlyCows", "FriendlyCows&co.", 85416645, 4200, 3, 214, new Agropecuario(), (float)546000000.0){};
     }
 
     @Test
@@ -58,7 +49,7 @@ public class OrganizacionesTest {
     public void empresaCaretaRompe() {
         this.Setup();
         Assertions.assertThrows(RuntimeException.class, () -> {
-            new Empresa("NotSoFriendlyCows", "NotSoFriendlyCows&co.", 85416645, 4200, 5, 700, Actividad.INDUSTRIAYMINERIA, (float)546000000.0);
+            new Empresa("NotSoFriendlyCows", "NotSoFriendlyCows&co.", 85416645, 4200, 5, 700, new IndustriaYMineria(), (float)546000000.0);
         });
     }
 }
