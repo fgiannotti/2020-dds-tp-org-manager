@@ -3,7 +3,6 @@ package Configuracion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,9 +40,19 @@ public class Configuracion {
         this.intentosMaximos = result;
     }
 
+    public int getPresupuestosMinimos() {
+        return presupuestosMinimos;
+    }
+
+    public void setPresupuestosMinimos(String presupuestosMinimos) {
+        Integer result = Integer.parseInt(presupuestosMinimos);
+        this.presupuestosMinimos = result;
+    }
+
     private int passwordScoreMinimo;
     private int passwordLengthMinimo;
     private int intentosMaximos;
+    private int presupuestosMinimos;
 
     public void levantarConfiguracion() {
         try {
@@ -54,13 +63,14 @@ public class Configuracion {
             Document archivoDeConfiguracion = documentBuilder.parse(archivo);
             archivoDeConfiguracion.getDocumentElement().normalize();
 
-            Node nodo = archivoDeConfiguracion.getElementsByTagName("Autenticador").item(0);
+            Node nodo = archivoDeConfiguracion.getElementsByTagName("General").item(0);
 
             if(nodo.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodo;
                 this.setPasswordScoreMinimo(element.getElementsByTagName("passwordScoreMinimo").item(0).getTextContent());
                 this.setPasswordLengthMinimo(element.getElementsByTagName("passwordLengthMinimo").item(0).getTextContent());
                 this.setIntentosMaximos(element.getElementsByTagName("intentosMaximos").item(0).getTextContent());
+                this.setPresupuestosMinimos(element.getElementsByTagName("presupuestosMinimos").item(0).getTextContent());
 
             } else{
                 System.out.println("No es un ELEMENT_NODE");
