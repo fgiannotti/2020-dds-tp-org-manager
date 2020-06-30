@@ -8,7 +8,7 @@ public class BandejaDeEntrada {
     private List<Resultado> resultados;
     private List<Filtro> filtros;
 
-    public void mostraMensajes() {
+    public void mostrarMensajes() {
         List<Resultado> resultadosFiltrados = resultados;
         for(Filtro f: filtros){
             resultadosFiltrados = f.filtrar(resultadosFiltrados);
@@ -16,7 +16,7 @@ public class BandejaDeEntrada {
         resultadosFiltrados.forEach(resultado -> resultado.mostrarResultado());
     }
 
-    public void guardarResultado (Resultado resultado){
+    public void guardarResultado(Resultado resultado){
         resultados.add(resultado);
     }
 }
