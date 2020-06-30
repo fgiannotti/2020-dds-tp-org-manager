@@ -1,4 +1,5 @@
 import Builders.EmpresaBuilder;
+import Estrategias.Criterio;
 import Factorys.EmpresaBuilderFactory;
 import Items.Articulo;
 import Items.Item;
@@ -61,7 +62,7 @@ public class CreacionalesTest<nuevaEmpresa> {
 
     @Test
     public void testCreacionOperacion(){
-        OperacionEgreso operacionPrueba1 = new OperacionEgreso(310, "Compra navidenia", proveedorTest0, creditoTest1, new Date(), "Factura", comprobanteTest2, itemsTest1);
+        OperacionEgreso operacionPrueba1 = new OperacionEgreso(310, "Compra navidenia", proveedorTest0, creditoTest1, new Date(), "Factura", comprobanteTest2, itemsTest1, 1,Criterio.MENOR_VALOR);
         Assertions.assertEquals(310, operacionPrueba1.getMontoTotal());
         Assertions.assertEquals(comprobanteTest2, operacionPrueba1.getComprobante());
         Assertions.assertEquals(itemsTest1, operacionPrueba1.getItems());

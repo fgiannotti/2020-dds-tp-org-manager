@@ -10,8 +10,18 @@ public class Resultado {
     private Boolean correspondeCargaCorrecta;
     private Boolean correspondeDetalle;
     private Boolean correspondeCriterio;
-    private String estadoValidacion;
+    private Boolean fueLeido;
     private LocalDate fechaValidacion;
+
+    public Resultado(int numeroOperacion, Proveedor proveedor, Boolean correspondeCargaCorrecta, Boolean correspondeDetalle, Boolean correspondeCriterio, Boolean fueLeido, LocalDate fechaValidacion) {
+        this.numeroOperacion = numeroOperacion;
+        this.proveedor = proveedor;
+        this.correspondeCargaCorrecta = correspondeCargaCorrecta;
+        this.correspondeDetalle = correspondeDetalle;
+        this.correspondeCriterio = correspondeCriterio;
+        this.fueLeido = fueLeido;
+        this.fechaValidacion = fechaValidacion;
+    }
 
     public void mostrarResultado() {
         System.out.println("Numero Operacion: "+numeroOperacion+
@@ -21,7 +31,7 @@ public class Resultado {
                 "Fecha de Validacion: "+fechaValidacion.toString());
     }
 
-    public String getEstadoValidacion(){ return this.estadoValidacion; }
+    public Boolean getFueLeido(){ return this.fueLeido; }
 
     public LocalDate getFechaValidacion() { return fechaValidacion; }
 }

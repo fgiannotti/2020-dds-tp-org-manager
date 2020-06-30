@@ -6,6 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Comprobante {
+    public int getNumeroComprobante() {
+        return numeroComprobante;
+    }
+
+    public void setNumeroComprobante(int numeroComprobante) {
+        this.numeroComprobante = numeroComprobante;
+    }
+
     private int numeroComprobante;
     private List<Item> items;
 

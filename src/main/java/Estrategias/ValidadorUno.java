@@ -1,10 +1,12 @@
 package Estrategias;
 
+import BandejaDeEntrada.Resultado;
 import Configuracion.Configuracion;
 import Items.Item;
 import Operaciones.OperacionEgreso;
 import Operaciones.Presupuesto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ValidadorUno implements Validador {
@@ -15,17 +17,33 @@ public class ValidadorUno implements Validador {
         this.presupuestosNecesarios = configuracion.getPresupuestosMinimos();
     }
 
+    public Boolean validar(OperacionEgreso unEgreso){
+        boolean carga = this.cargaCorrecta(unEgreso);
+        boolean detalle = unEgreso.getPresupuestosPreliminares().stream()
+                .anyMatch(presupuesto -> this.compararDetalles(unEgreso,presupuesto));
+        boolean criterio = unEgreso.getPresupuestosPreliminares().stream()
+                .anyMatch(presupuesto -> this.elegirPorCriterio(unEgreso, presupuesto));
+        this.crearResultado(unEgreso,carga,detalle,criterio);
+        return carga && detalle && criterio;
+    }
+
     @Override
     public Boolean cargaCorrecta(OperacionEgreso unEgreso) {
         if(null != unEgreso.getCantidadMinimaDePresupuestos()) {
-            return unEgreso.getCantidadMinimaDePresupuestos() >= this.presupuestosNecesarios
-                    &&
-                    unEgreso.getPresupuestosPreliminares().stream()
-                    .anyMatch(presupuesto -> this.compararDetalles(unEgreso,presupuesto) &&
-                            this.elegirPorCriterio(unEgreso, presupuesto)
-                            );
+            return unEgreso.getCantidadMinimaDePresupuestos() >= this.presupuestosNecesarios;
         }
-        return true;
+        return false;
+    }
+
+    private void crearResultado(OperacionEgreso unEgreso,Boolean carga, Boolean detalle, Boolean criterio ) {
+        Resultado resultado = new Resultado(
+                unEgreso.getComprobante().getNumeroComprobante(),
+                unEgreso.getProveedor(),
+                carga,
+                detalle,
+                criterio,
+                false,
+                LocalDate.now());
     }
 
     @Override
