@@ -24,11 +24,12 @@ public class Resultado {
     }
 
     public void mostrarResultado() {
+        this.fueLeido = true;
         System.out.println("Numero Operacion: "+numeroOperacion+
                 " Carga Correcta: "+ String.valueOf(correspondeCargaCorrecta)+
                 " Corresponde Detalle: "+ String.valueOf(correspondeDetalle)+
                 " Corresponde Criterio: "+ String.valueOf(correspondeCriterio)+
-                "Fecha de Validacion: "+fechaValidacion.toString());
+                " Fecha de Validacion: "+fechaValidacion.toString());
     }
 
     public Boolean getFueLeido(){ return this.fueLeido; }

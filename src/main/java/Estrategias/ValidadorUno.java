@@ -1,5 +1,6 @@
 package Estrategias;
 
+import BandejaDeEntrada.BandejaDeEntrada;
 import BandejaDeEntrada.Resultado;
 import Configuracion.Configuracion;
 import Items.Item;
@@ -11,8 +12,10 @@ import java.util.ArrayList;
 
 public class ValidadorUno implements Validador {
     int presupuestosNecesarios;
+    private BandejaDeEntrada bandejaDeEntrada;
 
-    public ValidadorUno() {
+    public ValidadorUno(BandejaDeEntrada bandejaDeEntrada) {
+        this.bandejaDeEntrada = bandejaDeEntrada;
         Configuracion configuracion = new Configuracion();
         this.presupuestosNecesarios = configuracion.getPresupuestosMinimos();
     }
@@ -23,7 +26,7 @@ public class ValidadorUno implements Validador {
                 .anyMatch(presupuesto -> this.compararDetalles(unEgreso,presupuesto));
         boolean criterio = unEgreso.getPresupuestosPreliminares().stream()
                 .anyMatch(presupuesto -> this.elegirPorCriterio(unEgreso, presupuesto));
-        this.crearResultado(unEgreso,carga,detalle,criterio);
+        this.enviarResultado(unEgreso,carga,detalle,criterio);
         return carga && detalle && criterio;
     }
 
@@ -35,7 +38,7 @@ public class ValidadorUno implements Validador {
         return false;
     }
 
-    private void crearResultado(OperacionEgreso unEgreso,Boolean carga, Boolean detalle, Boolean criterio ) {
+    private void enviarResultado(OperacionEgreso unEgreso,Boolean carga, Boolean detalle, Boolean criterio ) {
         Resultado resultado = new Resultado(
                 unEgreso.getComprobante().getNumeroComprobante(),
                 unEgreso.getProveedor(),
@@ -44,6 +47,7 @@ public class ValidadorUno implements Validador {
                 criterio,
                 false,
                 LocalDate.now());
+        this.bandejaDeEntrada.guardarResultado(resultado);
     }
 
     @Override
