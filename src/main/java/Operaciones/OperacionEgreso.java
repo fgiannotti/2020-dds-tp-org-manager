@@ -1,5 +1,6 @@
 package Operaciones;
 
+import Estrategias.Criterio;
 import Items.Articulo;
 import Items.Item;
 import MedioDePago.MedioDePago;
@@ -20,8 +21,10 @@ public class OperacionEgreso implements Operacion{
     private List<Item> items;
     private List<Presupuesto> presupuestosPreliminares;
     private Articulo articulo;
+    private Integer cantidadMinimaDePresupuestos;
+    private Criterio criterio;
 
-    public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items){
+    public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,Criterio criterio){
         this.numeroOperacion = getNuevoNumeroOperacion();
         this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
@@ -31,6 +34,8 @@ public class OperacionEgreso implements Operacion{
         this.tipoDocumento = Objects.requireNonNull(tipoDocumento, "El tipo de documento no puede ser nulo");
         this.comprobante = comprobante;
         this.items = Objects.requireNonNull(items, "Los items no pueden ser nulos");
+        this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
+        this.criterio = criterio;
     }
 
     private int getNuevoNumeroOperacion() {
@@ -129,4 +134,18 @@ public class OperacionEgreso implements Operacion{
     public void setPresupuestosPreliminares(List<Presupuesto> presupuestosPreliminares) {
         this.presupuestosPreliminares = presupuestosPreliminares;
     }
+
+    public Integer getCantidadMinimaDePresupuestos() {
+        return this.cantidadMinimaDePresupuestos;
+    }
+
+    public Criterio getCriterio() {
+        return this.criterio;
+    }
+
+    public Boolean presupuestoMenorValor(Presupuesto presupuesto) {
+        return !this.getPresupuestosPreliminares().stream()
+                .anyMatch(presupuesto1 -> presupuesto1.getTotal() < presupuesto.getTotal());
+    }
+
 }

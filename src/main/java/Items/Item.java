@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Item {
     private String descripcion;
     private String nombre;
+
     private List<Articulo> articulos;
 
     public Item(String descripcion, String nombre, List<Articulo> articulos){
@@ -35,5 +36,22 @@ public class Item {
                 ", nombre='" + nombre + '\'' +
                 ", articulos=" + articulos +
                 '}';
+    }
+
+    public boolean estoyEnEstosItemsDelPresupuesto(List<Item> items) {
+        return items.stream().anyMatch(item -> this.igual(item));
+    }
+
+    public List<Articulo> getArticulos() {
+        return articulos;
+    }
+
+    public void setArticulos(List<Articulo> articulos) {
+        this.articulos = articulos;
+    }
+
+    private boolean igual(Item item) {
+        List<Articulo> articulosDelItem = item.getArticulos();
+        return articulosDelItem.stream().allMatch(articulo -> articulo.estoyEn(this.articulos));
     }
 }

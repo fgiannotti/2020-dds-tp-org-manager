@@ -2,6 +2,7 @@ package Items;
 
 import Operaciones.Proveedor;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Articulo {
@@ -30,5 +31,10 @@ public class Articulo {
 
     public Float getPrecioTotal() {
         return precioTotal;
+    }
+
+    public boolean estoyEn(List<Articulo> articulos) {
+        return articulos.stream().anyMatch(articulo ->
+                articulo.getNombre().equalsIgnoreCase(this.nombre) && articulo.getPrecioTotal().equals(this.precioTotal));
     }
 }

@@ -1,20 +1,32 @@
 package Operaciones;
 
-public class Presupuesto {
+import Items.Item;
 
-    private String producto;
+import java.util.List;
+
+public class Presupuesto {
+    private List<Item> items;
     private Integer cantidad;
     private Float precio;
     private Float total;
     private Comprobante documento;
     private Proveedor proveedor;
 
-    public String getProducto() {
-        return producto;
+    public Presupuesto(List<Item> items, Integer cantidad, Float precio, Float total, Comprobante documento, Proveedor proveedor) {
+        this.items = items;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.total = total;
+        this.documento = documento;
+        this.proveedor = proveedor;
     }
 
-    public void setProducto(String producto) {
-        this.producto = producto;
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public Integer getCantidad() {
