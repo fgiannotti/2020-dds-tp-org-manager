@@ -40,4 +40,8 @@ public class CriterioDeEmpresa {
     public void agregarCriterio(CriterioDeEmpresa unCriterio){
         this.criteriosHijos.add(unCriterio);
     }
+
+    public void agregarCategoria(Categoria unaCategoria){
+        this.categorias.add(unaCategoria);
+    }
 }
