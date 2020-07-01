@@ -1,10 +1,12 @@
 package Operaciones;
 
+import java.util.List;
 import java.util.Objects;
 
 public class OperacionIngreso implements Operacion {
     private int montoTotal;
     private String descripcion;
+    private List<OperacionEgreso> operacionEgresos;
 
     public OperacionIngreso(int montoTotal, String descripcion){
         this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
@@ -27,7 +29,17 @@ public class OperacionIngreso implements Operacion {
         this.descripcion = descripcion;
     }
 
-    public void realizarOperacion(){
+    public void realizarOperacion(){}
 
+    public List<OperacionEgreso> getOperacionEgresos() {
+        return operacionEgresos;
+    }
+
+    public void setOperacionEgresos(List<OperacionEgreso> operacionEgresos) {
+        this.operacionEgresos = operacionEgresos;
+    }
+
+    public void agregarOperacionEgresos(OperacionEgreso unaOperacionEgresos) {
+        this.operacionEgresos.add(unaOperacionEgresos);
     }
 }
