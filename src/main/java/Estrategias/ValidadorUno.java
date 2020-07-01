@@ -22,7 +22,9 @@ public class ValidadorUno implements Validador {
         this.presupuestosNecesarios = configuracion.getPresupuestosMinimos();
     }
 
+    @Override
     public Boolean validar(OperacionEgreso unEgreso){
+        System.out.println("Validando...");
         boolean detalleCorrecto;
         boolean criterioCorrecto;
         boolean carga = this.cargaCorrecta(unEgreso);
@@ -40,6 +42,7 @@ public class ValidadorUno implements Validador {
         }
 
         this.enviarResultado(unEgreso,carga,detalleCorrecto,criterioCorrecto);
+        System.out.println(carga && detalleCorrecto && criterioCorrecto);
         return carga && detalleCorrecto && criterioCorrecto;
     }
 
