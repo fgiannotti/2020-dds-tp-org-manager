@@ -201,11 +201,24 @@ public class CreacionalesTest<nuevaEmpresa> {
         List<CriterioDeEmpresa> listaDeCriterios = new ArrayList<>();
         listaDeCriterios.add(criteroHijoUno);
         listaDeCriterios.add(criteroHijoDos);
-        CriterioDeEmpresa unCriterio = new CriterioDeEmpresa("criterio padre", listaDeCriterios, null);
+        Categoria unaCategoria = new Categoria("Descripcion de una categoria");
+        Categoria otraCategoria = new Categoria("Descripcion de otra categoria");
+        List<Categoria> listaDeCategrias = new ArrayList<>();
+        listaDeCategrias.add(unaCategoria);
+        listaDeCategrias.add(otraCategoria);
+        CriterioDeEmpresa unCriterio = new CriterioDeEmpresa("criterio padre", listaDeCriterios, listaDeCategrias);
         Assert.assertEquals("criterio hijo uno", unCriterio.getCriteriosHijos().get(0).getNombre());
         Assert.assertEquals("criterio hijo dos", unCriterio.getCriteriosHijos().get(1).getNombre());
+        Assert.assertEquals("Descripcion de una categoria", unCriterio.getCategorias().get(0).getDescripcion());
+        Assert.assertEquals("Descripcion de otra categoria", unCriterio.getCategorias().get(1).getDescripcion());
     }
 
+    @Test
+    public void organizacionCreaCriterio(){
+        Juridica organizacion = new Juridica("JuridicaEjemplar","Sarasa", 2023123123, 1680, 1, null);
+        organizacion.crearCriterioDeEmpresa("criterioDeOrganizacion", null, null);
+        Assert.assertEquals("criterioDeOrganizacion", organizacion.getCriterios().get(0).getNombre());
+    }
 
 
 }

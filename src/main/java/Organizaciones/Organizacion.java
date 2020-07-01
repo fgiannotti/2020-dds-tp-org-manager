@@ -8,8 +8,16 @@ import java.util.Objects;
 
 public abstract class Organizacion {
     private String nombreFicticio;
-    private List<Operacion> operacionesRealizadas;
-    private List<CriterioDeEmpresa> criterios;
+    private List<Operacion> operacionesRealizadas = new ArrayList<Operacion>();
+    private List<CriterioDeEmpresa> criterios = new ArrayList<CriterioDeEmpresa>();
+
+    public List<CriterioDeEmpresa> getCriterios() {
+        return criterios;
+    }
+
+    public void setCriterios(List<CriterioDeEmpresa> criterios) {
+        this.criterios = criterios;
+    }
 
     protected Organizacion() {
     }

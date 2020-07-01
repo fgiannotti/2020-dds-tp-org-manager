@@ -1,11 +1,12 @@
 package Organizaciones;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CriterioDeEmpresa {
     private String nombre;
-    private List<CriterioDeEmpresa> criteriosHijos;
-    private List<Categoria> categorias;
+    private List<CriterioDeEmpresa> criteriosHijos = new ArrayList<CriterioDeEmpresa>();
+    private List<Categoria> categorias = new ArrayList<Categoria>();
 
     public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosMenores, List<Categoria> categorias) {
         this.nombre = nombre;
