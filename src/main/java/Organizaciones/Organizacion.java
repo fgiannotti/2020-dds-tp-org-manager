@@ -1,7 +1,6 @@
 package Organizaciones;
 
 import Operaciones.Operacion;
-import Usuarios.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
