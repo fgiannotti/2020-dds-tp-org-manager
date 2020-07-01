@@ -9,6 +9,8 @@ import Operaciones.Presupuesto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ValidadorUno implements Validador {
     int presupuestosNecesarios;
@@ -21,13 +23,24 @@ public class ValidadorUno implements Validador {
     }
 
     public Boolean validar(OperacionEgreso unEgreso){
+        boolean detalleCorrecto;
+        boolean criterioCorrecto;
         boolean carga = this.cargaCorrecta(unEgreso);
-        boolean detalle = unEgreso.getPresupuestosPreliminares().stream()
-                .anyMatch(presupuesto -> this.compararDetalles(unEgreso,presupuesto));
-        boolean criterio = unEgreso.getPresupuestosPreliminares().stream()
-                .anyMatch(presupuesto -> this.elegirPorCriterio(unEgreso, presupuesto));
-        this.enviarResultado(unEgreso,carga,detalle,criterio);
-        return carga && detalle && criterio;
+
+        List<Presupuesto> presupuestosFiltrados = unEgreso.getPresupuestosPreliminares().stream().filter(presupuesto ->
+                this.compararDetalles(unEgreso,presupuesto)).collect(Collectors.toList());
+
+        if (presupuestosFiltrados.size() == 0){
+            detalleCorrecto = false;
+            criterioCorrecto = false;
+        }else{
+            detalleCorrecto = true;
+            criterioCorrecto = presupuestosFiltrados.stream()
+                    .anyMatch(presupuesto -> this.elegirPorCriterio(unEgreso, presupuesto));
+        }
+
+        this.enviarResultado(unEgreso,carga,detalleCorrecto,criterioCorrecto);
+        return carga && detalleCorrecto && criterioCorrecto;
     }
 
     @Override
@@ -38,9 +51,23 @@ public class ValidadorUno implements Validador {
         return false;
     }
 
+    @Override
+    public Boolean compararDetalles(OperacionEgreso unEgreso, Presupuesto presupuesto) {
+        ArrayList<Item> articulosDeEgresos = (ArrayList<Item>) unEgreso.getItems();
+        return articulosDeEgresos.stream().allMatch(item ->
+                item.estoyEnEstosItemsDelPresupuesto(presupuesto.getItems())
+        && articulosDeEgresos.size() == presupuesto.getItems().size());
+    }
+
+    @Override
+    public Boolean elegirPorCriterio(OperacionEgreso unEgreso, Presupuesto presupuesto) {
+        return unEgreso.getCriterio() == Criterio.MENOR_VALOR ?
+                unEgreso.presupuestoMenorValor(presupuesto) : true;
+    }
+
     private void enviarResultado(OperacionEgreso unEgreso,Boolean carga, Boolean detalle, Boolean criterio ) {
         Resultado resultado = new Resultado(
-                unEgreso.getComprobante().getNumeroComprobante(),
+                unEgreso.getNumeroOperacion(),
                 unEgreso.getProveedor(),
                 carga,
                 detalle,
@@ -51,20 +78,9 @@ public class ValidadorUno implements Validador {
     }
 
     @Override
-    public Boolean compararDetalles(OperacionEgreso unEgreso, Presupuesto presupuesto) {
-        ArrayList<Item> articulosDeEgresos = (ArrayList<Item>) unEgreso.getItems();
-        return articulosDeEgresos.stream().allMatch(item -> item.estoyEnEstosItemsDelPresupuesto(presupuesto.getItems())
-        && articulosDeEgresos.size() == presupuesto.getItems().size());
-    }
-
-    @Override
-    public Boolean elegirPorCriterio(OperacionEgreso unEgreso, Presupuesto presupuesto) {
-        return unEgreso.getCriterio() == Criterio.MENOR_VALOR ?
-                unEgreso.presupuestoMenorValor(presupuesto) : true;
-    }
-
-    @Override
     public Void guardarResultados() {
         return null;
     }
+
+    public void setPresupuestosNecesarios(int presupuestosNecesarios) { this.presupuestosNecesarios = presupuestosNecesarios; }
 }

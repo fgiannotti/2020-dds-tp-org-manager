@@ -6,6 +6,7 @@ import Items.Item;
 import MedioDePago.MedioDePago;
 import Organizaciones.Categoria;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +28,7 @@ public class OperacionEgreso implements Operacion{
     private List<Categoria> categorias;
 
     public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,Criterio criterio){
+        this.presupuestosPreliminares = new ArrayList<Presupuesto>();
         this.numeroOperacion = getNuevoNumeroOperacion();
         this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
@@ -146,12 +148,15 @@ public class OperacionEgreso implements Operacion{
     }
 
     public Boolean presupuestoMenorValor(Presupuesto presupuesto) {
-        return !this.getPresupuestosPreliminares().stream()
-                .anyMatch(presupuesto1 -> presupuesto1.getTotal() < presupuesto.getTotal());
+        return this.getPresupuestosPreliminares().stream()
+                .noneMatch(presupuesto1 -> presupuesto1.getTotal() < presupuesto.getTotal());
     }
 
     public void agregarCategoria(Categoria categoria){
         this.categorias.add(categoria);
     }
 
+    public void agregarPresupuesto(Presupuesto presupuesto){
+        this.presupuestosPreliminares.add(presupuesto);
+    }
 }

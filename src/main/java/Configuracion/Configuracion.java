@@ -63,7 +63,7 @@ public class Configuracion {
             Document archivoDeConfiguracion = documentBuilder.parse(archivo);
             archivoDeConfiguracion.getDocumentElement().normalize();
 
-            Node nodo = archivoDeConfiguracion.getElementsByTagName("General").item(0);
+            Node nodo = archivoDeConfiguracion.getElementsByTagName("*").item(0);
 
             if(nodo.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodo;
