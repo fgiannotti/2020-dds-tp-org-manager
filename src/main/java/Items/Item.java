@@ -1,5 +1,6 @@
 package Items;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,7 +8,7 @@ public class Item {
     private String descripcion;
     private String nombre;
 
-    private List<Articulo> articulos;
+    private List<Articulo> articulos = new ArrayList<Articulo>();
 
     public Item(String descripcion, String nombre, List<Articulo> articulos){
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");

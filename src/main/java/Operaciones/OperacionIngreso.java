@@ -1,12 +1,13 @@
 package Operaciones;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class OperacionIngreso implements Operacion {
     private int montoTotal;
     private String descripcion;
-    private List<OperacionEgreso> operacionEgresos;
+    private List<OperacionEgreso> operacionEgresos = new ArrayList<OperacionEgreso>();
 
     public OperacionIngreso(int montoTotal, String descripcion){
         this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BandejaDeEntrada {
-    private List<Resultado> resultados;
-    private List<Filtro> filtros;
+    private List<Resultado> resultados = new ArrayList<Resultado>();
+    private List<Filtro> filtros = new ArrayList<Filtro>();
 
     public BandejaDeEntrada(List<Filtro> filtros){
         resultados = new ArrayList<Resultado>();

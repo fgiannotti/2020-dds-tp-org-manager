@@ -3,15 +3,16 @@ package Operaciones;
 import Items.Item;
 import Organizaciones.Categoria;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Presupuesto {
-    private List<Item> items;
+    private List<Item> items = new ArrayList<Item>();
     private Integer cantidad;
     private Float total;
     private Comprobante documento;
     private Proveedor proveedor;
-    private List<Categoria> categorias;
+    private List<Categoria> categorias = new ArrayList<Categoria>();
 
     public Presupuesto(List<Item> items, Integer cantidad, Float total, Comprobante documento, Proveedor proveedor) {
         this.items = items;

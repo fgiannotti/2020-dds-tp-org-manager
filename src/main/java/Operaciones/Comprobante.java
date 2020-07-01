@@ -15,7 +15,7 @@ public class Comprobante {
     }
 
     private int numeroComprobante;
-    private List<Item> items;
+    private List<Item> items = new ArrayList<Item>();
 
     public Comprobante(List<Item> items) {
         this.numeroComprobante = this.hashCode();
