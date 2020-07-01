@@ -220,5 +220,14 @@ public class CreacionalesTest<nuevaEmpresa> {
         Assert.assertEquals("criterioDeOrganizacion", organizacion.getCriterios().get(0).getNombre());
     }
 
+    @Test
+    public void organizacionCreaCategoria(){
+        Juridica organizacion = new Juridica("JuridicaEjemplar","Sarasa", 2023123123, 1680, 1, null);
+        organizacion.crearCriterioDeEmpresa("criterioDeOrganizacion", null, null);
+        CriterioDeEmpresa criterio =organizacion.getCriterios().get(0);
+        organizacion.crearCategoria(criterio,"categoriaDeOrganizacion");
+        Assert.assertEquals("categoriaDeOrganizacion", organizacion.getCriterios().get(0).getCategorias().get(0).getDescripcion());
+    }
+
 
 }
