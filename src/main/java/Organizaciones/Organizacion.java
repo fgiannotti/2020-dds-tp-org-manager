@@ -35,7 +35,18 @@ public abstract class Organizacion {
         return this.operacionesRealizadas;
     }
 
+    public void crearCriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosHijos, List<Categoria> categorias){
+        CriterioDeEmpresa nuevoCriterio = new CriterioDeEmpresa(nombre, criteriosHijos, categorias);
+        this.agregarCriterio(nuevoCriterio);
+    }
 
+    public void crearCategoria(CriterioDeEmpresa criterioDeEmpresa, String descripcion){
+        if(!this.criterios.contains(criterioDeEmpresa)){
+            throw new RuntimeException("No es uno de mis criterios");
+        }
+        Categoria categoria = new Categoria(descripcion);
+        criterioDeEmpresa.agregarCategoria(categoria);
+    }
 
 
 }

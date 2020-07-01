@@ -2,7 +2,7 @@ package Estrategias;
 
 import BandejaDeEntrada.BandejaDeEntrada;
 import BandejaDeEntrada.Resultado;
-import Configuracion.Configuracion;
+import Configuracion.*;
 import Items.Item;
 import Operaciones.OperacionEgreso;
 import Operaciones.Presupuesto;
@@ -19,7 +19,7 @@ public class ValidadorUno implements Validador {
     public ValidadorUno(BandejaDeEntrada bandejaDeEntrada) {
         this.bandejaDeEntrada = bandejaDeEntrada;
         Configuracion configuracion = new Configuracion();
-        this.presupuestosNecesarios = configuracion.getPresupuestosMinimos();
+        this.presupuestosNecesarios = configuracion.getPresupuestosMinimos();;
     }
 
     public Boolean validar(OperacionEgreso unEgreso){
@@ -39,7 +39,7 @@ public class ValidadorUno implements Validador {
                     .anyMatch(presupuesto -> this.elegirPorCriterio(unEgreso, presupuesto));
         }
 
-        this.enviarResultado(unEgreso,carga,detalleCorrecto,criterioCorrecto);
+        this.guardarResultados(unEgreso,carga,detalleCorrecto,criterioCorrecto);
         return carga && detalleCorrecto && criterioCorrecto;
     }
 
@@ -64,8 +64,8 @@ public class ValidadorUno implements Validador {
         return unEgreso.getCriterio() == Criterio.MENOR_VALOR ?
                 unEgreso.presupuestoMenorValor(presupuesto) : true;
     }
-
-    private void enviarResultado(OperacionEgreso unEgreso,Boolean carga, Boolean detalle, Boolean criterio ) {
+    @Override
+    public void guardarResultados(OperacionEgreso unEgreso, Boolean carga, Boolean detalle, Boolean criterio ) {
         Resultado resultado = new Resultado(
                 unEgreso.getNumeroOperacion(),
                 unEgreso.getProveedor(),
@@ -75,11 +75,6 @@ public class ValidadorUno implements Validador {
                 false,
                 LocalDate.now());
         this.bandejaDeEntrada.guardarResultado(resultado);
-    }
-
-    @Override
-    public Void guardarResultados() {
-        return null;
     }
 
     public void setPresupuestosNecesarios(int presupuestosNecesarios) { this.presupuestosNecesarios = presupuestosNecesarios; }

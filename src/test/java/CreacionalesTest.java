@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -156,4 +157,49 @@ public class CreacionalesTest<nuevaEmpresa> {
         Assertions.assertEquals(345429999f, nuevaEmpresa.getPromedioVentas());
         Assertions.assertEquals(TipoEmpresa.MEDIANATRAMO1, nuevaEmpresa.getTipo());
     }
+
+    @Test
+    public void crearCriterioDeEmpresaVacio(){
+        CriterioDeEmpresa unCriterio = new CriterioDeEmpresa("criterio de prueba", null, null);
+        Assert.assertEquals("criterio de prueba", unCriterio.getNombre());
     }
+
+    @Test
+    public void crearUnaCategoria(){
+        Categoria unaCategoria = new Categoria("Descripcion de categoria");
+        Assert.assertEquals("Descripcion de categoria", unaCategoria.getDescripcion());
+    }
+
+    @Test
+    public void crearCriterioDeEmpresaConCategria(){
+        Categoria unaCategoria = new Categoria("Descripcion de una categoria");
+        Categoria otraCategoria = new Categoria("Descripcion de otra categoria");
+        List<Categoria> listaDeCategrias = new ArrayList<>();
+        listaDeCategrias.add(unaCategoria);
+        listaDeCategrias.add(otraCategoria);
+        CriterioDeEmpresa unCriterio = new CriterioDeEmpresa("criterio de prueba", null, listaDeCategrias);
+        Assert.assertEquals("Descripcion de una categoria", unCriterio.getCategorias().get(0).getDescripcion());
+        Assert.assertEquals("Descripcion de otra categoria", unCriterio.getCategorias().get(1).getDescripcion());
+    }
+
+    @Test
+    public void crearCriterioDeEmpresaConCriterios(){
+        CriterioDeEmpresa criteroHijoUno = new CriterioDeEmpresa("criterio hijo uno", null, null);
+        CriterioDeEmpresa criteroHijoDos = new CriterioDeEmpresa("criterio hijo dos", null, null);
+        List<CriterioDeEmpresa> listaDeCriterios = new ArrayList<>();
+        listaDeCriterios.add(criteroHijoUno);
+        listaDeCriterios.add(criteroHijoDos);
+        CriterioDeEmpresa unCriterio = new CriterioDeEmpresa("criterio padre", listaDeCriterios, null);
+        Assert.assertEquals("criterio hijo uno", unCriterio.getCriteriosHijos().get(0).getNombre());
+        Assert.assertEquals("criterio hijo dos", unCriterio.getCriteriosHijos().get(1).getNombre());
+    }
+
+    public void organizacionCrea(){
+        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Sarasa", 2023123123, 1680, 1, null);
+        Categoria unaCategoria = new Categoria("Descripcion de categoria");
+        Assert.assertEquals("Descripcion de categoria", unaCategoria.getDescripcion());
+    }
+
+
+
+}

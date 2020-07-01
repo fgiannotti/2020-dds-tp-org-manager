@@ -7,5 +7,5 @@ public interface Validador {
     public Boolean cargaCorrecta(OperacionEgreso unEgreso);
     public Boolean compararDetalles(OperacionEgreso unEgreso, Presupuesto presupuesto);
     public Boolean elegirPorCriterio(OperacionEgreso unEgreso, Presupuesto presupuesto);
-    public Void guardarResultados();
+    public void guardarResultados(OperacionEgreso unEgreso,Boolean carga, Boolean detalle, Boolean criterio ) ;
 }
