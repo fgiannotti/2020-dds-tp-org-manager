@@ -11,7 +11,7 @@ public class CriterioDeEmpresa {
     public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosMenores, List<Categoria> categorias) {
         this.nombre = nombre;
         this.criteriosHijos = criteriosMenores;
-        this.categorias = categorias;
+        this.categorias = categorias != null ? categorias : this.categorias;
     }
 
     public String getNombre() {
