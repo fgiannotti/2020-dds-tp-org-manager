@@ -1,6 +1,7 @@
 package Operaciones;
 
 import Items.Item;
+import Organizaciones.Categoria;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class Presupuesto {
     private Float total;
     private Comprobante documento;
     private Proveedor proveedor;
+    private List<Categoria> categorias;
 
     public Presupuesto(List<Item> items, Integer cantidad, Float precio, Float total, Comprobante documento, Proveedor proveedor) {
         this.items = items;
@@ -67,6 +69,10 @@ public class Presupuesto {
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public void agregarCategoria(Categoria categoria){
+        this.categorias.add(categoria);
     }
 
 }

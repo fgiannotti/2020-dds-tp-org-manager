@@ -4,6 +4,7 @@ import Estrategias.Criterio;
 import Items.Articulo;
 import Items.Item;
 import MedioDePago.MedioDePago;
+import Organizaciones.Categoria;
 
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,7 @@ public class OperacionEgreso implements Operacion{
     private Articulo articulo;
     private Integer cantidadMinimaDePresupuestos;
     private Criterio criterio;
+    private List<Categoria> categorias;
 
     public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,Criterio criterio){
         this.numeroOperacion = getNuevoNumeroOperacion();
@@ -146,6 +148,10 @@ public class OperacionEgreso implements Operacion{
     public Boolean presupuestoMenorValor(Presupuesto presupuesto) {
         return !this.getPresupuestosPreliminares().stream()
                 .anyMatch(presupuesto1 -> presupuesto1.getTotal() < presupuesto.getTotal());
+    }
+
+    public void agregarCategoria(Categoria categoria){
+        this.categorias.add(categoria);
     }
 
 }

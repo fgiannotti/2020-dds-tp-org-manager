@@ -9,6 +9,7 @@ import java.util.Objects;
 public abstract class Organizacion {
     private String nombreFicticio;
     private List<Operacion> operacionesRealizadas;
+    private List<CriterioDeEmpresa> criterios;
 
     protected Organizacion() {
     }
@@ -26,11 +27,15 @@ public abstract class Organizacion {
         this.operacionesRealizadas = new ArrayList<Operacion>();
     }
 
-    public void agregarOperacion(Operacion operacion){
-        this.operacionesRealizadas.add(operacion);
-    }
+    public void agregarOperacion(Operacion operacion){  this.operacionesRealizadas.add(operacion); }
+
+    public void agregarCriterio(CriterioDeEmpresa criterio){  this.criterios.add(criterio); }
 
     public List<Operacion> getOperacionesRealizadas(){
         return this.operacionesRealizadas;
     }
+
+
+
+
 }
