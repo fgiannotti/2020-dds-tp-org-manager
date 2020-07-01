@@ -20,12 +20,12 @@ public class OperacionEgreso implements Operacion{
     private Comprobante comprobante ;
     private int montoTotal;
     private String descripcion;
-    private List<Item> items;
-    private List<Presupuesto> presupuestosPreliminares;
+    private List<Item> items = new ArrayList<Item>();
+    private List<Presupuesto> presupuestosPreliminares = new ArrayList<Presupuesto>();
     private Articulo articulo;
     private Integer cantidadMinimaDePresupuestos;
     private Criterio criterio;
-    private List<Categoria> categorias;
+    private List<Categoria> categorias = new ArrayList<Categoria>();
 
     public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,Criterio criterio){
         this.presupuestosPreliminares = new ArrayList<Presupuesto>();
