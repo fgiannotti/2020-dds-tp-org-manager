@@ -1,10 +1,19 @@
 package MedioDePago;
 
+import converters.EntidadPersistente;
+
+import javax.persistence.*;
 import java.util.Objects;
 
-public abstract class MedioDePago {
+@Entity
+@Table(name = "medio_de_pago")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class MedioDePago extends EntidadPersistente {
 
+   @Column(name= "medio" , nullable = false)
    protected String medio;
+
+   @Column(name="numero")
    protected int numero;
 
    public String getMedio() {
@@ -15,8 +24,12 @@ public abstract class MedioDePago {
       return numero;
    }
 
+   public MedioDePago() {
+   }
+
    public MedioDePago(String medio, int numero) {
       this.medio = Objects.requireNonNull(medio, "El medio no puede ser nulo");
-      this.numero = Objects.requireNonNull(numero, "El numero no puede ser nulo");
+      this.numero = numero;
    }
+
 }

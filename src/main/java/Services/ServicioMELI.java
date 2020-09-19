@@ -26,7 +26,7 @@ public class ServicioMELI {
     }
 
     public static ServicioMELI instancia(){
-        if(instancia== null){
+        if(instancia == null){
             instancia = new ServicioMELI();
         }
         return instancia;
@@ -40,7 +40,6 @@ public class ServicioMELI {
         return paises;
     }
 
-
     public ListadoDeProvincias listadoDeProvinciasDePais(Pais pais) throws IOException {
         MELIService meliService = this.retrofit.create(MELIService.class);
         Call<ListadoDeProvincias> requestListadoDeProvincias = meliService.states(pais.id);
@@ -52,7 +51,7 @@ public class ServicioMELI {
     public ListadoDeCiudades listadoDeCiudadesDeProvincia(Provincia provincia) throws IOException {
         MELIService meliService = this.retrofit.create(MELIService.class);
         Call<ListadoDeCiudades> requestListadoDeCiudades = meliService.cities(provincia.id);
-        Response<ListadoDeCiudades> responseListadoDeCiudades= requestListadoDeCiudades.execute();
+        Response<ListadoDeCiudades> responseListadoDeCiudades = requestListadoDeCiudades.execute();
         ListadoDeCiudades ciudades = responseListadoDeCiudades.body();
         return ciudades;
     }

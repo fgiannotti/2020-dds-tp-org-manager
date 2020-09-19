@@ -15,5 +15,6 @@ public class ValidadorJob implements Job{
         System.out.println("El job empezo en: " + jobContext.getFireTime());
         validador.validar(egreso);
         System.out.println("El próximo job se ejecutará: " + jobContext.getNextFireTime());
+
     }
 }

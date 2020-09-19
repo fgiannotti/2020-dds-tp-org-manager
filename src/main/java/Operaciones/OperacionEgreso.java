@@ -5,32 +5,68 @@ import Items.Articulo;
 import Items.Item;
 import MedioDePago.MedioDePago;
 import Organizaciones.Categoria;
+import converters.EntidadPersistente;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class OperacionEgreso implements Operacion{
+@Entity
+@Table(name="egresos")
+public class OperacionEgreso extends EntidadPersistente implements Operacion {
+    @Column
     private int numeroOperacion;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
     private Proveedor proveedor;
+
+    @Column(name = "fechaOperacion", columnDefinition = "DATE")
     private Date fechaOperacion;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "medio_pago_id", referencedColumnName = "id")
     private MedioDePago medioDePago;
+
+    @Column
     private String tipoDocumento;
-    private Comprobante comprobante ;
+
+    @Transient
+    private Comprobante comprobante;
+
+    @Column
     private int montoTotal;
+
+    @Column
     private String descripcion;
+
+    @Transient
     private List<Item> items = new ArrayList<Item>();
+
+    @Transient
     private List<Presupuesto> presupuestosPreliminares = new ArrayList<Presupuesto>();
+
+    @Transient
     private Articulo articulo;
+
+    @Column
     private Integer cantidadMinimaDePresupuestos;
+
+    @Transient
     private Criterio criterio;
+
+    @Transient
     private List<Categoria> categorias = new ArrayList<Categoria>();
+
+    public OperacionEgreso(){
+    }
 
     public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,Criterio criterio){
         this.presupuestosPreliminares = new ArrayList<Presupuesto>();
         this.numeroOperacion = getNuevoNumeroOperacion();
-        this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
+        this.montoTotal = montoTotal;
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
         this.proveedor = Objects.requireNonNull(proveedor, "El proveedor no puede ser nulo");
         this.medioDePago = Objects.requireNonNull(medioDePago, "El medio de pago no puede ser nulo");
@@ -81,6 +117,8 @@ public class OperacionEgreso implements Operacion{
     public MedioDePago getMedioDePago() {
         return this.medioDePago;
     }
+
+    public void setMedioDePago(MedioDePago mp) { this.medioDePago = mp; }
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
@@ -158,5 +196,21 @@ public class OperacionEgreso implements Operacion{
 
     public void agregarPresupuesto(Presupuesto presupuesto){
         this.presupuestosPreliminares.add(presupuesto);
+    }
+
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public Articulo getArticulo() {
+        return articulo;
+    }
+
+    public void setArticulo(Articulo articulo) {
+        this.articulo = articulo;
     }
 }

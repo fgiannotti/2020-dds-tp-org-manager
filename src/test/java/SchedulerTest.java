@@ -36,10 +36,8 @@ public class SchedulerTest {
         BandejaDeEntrada bandejaDeEntrada = new BandejaDeEntrada(filtros);
         Validador validador = new ValidadorUno(bandejaDeEntrada);
         orquestador.orquestraJob(validador, operacionPrueba1);
-        while(true){
-            System.out.println("Job esperando");
-            Thread.sleep(5000);
-        }
+        System.out.println("Job esperando");
+        Thread.sleep(5000);
     }
 }
 
