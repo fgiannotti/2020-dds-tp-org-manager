@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "medio_de_pago")
+@Table(name = "medios_de_pago")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class MedioDePago extends EntidadPersistente {
 

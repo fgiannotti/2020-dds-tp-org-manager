@@ -3,19 +3,20 @@ package BandejaDeEntrada;
 import Operaciones.Proveedor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Resultado {
     private int numeroOperacion;
-    private Proveedor proveedor;
+    private List<Proveedor> proveedores;
     private Boolean correspondeCargaCorrecta;
     private Boolean correspondeDetalle;
     private Boolean correspondeCriterio;
     private Boolean fueLeido;
     private LocalDate fechaValidacion;
 
-    public Resultado(int numeroOperacion, Proveedor proveedor, Boolean correspondeCargaCorrecta, Boolean correspondeDetalle, Boolean correspondeCriterio, Boolean fueLeido, LocalDate fechaValidacion) {
+    public Resultado(int numeroOperacion, List<Proveedor> proveedores, Boolean correspondeCargaCorrecta, Boolean correspondeDetalle, Boolean correspondeCriterio, Boolean fueLeido, LocalDate fechaValidacion) {
         this.numeroOperacion = numeroOperacion;
-        this.proveedor = proveedor;
+        this.proveedores = proveedores;
         this.correspondeCargaCorrecta = correspondeCargaCorrecta;
         this.correspondeDetalle = correspondeDetalle;
         this.correspondeCriterio = correspondeCriterio;

@@ -19,21 +19,19 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Column
     private int numeroOperacion;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
-    private Proveedor proveedor;
+    @OneToMany(mappedBy = "egreso", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<Proveedor> proveedores;
 
-    @Column(name = "fechaOperacion", columnDefinition = "DATE")
+    @Column(name = "fecha_operacion", columnDefinition = "DATE")
     private Date fechaOperacion;
 
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "medio_pago_id", referencedColumnName = "id")
     private MedioDePago medioDePago;
 
     @Column
     private String tipoDocumento;
 
-    @Transient
+    @OneToOne(cascade = {CascadeType.ALL})
     private Comprobante comprobante;
 
     @Column
@@ -63,12 +61,12 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     public OperacionEgreso(){
     }
 
-    public OperacionEgreso(int montoTotal, String descripcion, Proveedor proveedor, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,Criterio criterio){
+    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,Criterio criterio){
         this.presupuestosPreliminares = new ArrayList<Presupuesto>();
         this.numeroOperacion = getNuevoNumeroOperacion();
         this.montoTotal = montoTotal;
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
-        this.proveedor = Objects.requireNonNull(proveedor, "El proveedor no puede ser nulo");
+        this.proveedores = Objects.requireNonNull(proveedores, "El proveedor no puede ser nulo");
         this.medioDePago = Objects.requireNonNull(medioDePago, "El medio de pago no puede ser nulo");
         this.fechaOperacion = Objects.requireNonNull(fechaOperacion, "La fecha de operacion no puede ser nula");
         this.tipoDocumento = Objects.requireNonNull(tipoDocumento, "El tipo de documento no puede ser nulo");
@@ -110,8 +108,8 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.fechaOperacion = fechaOperacion;
     }
 
-    public Proveedor getProveedor() {
-        return this.proveedor;
+    public List<Proveedor> getProveedores() {
+        return this.proveedores;
     }
 
     public MedioDePago getMedioDePago() {
@@ -120,8 +118,8 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
 
     public void setMedioDePago(MedioDePago mp) { this.medioDePago = mp; }
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setProveedor(List<Proveedor> proveedores) {
+        this.proveedores = proveedores;
     }
 
     public List<Item> getItems(){

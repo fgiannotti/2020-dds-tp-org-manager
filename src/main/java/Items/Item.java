@@ -1,14 +1,28 @@
 package Items;
 
+import Operaciones.Comprobante;
+import converters.EntidadPersistente;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Item {
+@Entity
+@Table(name="items")
+public class Item extends EntidadPersistente {
+    @Column
     private String descripcion;
+    @Column
     private String nombre;
-
+    @OneToMany(mappedBy = "item", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Articulo> articulos = new ArrayList<Articulo>();
+    @ManyToOne
+    @JoinColumn(name = "comprobante_id", referencedColumnName = "id")
+    private Comprobante comprobante;
+
+    public Item(){
+    }
 
     public Item(String descripcion, String nombre, List<Articulo> articulos){
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");

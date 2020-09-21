@@ -24,6 +24,7 @@ public class OperacionesTest {
     public MedioDePago medioDePago;
     public List<Item> items;
     public List<Articulo> articulos;
+    public List<Proveedor> proveedores = new ArrayList<Proveedor>();
 
     @Before
     public void setup(){
@@ -42,9 +43,12 @@ public class OperacionesTest {
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
+        List<Proveedor> proveedorestest = new ArrayList<Proveedor>();
+        proveedores.add(proveedor);
+        proveedores = proveedorestest;
         medioDePago = new Debito("Visa debito", 1000);
         organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, 1410, 300, 5, new Comercio(), (float)20000.0);
-        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, new Date(), "DNI", null, items,1, Criterio.MENOR_VALOR);
+        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, new Date(), "DNI", null, items,1, Criterio.MENOR_VALOR);
         organizacion.agregarOperacion(operacion);
     }
 
@@ -62,7 +66,7 @@ public class OperacionesTest {
     public void laOperacionPuedeSerGuardadaSinComprobante(){
         this.setup();
         Assertions.assertDoesNotThrow( () -> {
-            new OperacionEgreso(1000, "Pago de AGUITA", this.proveedor, medioDePago, new Date(), "DNI", null, items,1, Criterio.MENOR_VALOR);
+            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, new Date(), "DNI", null, items,1, Criterio.MENOR_VALOR);
         });
     }
 
@@ -71,7 +75,7 @@ public class OperacionesTest {
         this.setup();
         Comprobante comprobante = new Comprobante(this.items);
         Assertions.assertDoesNotThrow( () -> {
-            new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, new Date(), "DNI", comprobante, items,1, Criterio.MENOR_VALOR);
+            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, new Date(), "DNI", comprobante, items,1, Criterio.MENOR_VALOR);
         });
     }
 
@@ -80,7 +84,7 @@ public class OperacionesTest {
         this.setup();
         String nombre = proveedor.getNombre_apellido_razon();
         OperacionEgreso OE = (OperacionEgreso) organizacion.getOperacionesRealizadas().get(0);
-        String nombreEnOperacion = OE.getProveedor().getNombre_apellido_razon();
+        String nombreEnOperacion = proveedores.get(0).getNombre_apellido_razon();
         Assertions.assertEquals(nombre, nombreEnOperacion);
     }
 

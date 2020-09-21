@@ -75,7 +75,9 @@ public class CreacionalesTest<nuevaEmpresa> {
     @Test
     public void testCreacionOperacion(){
         this.setup();
-        OperacionEgreso operacionPrueba1 = new OperacionEgreso(310, "Compra navidenia", proveedorTest0, creditoTest1, new Date(), "Factura", comprobanteTest2, itemsTest1, 1,Criterio.MENOR_VALOR);
+        List<Proveedor> proveedoresTest0 = new ArrayList<Proveedor>();
+        proveedoresTest0.add(proveedorTest0);
+        OperacionEgreso operacionPrueba1 = new OperacionEgreso(310, "Compra navidenia",proveedoresTest0, creditoTest1, new Date(), "Factura", comprobanteTest2, itemsTest1, 1,Criterio.MENOR_VALOR);
         Assertions.assertEquals(310, operacionPrueba1.getMontoTotal());
         Assertions.assertEquals(comprobanteTest2, operacionPrueba1.getComprobante());
         Assertions.assertEquals(itemsTest1, operacionPrueba1.getItems());

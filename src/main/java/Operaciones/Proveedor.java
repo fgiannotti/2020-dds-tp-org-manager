@@ -2,10 +2,7 @@ package Operaciones;
 
 import converters.EntidadPersistente;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -17,8 +14,11 @@ public class Proveedor extends EntidadPersistente {
     private String documento;
     @Column
     private String direccionPostal;
-    @Transient
+    @OneToOne(cascade = {CascadeType.ALL})
     private Presupuesto presupuesto;
+    @ManyToOne
+    @JoinColumn(name = "operacion_id", referencedColumnName = "id")
+    private OperacionEgreso egreso;
 
     public Proveedor(String nombre_apellido_razon, String documento, String direccionPostal) {
         this.nombre_apellido_razon = Objects.requireNonNull(nombre_apellido_razon, "El nombre_apellido_razon no puede ser nulo");

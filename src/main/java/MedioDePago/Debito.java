@@ -8,6 +8,11 @@ import javax.persistence.Entity;
 @DiscriminatorValue("debito")
 public class Debito extends MedioDePago {
 
+    public Debito() {
+    }
+
     public Debito(String medio, int numero) {
+        this.medio = medio;
+        this.numero = numero;
     }
 }

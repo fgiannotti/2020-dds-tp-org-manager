@@ -2,16 +2,29 @@ package Operaciones;
 
 import Items.Item;
 import Organizaciones.Categoria;
+import converters.EntidadPersistente;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Presupuesto {
+@Entity
+@Table(name="presupuestos")
+public class Presupuesto extends EntidadPersistente {
+    @Transient
     private List<Item> items = new ArrayList<Item>();
+    @Column
     private Integer cantidad;
+    @Column
     private Float total;
+    @Transient
     private Comprobante documento;
+    @Transient
     private Proveedor proveedor;
+    @Transient
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
     public Presupuesto(List<Item> items, Integer cantidad, Float total, Comprobante documento, Proveedor proveedor) {

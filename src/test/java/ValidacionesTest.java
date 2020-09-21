@@ -46,12 +46,13 @@ public class ValidacionesTest {
         bandeja2 = new BandejaDeEntrada(filtros);
 
         validador = new ValidadorUno(bandeja2);
-
+        List<Proveedor> proveedores = new ArrayList<Proveedor>();
+        proveedores.add(proveedor);
         proveedor = new Proveedor("jorgito-provides","Docu","calle-falsa123");
-        resultado1 = new Resultado(1,proveedor,true,true,true,false, LocalDate.now().minusDays(1));
-        resultado2 = new Resultado(2,proveedor,true,true,true,false, LocalDate.now());
-        resultado3 = new Resultado(3,proveedor,true,true,true,true, LocalDate.now());
-        resultado4 = new Resultado(4,proveedor,true,true,false,true, LocalDate.now().minusDays(1));
+        resultado1 = new Resultado(1,proveedores,true,true,true,false, LocalDate.now().minusDays(1));
+        resultado2 = new Resultado(2,proveedores,true,true,true,false, LocalDate.now());
+        resultado3 = new Resultado(3,proveedores,true,true,true,true, LocalDate.now());
+        resultado4 = new Resultado(4,proveedores,true,true,false,true, LocalDate.now().minusDays(1));
 
         bandeja.guardarResultado(resultado2);
         bandeja.guardarResultado(resultado1);
@@ -64,7 +65,7 @@ public class ValidacionesTest {
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
         medioDePago = new Debito("Visa debito", 1000);
-        egreso = new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, new Date(), "DNI", null, items,1, Criterio.MENOR_VALOR);
+        egreso = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, new Date(), "DNI", null, items,1, Criterio.MENOR_VALOR);
         presupuesto = new Presupuesto(items,2,(float)price,null,proveedor);
 
         egreso.agregarPresupuesto(presupuesto);

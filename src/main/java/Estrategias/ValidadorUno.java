@@ -71,7 +71,7 @@ public class ValidadorUno implements Validador {
     public void guardarResultados(OperacionEgreso unEgreso, Boolean carga, Boolean detalle, Boolean criterio ) {
         Resultado resultado = new Resultado(
                 unEgreso.getNumeroOperacion(),
-                unEgreso.getProveedor(),
+                unEgreso.getProveedores(),
                 carga,
                 detalle,
                 criterio,

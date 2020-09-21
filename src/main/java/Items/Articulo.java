@@ -1,15 +1,29 @@
 package Items;
 
 import Operaciones.Proveedor;
+import converters.EntidadPersistente;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-public class Articulo {
+@Entity
+@Table(name="articulos")
+public class Articulo extends EntidadPersistente {
+    @Column
     private String nombre; //No esta en el diagrama
+    @Column
     private Float precioTotal;
+    @Column
     private String descripcion;
+    @Transient
     private Proveedor proveedor;
+    @ManyToOne
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private Item item;
+
+    public Articulo (){
+    }
 
     public Articulo (String nombre, Float precioTotal, String descripcion, Proveedor proveedor){
         this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");

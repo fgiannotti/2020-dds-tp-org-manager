@@ -25,7 +25,8 @@ public class SchedulerTest {
     List<Item> itemsTest1 = Arrays.asList(itemTest1);
     Comprobante comprobanteTest2 = new Comprobante(itemsTest1);
     Credito creditoTest1 = new Credito("Tarjeta de credito Santander", 20202020);
-    OperacionEgreso operacionPrueba1 = new OperacionEgreso(310, "Compra navidenia", proveedorTest0, creditoTest1, new Date(), "Factura", comprobanteTest2, itemsTest1, 1,Criterio.MENOR_VALOR);
+    List<Proveedor> proveedoresTest0 = new ArrayList<Proveedor>();
+    OperacionEgreso operacionPrueba1 = new OperacionEgreso(310, "Compra navidenia", proveedoresTest0, creditoTest1, new Date(), "Factura", comprobanteTest2, itemsTest1, 1,Criterio.MENOR_VALOR);
 
     @Test
     void testLevanta() throws InterruptedException {
