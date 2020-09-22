@@ -1,21 +1,19 @@
 package DatosGeograficos;
 
-import converters.EntidadPersistente;
+import Converters.EntidadPersistente;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
-@Table(name="direcciones")
+@Table(name="direcciones_postales")
 public class DireccionPostal extends EntidadPersistente {
-    @Transient //TODO
+    @OneToOne(cascade = {CascadeType.ALL})
     private Direccion direccion;
-    @Transient
+    @Column(name = "ciudad", columnDefinition = "VARCHAR(255)")
     private Ciudad ciudad;
-    @Transient
+    @Column(name = "provincia", columnDefinition = "VARCHAR(255)")
     private Provincia provincia;
-    @Transient
+    @Column(name = "pais", columnDefinition = "VARCHAR(255)")
     private Pais pais;
 
     public DireccionPostal() {

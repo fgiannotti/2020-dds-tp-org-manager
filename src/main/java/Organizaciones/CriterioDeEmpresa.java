@@ -1,6 +1,6 @@
 package Organizaciones;
 
-import converters.EntidadPersistente;
+import Converters.EntidadPersistente;
 
 import javax.persistence.*;
 import java.util.ArrayList;

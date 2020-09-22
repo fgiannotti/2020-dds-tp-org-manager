@@ -1,7 +1,7 @@
 package Items;
 
 import Operaciones.Proveedor;
-import converters.EntidadPersistente;
+import Converters.EntidadPersistente;
 
 import javax.persistence.*;
 import java.util.List;

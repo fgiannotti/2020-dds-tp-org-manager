@@ -2,7 +2,7 @@ package Organizaciones;
 
 import Operaciones.Operacion;
 import Operaciones.OperacionIngreso;
-import converters.EntidadPersistente;
+import Converters.EntidadPersistente;
 
 import javax.persistence.*;
 import java.util.ArrayList;

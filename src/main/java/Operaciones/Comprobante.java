@@ -1,7 +1,7 @@
 package Operaciones;
 
 import Items.Item;
-import converters.EntidadPersistente;
+import Converters.EntidadPersistente;
 
 import javax.persistence.*;
 import java.util.ArrayList;

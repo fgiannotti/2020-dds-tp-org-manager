@@ -2,7 +2,7 @@ package Operaciones;
 
 import Items.Item;
 import Organizaciones.Categoria;
-import converters.EntidadPersistente;
+import Converters.EntidadPersistente;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

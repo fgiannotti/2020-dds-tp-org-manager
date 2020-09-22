@@ -1,4 +1,4 @@
-package converters;
+package Converters;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

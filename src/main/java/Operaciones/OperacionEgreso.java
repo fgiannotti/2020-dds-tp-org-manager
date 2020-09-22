@@ -6,7 +6,7 @@ import Items.Item;
 import MedioDePago.MedioDePago;
 import Organizaciones.Categoria;
 import Organizaciones.Organizacion;
-import converters.EntidadPersistente;
+import Converters.EntidadPersistente;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -57,7 +57,8 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @JoinColumn(name = "ingreso_id", referencedColumnName = "id")
     private OperacionIngreso ingreso;
 
-    @Transient
+    @Enumerated(EnumType.STRING)
+    @Column
     private Criterio criterio;
 
     @Transient

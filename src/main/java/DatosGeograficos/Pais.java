@@ -15,5 +15,12 @@ public class Pais {
                 "currency_id='" + currency_id + '\'' + "\n" +
                 '}';
     }
+    public String getName(){
+        return this.name;
+    }
+
+    public void setName(String name){
+        this.name=name;
+    }
 }
 
