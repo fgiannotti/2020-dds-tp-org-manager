@@ -1,23 +1,29 @@
 package Organizaciones;
 
 import Operaciones.Operacion;
+import Operaciones.OperacionIngreso;
+import converters.EntidadPersistente;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Organizacion {
+@Entity
+@Table(name = "organizaciones")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Organizacion extends EntidadPersistente {
+    @Column(name="nombre_ficticio")
     private String nombreFicticio;
+    @Transient
     private List<Operacion> operacionesRealizadas = new ArrayList<Operacion>();
+    @Transient //TODO
     private List<CriterioDeEmpresa> criterios = new ArrayList<CriterioDeEmpresa>();
 
-    public List<CriterioDeEmpresa> getCriterios() {
-        return criterios;
-    }
 
-    public void setCriterios(List<CriterioDeEmpresa> criterios) {
-        this.criterios = criterios;
-    }
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<OperacionIngreso> ingresos;
+
 
     protected Organizacion() {
     }
@@ -56,5 +62,11 @@ public abstract class Organizacion {
         criterioDeEmpresa.agregarCategoria(categoria);
     }
 
+    public void setCriterios(List<CriterioDeEmpresa> criterios) {
+        this.criterios = criterios;
+    }
 
+    public List<CriterioDeEmpresa> getCriterios() {
+        return criterios;
+    }
 }

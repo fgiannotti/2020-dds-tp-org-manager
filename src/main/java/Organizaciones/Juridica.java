@@ -1,14 +1,22 @@
 package Organizaciones;
 
+import javax.persistence.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 
+@Entity
+@DiscriminatorValue("juridica")
 public class Juridica extends Organizacion {
+    @Column(name="razon_social")
     protected String razonSocial;
+    @Column
     protected long cuit;
+    @Column(name="direccion_postal")
     protected Integer dirPostal;
+    @Column(name="codigo_inscripcion")
     protected Integer codigoInscripcion;
+    @Transient
     protected HashSet<Base> entidadesHijas;
 
     public void addEntidadHija(Base... base){

@@ -1,12 +1,21 @@
 package Organizaciones;
 
-import Usuarios.Usuario;
-
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.util.Objects;
 
+@Entity
+@DiscriminatorValue("base")
 public class Base extends Organizacion {
+    @Column
     private String descripcion;
+    @Transient//@OneToMany(name="entidad_padre")
     private Juridica entidadPadre;
+
+    public Base() {
+    }
 
     public Base(String nombre_ficticio, String descripcion, Juridica padre) {
         super(nombre_ficticio);

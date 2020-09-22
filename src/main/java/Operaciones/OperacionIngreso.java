@@ -1,13 +1,26 @@
 package Operaciones;
 
+import Organizaciones.Organizacion;
+import converters.EntidadPersistente;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class OperacionIngreso implements Operacion {
+@Entity
+@Table(name="egresos")
+public class OperacionIngreso  extends EntidadPersistente {
+    @Column(name="monto_total")
     private int montoTotal;
+    @Column
     private String descripcion;
+    @OneToMany(mappedBy = "ingreso", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<OperacionEgreso> operacionEgresos = new ArrayList<OperacionEgreso>();
+
+    @ManyToOne
+    @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
+    private Organizacion organizacion;
 
     public OperacionIngreso(int montoTotal, String descripcion){
         this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");

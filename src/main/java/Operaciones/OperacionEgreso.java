@@ -5,6 +5,7 @@ import Items.Articulo;
 import Items.Item;
 import MedioDePago.MedioDePago;
 import Organizaciones.Categoria;
+import Organizaciones.Organizacion;
 import converters.EntidadPersistente;
 
 import javax.persistence.*;
@@ -52,11 +53,19 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Column
     private Integer cantidadMinimaDePresupuestos;
 
+    @ManyToOne
+    @JoinColumn(name = "ingreso_id", referencedColumnName = "id")
+    private OperacionIngreso ingreso;
+
     @Transient
     private Criterio criterio;
 
     @Transient
     private List<Categoria> categorias = new ArrayList<Categoria>();
+
+    @ManyToOne
+    @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
+    private Organizacion organizacion;
 
     public OperacionEgreso(){
     }
