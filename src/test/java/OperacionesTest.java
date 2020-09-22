@@ -47,7 +47,7 @@ public class OperacionesTest {
         proveedores.add(proveedor);
         proveedores = proveedorestest;
         medioDePago = new Debito("Visa debito", 1000);
-        organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, 1410, 300, 5, new Comercio(), (float)20000.0);
+        organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, null, 300, 5, new Comercio(), (float)20000.0);
         operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, new Date(), "DNI", null, items,1, Criterio.MENOR_VALOR);
         organizacion.agregarOperacion(operacion);
     }

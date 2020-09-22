@@ -34,8 +34,8 @@ public class SeguridadTest {
 
     @Test
     public void puedoRegistrarUsuario() {
-        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, 1680, 1, 5, new Comercio(), (float)150000.0){};
-        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, 1680, 1, null);
+        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, null, 1, 5, new Comercio(), (float)150000.0){};
+        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, null, 1, null);
         login.register("Nacho", organizacion,":JM!VbT+y'-#?9c98`d,");
         Assertions.assertEquals(autenticador.getRepoUsuarios().buscarPorNombre("Nacho").getNombre(), "Nacho");
     }
@@ -43,16 +43,16 @@ public class SeguridadTest {
     @Test
     public void puedoLoggearmeUnaVezRegistradoUsuario() {
         this.Setup();
-        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, 1680, 1, 5, new Comercio(), (float)150000.0){};
-        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, 1680, 1, null);
+        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, null, 1, 5, new Comercio(), (float)150000.0){};
+        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, null, 1, null);
         login.register("Nacho", organizacion,":JM!VbT+y'-#?9c98`d,");
         login.login("Nacho", ":JM!VbT+y'-#?9c98`d,");
     }
 
     @Test
     public void tiraErrorLuegoDe3IntentosFallidos() {
-        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, 1680, 1, 5, new Comercio(), (float)150000.0){};
-        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, 1680, 1, null);
+        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, null, 1, 5, new Comercio(), (float)150000.0){};
+        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, null, 1, null);
         login.register("Nachooo", organizacion, ":JM!VbT+y'-#?9c98`d,");
         login.login("Nachooo", "asd");
         login.login("Nachooo", "asd");

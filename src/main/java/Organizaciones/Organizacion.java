@@ -17,9 +17,9 @@ public abstract class Organizacion extends EntidadPersistente {
     private String nombreFicticio;
     @Transient
     private List<Operacion> operacionesRealizadas = new ArrayList<Operacion>();
-    @Transient //TODO
-    private List<CriterioDeEmpresa> criterios = new ArrayList<CriterioDeEmpresa>();
 
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<CriterioDeEmpresa> criterios = new ArrayList<CriterioDeEmpresa>();
 
     @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<OperacionIngreso> ingresos;

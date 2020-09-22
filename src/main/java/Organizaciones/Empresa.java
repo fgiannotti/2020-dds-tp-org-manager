@@ -1,9 +1,10 @@
 package Organizaciones;
 
+import DatosGeograficos.DireccionPostal;
 import Estrategias.CategorizadorEmpresa;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 
 public class Empresa extends Juridica {
     private Integer cantidadPersonal;
@@ -12,7 +13,7 @@ public class Empresa extends Juridica {
     private TipoEmpresa tipo;
     private CategorizadorEmpresa categorizadorEmpresa;
 
-    public Empresa(String nombreFicticio, String razonSocial, Integer cuit, Integer dirPostal, Integer codigoInscripcion, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {
+    public Empresa(String nombreFicticio, String razonSocial, Integer cuit, DireccionPostal dirPostal, Integer codigoInscripcion, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {
         super(nombreFicticio, razonSocial, cuit, dirPostal, codigoInscripcion, null);
         this.actividad = actividad;
         this.categorizadorEmpresa = new CategorizadorEmpresa();
@@ -25,7 +26,7 @@ public class Empresa extends Juridica {
     }
 
     public Empresa(){
-        super.entidadesHijas = new HashSet<>();
+        super.entidadesHijas = new ArrayList<Base>();
     }
 
     public void addEntidadHija(Base... base){

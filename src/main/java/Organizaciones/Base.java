@@ -1,9 +1,6 @@
 package Organizaciones;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -11,7 +8,8 @@ import java.util.Objects;
 public class Base extends Organizacion {
     @Column
     private String descripcion;
-    @Transient//@OneToMany(name="entidad_padre")
+    @ManyToOne
+    @JoinColumn(name = "juridica_id", referencedColumnName = "id")
     private Juridica entidadPadre;
 
     public Base() {

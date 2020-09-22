@@ -1,12 +1,23 @@
 package Organizaciones;
 
+import converters.EntidadPersistente;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-public class CriterioDeEmpresa {
+@Entity
+@Table(name="criterios_empresas")
+public class CriterioDeEmpresa extends EntidadPersistente {
+    @Column
     private String nombre;
+    @Transient
     private List<CriterioDeEmpresa> criteriosHijos = new ArrayList<CriterioDeEmpresa>();
+    @OneToMany(mappedBy = "criterio", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Categoria> categorias = new ArrayList<Categoria>();
+
+    @ManyToOne
+    @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
+    private Organizacion organizacion;
 
     public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosMenores, List<Categoria> categorias) {
         this.nombre = nombre;

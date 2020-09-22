@@ -1,5 +1,6 @@
 package Builders;
 
+import DatosGeograficos.DireccionPostal;
 import Estrategias.CategorizadorEmpresa;
 import Organizaciones.*;
 
@@ -130,7 +131,7 @@ public class EmpresaBuilder {
         return this;
     }
 
-    public EmpresaBuilder agregarCodigoPostal(Integer dirPostal){
+    public EmpresaBuilder agregarCodigoPostal(DireccionPostal dirPostal){
         this.empresa.setDirPostal(dirPostal);
         return this;
     }
