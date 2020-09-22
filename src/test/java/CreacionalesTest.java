@@ -1,4 +1,9 @@
 import Builders.EmpresaBuilder;
+import DatosGeograficos.Ciudad;
+import DatosGeograficos.Direccion;
+import DatosGeograficos.DireccionPostal;
+import DatosGeograficos.Provincia;
+import DatosGeograficos.Pais;
 import Estrategias.Criterio;
 import Factorys.EmpresaBuilderFactory;
 import Items.Articulo;
@@ -30,11 +35,17 @@ public class CreacionalesTest<nuevaEmpresa> {
     Comprobante comprobanteTest2 = new Comprobante(itemsTest1);
     Credito creditoTest1 = new Credito("Tarjeta de credito Santander", 20202020);
     OSC caritas = new OSC("caritas", "Caritas ONG", 2040511992, null, 201032);
+    Direccion unaDireccion = new Direccion("Ratti", 1884,0);
+    Ciudad unaCiudadFacherita = new Ciudad("Ituzaingo");
+    Provincia unaProvincia = new Provincia("Buenas Aires");
+    Pais unPais = new Pais("Argentina", "Locale");
+    DireccionPostal unaDireccionPostalDePrueba = new DireccionPostal(unaDireccion, unaCiudadFacherita, unaProvincia, unPais);
     @Before
     public void setup(){
         proveedorTest0.setDireccionPostal("6321456");
         proveedorTest0.setNombre_apellido_razon("Jorge Guaymallen");
         proveedorTest0.setDireccionPostal("1714");
+
     }
     @Test
     public void testCreacionItem(){
@@ -159,7 +170,7 @@ public class CreacionalesTest<nuevaEmpresa> {
             nuevaEmpresa = empresaBuilder.agregarNombre("pepito")
                     .agregarRazonSocial("Jorge Lopez")
                     .agregarCuit(20302030L)
-                    .agregarCodigoPostal(null)
+                    .agregarCodigoPostal(unaDireccionPostalDePrueba)
                     .agregarCantidadDePersonal(30)
                     .agregarActividad(new Agropecuario())
                     .agregarPromedioDeVentas((float)345429999)
@@ -173,7 +184,7 @@ public class CreacionalesTest<nuevaEmpresa> {
         Assertions.assertEquals("pepito", nuevaEmpresa.getNombreFicticio());
         Assertions.assertEquals("Jorge Lopez", nuevaEmpresa.getRazonSocial());
         Assertions.assertEquals(20302030, nuevaEmpresa.getCuit());
-        Assertions.assertEquals(1410, nuevaEmpresa.getDirPostal());
+        Assertions.assertEquals(unaDireccionPostalDePrueba, nuevaEmpresa.getDirPostal());
         Assertions.assertEquals(30, nuevaEmpresa.getCantidadPersonal());
         Assertions.assertEquals("Agropecuario" , nuevaEmpresa.getActividad().getNombre());
         Assertions.assertEquals(345429999f, nuevaEmpresa.getPromedioVentas());

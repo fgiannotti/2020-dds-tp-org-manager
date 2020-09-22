@@ -4,6 +4,10 @@ public class Provincia {
     public String id;
     public String name;
 
+    public Provincia(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Provincia {" +

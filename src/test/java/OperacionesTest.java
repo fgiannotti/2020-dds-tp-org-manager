@@ -44,8 +44,8 @@ public class OperacionesTest {
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
         List<Proveedor> proveedorestest = new ArrayList<Proveedor>();
-        proveedores.add(proveedor);
         proveedores = proveedorestest;
+        proveedores.add(proveedor);
         medioDePago = new Debito("Visa debito", 1000);
         organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, null, 300, 5, new Comercio(), (float)20000.0);
         operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, new Date(), "DNI", null, items,1, Criterio.MENOR_VALOR);

@@ -15,8 +15,7 @@ public class ProvinciaConverter implements AttributeConverter<Provincia, String>
 
     @Override
     public Provincia convertToEntityAttribute(String prov_nombre) {
-        Provincia provincia = new Provincia();
-        provincia.setName(prov_nombre);
+        Provincia provincia = new Provincia(prov_nombre);
         return provincia;
     }
 }

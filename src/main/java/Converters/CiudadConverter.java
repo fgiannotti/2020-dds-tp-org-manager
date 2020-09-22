@@ -15,8 +15,7 @@ public class CiudadConverter implements AttributeConverter<Ciudad, String> {
 
     @Override
     public Ciudad convertToEntityAttribute(String ciudad_nombre) {
-        Ciudad ciudad = new Ciudad();
-        ciudad.setName(ciudad_nombre);
+        Ciudad ciudad = new Ciudad(ciudad_nombre);
         return ciudad;
     }
 }
