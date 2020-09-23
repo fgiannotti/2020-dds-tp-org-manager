@@ -7,9 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Entity
@@ -40,13 +40,20 @@ public abstract class Organizacion extends EntidadPersistente {
         return json.toString();
     }
 
+    protected String fechaToString(Date fecha){
+        DateFormat formatoDeFecha = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aa");
+        String strDate = formatoDeFecha.format(fecha);
+        return strDate;
+    }
+
+
     protected JSONArray jsonOperacional(Stream<Operacion> operacionStream){
 
         JSONArray jsonDeOperaciones = new JSONArray();
         operacionStream.forEach((operacion)-> {
             JSONObject jsonDeOperacion = new JSONObject();
             jsonDeOperacion.put("id",String.valueOf(operacion.getId()));
-            jsonDeOperacion.put("fecha",operacion.getFecha().toString());
+            jsonDeOperacion.put("fecha",this.fechaToString(operacion.getFecha()));
             jsonDeOperacion.put("monto",String.valueOf(operacion.getMontoTotal()));
             jsonDeOperaciones.put(jsonDeOperacion);
         });

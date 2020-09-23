@@ -10,8 +10,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class VinculadorApi {
-
+    public static void main(String[] args) {
+        VinculadorApi vincu = new VinculadorApi();
+        JSONObject asd = vincu.Post_JSON(
+                "{\"Ingresos\":[{\"id\":13,\"monto\":420,\"fecha\":\"Thu Sep 17 08:21:00 UTC 2020\"}],\"Egresos\":[{\"id\":12,\"monto\":69,\"fecha\":\"Thu Sep 3 08:21:00 UTC 2020\"},{\"id\":13,\"monto\":79,\"fecha\":\"Mon Sep 21 08:21:00 UTC 2020\"}]}",
+                "http://localhost:9000/Prueba"
+        );
+        System.out.println(asd.toString());
+    }
     public JSONObject Post_JSON(String json,String query_url) {
+
         try {
             URL url = new URL(query_url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
