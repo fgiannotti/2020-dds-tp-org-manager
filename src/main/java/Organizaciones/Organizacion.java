@@ -1,13 +1,16 @@
 package Organizaciones;
 
+import Converters.EntidadPersistente;
 import Operaciones.Operacion;
 import Operaciones.OperacionIngreso;
-import Converters.EntidadPersistente;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "organizaciones")
@@ -26,6 +29,37 @@ public abstract class Organizacion extends EntidadPersistente {
 
 
     protected Organizacion() {
+    }
+
+    public String getJsonVincular(){
+        JSONArray jsonIngreso= this.crearJsonIngreso();
+        JSONArray jsonEgreso= this.crearJsonEgreso();
+        JSONObject json= new JSONObject();
+        json.put("ingreso",jsonIngreso);
+        json.put("egreso",jsonEgreso);
+        return json.toString();
+    }
+
+    protected JSONArray jsonOperacional(Stream<Operacion> operacionStream){
+
+        JSONArray jsonDeOperaciones = new JSONArray();
+        operacionStream.forEach((operacion)-> {
+            JSONObject jsonDeOperacion = new JSONObject();
+            jsonDeOperacion.put("id",String.valueOf(operacion.getId()));
+            jsonDeOperacion.put("fecha",operacion.getFecha().toString());
+            jsonDeOperacion.put("monto",String.valueOf(operacion.getMontoTotal()));
+            jsonDeOperaciones.put(jsonDeOperacion);
+        });
+
+        return jsonDeOperaciones;
+    }
+
+    protected JSONArray crearJsonEgreso(){
+        return this.jsonOperacional(this.getOperacionesRealizadas().stream().filter(Operacion::isEgreso));
+    }
+
+    protected JSONArray crearJsonIngreso(){
+        return this.jsonOperacional(this.getOperacionesRealizadas().stream().filter(Operacion::isIngreso));
     }
 
     public String getNombreFicticio() {

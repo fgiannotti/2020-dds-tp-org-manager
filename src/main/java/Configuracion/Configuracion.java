@@ -49,10 +49,19 @@ public class Configuracion {
         this.presupuestosMinimos = result;
     }
 
+    public String getApiVinculador() {
+        return apiVinculador;
+    }
+
+    public void setApiVinculador(String apiVinculador) {
+        this.apiVinculador = apiVinculador;
+    }
+
     private int passwordScoreMinimo;
     private int passwordLengthMinimo;
     private int intentosMaximos;
     private int presupuestosMinimos;
+    private String apiVinculador;
 
     public void levantarConfiguracion() {
         try {
@@ -71,7 +80,7 @@ public class Configuracion {
                 this.setPasswordLengthMinimo(element.getElementsByTagName("passwordLengthMinimo").item(0).getTextContent());
                 this.setIntentosMaximos(element.getElementsByTagName("intentosMaximos").item(0).getTextContent());
                 this.setPresupuestosMinimos(element.getElementsByTagName("presupuestosMinimos").item(0).getTextContent());
-
+                this.setApiVinculador(element.getElementsByTagName("apiVinculador").item(0).getTextContent());
             } else{
                 System.out.println("No es un ELEMENT_NODE");
             }

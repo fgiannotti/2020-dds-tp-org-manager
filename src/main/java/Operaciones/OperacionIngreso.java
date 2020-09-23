@@ -5,19 +5,21 @@ import Converters.EntidadPersistente;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name="egresos")
-public class OperacionIngreso  extends EntidadPersistente {
+public class OperacionIngreso extends EntidadPersistente implements Operacion{
     @Column(name="monto_total")
     private int montoTotal;
     @Column
     private String descripcion;
     @OneToMany(mappedBy = "ingreso", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<OperacionEgreso> operacionEgresos = new ArrayList<OperacionEgreso>();
-
+    @Column(name = "fecha_operacion", columnDefinition = "DATE")
+    private Date fechaOperacion;
     @ManyToOne
     @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
     private Organizacion organizacion;
@@ -43,6 +45,16 @@ public class OperacionIngreso  extends EntidadPersistente {
         this.descripcion = descripcion;
     }
 
+    @Override
+    public boolean isEgreso() {
+        return false;
+    }
+
+    @Override
+    public boolean isIngreso() {
+        return true;
+    }
+
     public void realizarOperacion(){}
 
     public List<OperacionEgreso> getOperacionEgresos() {
@@ -55,5 +67,13 @@ public class OperacionIngreso  extends EntidadPersistente {
 
     public void agregarOperacionEgresos(OperacionEgreso unaOperacionEgresos) {
         this.operacionEgresos.add(unaOperacionEgresos);
+    }
+
+    public Date getFecha() {
+        return fechaOperacion;
+    }
+
+    public void setFechaOperacion(Date fechaOperacion) {
+        this.fechaOperacion = fechaOperacion;
     }
 }
