@@ -2,6 +2,7 @@ package Organizaciones;
 
 import Converters.EntidadPersistente;
 import Operaciones.Operacion;
+import Operaciones.OperacionEgreso;
 import Operaciones.OperacionIngreso;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,6 +39,25 @@ public abstract class Organizacion extends EntidadPersistente {
         json.put("ingreso",jsonIngreso);
         json.put("egreso",jsonEgreso);
         return json.toString();
+    }
+
+    public void vincular(JSONObject jsonViculaciones){
+        String idIngreso = (String) jsonViculaciones.get("Ingreso");
+        JSONArray jsonEgresos = (JSONArray) jsonViculaciones.get("Egresos");
+        OperacionIngreso operacionIngreso = (OperacionIngreso) this.getOperacionesRealizadas().stream().filter(operacion -> operacion.getId()==Integer.parseInt(idIngreso));
+        jsonEgresos.forEach((jsonConId) -> {
+            JSONObject jsonCasteado = (JSONObject) jsonConId;
+            String idEgreso = (String) jsonCasteado.get("id");
+            OperacionEgreso operacionEgreso = (OperacionEgreso) this.getOperacionesRealizadas().stream().filter(operacion -> operacion.getId()==Integer.parseInt(idEgreso));
+            operacionIngreso.agregarOperacionEgresos(operacionEgreso);
+        });
+    }
+
+    public void vincularRelaciones(JSONObject jsonRelaciones){
+        JSONArray jsonVinculos = (JSONArray) jsonRelaciones.get("Relaciones");
+        jsonVinculos.forEach((jsonVinculo) -> {
+            this.vincular((JSONObject) jsonVinculo);
+        });
     }
 
     protected JSONArray jsonOperacional(Stream<Operacion> operacionStream){
