@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -20,7 +23,7 @@
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:Entrega-4-1" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:Entrega-4.2" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
@@ -74,6 +77,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="InvalidFacetManager">
+    <ignored-facets>
+      <facet id="2020-mi-no-group-05/invalid/Hibernate" />
+    </ignored-facets>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:\Programas\IntelliJ\IntelliJ IDEA Community Edition 2020.2.2\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
@@ -113,13 +128,20 @@
       <recent name="" />
       <recent name="Estrategias" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
   </component>
-  <component name="RunManager" selected="JUnit.ContextTest">
-    <configuration name="APITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.VinculadorApi">
+    <configuration name="VinculadorApi" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Vinculador.VinculadorApi" />
       <module name="2020-mi-no-group-05" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="APITest" />
-      <option name="TEST_OBJECT" value="class" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Vinculador.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -141,36 +163,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ContextTest.contextUpWithTransaction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SeguridadTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="2020-mi-no-group-05" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ContextTest" />
-      <option name="METHOD_NAME" value="contextUpWithTransaction" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="SeguridadTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreacionalesTest.testCreacionMedioDePago" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ValidacionesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="2020-mi-no-group-05" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="CreacionalesTest" />
-      <option name="METHOD_NAME" value="testCreacionMedioDePago" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="ValidacionesTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ContextTest" />
-        <item itemvalue="JUnit.ContextTest.contextUpWithTransaction" />
+        <item itemvalue="Application.VinculadorApi" />
         <item itemvalue="JUnit.All in 2020-mi-no-group-05" />
-        <item itemvalue="JUnit.CreacionalesTest.testCreacionMedioDePago" />
-        <item itemvalue="JUnit.APITest" />
+        <item itemvalue="JUnit.ContextTest" />
+        <item itemvalue="JUnit.ValidacionesTest" />
+        <item itemvalue="JUnit.SeguridadTest" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -206,7 +227,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="Entrega-4-1" />
+                        <option value="Entrega-4.2" />
                       </list>
                     </value>
                   </entry>
@@ -233,15 +254,17 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="208" y="23" key="#Project_Structure/0.23.1440.801@0.23.1440.801" timestamp="1600448476419" />
-    <state x="100" y="123" width="1240" height="601" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1600477048929">
-      <screen x="0" y="23" width="1440" height="801" />
+    <state x="107" y="103" width="1323" height="619" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1600812890147">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="100" y="123" width="1240" height="601" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.801@0.23.1440.801" timestamp="1600477048929" />
-    <state x="574" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1600472405663">
-      <screen x="0" y="23" width="1440" height="801" />
+    <state x="107" y="103" width="1323" height="619" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600812890147" />
+    <state x="612" y="187" key="#com.intellij.ide.util.MemberChooser" timestamp="1600830070718">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1593368569190" />
     <state x="574" y="205" key="#com.intellij.ide.util.MemberChooser/0.23.1440.801@0.23.1440.801" timestamp="1600472405663" />
+    <state x="612" y="187" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600830070718" />
     <state x="690" y="299" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1593363429581">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -275,30 +298,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1593123066162" />
-    <state width="1398" height="339" key="GridCell.Tab.0.bottom" timestamp="1600750031915">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1493" height="144" key="GridCell.Tab.0.bottom" timestamp="1600838646323">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1600750031915" />
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1593369993103" />
     <state width="1398" height="240" key="GridCell.Tab.0.bottom/0.23.1440.801@0.23.1440.801" timestamp="1600477063802" />
-    <state width="1398" height="339" key="GridCell.Tab.0.center" timestamp="1600750031914">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1493" height="144" key="GridCell.Tab.0.bottom/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600838646323" />
+    <state width="1493" height="144" key="GridCell.Tab.0.center" timestamp="1600838646323">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1600750031914" />
     <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1593369993103" />
     <state width="1398" height="240" key="GridCell.Tab.0.center/0.23.1440.801@0.23.1440.801" timestamp="1600477063801" />
-    <state width="1398" height="339" key="GridCell.Tab.0.left" timestamp="1600750031913">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1493" height="144" key="GridCell.Tab.0.center/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600838646323" />
+    <state width="1493" height="144" key="GridCell.Tab.0.left" timestamp="1600838646323">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1600750031913" />
     <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1593369993102" />
     <state width="1398" height="240" key="GridCell.Tab.0.left/0.23.1440.801@0.23.1440.801" timestamp="1600477063800" />
-    <state width="1398" height="339" key="GridCell.Tab.0.right" timestamp="1600750031914">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1493" height="144" key="GridCell.Tab.0.left/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600838646323" />
+    <state width="1493" height="144" key="GridCell.Tab.0.right" timestamp="1600838646323">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1600750031914" />
     <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593369993103" />
     <state width="1398" height="240" key="GridCell.Tab.0.right/0.23.1440.801@0.23.1440.801" timestamp="1600477063802" />
+    <state width="1493" height="144" key="GridCell.Tab.0.right/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600838646323" />
     <state width="1398" height="255" key="GridCell.Tab.1.bottom" timestamp="1600659883580">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -323,6 +350,10 @@
     <state width="1398" height="255" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1600659883580" />
     <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593367460689" />
     <state width="1398" height="255" key="GridCell.Tab.1.right/0.23.1440.801@0.23.1440.801" timestamp="1600459316106" />
+    <state x="299" y="67" key="Maven.ArtifactSearchDialog" timestamp="1600831840769">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="299" y="67" key="Maven.ArtifactSearchDialog/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600831840769" />
     <state x="208" y="23" key="SettingsEditor" timestamp="1600475250018">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -331,6 +362,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="516" y="209" key="chooseDestDirectoryDialog/0.23.1440.801@0.23.1440.801" timestamp="1600448920068" />
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600837603870">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600837603870" />
     <state x="421" y="205" width="598" height="490" key="find.popup" timestamp="1600749652103">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
