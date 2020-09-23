@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="egresos")
+@Table(name="ingresos")
 public class OperacionIngreso extends EntidadPersistente implements Operacion{
     @Column(name="monto_total")
     private int montoTotal;
@@ -27,6 +27,16 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion{
     public OperacionIngreso(int montoTotal, String descripcion){
         this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
+    }
+
+    public OperacionIngreso(int montoTotal, String descripcion,Date fechaOperacion, Organizacion organizacion){
+        this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
+        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
+        this.fechaOperacion = fechaOperacion;
+        this.organizacion = organizacion;
+    }
+
+    public OperacionIngreso(){
     }
 
     public int getMontoTotal(){
