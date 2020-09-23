@@ -1,6 +1,9 @@
 package DatosGeograficos;
 
+import Converters.CiudadConverter;
 import Converters.EntidadPersistente;
+import Converters.PaisConverter;
+import Converters.ProvinciaConverter;
 
 import javax.persistence.*;
 
@@ -10,10 +13,13 @@ public class DireccionPostal extends EntidadPersistente {
     @OneToOne(cascade = {CascadeType.ALL})
     private Direccion direccion;
     @Column(name = "ciudad", columnDefinition = "VARCHAR(255)")
+    @Convert(converter = CiudadConverter.class)
     private Ciudad ciudad;
     @Column(name = "provincia", columnDefinition = "VARCHAR(255)")
+    @Convert(converter = ProvinciaConverter.class)
     private Provincia provincia;
     @Column(name = "pais", columnDefinition = "VARCHAR(255)")
+    @Convert(converter = PaisConverter.class)
     private Pais pais;
 
     public DireccionPostal() {
