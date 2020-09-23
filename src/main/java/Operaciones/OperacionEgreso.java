@@ -106,6 +106,16 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.descripcion = descripcion;
     }
 
+    @Override
+    public boolean isEgreso() {
+        return true;
+    }
+
+    @Override
+    public boolean isIngreso() {
+        return false;
+    }
+
     public void setComprobante(Comprobante comprobante) {
         this.comprobante = comprobante;
     }

@@ -27,7 +27,7 @@ public class SeguridadTest {
     }
 
     @Test
-    public void Test2() {
+    public void controlDePasswordTest() {
         Boolean bool = this.autenticador.controlDePassword(":JM!VbT+y'-#?9c98`d,");
         Assertions.assertTrue(bool);
     }
@@ -62,8 +62,4 @@ public class SeguridadTest {
         });
     }
 
-    @Test
-    public void trueIsTrue() {
-        Assertions.assertTrue(true);
-    }
 }

@@ -4,6 +4,10 @@ public class Ciudad {
     public String id;
     public String name;
 
+    public Ciudad(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Ciudad {" +

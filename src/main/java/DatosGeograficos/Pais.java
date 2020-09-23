@@ -6,6 +6,14 @@ public class Pais {
     public String locale;
     public String currency_id;
 
+    public Pais(String name, String locale) {
+        this.name = name;
+        this.locale = locale;
+    }
+
+    public Pais() {
+    }
+
     @Override
     public String toString() {
         return "\nPais\n{\n" +
