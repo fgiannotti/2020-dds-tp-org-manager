@@ -1,0 +1,112 @@
+<!-- Alta de una operacion egreso -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<img src="Login.jpg" alt="fondo" width="1366" style=" 
+													height: 160%;
+													background-position: center;
+													background-repeat: no-repeat;
+													background-size: auto;"	>
+
+<button type="button" onclick="location.href='Home.html';" style="width: 100px; height: 50px; position: absolute; left: 5%; top: 5%; transform: translate(-50%, -50%);">Volver a Home</button>
+
+<div style="background-color:#99b0e8; 
+			border:1px solid black; 
+			width: 700px;
+  			height: 900px;
+  			position: absolute;
+  			left: 50%;
+  			top: 80%;
+  			transform: translate(-50%, -50%);">
+
+	<h1> &nbsp; Creemos una operacion de egreso:</h1>
+		<div style="background-color:#b0c1eb; 
+			border:1px solid black; 
+			width: 540px;
+  			height: 800px;
+  			position: absolute;
+  			left: 50%;
+  			top: 53%;
+  			transform: translate(-50%, -50%);">
+			<br>
+				&nbsp;&nbsp;&nbsp;Proovedor/es: <select style=" width: 350; position: absolute; left:160px">
+					  <option value="Proovedor1">Proovedor1</option>
+					  <option value="Proovedor2">Proovedor2</option>
+					  <option value="Proovedor3">Proovedor3</option>
+					  <option value="Proovedor4">Proovedor4</option>
+					</select> <!-- falta seleccion multiple -->
+				<br><br>
+		  		&nbsp;&nbsp;&nbsp;Fecha de operacion: <input type="datetime-local" id="fechaEgreso" name="fechaEgreso" style=" width: 350; position: absolute; left:160px"><br>
+		  		<br>
+		  		&nbsp;&nbsp;&nbsp;Medio de pago: <select style=" width: 350; position: absolute; left:160px">
+					  <option value="Credito">Credito</option>
+					  <option value="Debito">Debito</option>
+					  <option value="Efectivo">Efectivo</option>
+					  <option value="Cheque">Cheque</option>
+					</select>
+				<br><br>
+		  		&nbsp;&nbsp;&nbsp;Tipo Documento: <input type="text" name="tipoDoc" style=" width: 350; position: absolute; left:160px">
+				<br><br>
+				&nbsp;&nbsp;&nbsp;Comprobante: <select style=" width: 350; position: absolute; left:160px">
+					  <option value="Comprobante1">Comprobante1</option>
+					  <option value="Comprobante2">Comprobante2</option>
+					  <option value="Comprobante3">Comprobante3</option>
+					  <option value="Comprobante4">Comprobante4</option>
+					</select>
+				<br><br>
+		  		&nbsp;&nbsp;&nbsp;Monto total: <input type="number" name="montTotal" style=" width: 350; position: absolute; left:160px"><br><br>
+		  		&nbsp;&nbsp;&nbsp;Descripcion: <input type="text" name="Descr" style=" width: 350; position: absolute; left:160px"><br><br>
+		  		&nbsp;&nbsp;&nbsp;Items: <select style=" width: 350; position: absolute; left:160px">
+					  <option value="Item1">Item1</option>
+					  <option value="Item2">Item2</option>
+					  <option value="Item3">Item3</option>
+					  <option value="Item4">Item4</option>
+					</select> <!-- falta seleccion multiple -->
+				<br><br>
+				&nbsp;&nbsp;&nbsp;Presupuesto: <select style=" width: 350; position: absolute; left:160px">
+					  <option value="Presupuesto1">Presupuesto1</option>
+					  <option value="Presupuesto2">Presupuesto2</option>
+					  <option value="Presupuesto3">Presupuesto3</option>
+					  <option value="Presupuesto4">Presupuesto4</option>
+					</select> <!-- falta seleccion multiple -->
+				<br><br>
+				&nbsp;&nbsp;&nbsp;Articulo: <select style=" width: 350; position: absolute; left:160px">
+					  <option value="Articulo1">Articulo1</option>
+					  <option value="Articulo2">Articulo2</option>
+					  <option value="Articulo3">Articulo3</option>
+					  <option value="Articulo4	">Articulo4</option>
+					</select> 
+				<br><br>
+				&nbsp;&nbsp;&nbsp;Cant min presupuestos: <input type="number" name="cantMinPresup" style=" width: 350; position: absolute; left:160px"><br><br>
+				&nbsp;&nbsp;&nbsp;OperacionIngreso: <select style=" width: 350; position: absolute; left:160px">
+					  <option value="OperacionIngreso1">OperacionIngreso1</option>
+					  <option value="OperacionIngreso2">OperacionIngreso2</option>
+					  <option value="OperacionIngreso3">OperacionIngreso3</option>
+					  <option value="OperacionIngreso4	">OperacionIngreso4</option>
+					</select> 
+				<br><br>
+				&nbsp;&nbsp;&nbsp;Criterio: <select style=" width: 350; position: absolute; left:160px">
+					  <option value="Criterio1">Criterio1</option>
+					  <option value="Criterio2">Criterio2</option>
+					  <option value="Criterio3">Criterio3</option>
+					  <option value="Criterio4">Criterio4</option>
+					</select> 
+				<br><br>
+				&nbsp;&nbsp;&nbsp;Categoria/s: <select style=" width: 350; position: absolute; left:160px">
+					  <option value="Categoria1">Categoria1</option>
+					  <option value="Categoria2">Categoria2</option>
+					  <option value="Categoria3">Categoria3</option>
+					  <option value="Categoria4">Categoria4</option>
+					</select> <!-- falta seleccion multiple -->
+				<br><br>
+				&nbsp;&nbsp;&nbsp;Organizacion: <select style=" width: 350; position: absolute; left:160px">
+					  <option value="Organizacion1">Organizacion1</option>
+					  <option value="Organizacion2">Organizacion2</option>
+					  <option value="Organizacion3">Organizacion3</option>
+					  <option value="Organizacion4">Organizacion4</option>
+					</select> 
+				<br><br>
+		  		<button type="button" style="width: 200px; height: 50px; position: relative; left:170px">Guardar </button>
+	  	</div>
+</div>
+ 
