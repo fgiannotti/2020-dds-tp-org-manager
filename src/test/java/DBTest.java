@@ -1,11 +1,11 @@
-import DatosGeograficos.*;
-import Estrategias.Criterio;
-import Items.Articulo;
-import Items.Item;
-import MedioDePago.MedioDePago;
-import MedioDePago.Debito;
-import Operaciones.*;
-import Organizaciones.*;
+import entidades.DatosGeograficos.*;
+import entidades.Estrategias.Criterio;
+import entidades.Items.Articulo;
+import entidades.Items.Item;
+import entidades.MedioDePago.MedioDePago;
+import entidades.MedioDePago.Debito;
+import entidades.Operaciones.*;
+import entidades.Organizaciones.*;
 import db.EntityManagerHelper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class DBTest {

@@ -1,18 +1,17 @@
-import BandejaDeEntrada.BandejaDeEntrada;
-import Estrategias.*;
-import Items.Articulo;
-import Items.Item;
-import MedioDePago.Credito;
-import Operaciones.Comprobante;
-import Operaciones.OperacionEgreso;
-import Operaciones.Proveedor;
-import Scheduler.Orquestador;
+import entidades.BandejaDeEntrada.BandejaDeEntrada;
+import entidades.Estrategias.*;
+import entidades.Items.Articulo;
+import entidades.Items.Item;
+import entidades.MedioDePago.Credito;
+import entidades.Operaciones.Comprobante;
+import entidades.Operaciones.OperacionEgreso;
+import entidades.Operaciones.Proveedor;
+import utils.Scheduler.Orquestador;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 

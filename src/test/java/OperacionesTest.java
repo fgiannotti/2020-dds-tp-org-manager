@@ -1,21 +1,20 @@
-import Estrategias.Criterio;
-import Items.Articulo;
-import Items.Item;
-import MedioDePago.Debito;
-import MedioDePago.MedioDePago;
-import Operaciones.Comprobante;
-import Operaciones.Operacion;
-import Operaciones.OperacionEgreso;
-import Operaciones.Proveedor;
-import Organizaciones.Comercio;
-import Organizaciones.Empresa;
+import entidades.Estrategias.Criterio;
+import entidades.Items.Articulo;
+import entidades.Items.Item;
+import entidades.MedioDePago.Debito;
+import entidades.MedioDePago.MedioDePago;
+import entidades.Operaciones.Comprobante;
+import entidades.Operaciones.Operacion;
+import entidades.Operaciones.OperacionEgreso;
+import entidades.Operaciones.Proveedor;
+import entidades.Organizaciones.Comercio;
+import entidades.Organizaciones.Empresa;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class OperacionesTest {

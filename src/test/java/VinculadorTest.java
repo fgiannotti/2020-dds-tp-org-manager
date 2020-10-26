@@ -1,4 +1,4 @@
-import Configuracion.Configuracion;
+import entidades.Configuracion.Configuracion;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 

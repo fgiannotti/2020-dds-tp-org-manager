@@ -1,6 +1,6 @@
-import DatosFinancieros.ListadoDeDivisas;
-import DatosGeograficos.*;
-import Services.ServicioMELI;
+import entidades.DatosFinancieros.ListadoDeDivisas;
+import entidades.DatosGeograficos.*;
+import utils.Services.ServicioMELI;
 import org.junit.Before;
 import org.junit.Test;
 

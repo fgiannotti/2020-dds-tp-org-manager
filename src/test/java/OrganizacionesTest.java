@@ -1,4 +1,4 @@
-import Organizaciones.*;
+import entidades.Organizaciones.*;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

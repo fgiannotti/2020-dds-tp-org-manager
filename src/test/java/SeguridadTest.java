@@ -1,10 +1,10 @@
-import Login.Login;
-import Organizaciones.Comercio;
-import Organizaciones.Empresa;
-import Organizaciones.Juridica;
-import Repos.RepoUsuarios;
-import Seguridad.Autenticador;
-import Usuarios.UsuarioBuilder;
+import utils.Seguridad.Login;
+import entidades.Organizaciones.Comercio;
+import entidades.Organizaciones.Empresa;
+import entidades.Organizaciones.Juridica;
+import repositorios.RepoUsuarios;
+import utils.Seguridad.Autenticador;
+import repositorios.Builders.UsuarioBuilder;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

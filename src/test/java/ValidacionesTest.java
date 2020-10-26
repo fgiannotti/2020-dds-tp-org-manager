@@ -1,20 +1,19 @@
-import BandejaDeEntrada.BandejaDeEntrada;
-import BandejaDeEntrada.Resultado;
-import Estrategias.*;
-import Items.Articulo;
-import Items.Item;
-import MedioDePago.Debito;
-import MedioDePago.MedioDePago;
-import Operaciones.OperacionEgreso;
-import Operaciones.Presupuesto;
-import Operaciones.Proveedor;
+import entidades.BandejaDeEntrada.BandejaDeEntrada;
+import entidades.BandejaDeEntrada.Resultado;
+import entidades.Estrategias.*;
+import entidades.Items.Articulo;
+import entidades.Items.Item;
+import entidades.MedioDePago.Debito;
+import entidades.MedioDePago.MedioDePago;
+import entidades.Operaciones.OperacionEgreso;
+import entidades.Operaciones.Presupuesto;
+import entidades.Operaciones.Proveedor;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ValidacionesTest {
