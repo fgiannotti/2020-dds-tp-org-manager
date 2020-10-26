@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Categoria extends EntidadPersistente {
     @Column
     private String descripcion;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "criterio_id", referencedColumnName = "id")
     private CriterioDeEmpresa criterio;
 

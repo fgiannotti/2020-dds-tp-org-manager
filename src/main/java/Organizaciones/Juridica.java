@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@DiscriminatorValue("juridica")
+@Table(name = "juridicas")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_jur", discriminatorType = DiscriminatorType.STRING)
 public class Juridica extends Organizacion {
     @Column(name="razon_social")
     protected String razonSocial;

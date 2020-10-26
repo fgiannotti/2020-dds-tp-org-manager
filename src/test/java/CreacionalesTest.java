@@ -19,6 +19,7 @@ import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -88,7 +89,7 @@ public class CreacionalesTest<nuevaEmpresa> {
         this.setup();
         List<Proveedor> proveedoresTest0 = new ArrayList<Proveedor>();
         proveedoresTest0.add(proveedorTest0);
-        OperacionEgreso operacionPrueba1 = new OperacionEgreso(310, "Compra navidenia",proveedoresTest0, creditoTest1, new Date(), "Factura", comprobanteTest2, itemsTest1, 1,Criterio.MENOR_VALOR);
+        OperacionEgreso operacionPrueba1 = new OperacionEgreso(310, "Compra navidenia",proveedoresTest0, creditoTest1, LocalDate.now(), "Factura", comprobanteTest2, itemsTest1, 1,Criterio.MENOR_VALOR);
         Assertions.assertEquals(310, operacionPrueba1.getMontoTotal());
         Assertions.assertEquals(comprobanteTest2, operacionPrueba1.getComprobante());
         Assertions.assertEquals(itemsTest1, operacionPrueba1.getItems());

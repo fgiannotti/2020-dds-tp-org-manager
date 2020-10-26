@@ -16,7 +16,7 @@ public class Proveedor extends EntidadPersistente {
     private String direccionPostal;
     @OneToOne(cascade = {CascadeType.ALL})
     private Presupuesto presupuesto;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "operacion_id", referencedColumnName = "id")
     private OperacionEgreso egreso;
 

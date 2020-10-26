@@ -65,7 +65,7 @@ public class ValidacionesTest {
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
         medioDePago = new Debito("Visa debito", 1000);
-        egreso = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, new Date(), "DNI", null, items,1, Criterio.MENOR_VALOR);
+        egreso = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", null, items,1, Criterio.MENOR_VALOR);
         presupuesto = new Presupuesto(items,2,(float)price,null,proveedor);
 
         egreso.agregarPresupuesto(presupuesto);

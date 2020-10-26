@@ -9,6 +9,7 @@ import Operaciones.Proveedor;
 import Scheduler.Orquestador;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -26,7 +27,7 @@ public class SchedulerTest {
     Comprobante comprobanteTest2 = new Comprobante(itemsTest1);
     Credito creditoTest1 = new Credito("Tarjeta de credito Santander", 20202020);
     List<Proveedor> proveedoresTest0 = new ArrayList<Proveedor>();
-    OperacionEgreso operacionPrueba1 = new OperacionEgreso(310, "Compra navidenia", proveedoresTest0, creditoTest1, new Date(), "Factura", comprobanteTest2, itemsTest1, 1,Criterio.MENOR_VALOR);
+    OperacionEgreso operacionPrueba1 = new OperacionEgreso(310, "Compra navidenia", proveedoresTest0, creditoTest1, LocalDate.now(), "Factura", comprobanteTest2, itemsTest1, 1,Criterio.MENOR_VALOR);
 
     @Test
     void testLevanta() throws InterruptedException {

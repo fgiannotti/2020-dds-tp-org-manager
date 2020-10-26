@@ -1,5 +1,6 @@
 package Operaciones;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public interface Operacion {
@@ -12,5 +13,5 @@ public interface Operacion {
     public void setDescripcion(String descripcion);
     public boolean isEgreso();
     public boolean isIngreso();
-    public Date getFecha();
+    public LocalDate getFecha();
 }

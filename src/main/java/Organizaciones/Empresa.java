@@ -2,15 +2,27 @@ package Organizaciones;
 
 import DatosGeograficos.DireccionPostal;
 import Estrategias.CategorizadorEmpresa;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+@Entity
+@DiscriminatorValue("empresa")
 public class Empresa extends Juridica {
-    private Integer cantidadPersonal;
+    @Column(name="cantidad_personal")
+    @Type(type = "org.hibernate.type.IntegerType")
+    private int cantidadPersonal;
+    @Transient
     private Actividad actividad;
-    private Float promedioVentas;
+    @Column(name="promedio_ventas")
+    private float promedioVentas;
+
+    @Column(name="tipo_empresa")
+    @Enumerated
     private TipoEmpresa tipo;
+    @Transient
     private CategorizadorEmpresa categorizadorEmpresa;
 
     public Empresa(String nombreFicticio, String razonSocial, Integer cuit, DireccionPostal dirPostal, Integer codigoInscripcion, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {

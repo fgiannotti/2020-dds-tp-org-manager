@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 @Entity
 @Table(name = "organizaciones")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Organizacion extends EntidadPersistente {
     @Column(name="nombre_ficticio")
     private String nombreFicticio;

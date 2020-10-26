@@ -1,9 +1,12 @@
 package Operaciones;
 
+import Converters.LocalDateAttributeConverter;
+import Converters.ProvinciaConverter;
 import Organizaciones.Organizacion;
 import Converters.EntidadPersistente;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name="ingresos")
-public class OperacionIngreso extends EntidadPersistente implements Operacion{
+public class OperacionIngreso extends EntidadPersistente implements Operacion {
     @Column(name="monto_total")
     private int montoTotal;
     @Column
@@ -19,8 +22,9 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion{
     @OneToMany(mappedBy = "ingreso", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<OperacionEgreso> operacionEgresos = new ArrayList<OperacionEgreso>();
     @Column(name = "fecha_operacion", columnDefinition = "DATE")
-    private Date fechaOperacion;
-    @ManyToOne
+    @Convert(converter = LocalDateAttributeConverter.class)
+    private LocalDate fechaOperacion;
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
     private Organizacion organizacion;
 
@@ -29,7 +33,7 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion{
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
     }
 
-    public OperacionIngreso(int montoTotal, String descripcion,Date fechaOperacion, Organizacion organizacion){
+    public OperacionIngreso(int montoTotal, String descripcion,LocalDate fechaOperacion, Organizacion organizacion){
         this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
         this.fechaOperacion = fechaOperacion;
@@ -79,11 +83,11 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion{
         this.operacionEgresos.add(unaOperacionEgresos);
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fechaOperacion;
     }
 
-    public void setFechaOperacion(Date fechaOperacion) {
+    public void setFechaOperacion(LocalDate fechaOperacion) {
         this.fechaOperacion = fechaOperacion;
     }
 }

@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,7 +49,7 @@ public class OperacionesTest {
         proveedores.add(proveedor);
         medioDePago = new Debito("Visa debito", 1000);
         organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, null, 300, 5, new Comercio(), (float)20000.0);
-        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, new Date(), "DNI", null, items,1, Criterio.MENOR_VALOR);
+        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", null, items,1, Criterio.MENOR_VALOR);
         organizacion.agregarOperacion(operacion);
     }
 
@@ -66,7 +67,7 @@ public class OperacionesTest {
     public void laOperacionPuedeSerGuardadaSinComprobante(){
         this.setup();
         Assertions.assertDoesNotThrow( () -> {
-            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, new Date(), "DNI", null, items,1, Criterio.MENOR_VALOR);
+            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", null, items,1, Criterio.MENOR_VALOR);
         });
     }
 
@@ -75,7 +76,7 @@ public class OperacionesTest {
         this.setup();
         Comprobante comprobante = new Comprobante(this.items);
         Assertions.assertDoesNotThrow( () -> {
-            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, new Date(), "DNI", comprobante, items,1, Criterio.MENOR_VALOR);
+            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", comprobante, items,1, Criterio.MENOR_VALOR);
         });
     }
 

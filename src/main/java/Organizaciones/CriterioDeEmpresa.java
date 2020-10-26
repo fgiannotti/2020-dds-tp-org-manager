@@ -15,7 +15,7 @@ public class CriterioDeEmpresa extends EntidadPersistente {
     @OneToMany(mappedBy = "criterio", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
     private Organizacion organizacion;
 

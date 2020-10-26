@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@DiscriminatorValue("base")
+@Table(name = "bases")
 public class Base extends Organizacion {
     @Column
     private String descripcion;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "juridica_id", referencedColumnName = "id")
     private Juridica entidadPadre;
 

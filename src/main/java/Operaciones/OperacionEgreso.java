@@ -1,5 +1,6 @@
 package Operaciones;
 
+import Converters.LocalDateAttributeConverter;
 import Estrategias.Criterio;
 import Items.Articulo;
 import Items.Item;
@@ -9,6 +10,7 @@ import Organizaciones.Organizacion;
 import Converters.EntidadPersistente;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +26,8 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     private List<Proveedor> proveedores;
 
     @Column(name = "fecha_operacion", columnDefinition = "DATE")
-    private Date fechaOperacion;
+    @Convert(converter = LocalDateAttributeConverter.class)
+    private LocalDate fechaOperacion;
 
     @OneToOne(cascade = {CascadeType.ALL})
     private MedioDePago medioDePago;
@@ -53,7 +56,15 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Column
     private Integer cantidadMinimaDePresupuestos;
 
-    @ManyToOne
+    public OperacionIngreso getIngreso() {
+        return ingreso;
+    }
+
+    public void setIngreso(OperacionIngreso ingreso) {
+        this.ingreso = ingreso;
+    }
+
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "ingreso_id", referencedColumnName = "id")
     private OperacionIngreso ingreso;
 
@@ -64,14 +75,22 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Transient
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
-    @ManyToOne
+    public Organizacion getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(Organizacion organizacion) {
+        this.organizacion = organizacion;
+    }
+
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
     private Organizacion organizacion;
 
     public OperacionEgreso(){
     }
 
-    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores, MedioDePago medioDePago, Date fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,Criterio criterio){
+    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores, MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos, Criterio criterio){
         this.presupuestosPreliminares = new ArrayList<Presupuesto>();
         this.numeroOperacion = getNuevoNumeroOperacion();
         this.montoTotal = montoTotal;
@@ -85,7 +104,21 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
         this.criterio = criterio;
     }
-
+    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores, MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,Criterio criterio,Organizacion organizacion){
+        this.presupuestosPreliminares = new ArrayList<Presupuesto>();
+        this.numeroOperacion = getNuevoNumeroOperacion();
+        this.montoTotal = montoTotal;
+        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
+        this.proveedores = Objects.requireNonNull(proveedores, "El proveedor no puede ser nulo");
+        this.medioDePago = Objects.requireNonNull(medioDePago, "El medio de pago no puede ser nulo");
+        this.fechaOperacion = Objects.requireNonNull(fechaOperacion, "La fecha de operacion no puede ser nula");
+        this.tipoDocumento = Objects.requireNonNull(tipoDocumento, "El tipo de documento no puede ser nulo");
+        this.comprobante = comprobante;
+        this.items = Objects.requireNonNull(items, "Los items no pueden ser nulos");
+        this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
+        this.criterio = criterio;
+        this.organizacion = organizacion;
+    }
     private int getNuevoNumeroOperacion() {
         return this.hashCode();
     }
@@ -120,11 +153,11 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.comprobante = comprobante;
     }
 
-    public Date getFecha(){
+    public LocalDate getFecha(){
         return this.fechaOperacion;
     }
 
-    public void setFechaOperacion(Date fechaOperacion) {
+    public void setFechaOperacion(LocalDate fechaOperacion) {
         this.fechaOperacion = fechaOperacion;
     }
 
