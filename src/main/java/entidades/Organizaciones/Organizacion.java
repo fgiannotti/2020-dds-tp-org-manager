@@ -4,6 +4,7 @@ import db.Converters.EntidadPersistente;
 import entidades.Operaciones.Operacion;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
+import entidades.Usuarios.Usuario;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -31,9 +32,10 @@ public abstract class Organizacion extends EntidadPersistente {
     @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<OperacionIngreso> ingresos;
 
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<Usuario> usuarios = new ArrayList<>();
 
-    protected Organizacion() {
-    }
+    protected Organizacion() {}
 
     public String getJsonVincular(){
         JSONArray jsonIngreso= this.crearJsonIngreso();
@@ -130,5 +132,13 @@ public abstract class Organizacion extends EntidadPersistente {
 
     public List<CriterioDeEmpresa> getCriterios() {
         return criterios;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 }

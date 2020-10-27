@@ -1,12 +1,17 @@
+import db.EntityManagerHelper;
 import entidades.DatosGeograficos.*;
 import entidades.Estrategias.Criterio;
 import entidades.Items.Articulo;
 import entidades.Items.Item;
-import entidades.MedioDePago.MedioDePago;
 import entidades.MedioDePago.Debito;
-import entidades.Operaciones.*;
+import entidades.MedioDePago.MedioDePago;
+import entidades.Operaciones.Comprobante;
+import entidades.Operaciones.OperacionEgreso;
+import entidades.Operaciones.OperacionIngreso;
+import entidades.Operaciones.Proveedor;
 import entidades.Organizaciones.*;
-import db.EntityManagerHelper;
+import entidades.Usuarios.User;
+import entidades.Usuarios.Usuario;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +29,9 @@ public class DBTest {
     public List<Articulo> articulos;
     public List<Proveedor> proveedores = new ArrayList<Proveedor>();
     public DireccionPostal direccionPostal = new DireccionPostal(new Direccion("calle123",1500,2),new Ciudad("ciudad1"),new Provincia("bs as"),new Pais("arg","AR"));
-
     public Organizacion juridica = new Juridica("org-jur","razon",2222,direccionPostal,12,null);
+    public Usuario usuario1 = new Usuario("pepito", "pep's-pass", juridica, new User());
+    public List<Usuario> usuarios = new ArrayList<Usuario>();
     public Organizacion juridica2 = new OSC("org-jur","razon",2222,direccionPostal,12);
     public Organizacion orgBase = new Base("org-base","AA SA", (Juridica) juridica);
     public Organizacion orgBase2 = new Base("org-base","AA SA", (Juridica) juridica2);
@@ -42,7 +48,6 @@ public class DBTest {
         articulos.add(articulo);
         articulos.add(articulo);
         articulos.add(articulo);
-
         items = new ArrayList<Item>() {
         };
         items.add(aguitasDeCoco);
@@ -58,6 +63,13 @@ public class DBTest {
         operacion.setIngreso(ingreso);
         operacion.setOrganizacion(organizacion);
         organizacion.agregarOperacion(operacion);
+
+        usuarios.add(usuario1);
+        juridica.setUsuarios(usuarios);
+        juridica2.setUsuarios(usuarios);
+        orgBase.setUsuarios(usuarios);
+        orgBase2.setUsuarios(usuarios);
+
     }
 
     @Test

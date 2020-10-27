@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Base extends Organizacion {
     @Column
     private String descripcion;
+
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "juridica_id", referencedColumnName = "id")
     private Juridica entidadPadre;
