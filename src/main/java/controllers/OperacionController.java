@@ -1,9 +1,9 @@
 package controllers;
 
 import db.EntityManagerHelper;
-import entidades.Operaciones.Comprobante;
-import entidades.Operaciones.OperacionEgreso;
-import entidades.Operaciones.Proveedor;
+import entidades.Items.Articulo;
+import entidades.Items.Item;
+import entidades.Operaciones.*;
 import repositorios.RepoOperacionesEgresos;
 import spark.ModelAndView;
 import spark.Request;
@@ -20,11 +20,23 @@ public class OperacionController {
     public ModelAndView inicio(Request request, Response response){
         List<Proveedor> proveedores = new ArrayList<Proveedor>();
         List<Comprobante> comprobantes = new ArrayList<Comprobante>();
+        List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
+        List<Item> items = new ArrayList<Item>();
+        List<Articulo> articulos = new ArrayList<Articulo>();
+        List<OperacionIngreso> ingresos = new ArrayList<OperacionIngreso>();
         Map<String, Object> parametros = new HashMap<>();
         EntityManagerHelper.createQuery("from Proveedor").getResultList().forEach((a) -> { proveedores.add((Proveedor)a); });
         parametros.put("proveedores", proveedores);
         EntityManagerHelper.createQuery("from Comprobante").getResultList().forEach((a) -> { comprobantes.add((Comprobante)a); });
         parametros.put("comprobantes", comprobantes);
+        EntityManagerHelper.createQuery("from Presupuesto").getResultList().forEach((a) -> { presupuestos.add((Presupuesto)a); });
+        parametros.put("presupuestos", presupuestos);
+        EntityManagerHelper.createQuery("from Articulo").getResultList().forEach((a) -> { articulos.add((Articulo)a); });
+        parametros.put("articulos", articulos);
+        EntityManagerHelper.createQuery("from Item").getResultList().forEach((a) -> { items.add((Item)a); });
+        parametros.put("items", items);
+        EntityManagerHelper.createQuery("from OperacionIngreso").getResultList().forEach((a) -> { ingresos.add((OperacionIngreso)a); });
+        parametros.put("ingresos", ingresos);
         return new ModelAndView(parametros,"operacion.hbs");
     }
 

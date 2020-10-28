@@ -1,8 +1,8 @@
 package entidades.Operaciones;
 
+import db.Converters.EntidadPersistente;
 import db.Converters.LocalDateAttributeConverter;
 import entidades.Organizaciones.Organizacion;
-import db.Converters.EntidadPersistente;
 
 import javax.persistence.*;
 import java.time.LocalDate;

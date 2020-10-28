@@ -27,6 +27,10 @@ public class Presupuesto extends EntidadPersistente {
     @Transient
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
+    public Presupuesto(){
+
+    }
+
     public Presupuesto(List<Item> items, Integer cantidad, Float total, Comprobante documento, Proveedor proveedor) {
         this.items = items;
         this.cantidad = cantidad;
