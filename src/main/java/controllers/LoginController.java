@@ -1,5 +1,6 @@
 package controllers;
 
+import entidades.Usuarios.Usuario;
 import repositorios.Builders.UsuarioBuilder;
 import repositorios.RepoUsuarios;
 import spark.ModelAndView;
@@ -29,8 +30,8 @@ public class LoginController {
 
             if(login.login(nombreDeUsuario, contrasenia)){
                 request.session(true);
-                //request.session().attribute("id", usuario.getId());
-
+                Usuario elUsuario = repoUsuarios.buscarPorNombre(nombreDeUsuario);
+                request.session().attribute("rol", elUsuario.getClaseUsuario().toString());
                 response.redirect("/home");
             }
             else{
