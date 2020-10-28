@@ -20,6 +20,8 @@ public class Usuario extends EntidadPersistente {
     private String nombre;
     @Column(name = "contraseña")
     private String password;
+    @Enumerated(EnumType.STRING)
+    private TipoUsuario tipoUsuario;
 
     public Usuario(){}
 
@@ -32,6 +34,11 @@ public class Usuario extends EntidadPersistente {
         this.password = Objects.requireNonNull(password, "La contraseña no puede ser nula");
         this.organizacion = Objects.requireNonNull(organizacion, "La organizacion no puede ser nula");
         this.claseUsuario = clase;
+        if (clase.toString().equalsIgnoreCase("revisor")){
+            this.tipoUsuario = TipoUsuario.REVISOR;
+        }else{
+            this.tipoUsuario = TipoUsuario.BASICO;
+        }
     }
 
     public void agregarOperacion (Operacion operacion) {
@@ -66,5 +73,13 @@ public class Usuario extends EntidadPersistente {
 
     public Organizacion getOrganizacionALaQuePertenece() {
         return organizacion;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 }
