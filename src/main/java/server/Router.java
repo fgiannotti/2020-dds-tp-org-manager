@@ -43,7 +43,11 @@ public class Router {
 
         Spark.get("/CrearOperacionEgreso", operacionController::inicio, Router.engine);
 
+        Spark.post("/CrearOperacionEgreso", operacionController::crearOperacionEgreso);
+
         Spark.get("/asocIngresoEgreso", asociadorEgresoIngresoController::inicio, Router.engine);
+
+        Spark.post("/asocIngresoEgreso", asociadorEgresoIngresoController::asociar);
 
         Spark.get("/asocEgresoPresupuestoACategoria", asociadorEgresoCategoriaController::inicio, Router.engine);
 

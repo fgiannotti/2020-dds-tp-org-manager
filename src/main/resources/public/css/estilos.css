@@ -7,3 +7,13 @@ body{
   width:120px;
   height:52px;
 }
+
+.fondo{
+    height: 100%;
+    width=100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.h1 {text-align: center;}

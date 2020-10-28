@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<!-- Alta de una operacion egreso -->
-    <!-- Bootstrap -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/logic.js"></script>
+    <link rel="icon" href="/img/logosolo.png">
+    <link rel="stylesheet" href="/css/estilos.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
-<img src="Login.jpg" alt="fondo" width="1366" style="
-													height: 160%;
-													background-position: center;
-													background-repeat: no-repeat;
-													background-size: auto;"	>
+    <title>Home</title>
+</head>
+<!-- Home -->
+    <!-- Bootstrap -->
+<img src="/img/Login.jpg" alt="fondo" class="fondo">
 
 <button type="button" onclick="location.href='home';" style="width: 100px; height: 50px; position: absolute; left: 5%; top: 5%; transform: translate(-50%, -50%);">Volver a Home</button>
 
@@ -31,29 +38,33 @@
   			top: 53%;
   			transform: translate(-50%, -50%);">
 			<br>
-				&nbsp;&nbsp;&nbsp;Proovedor/es: <select style=" width: 350; position: absolute; left:160px">
-					  <option value="Proovedor1">Proovedor1</option>
-					  <option value="Proovedor2">Proovedor2</option>
-					  <option value="Proovedor3">Proovedor3</option>
-					  <option value="Proovedor4">Proovedor4</option>
-					</select> <!-- falta seleccion multiple -->
+			<form action="/CrearOperacionEgreso" method="post" class="form-">
+				&nbsp;&nbsp;&nbsp;Proovedor:
+				<select style=" width: 350; position: absolute; left:160px" name="proveedores">
+                    {{#each proveedores}}
+                      <option value='{{id}}'>{{nombre_apellido_razon}}</option>
+                    {{/each}}
+                </select>
 				<br><br>
-		  		&nbsp;&nbsp;&nbsp;Fecha de operacion: <input type="datetime-local" id="fechaEgreso" name="fechaEgreso" style=" width: 350; position: absolute; left:160px"><br>
+		  		&nbsp;&nbsp;&nbsp;Fecha de operacion: <input type="datetime-local" id="fechaEgreso" name="fechaEgreso" style=" width: 350; position: absolute; left:160px" name="fecha"><br>
 		  		<br>
-		  		&nbsp;&nbsp;&nbsp;Medio de pago: <select style=" width: 350; position: absolute; left:160px">
+		  		&nbsp;&nbsp;&nbsp;Medio de pago: <select style=" width: 350; position: absolute; left:160px" name="medioDePago">
 					  <option value="Credito">Credito</option>
 					  <option value="Debito">Debito</option>
 					  <option value="Efectivo">Efectivo</option>
 					  <option value="Cheque">Cheque</option>
 					</select>
 				<br><br>
-		  		&nbsp;&nbsp;&nbsp;Tipo Documento: <input type="text" name="tipoDoc" style=" width: 350; position: absolute; left:160px">
+                &nbsp;&nbsp;&nbsp;Tipo Documento: <select style=" width: 350; position: absolute; left:160px" name="tipoDocumento">
+                      <option value="Credito">DNI</option>
+                      <option value="Debito">Pasaporte</option>
+                      <option value="Efectivo">???</option>
+                    </select>
 				<br><br>
-				&nbsp;&nbsp;&nbsp;Comprobante: <select style=" width: 350; position: absolute; left:160px">
-					  <option value="Comprobante1">Comprobante1</option>
-					  <option value="Comprobante2">Comprobante2</option>
-					  <option value="Comprobante3">Comprobante3</option>
-					  <option value="Comprobante4">Comprobante4</option>
+				&nbsp;&nbsp;&nbsp;Comprobante: <select style=" width: 350; position: absolute; left:160px" name="Comprobante">
+					  {{#each comprobantes}}
+                        <option value='{{id}}'>{{numeroComprobante}}</option>
+                      {{/each}}
 					</select>
 				<br><br>
 		  		&nbsp;&nbsp;&nbsp;Monto total: <input type="number" name="montTotal" style=" width: 350; position: absolute; left:160px"><br><br>
