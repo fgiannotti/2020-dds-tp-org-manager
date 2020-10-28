@@ -29,10 +29,11 @@ public class Autenticador {
         if (intentos > configuracion.getIntentosMaximos()) {
             throw new RuntimeException("Usuario bloqueado");
         }
-        if (user.getPassword() != password) {
+        if (!user.getPassword().equals(password)) {
             sumarUnIntento(user.getNombre());
             throw new RuntimeException("Contraseña incorrecta");
         }
+        System.err.println ( "autenticado" );
         resetearIntentosDe(user.getNombre());
         return true;
     }
@@ -60,7 +61,7 @@ public class Autenticador {
         return repoUsuarios;
     }
 
-    public Autenticador (RepoUsuarios repo, UsuarioBuilder builder) {
+    public Autenticador(RepoUsuarios repo, UsuarioBuilder builder) {
         this.repoUsuarios = repo;
         this.usuarioBuilder = builder;
         this.configuracion = new Configuracion();

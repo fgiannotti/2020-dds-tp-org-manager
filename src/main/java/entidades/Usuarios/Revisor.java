@@ -12,4 +12,7 @@ public class Revisor implements ClaseUsuario {
     public void verMensajes(){
         bandejaDeEntrada.mostrarMensajes();
     }
+
+    public String toString(){return "revisor";}
+
 }
