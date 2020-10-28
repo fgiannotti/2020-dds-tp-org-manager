@@ -31,7 +31,7 @@ public class LoginController {
             if(login.login(nombreDeUsuario, contrasenia)){
                 request.session(true);
                 Usuario elUsuario = repoUsuarios.buscarPorNombre(nombreDeUsuario);
-                request.session().attribute("rol", elUsuario.getClaseUsuario().toString());
+                //request.session().attribute("rol", elUsuario.getClaseUsuario().toString());
                 response.redirect("/home");
             }
             else{

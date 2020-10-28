@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/estilos.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
-    <title>Home</title>
+    <title>Creacion Operacion Egreso</title>
 </head>
 <!-- Home -->
     <!-- Bootstrap -->
@@ -39,7 +39,7 @@
   			transform: translate(-50%, -50%);">
 			<br>
 			<form action="/CrearOperacionEgreso" method="post" class="form-">
-				&nbsp;&nbsp;&nbsp;Proovedor:
+				&nbsp;&nbsp;&nbsp;Proveedor:
 				<select style=" width: 350; position: absolute; left:160px" name="proveedores">
                     {{#each proveedores}}
                       <option value='{{id}}'>{{nombre_apellido_razon}}</option>
@@ -67,35 +67,31 @@
                       {{/each}}
 					</select>
 				<br><br>
-		  		&nbsp;&nbsp;&nbsp;Monto total: <input type="number" name="montTotal" style=" width: 350; position: absolute; left:160px"><br><br>
-		  		&nbsp;&nbsp;&nbsp;Descripcion: <input type="text" name="Descr" style=" width: 350; position: absolute; left:160px"><br><br>
-		  		&nbsp;&nbsp;&nbsp;entidades.Items: <select style=" width: 350; position: absolute; left:160px">
-					  <option value="Item1">Item1</option>
-					  <option value="Item2">Item2</option>
-					  <option value="Item3">Item3</option>
-					  <option value="Item4">Item4</option>
+		  		&nbsp;&nbsp;&nbsp;Monto total: <input type="number" name="montTotal" style=" width: 350; position: absolute; left:160px" name="montoTotal"><br><br>
+		  		&nbsp;&nbsp;&nbsp;Descripcion: <input type="text" name="Descr" style=" width: 350; position: absolute; left:160px" name="descripcion"><br><br>
+		  		&nbsp;&nbsp;&nbsp;entidades.Items: <select style=" width: 350; position: absolute; left:160px" name="items">
+					  {{#each items}}
+                          <option value='{{id}}'>{{nombre}}</option>
+                      {{/each}}
 					</select> <!-- falta seleccion multiple -->
 				<br><br>
-				&nbsp;&nbsp;&nbsp;Presupuesto: <select style=" width: 350; position: absolute; left:160px">
-					  <option value="Presupuesto1">Presupuesto1</option>
-					  <option value="Presupuesto2">Presupuesto2</option>
-					  <option value="Presupuesto3">Presupuesto3</option>
-					  <option value="Presupuesto4">Presupuesto4</option>
+				&nbsp;&nbsp;&nbsp;Presupuesto: <select style=" width: 350; position: absolute; left:160px" name="presupuesto">
+                        {{#each presupuestos}}
+                          <option value='{{id}}'>{{total}}</option>
+                        {{/each}}
 					</select> <!-- falta seleccion multiple -->
 				<br><br>
 				&nbsp;&nbsp;&nbsp;Articulo: <select style=" width: 350; position: absolute; left:160px">
-					  <option value="Articulo1">Articulo1</option>
-					  <option value="Articulo2">Articulo2</option>
-					  <option value="Articulo3">Articulo3</option>
-					  <option value="Articulo4	">Articulo4</option>
+					  {{#each articulos}}
+                        <option value='{{id}}'>{{nombre}}</option>
+                      {{/each}}
 					</select>
 				<br><br>
-				&nbsp;&nbsp;&nbsp;Cant min presupuestos: <input type="number" name="cantMinPresup" style=" width: 350; position: absolute; left:160px"><br><br>
-				&nbsp;&nbsp;&nbsp;OperacionIngreso: <select style=" width: 350; position: absolute; left:160px">
-					  <option value="OperacionIngreso1">OperacionIngreso1</option>
-					  <option value="OperacionIngreso2">OperacionIngreso2</option>
-					  <option value="OperacionIngreso3">OperacionIngreso3</option>
-					  <option value="OperacionIngreso4	">OperacionIngreso4</option>
+				&nbsp;&nbsp;&nbsp;Cant min presupuestos: <input type="number" name="cantMinPresup" style=" width: 350; position: absolute; left:160px" name="cantMinPresup"><br><br>
+				&nbsp;&nbsp;&nbsp;OperacionIngreso: <select style=" width: 350; position: absolute; left:160px" name="operacionIngreso">
+					   {{#each ingresos}}
+                         <option value='{{id}}'>{{descripcion}}</option>
+                       {{/each}}
 					</select>
 				<br><br>
 				&nbsp;&nbsp;&nbsp;Criterio: <select style=" width: 350; position: absolute; left:160px">
@@ -120,6 +116,7 @@
 					</select>
 				<br><br>
 		  		<button type="button" style="width: 200px; height: 50px; position: relative; left:170px">Guardar </button>
+		  		</form>
 	  	</div>
 </div>
 </html>
