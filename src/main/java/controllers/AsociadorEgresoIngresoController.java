@@ -30,8 +30,8 @@ public class AsociadorEgresoIngresoController {
     }
 
     public Response asociar(Request request, Response response) {
-        int nombreDeUsuario = Integer.parseInt(request.queryParams("ingreso"));
-        int contrasenia = Integer.parseInt(request.queryParams("egreso"));
+        int ingreso = Integer.parseInt(request.queryParams("ingreso"));
+        int egreso = Integer.parseInt(request.queryParams("egreso"));
         return response;
     }
 }
