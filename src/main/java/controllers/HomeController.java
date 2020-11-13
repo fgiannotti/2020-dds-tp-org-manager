@@ -10,6 +10,6 @@ import java.util.Map;
 public class HomeController {
     public ModelAndView inicio(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros,"home.hbs");
+        return new ModelAndView(parametros,"index-menu-revisor.hbs");
     }
 }

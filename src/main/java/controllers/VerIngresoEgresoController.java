@@ -20,7 +20,7 @@ public class VerIngresoEgresoController {
         operaciones.addAll(this.repoOperacion.mostrarTodos());
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("operaciones", operaciones);
-        return new ModelAndView(parametros,"IngresosEgresos.hbs");
+        return new ModelAndView(parametros,"visualizar-egresos.hbs");
     }
     //public Response filtrarPorMayor(Request request, Response response){
     //    List<OperacionEgreso> egresos = new ArrayList<OperacionEgreso>();

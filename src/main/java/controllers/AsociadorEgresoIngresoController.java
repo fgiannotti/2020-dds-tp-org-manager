@@ -26,7 +26,7 @@ public class AsociadorEgresoIngresoController {
         operacionesEgreso.addAll(this.repoEgresos.getAll());
         parametros.put("ingresos", operacionesIngreso);
         parametros.put("egresos", operacionesEgreso);
-        return new ModelAndView(parametros,"asociadorEgresoIngreso.hbs");
+        return new ModelAndView(parametros,"asociar.hbs");
     }
 
     public Response asociar(Request request, Response response) {
