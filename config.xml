@@ -4,5 +4,5 @@
     <passwordLengthMinimo>8</passwordLengthMinimo>
     <intentosMaximos>2</intentosMaximos>
     <presupuestosMinimos>1</presupuestosMinimos>
-    <apiVinculador>http://dummy.restapiexample.com/api/v1/create</apiVinculador>
+    <apiVinculador>http://localhost:9000/Prueba</apiVinculador>
 </General>

@@ -1,20 +1,23 @@
 package entidades.Organizaciones;
 
 import db.Converters.EntidadPersistente;
+import entidades.Configuracion.Configuracion;
+import entidades.Configuracion.ConfiguracionApi;
 import entidades.Operaciones.Operacion;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import entidades.Usuarios.Usuario;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import utils.Vinculador.VinculadorApi;
 
 import javax.persistence.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Entity
@@ -41,25 +44,37 @@ public abstract class Organizacion extends EntidadPersistente {
         JSONArray jsonIngreso= this.crearJsonIngreso();
         JSONArray jsonEgreso= this.crearJsonEgreso();
         JSONObject json= new JSONObject();
-        json.put("ingreso",jsonIngreso);
-        json.put("egreso",jsonEgreso);
+        json.put("Ingresos",jsonIngreso);
+        json.put("Egresos",jsonEgreso);
+        ConfiguracionApi configApi = new ConfiguracionApi();
+        json.put("Configuracion",configApi.getJsonConfig());
         return json.toString();
     }
 
+    public void realizarVinculacion(){
+        VinculadorApi vinculador = new VinculadorApi();
+        Configuracion config = new Configuracion();
+        JSONObject response = vinculador.Post_JSON(this.getJsonVincular(), config.getApiVinculador());
+        this.vincularRelaciones(response);
+    }
+
     protected String fechaToString(LocalDate fecha){
-        DateFormat formatoDeFecha = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aa");
-        return formatoDeFecha.format(fecha);
+        return fecha.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public void vincular(JSONObject jsonViculaciones){
-        String idIngreso = (String) jsonViculaciones.get("Ingreso");
-        JSONArray jsonEgresos = (JSONArray) jsonViculaciones.get("Egresos");
-        OperacionIngreso operacionIngreso = (OperacionIngreso) this.getOperacionesRealizadas().stream().filter(operacion -> operacion.getId()==Integer.parseInt(idIngreso));
+        Integer idIngreso = (Integer) jsonViculaciones.get("IDIngreso");
+        JSONArray jsonEgresos = (JSONArray) jsonViculaciones.get("IDSEgresos");
+        Optional<Operacion> operacionIngreso;
+        operacionIngreso = this.getOperacionesRealizadas().stream().filter(operacion -> operacion.isIngreso() && operacion.getId()==idIngreso).findFirst();
+        OperacionIngreso operacionIngreso2 = (OperacionIngreso) operacionIngreso.get();
         jsonEgresos.forEach((jsonConId) -> {
-            JSONObject jsonCasteado = (JSONObject) jsonConId;
-            String idEgreso = (String) jsonCasteado.get("id");
-            OperacionEgreso operacionEgreso = (OperacionEgreso) this.getOperacionesRealizadas().stream().filter(operacion -> operacion.getId()==Integer.parseInt(idEgreso));
-            operacionIngreso.agregarOperacionEgresos(operacionEgreso);
+            System.out.println(jsonConId.toString());
+            Optional<Operacion> operacionEgreso;
+            operacionEgreso = this.getOperacionesRealizadas().stream().filter(operacion -> operacion.isEgreso() && operacion.getId()==Integer.parseInt(String.valueOf(jsonConId))).findFirst();
+            OperacionEgreso operacionEgreso2 = (OperacionEgreso) operacionEgreso.get();
+
+            operacionIngreso2.agregarOperacionEgresos(operacionEgreso2);
         });
     }
 
