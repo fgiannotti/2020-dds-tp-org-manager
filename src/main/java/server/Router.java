@@ -51,8 +51,16 @@ public class Router {
 
         Spark.get("/asocEgresoPresupuestoACategoria", asociadorEgresoCategoriaController::inicio, Router.engine);
 
+        Spark.post("/asocEgresoPresupuestoACategoria", asociadorEgresoCategoriaController::altaIngreso);
+
         Spark.get("/visualizacionIngresoEgresoPorCat", verIngresoEgresoController::inicio, Router.engine);
 
         Spark.get("/BandejaDeMensajes", bandejaDeEntradaController::inicio, Router.engine);
+
+        Spark.post("/proveedor", asociadorEgresoCategoriaController::altaIngreso); //guardar Proveedor
+
+        Spark.get("/CrearOperacionEgreso", operacionController::inicio, Router.engine);
+
+
     }
 }

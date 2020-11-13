@@ -14,6 +14,7 @@
       <h1 class="nombre-titulo">Creación de Proveedor</h1>
       </div>
       <div class="general">
+      <form action="/proveedor" method="post" class="form-">
         <br>
         <div class="general-nombre">
       <h1 class="nombre-proveedor">Nombre y Apellido - <br> Razón Social:</h1>
@@ -45,10 +46,11 @@
       <button class="boton_guardar" onclick="">Guardar</button>
     </div>
          <div class="general-siguiente">
-       <button class="boton_siguiente" onclick="location.href='index-crear-egreso.html'">Cargar Egreso</button>
+       <button class="boton_siguiente" type="submit" onclick="location.href='index-crear-egreso.html'">Siguiente</button>
+       </form>
      </div><br><br><br><br>
          <div class="general-home">
-         <button class="boton_home" onclick="location.href='index-menu-revisor.html'">Volver a Home</button>
+         <button class="boton_home" onclick="location.href='/home'">Volver a Home</button>
          </div>
          </div>
     </body>

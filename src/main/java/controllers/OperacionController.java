@@ -37,7 +37,7 @@ public class OperacionController {
         parametros.put("items", items);
         EntityManagerHelper.createQuery("from OperacionIngreso").getResultList().forEach((a) -> { ingresos.add((OperacionIngreso)a); });
         parametros.put("ingresos", ingresos);
-        return new ModelAndView(parametros,"operacion.hbs");
+        return new ModelAndView(parametros,"crear-proveedor.hbs");
     }
 
     public Response crearOperacionEgreso (Request request, Response response){

@@ -8,38 +8,44 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilo-organizacion.css">
-    <title>Login</title>
+    <title>Asociar ingresos a egresos</title>
 </head>
     <body>
       <div class="titulo">
       <h1 class="nombre-titulo">Asociar Ingresos a Egresos</h1>
       </div>
       <div class="general">
+        <form action="/asocIngresoEgreso" method="post" class="form-">
         <br><br><br>
-        <div class="general-medio">
-      <h1 class="medio">Operación Egreso:</h1>
+      <div class="general-medio">
+      <h1 class="medio">Operación ingreso:</h1>
          </div><br>
          <div class="box-Medio">
-           <select class="opcion-multiple">
-               <option value="value1">Valor1</option>
-             </select>
+           <select class="opcion-multiple" name="ingreso">
+             {{#each ingresos}}
+                 <option value='{{numeroOperacion}}'>{{descripcion}}</option>
+             {{/each}}
+           </select>
           </div>
           <br><br><br>
           <div class="general-numero">
-        <h1 class="numero">Operación Ingreso:</h1>
+        <h1 class="numero">Operación egreso:</h1>
            </div><br>
            <div class="box-numero">
-             <select class="opcion-multiple">
-                 <option value="value1">Valor1</option>
-               </select>
+             <select class="opcion-multiple" name="egreso">
+                {{#each egresos}}
+                  <option value='{{numeroOperacion}}'>{{descripcion}}</option>
+                {{/each}}
+             </select>
          </div>
          <br><br><br>
          <div class="general-siguiente">
-       <button class="boton_siguiente" onclick="location.href=''">Asociar</button>
+       <button class="boton_siguiente" type="submit">Asociar</button>
      </div><br><br><br><br><br>
-         <div class="general-home">
-         <button class="boton_home" onclick="location.href='/home'">Volver a Home</button>
-         </div>
-         </div>
+     </form>
+     <div class="general-home">
+     <button class="boton_home" onclick="location.href='/home'">Volver a Home</button>
+     </div>
+     </div>
     </body>
 </html>
