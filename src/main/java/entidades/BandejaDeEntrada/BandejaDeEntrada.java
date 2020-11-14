@@ -1,19 +1,25 @@
 package entidades.BandejaDeEntrada;
 
+import db.Converters.EntidadPersistente;
 import entidades.Estrategias.Filtro;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BandejaDeEntrada {
+@Entity
+@Table(name = "bandejas_de_entrada")
+public class BandejaDeEntrada extends EntidadPersistente {
+    @OneToMany(mappedBy = "bandeja", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Resultado> resultados = new ArrayList<Resultado>();
+    @OneToMany(mappedBy = "bandeja", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Filtro> filtros = new ArrayList<Filtro>();
 
     public BandejaDeEntrada(List<Filtro> filtros){
         resultados = new ArrayList<Resultado>();
         this.filtros = filtros;
     }
-
+    public BandejaDeEntrada(){}
     public void mostrarMensajes() {
         List<Resultado> resultadosFiltrados = resultados;
         for(Filtro f: filtros){

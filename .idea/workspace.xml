@@ -27,14 +27,22 @@
   <component name="ChangeListManager">
     <list default="true" id="d398e23e-5c70-4dc6-a48f-86824f99246f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AsociadorEgresoCategoriaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AsociadorEgresoCategoriaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AsociadorEgresoIngresoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AsociadorEgresoIngresoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/OperacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/OperacionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/Router.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Router.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/asociar.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/asociar.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/cargar-ingreso.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/cargar-ingreso.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/crear-proveedor.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/crear-proveedor.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index-menu-revisor.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index-menu-revisor.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entidades/BandejaDeEntrada/BandejaDeEntrada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entidades/BandejaDeEntrada/BandejaDeEntrada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entidades/BandejaDeEntrada/Resultado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entidades/BandejaDeEntrada/Resultado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entidades/Estrategias/Filtro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entidades/Estrategias/Filtro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entidades/Estrategias/FiltroPorEstado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entidades/Estrategias/FiltroPorEstado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entidades/Estrategias/FiltroPorFecha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entidades/Estrategias/FiltroPorFecha.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entidades/Estrategias/ValidadorUno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entidades/Estrategias/ValidadorUno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entidades/Organizaciones/Juridica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entidades/Organizaciones/Juridica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entidades/Usuarios/Revisor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entidades/Usuarios/Revisor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entidades/Usuarios/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entidades/Usuarios/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entidades/Usuarios/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entidades/Usuarios/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositorios/Builders/UsuarioBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositorios/Builders/UsuarioBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositorios/RepoUsuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositorios/RepoUsuarios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Seguridad/Autenticador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Seguridad/Autenticador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SchedulerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SchedulerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ValidacionesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ValidacionesTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,26 +123,13 @@
       <recent name="db" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Server">
+  <component name="RunManager" selected="JUnit.DBTest.PersistiendoBandeja">
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="server.Server" />
       <module name="2020-mi-no-group-05" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="server.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="VinculadorApi" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="utils.Vinculador.VinculadorApi" />
-      <module name="2020-mi-no-group-05" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="utils.Vinculador.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -159,6 +154,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DBTest.PersistiendoBandeja" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="2020-mi-no-group-05" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DBTest" />
+      <option name="METHOD_NAME" value="PersistiendoBandeja" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="entidades.Estrategias in 2020-mi-no-group-05" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="2020-mi-no-group-05" />
       <extension name="coverage">
@@ -175,11 +180,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DBTest.PersistiendoBandeja" />
+        <item itemvalue="JUnit.All in 2020-mi-no-group-05" />
         <item itemvalue="Application.Server" />
         <item itemvalue="JUnit.DBTest" />
-        <item itemvalue="JUnit.All in 2020-mi-no-group-05" />
         <item itemvalue="JUnit.entidades.Estrategias in 2020-mi-no-group-05" />
-        <item itemvalue="Application.VinculadorApi" />
       </list>
     </recent_temporary>
   </component>
@@ -215,6 +220,11 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
@@ -256,11 +266,12 @@
     </state>
     <state x="100" y="123" width="1240" height="601" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.801@0.23.1440.801" timestamp="1600477048929" />
     <state x="107" y="103" width="1323" height="619" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600812890147" />
-    <state x="574" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1603773670697">
-      <screen x="0" y="23" width="1440" height="801" />
+    <state x="765" y="263" key="#com.intellij.ide.util.MemberChooser" timestamp="1605312378203">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="574" y="205" key="#com.intellij.ide.util.MemberChooser/0.23.1440.801@0.23.1440.801" timestamp="1603773670697" />
     <state x="612" y="187" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600830070718" />
+    <state x="765" y="263" key="#com.intellij.ide.util.MemberChooser/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605312378203" />
     <state x="409" y="337" key="#com.intellij.javaee.module.view.common.J2EE.J2EEDeploymentDescriptorLocationPanel.changeDDPath" timestamp="1600475248403">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -281,34 +292,42 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1603765702355" />
-    <state width="1877" height="265" key="GridCell.Tab.0.bottom" timestamp="1605299764916">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="369" key="GridCell.Tab.0.bottom" timestamp="1605312418726">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1600750031915" />
     <state width="1877" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605299764916" />
     <state width="1398" height="313" key="GridCell.Tab.0.bottom/0.23.1440.801@0.23.1440.801" timestamp="1603778150297" />
+    <state width="1398" height="249" key="GridCell.Tab.0.bottom/0.23.1440.802@0.23.1440.802" timestamp="1605307412443" />
     <state width="1493" height="282" key="GridCell.Tab.0.bottom/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600898052147" />
-    <state width="1877" height="265" key="GridCell.Tab.0.center" timestamp="1605299764916">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="369" key="GridCell.Tab.0.bottom/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605312418726" />
+    <state width="1878" height="369" key="GridCell.Tab.0.center" timestamp="1605312418725">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1600750031914" />
     <state width="1877" height="265" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605299764916" />
     <state width="1398" height="313" key="GridCell.Tab.0.center/0.23.1440.801@0.23.1440.801" timestamp="1603778150296" />
+    <state width="1398" height="249" key="GridCell.Tab.0.center/0.23.1440.802@0.23.1440.802" timestamp="1605307412442" />
     <state width="1493" height="282" key="GridCell.Tab.0.center/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600898052147" />
-    <state width="1877" height="265" key="GridCell.Tab.0.left" timestamp="1605299764916">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="369" key="GridCell.Tab.0.center/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605312418725" />
+    <state width="1878" height="369" key="GridCell.Tab.0.left" timestamp="1605312418725">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1600750031913" />
     <state width="1877" height="265" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605299764916" />
     <state width="1398" height="313" key="GridCell.Tab.0.left/0.23.1440.801@0.23.1440.801" timestamp="1603778150296" />
+    <state width="1398" height="249" key="GridCell.Tab.0.left/0.23.1440.802@0.23.1440.802" timestamp="1605307412442" />
     <state width="1493" height="282" key="GridCell.Tab.0.left/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600898052147" />
-    <state width="1877" height="265" key="GridCell.Tab.0.right" timestamp="1605299764916">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="369" key="GridCell.Tab.0.left/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605312418725" />
+    <state width="1878" height="369" key="GridCell.Tab.0.right" timestamp="1605312418725">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1600750031914" />
     <state width="1877" height="265" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605299764916" />
     <state width="1398" height="313" key="GridCell.Tab.0.right/0.23.1440.801@0.23.1440.801" timestamp="1603778150296" />
+    <state width="1398" height="249" key="GridCell.Tab.0.right/0.23.1440.802@0.23.1440.802" timestamp="1605307412442" />
     <state width="1493" height="282" key="GridCell.Tab.0.right/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600898052147" />
+    <state width="1878" height="369" key="GridCell.Tab.0.right/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605312418725" />
     <state width="1398" height="255" key="GridCell.Tab.1.bottom" timestamp="1600659883580">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -341,26 +360,30 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="516" y="209" key="chooseDestDirectoryDialog/0.23.1440.801@0.23.1440.801" timestamp="1600448920068" />
-    <state x="562" y="23" width="337" height="801" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1603765753411">
-      <screen x="0" y="23" width="1440" height="801" />
+    <state x="749" y="23" width="337" height="801" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1605311314895">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="562" y="23" width="337" height="801" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.23.1440.801@0.23.1440.801" timestamp="1603765753411" />
+    <state x="749" y="23" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605311314895" />
     <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600837603870">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600837603870" />
-    <state x="421" y="205" width="598" height="490" key="find.popup" timestamp="1603776220387">
-      <screen x="0" y="23" width="1440" height="801" />
+    <state x="561" y="263" width="798" height="791" key="find.popup" timestamp="1605311570161">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="421" y="205" width="598" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1600749646519" />
     <state x="421" y="205" width="598" height="490" key="find.popup/0.23.1440.801@0.23.1440.801" timestamp="1603776220387" />
+    <state x="421" y="205" width="598" height="600" key="find.popup/0.23.1440.802@0.23.1440.802" timestamp="1605308001623" />
+    <state x="561" y="263" width="798" height="791" key="find.popup/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605311570161" />
     <state x="503" y="196" key="refactoring.ChangeSignatureDialog" timestamp="1600472420542">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="503" y="196" key="refactoring.ChangeSignatureDialog/0.23.1440.801@0.23.1440.801" timestamp="1600472420542" />
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1600656536152">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="513" y="253" width="894" height="794" key="search.everywhere.popup" timestamp="1605311128517">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1600656536152" />
+    <state x="513" y="253" width="894" height="794" key="search.everywhere.popup/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605311128517" />
   </component>
 </project>

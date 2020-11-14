@@ -31,10 +31,14 @@ public class SchedulerTest {
     @Test
     void testLevanta() throws InterruptedException {
         Orquestador orquestador = new Orquestador(10);
+        BandejaDeEntrada bandejaDeEntrada = new BandejaDeEntrada();
+
         List<Filtro> filtros = new ArrayList<Filtro>();
-        Filtro unFiltro = new FiltroPorEstado(true);
+        Filtro unFiltro = new FiltroPorEstado(true,bandejaDeEntrada);
         filtros.add(unFiltro);
-        BandejaDeEntrada bandejaDeEntrada = new BandejaDeEntrada(filtros);
+
+
+        bandejaDeEntrada.setFiltros(filtros);
         Validador validador = new ValidadorUno(bandejaDeEntrada);
         orquestador.orquestraJob(validador, operacionPrueba1);
         System.out.println("Job esperando");

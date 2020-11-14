@@ -1,21 +1,13 @@
 package repositorios;
 
 import db.EntityManagerHelper;
-import entidades.BandejaDeEntrada.BandejaDeEntrada;
-import entidades.Estrategias.FiltroPorFecha;
-import entidades.Usuarios.Revisor;
-import entidades.Usuarios.TipoUsuario;
-import entidades.Usuarios.User;
 import entidades.Usuarios.Usuario;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RepoUsuarios {
     private List<Usuario> usuarios = new ArrayList<Usuario>();
-
     public RepoUsuarios () {
         usuarios = new ArrayList<Usuario>();
     }
@@ -27,11 +19,7 @@ public class RepoUsuarios {
                 .findAny()
                 .orElse(null);
         unUsuario = (Usuario) EntityManagerHelper.createQuery(query).getResultList().get(0);
-        if (unUsuario.getTipoUsuario() == TipoUsuario.REVISOR){
-            unUsuario.setClaseUsuario(new Revisor(new BandejaDeEntrada(new ArrayList<>(Arrays.asList(new FiltroPorFecha(LocalDate.of(2020,1,1))))))); //TODO: darle una bandeja
-        }else{
-            unUsuario.setClaseUsuario(new User());
-        }
+        //TODO: chequear si el usuario tiene bandeja
         return unUsuario;
     }
 

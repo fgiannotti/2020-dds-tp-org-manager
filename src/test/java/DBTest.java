@@ -1,6 +1,8 @@
 import db.EntityManagerHelper;
+import entidades.BandejaDeEntrada.BandejaDeEntrada;
+import entidades.BandejaDeEntrada.Resultado;
 import entidades.DatosGeograficos.*;
-import entidades.Estrategias.Criterio;
+import entidades.Estrategias.*;
 import entidades.Items.Articulo;
 import entidades.Items.Item;
 import entidades.MedioDePago.Debito;
@@ -30,11 +32,23 @@ public class DBTest {
     public List<Proveedor> proveedores = new ArrayList<Proveedor>();
     public DireccionPostal direccionPostal = new DireccionPostal(new Direccion("calle123",1500,2),new Ciudad("ciudad1"),new Provincia("bs as"),new Pais("arg","AR"));
     public Organizacion juridica = new Juridica("org-jur","razon",2222,direccionPostal,12,null);
-    public Usuario usuario1 = new Usuario("pepito", "pep's-pass", juridica, new User());
+    public Usuario usuario1 = new User("pepito", "pep's-pass", juridica);
     public List<Usuario> usuarios = new ArrayList<Usuario>();
     public Organizacion juridica2 = new OSC("org-jur","razon",2222,direccionPostal,12);
     public Organizacion orgBase = new Base("org-base","AA SA", (Juridica) juridica);
     public Organizacion orgBase2 = new Base("org-base","AA SA", (Juridica) juridica2);
+
+    public BandejaDeEntrada bandeja;
+    public BandejaDeEntrada bandeja2;
+
+    public Resultado resultado1;
+    public Resultado resultado2;
+    public Resultado resultado3;
+    public Resultado resultado4;
+
+    public FiltroPorFecha filtroPorFecha;
+    public FiltroPorEstado filtroPorEstadoNoLeido;
+    public List<Filtro> filtros = new ArrayList<Filtro>();
 
     @Before
     public void setup() {
@@ -69,7 +83,23 @@ public class DBTest {
         juridica2.setUsuarios(usuarios);
         orgBase.setUsuarios(usuarios);
         orgBase2.setUsuarios(usuarios);
+        filtros.add(new FiltroPorFecha(LocalDate.now(),bandeja));
+        filtroPorFecha = new FiltroPorFecha(LocalDate.now(),bandeja);
+        filtroPorEstadoNoLeido = new FiltroPorEstado(false,bandeja);
+        bandeja = new BandejaDeEntrada(filtros);
+        bandeja2 = new BandejaDeEntrada(filtros);
 
+        List<Proveedor> proveedores = new ArrayList<Proveedor>();
+        proveedores.add(proveedor);
+        proveedor = new Proveedor("jorgito-provides","Docu","calle-falsa123");
+        resultado1 = new Resultado(1,proveedores,true,true,true,false, LocalDate.now().minusDays(1),bandeja);
+        resultado2 = new Resultado(2,proveedores,true,true,true,false, LocalDate.now(),bandeja);
+        resultado3 = new Resultado(3,proveedores,true,true,true,true, LocalDate.now(),bandeja);
+        resultado4 = new Resultado(4,proveedores,true,true,false,true, LocalDate.now().minusDays(1),bandeja);
+
+        bandeja.guardarResultado(resultado2);
+        bandeja.guardarResultado(resultado1);
+        bandeja.guardarResultado(resultado3);
     }
 
     @Test
@@ -97,5 +127,12 @@ public class DBTest {
     public void recuperandoEgreso(){
         OperacionEgreso egreso = (OperacionEgreso) EntityManagerHelper.createQuery("from OperacionEgreso where id = 1").getSingleResult();
         Assert.assertEquals(1, egreso.getId());
+    }
+    @Test
+    public void PersistiendoBandeja(){
+        this.setup();
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(bandeja);
+        EntityManagerHelper.commit();
     }
 }

@@ -76,7 +76,8 @@ public class ValidadorUno implements Validador {
                 detalle,
                 criterio,
                 false,
-                LocalDate.now());
+                LocalDate.now(),
+                this.bandejaDeEntrada);
         this.bandejaDeEntrada.guardarResultado(resultado);
     }
 
