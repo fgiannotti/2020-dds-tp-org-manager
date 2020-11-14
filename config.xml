@@ -4,5 +4,5 @@
     <passwordLengthMinimo>8</passwordLengthMinimo>
     <intentosMaximos>2</intentosMaximos>
     <presupuestosMinimos>1</presupuestosMinimos>
-    <apiVinculador>http://localhost:9000/Prueba</apiVinculador>
+    <apiVinculador>http://localhost:9000/vincular</apiVinculador>
 </General>

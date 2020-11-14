@@ -74,7 +74,7 @@ public class VinculadorTest {
     }
 
     @Test
-    public void Test1() {
+    public void RealizaVinculacion() {
         this.Setup();
         organizacion.realizarVinculacion();
         Assert.assertTrue(ingreso1.getOperacionEgresos().contains(egreso1));
