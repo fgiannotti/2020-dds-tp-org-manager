@@ -1,19 +1,27 @@
 package entidades.BandejaDeEntrada;
 
+import db.Converters.EntidadPersistente;
 import entidades.Estrategias.Filtro;
+import entidades.Usuarios.Revisor;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BandejaDeEntrada {
+@Entity
+@Table(name = "bandejas_de_entrada")
+public class BandejaDeEntrada extends EntidadPersistente {
+    @OneToMany(mappedBy = "bandeja", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Resultado> resultados = new ArrayList<Resultado>();
+    @OneToMany(mappedBy = "bandeja", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Filtro> filtros = new ArrayList<Filtro>();
-
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Revisor revisor;
     public BandejaDeEntrada(List<Filtro> filtros){
         resultados = new ArrayList<Resultado>();
         this.filtros = filtros;
     }
-
+    public BandejaDeEntrada(){}
     public void mostrarMensajes() {
         List<Resultado> resultadosFiltrados = resultados;
         for(Filtro f: filtros){
@@ -27,4 +35,6 @@ public class BandejaDeEntrada {
     }
 
     public void setFiltros(List<Filtro> filtros) { this.filtros = filtros; }
+    public List<Filtro> getFiltros() { return this.filtros; }
+
 }

@@ -9,9 +9,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name="usuarios")
-public class Usuario extends EntidadPersistente {
-    @Transient
-    private ClaseUsuario claseUsuario;
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Usuario extends EntidadPersistente {
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
@@ -23,16 +22,12 @@ public class Usuario extends EntidadPersistente {
 
     public Usuario(){}
 
-    public void cambiarClaseA (ClaseUsuario nuevaClase) {
-        this.setClaseUsuario(nuevaClase);
-    }
-
-    public Usuario (String nombre, String password, Organizacion organizacion, ClaseUsuario clase) {
+    public Usuario (String nombre, String password, Organizacion organizacion) {
         this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
         this.password = Objects.requireNonNull(password, "La contraseña no puede ser nula");
         this.organizacion = Objects.requireNonNull(organizacion, "La organizacion no puede ser nula");
-        this.claseUsuario = clase;
     }
+
 
     public void agregarOperacion (Operacion operacion) {
         this.organizacion.agregarOperacion(operacion);
@@ -56,15 +51,8 @@ public class Usuario extends EntidadPersistente {
         this.password = password;
     }
 
-    public ClaseUsuario getClaseUsuario() {
-        return claseUsuario;
-    }
-
-    public void setClaseUsuario(ClaseUsuario claseUsuario) {
-        this.claseUsuario = claseUsuario;
-    }
-
     public Organizacion getOrganizacionALaQuePertenece() {
         return organizacion;
     }
+
 }

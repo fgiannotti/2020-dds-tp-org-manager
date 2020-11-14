@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/logic.js"></script>
+    <link rel="icon" href="/img/logosolo.png">
+    <link rel="stylesheet" href="/css/estilos.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <title>Asociando</title>
+</head>
+<!-- Home -->
+    <!-- Bootstrap -->
+<img src="/img/Login.jpg" alt="fondo" class="fondo">
+
+<button type="button" onclick="location.href='home';" style="width: 100px; height: 50px; position: absolute; left: 5%; top: 5%; transform: translate(-50%, -50%);">Volver a Home</button>
+
+<div style="background-color:#99b0e8;
+			border:1px solid black;
+			width: 400px;
+  			height: 350px;
+  			position: absolute;
+  			left: 50%;
+  			top: 50%;
+  			transform: translate(-50%, -50%);">
+
+	<h1> &nbsp; Asociemos egreso y presupuesto a categoria:</h1>
+		<div style="background-color:#b0c1eb;
+			border:1px solid black;
+			width: 350px;
+  			height: 225px;
+  			position: absolute;
+  			left: 50%;
+  			top: 65%;
+  			transform: translate(-50%, -50%);">
+			<br>
+				&nbsp;&nbsp;&nbsp;Egreso: <select style=" width: 200; position: absolute; left:120px">
+                        {{#each egresos}}
+                            <option value='{{numeroOperacion}}'>{{descripcion}}</option>
+                        {{/each}}
+					</select>
+				<br><br>
+				&nbsp;&nbsp;&nbsp;Presupuesto: <select style=" width: 200; position: absolute; left:120px">
+					  <option value="Presupuesto1">Presupuesto1</option>
+					  <option value="Presupuesto2">Presupuesto2</option>
+					  <option value="Presupuesto3">Presupuesto3</option>
+					  <option value="Presupuesto4">Presupuesto4</option>
+					</select>
+				<br><br>
+				&nbsp;&nbsp;&nbsp;Categoria: <select style=" width: 200; position: absolute; left:120px">
+					  <option value="Categoria1">Categoria1</option>
+					  <option value="Categoria2">Categoria2</option>
+					  <option value="Categoria3">Categoria3</option>
+					  <option value="Categoria4">Categoria4</option>
+					</select>
+				<br><br>
+		  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" style="width: 250px; height: 50px; ">Asociar </button>
+	  	</div>
+</div>

@@ -1,17 +1,25 @@
 package entidades.Estrategias;
 
+import db.Converters.LocalDateAttributeConverter;
+import entidades.BandejaDeEntrada.BandejaDeEntrada;
 import entidades.BandejaDeEntrada.Resultado;
 
+import javax.persistence.Convert;
+import javax.persistence.Entity;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FiltroPorFecha implements Filtro{
+@Entity
+public class FiltroPorFecha extends Filtro{
+    @Convert(converter = LocalDateAttributeConverter.class)
     private  LocalDate fecha;
 
-    public FiltroPorFecha(LocalDate fecha){
+    public FiltroPorFecha(LocalDate fecha, BandejaDeEntrada bandejaDeEntrada){
+        super(bandejaDeEntrada);
         this.fecha = fecha;
     }
+    public FiltroPorFecha(){}
 
     @Override
     public List<Resultado> filtrar(List<Resultado> resultados){

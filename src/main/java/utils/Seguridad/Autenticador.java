@@ -2,6 +2,7 @@ package utils.Seguridad;
 
 import entidades.Configuracion.Configuracion;
 import entidades.Organizaciones.Organizacion;
+import entidades.Usuarios.TipoUsuario;
 import repositorios.RepoUsuarios;
 import entidades.Usuarios.Usuario;
 import repositorios.Builders.UsuarioBuilder;
@@ -29,10 +30,11 @@ public class Autenticador {
         if (intentos > configuracion.getIntentosMaximos()) {
             throw new RuntimeException("Usuario bloqueado");
         }
-        if (user.getPassword() != password) {
+        if (!user.getPassword().equals(password)) {
             sumarUnIntento(user.getNombre());
             throw new RuntimeException("Contraseña incorrecta");
         }
+        System.err.println ( "autenticado" );
         resetearIntentosDe(user.getNombre());
         return true;
     }
@@ -49,7 +51,7 @@ public class Autenticador {
 
     public void crearUsuario(String nombre, Organizacion organizacion ,String password) throws RuntimeException {
         if (this.controlDePassword(password)) {
-            Usuario nuevoUsuario = usuarioBuilder.crearUsuario(null, nombre, password, organizacion);
+            Usuario nuevoUsuario = usuarioBuilder.crearUsuario(TipoUsuario.BASICO, nombre, password, organizacion,null);
             repoUsuarios.agregar(nuevoUsuario);
         } else {
             throw new RuntimeException("Tu contraseña es malarda");
@@ -60,7 +62,7 @@ public class Autenticador {
         return repoUsuarios;
     }
 
-    public Autenticador (RepoUsuarios repo, UsuarioBuilder builder) {
+    public Autenticador(RepoUsuarios repo, UsuarioBuilder builder) {
         this.repoUsuarios = repo;
         this.usuarioBuilder = builder;
         this.configuracion = new Configuracion();

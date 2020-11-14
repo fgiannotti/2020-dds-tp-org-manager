@@ -39,8 +39,8 @@ public class ValidacionesTest {
 
     @Before
     public void Setup () {
-        filtroPorFecha = new FiltroPorFecha(LocalDate.now());
-        filtroPorEstadoNoLeido = new FiltroPorEstado(false);
+        filtroPorFecha = new FiltroPorFecha(LocalDate.now(),bandeja);
+        filtroPorEstadoNoLeido = new FiltroPorEstado(false,bandeja);
         bandeja = new BandejaDeEntrada(filtros);
         bandeja2 = new BandejaDeEntrada(filtros);
 
@@ -48,10 +48,10 @@ public class ValidacionesTest {
         List<Proveedor> proveedores = new ArrayList<Proveedor>();
         proveedores.add(proveedor);
         proveedor = new Proveedor("jorgito-provides","Docu","calle-falsa123");
-        resultado1 = new Resultado(1,proveedores,true,true,true,false, LocalDate.now().minusDays(1));
-        resultado2 = new Resultado(2,proveedores,true,true,true,false, LocalDate.now());
-        resultado3 = new Resultado(3,proveedores,true,true,true,true, LocalDate.now());
-        resultado4 = new Resultado(4,proveedores,true,true,false,true, LocalDate.now().minusDays(1));
+        resultado1 = new Resultado(1,proveedores,true,true,true,false, LocalDate.now().minusDays(1),bandeja);
+        resultado2 = new Resultado(2,proveedores,true,true,true,false, LocalDate.now(),bandeja);
+        resultado3 = new Resultado(3,proveedores,true,true,true,true, LocalDate.now(),bandeja);
+        resultado4 = new Resultado(4,proveedores,true,true,false,true, LocalDate.now().minusDays(1),bandeja);
 
         bandeja.guardarResultado(resultado2);
         bandeja.guardarResultado(resultado1);
