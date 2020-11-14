@@ -13,10 +13,50 @@ public class VinculadorApi {
     public static void main(String[] args) {
         VinculadorApi vincu = new VinculadorApi();
         JSONObject asd = vincu.Post_JSON(
-                "{\"Ingresos\":[{\"id\":13,\"monto\":420,\"fecha\":\"Thu Sep 17 08:21:00 UTC 2020\"}],\"Egresos\":[{\"id\":12,\"monto\":69,\"fecha\":\"Thu Sep 3 08:21:00 UTC 2020\"},{\"id\":13,\"monto\":79,\"fecha\":\"Mon Sep 21 08:21:00 UTC 2020\"}]}",
+                "{\n" +
+                        "    \"Ingresos\":[\n" +
+                        "        {\n" +
+                        "            \"id\":\"69\",\n" +
+                        "             \"monto\":\"52\",\n" +
+                        "            \"fecha\":\"2020-08-23\"\n" +
+                        "        },\n" +
+                        "        {\n" +
+                        "            \"id\":\"16\",\n" +
+                        "             \"monto\":\"345\",\n" +
+                        "            \"fecha\":\"2020-08-26\"\n" +
+                        "        }\n" +
+                        "    ],\n" +
+                        "    \"Egresos\":[\n" +
+                        "        {\n" +
+                        "            \"id\":\"15\",\n" +
+                        "             \"monto\":\"1\",\n" +
+                        "            \"fecha\":\"2020-08-05\"\n" +
+                        "        },\n" +
+                        "        {\n" +
+                        "            \"id\":\"13\",\n" +
+                        "             \"monto\":\"2\",\n" +
+                        "            \"fecha\":\"2020-09-02\"\n" +
+                        "        },\n" +
+                        "        {\n" +
+                        "            \"id\":\"7\",\n" +
+                        "             \"monto\":\"50\",\n" +
+                        "            \"fecha\":\"2020-08-02\"\n" +
+                        "        }\n" +
+                        "    ], \"Configuracion\":\n" +
+                        "    \t{\n" +
+                        "    \t\t\"fechaDesde\":\"2020-08-01\",\n" +
+                        "    \t\t\"fechaHasta\":\"2020-09-10\",\n" +
+                        "    \t\t\"condicionVinculador\": \"PeriodoAceptabilidad\",\n" +
+                        "    \t\t\"criterioVinculacion\": \"Mix\",\n" +
+                        "    \t\t\"criteriosDeMix\": [\n" +
+                        "    \t\t\t\"OrdenValorPrimerIngreso\",\n" +
+                        "    \t\t\t\"Fecha\"\n" +
+                        "    \t\t\t]\n" +
+                        "    \t}\n" +
+                        "} ",
                 "http://localhost:9000/Prueba"
         );
-        System.out.println(asd.toString());
+        System.out.println(asd);
     }
     public JSONObject Post_JSON(String json,String query_url) {
 
@@ -37,6 +77,8 @@ public class VinculadorApi {
             JSONObject myResponse = new JSONObject(result);
             in.close();
             conn.disconnect();
+
+            System.out.println(myResponse.toString());
             return myResponse;
         } catch (Exception e) {
             System.out.println(e);

@@ -88,4 +88,5 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion {
     public void setFechaOperacion(LocalDate fechaOperacion) {
         this.fechaOperacion = fechaOperacion;
     }
+
 }
