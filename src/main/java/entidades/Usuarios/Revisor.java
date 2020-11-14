@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 @Entity
 @DiscriminatorValue("revisor")
 public class Revisor extends Usuario {
+
     @OneToOne(cascade = {CascadeType.ALL})
     private BandejaDeEntrada bandejaDeEntrada;
 
@@ -22,6 +23,15 @@ public class Revisor extends Usuario {
         super(nombre,password,organizacion);
         this.bandejaDeEntrada = bandeja;
     }
+
+    public BandejaDeEntrada getBandejaDeEntrada() {
+        return bandejaDeEntrada;
+    }
+
+    public void setBandejaDeEntrada(BandejaDeEntrada bandejaDeEntrada) {
+        this.bandejaDeEntrada = bandejaDeEntrada;
+    }
+
 
     public void verMensajes(){
         bandejaDeEntrada.mostrarMensajes();

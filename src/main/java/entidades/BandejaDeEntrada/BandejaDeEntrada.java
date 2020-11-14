@@ -2,6 +2,7 @@ package entidades.BandejaDeEntrada;
 
 import db.Converters.EntidadPersistente;
 import entidades.Estrategias.Filtro;
+import entidades.Usuarios.Revisor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +15,8 @@ public class BandejaDeEntrada extends EntidadPersistente {
     private List<Resultado> resultados = new ArrayList<Resultado>();
     @OneToMany(mappedBy = "bandeja", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Filtro> filtros = new ArrayList<Filtro>();
-
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Revisor revisor;
     public BandejaDeEntrada(List<Filtro> filtros){
         resultados = new ArrayList<Resultado>();
         this.filtros = filtros;
@@ -33,4 +35,6 @@ public class BandejaDeEntrada extends EntidadPersistente {
     }
 
     public void setFiltros(List<Filtro> filtros) { this.filtros = filtros; }
+    public List<Filtro> getFiltros() { return this.filtros; }
+
 }

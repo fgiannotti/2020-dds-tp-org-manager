@@ -12,6 +12,7 @@ import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import entidades.Operaciones.Proveedor;
 import entidades.Organizaciones.*;
+import entidades.Usuarios.Revisor;
 import entidades.Usuarios.User;
 import entidades.Usuarios.Usuario;
 import org.junit.Assert;
@@ -23,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBTest {
+    public BandejaDeEntrada bandeja;
+    public BandejaDeEntrada bandeja2;
+
     public Empresa organizacion;
     public OperacionEgreso operacion;
     public Proveedor proveedor;
@@ -33,13 +37,13 @@ public class DBTest {
     public DireccionPostal direccionPostal = new DireccionPostal(new Direccion("calle123",1500,2),new Ciudad("ciudad1"),new Provincia("bs as"),new Pais("arg","AR"));
     public Organizacion juridica = new Juridica("org-jur","razon",2222,direccionPostal,12,null);
     public Usuario usuario1 = new User("pepito", "pep's-pass", juridica);
+    public Revisor revisor1 = new Revisor("alfonso","alfi123",juridica,bandeja2);
     public List<Usuario> usuarios = new ArrayList<Usuario>();
     public Organizacion juridica2 = new OSC("org-jur","razon",2222,direccionPostal,12);
     public Organizacion orgBase = new Base("org-base","AA SA", (Juridica) juridica);
     public Organizacion orgBase2 = new Base("org-base","AA SA", (Juridica) juridica2);
 
-    public BandejaDeEntrada bandeja;
-    public BandejaDeEntrada bandeja2;
+
 
     public Resultado resultado1;
     public Resultado resultado2;
@@ -95,11 +99,14 @@ public class DBTest {
         resultado1 = new Resultado(1,proveedores,true,true,true,false, LocalDate.now().minusDays(1),bandeja);
         resultado2 = new Resultado(2,proveedores,true,true,true,false, LocalDate.now(),bandeja);
         resultado3 = new Resultado(3,proveedores,true,true,true,true, LocalDate.now(),bandeja);
-        resultado4 = new Resultado(4,proveedores,true,true,false,true, LocalDate.now().minusDays(1),bandeja);
+        resultado4 = new Resultado(4,proveedores,true,true,false,true, LocalDate.now().minusDays(1),bandeja2);
 
         bandeja.guardarResultado(resultado2);
         bandeja.guardarResultado(resultado1);
         bandeja.guardarResultado(resultado3);
+        bandeja2.guardarResultado(resultado4);
+
+        revisor1.setBandejaDeEntrada(bandeja2);
     }
 
     @Test
@@ -133,6 +140,27 @@ public class DBTest {
         this.setup();
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(bandeja);
+        EntityManagerHelper.getEntityManager().persist(bandeja2);
         EntityManagerHelper.commit();
+    }
+    @Test
+    public void recuperandoBandeja(){
+        BandejaDeEntrada bandejaDeEntrada = (BandejaDeEntrada) EntityManagerHelper.createQuery("from BandejaDeEntrada where id = 2").getSingleResult();
+        Assert.assertEquals(bandejaDeEntrada.getId(),2);
+        Assert.assertFalse(bandejaDeEntrada.getFiltros().isEmpty());
+    }
+    @Test
+    public void PersistiendoRevisor(){
+        this.setup();
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(revisor1);
+        EntityManagerHelper.commit();
+    }
+    @Test
+    public void recuperandoRevisor(){
+        Revisor alfonsito = (Revisor) EntityManagerHelper.createQuery("from Usuario where nombre = 'alfonso'").getSingleResult();
+        alfonsito.verMensajes();
+        BandejaDeEntrada bandejaDos = alfonsito.getBandejaDeEntrada();
+        Assert.assertNotNull(bandejaDos);
     }
 }
