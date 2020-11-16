@@ -5,6 +5,7 @@ import entidades.Items.Articulo;
 import entidades.Items.Item;
 import entidades.Operaciones.*;
 import repositorios.RepoOperacionesEgresos;
+import server.Router;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -18,9 +19,7 @@ public class OperacionController {
     private RepoOperacionesEgresos repoOperacionesEgresos = new RepoOperacionesEgresos();
 
     public ModelAndView inicio(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
-            response.redirect("/");
-        }
+        Router.CheckIfAuthenticated(request, response);
 
         List<Proveedor> proveedores = new ArrayList<Proveedor>();
         List<Comprobante> comprobantes = new ArrayList<Comprobante>();

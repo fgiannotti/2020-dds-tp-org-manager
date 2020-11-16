@@ -4,6 +4,7 @@ import entidades.BandejaDeEntrada.BandejaDeEntrada;
 import entidades.BandejaDeEntrada.Resultado;
 import entidades.Usuarios.Revisor;
 import repositorios.RepoUsuarios;
+import server.Router;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -17,10 +18,7 @@ public class BandejaDeEntradaController {
     private final RepoUsuarios repoUsuarios = new RepoUsuarios();
 
     public ModelAndView inicio(Request request, Response response){
-
-        if(!request.cookie("id").equals(request.session().id())){
-            response.redirect("/");
-        }
+        Router.CheckIfAuthenticated(request, response);
 
         Map<String, Object> parametros = new HashMap<>();
         String usuario = request.cookie("user");

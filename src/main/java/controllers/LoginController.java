@@ -36,6 +36,7 @@ public class LoginController {
                 response.cookie("id",request.session().id(),1000000000);
                 response.cookie("user",elUsuario.getNombre());
                 response.cookie("rol", elUsuario.getClass().getName());
+
                 System.out.printf("Usuario: %s con id %s y rol %s",elUsuario.getNombre(),request.session().id(),elUsuario.getClass().getName());
 
                 response.redirect("/home");

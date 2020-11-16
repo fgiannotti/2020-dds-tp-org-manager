@@ -2,6 +2,7 @@ package controllers;
 
 import entidades.Operaciones.Operacion;
 import repositorios.RepoOperaciones;
+import server.Router;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -16,9 +17,7 @@ public class VerIngresoEgresoController {
 
 
     public ModelAndView inicio(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
-            response.redirect("/");
-        }
+        Router.CheckIfAuthenticated(request, response);
 
         List<Operacion> operaciones = new ArrayList<Operacion>();
         operaciones.addAll(this.repoOperacion.mostrarTodos());

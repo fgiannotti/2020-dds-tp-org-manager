@@ -4,6 +4,7 @@ import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import repositorios.RepoOperacionesEgresos;
 import repositorios.RepoOperacionesIngresos;
+import server.Router;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -19,9 +20,7 @@ public class AsociadorEgresoIngresoController {
 
 
     public ModelAndView inicio(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
-            response.redirect("/");
-        }
+        Router.CheckIfAuthenticated(request, response);
 
         Map<String, Object> parametros = new HashMap<>();
         List<OperacionIngreso> operacionesIngreso = new ArrayList<OperacionIngreso>();
