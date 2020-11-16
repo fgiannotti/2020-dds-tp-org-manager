@@ -22,7 +22,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     private int numeroOperacion;
 
     @OneToMany(mappedBy = "egreso", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Proveedor> proveedores;
+    private List<Proveedor> proveedores = new ArrayList<Proveedor>();
 
     @Column(name = "fecha_operacion", columnDefinition = "DATE")
     @Convert(converter = LocalDateAttributeConverter.class)
@@ -74,20 +74,11 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Transient
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
-    public Organizacion getOrganizacion() {
-        return organizacion;
-    }
-
-    public void setOrganizacion(Organizacion organizacion) {
-        this.organizacion = organizacion;
-    }
-
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
     private Organizacion organizacion;
 
-    public OperacionEgreso(){
-    }
+    public OperacionEgreso(){ }
 
     public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores, MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos, Criterio criterio){
         this.presupuestosPreliminares = new ArrayList<Presupuesto>();
@@ -118,25 +109,6 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.criterio = criterio;
         this.organizacion = organizacion;
     }
-    private int getNuevoNumeroOperacion() {
-        return this.hashCode();
-    }
-
-    public int getMontoTotal(){
-        return montoTotal;
-    }
-
-    public void setMontoTotal( int newMonto ){
-        montoTotal = newMonto;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
     @Override
     public boolean isEgreso() {
@@ -147,6 +119,103 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     public boolean isIngreso() {
         return false;
     }
+
+    public void adjuntarDocumento(Comprobante comprobante, int numero_operacion) {
+        this.comprobante = comprobante;
+        //this.comprobante.setOrganizacion();
+        this.comprobante.setItems(this.items);                  //  Al adjuntar el comprobante al
+    }                                                           //  documento ambos deben tener los mismos items
+
+    public void addItem(Item item){
+        this.items.add(item);
+    }
+
+    public void removeItem(Item item){
+        this.items.remove(item);
+    }
+    
+    public void verItems(){
+        for (Item item: items) {
+            System.out.println(item.toString());
+        }
+    }
+
+    public Boolean presupuestoMenorValor(Presupuesto presupuesto) {
+        return this.getPresupuestosPreliminares().stream()
+                .noneMatch(presupuesto1 -> presupuesto1.getTotal() < presupuesto.getTotal());
+    }
+    public void agregarCategoria(Categoria categoria){
+        this.categorias.add(categoria);
+    }
+    public void agregarPresupuesto(Presupuesto presupuesto){
+        this.presupuestosPreliminares.add(presupuesto);
+    }
+
+    public void realizarOperacion(){}
+    public void registrarEgreso(int numero_operacion, MedioDePago medio_pago){ }
+
+
+    public Comprobante getDocumento() {
+        return this.comprobante;
+    }
+
+    public int getNumeroOperacion() {
+        return numeroOperacion;
+    }
+
+    public Comprobante getComprobante() { return comprobante; }
+
+    public List<Presupuesto> getPresupuestosPreliminares() { return presupuestosPreliminares; }
+
+    public void setPresupuestosPreliminares(List<Presupuesto> presupuestosPreliminares) { this.presupuestosPreliminares = presupuestosPreliminares; }
+
+    public Integer getCantidadMinimaDePresupuestos() {
+        return this.cantidadMinimaDePresupuestos;
+    }
+
+    public Criterio getCriterio() {
+        return this.criterio;
+    }
+
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public Articulo getArticulo() {
+        return articulo;
+    }
+
+    public void setArticulo(Articulo articulo) {
+        this.articulo = articulo;
+    }
+
+    public Organizacion getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(Organizacion organizacion) {
+        this.organizacion = organizacion;
+    }
+
+    public void setNumeroOperacion(int numeroOperacion) { this.numeroOperacion = numeroOperacion; }
+
+    public void setProveedores(List<Proveedor> proveedores) { this.proveedores = proveedores; }
+
+    public LocalDate getFechaOperacion() { return fechaOperacion; }
+
+    public void setItems(List<Item> items) { this.items = items; }
+
+    public void setCantidadMinimaDePresupuestos(Integer cantidadMinimaDePresupuestos) { this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos; }
+
+    public void setCriterio(Criterio criterio) { this.criterio = criterio; }
+
+    public List<Categoria> getCategorias() { return categorias; }
+
+    public void setCategorias(List<Categoria> categorias) {this.categorias = categorias; }
 
     public void setComprobante(Comprobante comprobante) {
         this.comprobante = comprobante;
@@ -170,97 +239,27 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
 
     public void setMedioDePago(MedioDePago mp) { this.medioDePago = mp; }
 
-    public void setProveedor(List<Proveedor> proveedores) {
-        this.proveedores = proveedores;
-    }
-
     public List<Item> getItems(){
         return this.items;
     }
 
-    public void adjuntarDocumento(Comprobante comprobante, int numero_operacion) {
-        this.comprobante = comprobante;
-        //this.comprobante.setOrganizacion();
-        this.comprobante.setItems(this.items);                  //  Al adjuntar el comprobante al
-    }                                                           //  documento ambos deben tener los mismos items
-
-    public Comprobante getDocumento() {
-        return this.comprobante;
+    private int getNuevoNumeroOperacion() {
+        return this.hashCode();
     }
 
-    public int getNumeroOperacion() {
-        return numeroOperacion;
+    public int getMontoTotal(){
+        return montoTotal;
     }
 
-    public void addItem(Item item){
-        this.items.add(item);
+    public void setMontoTotal( int newMonto ){
+        montoTotal = newMonto;
     }
 
-    public void removeItem(Item item){
-        this.items.remove(item);
-    }
-    
-    public void verItems(){
-        for (Item item: items) {
-            System.out.println(item.toString());
-        }
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void realizarOperacion(){
-
-    }
-
-    public void registrarEgreso(int numero_operacion, MedioDePago medio_pago){
-
-    }
-
-    public Comprobante getComprobante() {
-        return comprobante;
-    }
-
-
-    public List<Presupuesto> getPresupuestosPreliminares() {
-        return presupuestosPreliminares;
-    }
-
-    public void setPresupuestosPreliminares(List<Presupuesto> presupuestosPreliminares) {
-        this.presupuestosPreliminares = presupuestosPreliminares;
-    }
-
-    public Integer getCantidadMinimaDePresupuestos() {
-        return this.cantidadMinimaDePresupuestos;
-    }
-
-    public Criterio getCriterio() {
-        return this.criterio;
-    }
-
-    public Boolean presupuestoMenorValor(Presupuesto presupuesto) {
-        return this.getPresupuestosPreliminares().stream()
-                .noneMatch(presupuesto1 -> presupuesto1.getTotal() < presupuesto.getTotal());
-    }
-
-    public void agregarCategoria(Categoria categoria){
-        this.categorias.add(categoria);
-    }
-
-    public void agregarPresupuesto(Presupuesto presupuesto){
-        this.presupuestosPreliminares.add(presupuesto);
-    }
-
-    public String getTipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public void setTipoDocumento(String tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
-    }
-
-    public Articulo getArticulo() {
-        return articulo;
-    }
-
-    public void setArticulo(Articulo articulo) {
-        this.articulo = articulo;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }
