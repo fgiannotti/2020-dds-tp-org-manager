@@ -9,6 +9,8 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import server.Router;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +20,7 @@ public class OperacionController {
     private RepoOperacionesEgresos repoOperacionesEgresos = new RepoOperacionesEgresos();
 
     public ModelAndView inicio(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
-            response.redirect("/");
-        }
+        Router.CheckIfAuthenticated(request, response);
 
         List<Proveedor> proveedores = new ArrayList<Proveedor>();
         List<Comprobante> comprobantes = new ArrayList<Comprobante>();

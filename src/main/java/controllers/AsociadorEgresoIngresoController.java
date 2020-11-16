@@ -8,6 +8,8 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import server.Router;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +21,7 @@ public class AsociadorEgresoIngresoController {
 
 
     public ModelAndView inicio(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
-            response.redirect("/");
-        }
+        Router.CheckIfAuthenticated(request, response);
 
         Map<String, Object> parametros = new HashMap<>();
         List<OperacionIngreso> operacionesIngreso = new ArrayList<OperacionIngreso>();
