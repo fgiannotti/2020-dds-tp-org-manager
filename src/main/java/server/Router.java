@@ -4,6 +4,8 @@ package server;
 import com.github.jknack.handlebars.Helper;
 import com.github.jknack.handlebars.Options;
 import controllers.*;
+import spark.Request;
+import spark.Response;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.BooleanHelper;
@@ -68,4 +70,11 @@ public class Router {
 
 
     }
+    
+        public static void CheckIfAuthenticated(Request request, Response response){
+        if(request.cookie("id") == null || !request.cookie("id").equals(request.session().id())){
+            System.out.printf("USUARIO NO AUTENTICADO, REDIRECT A LOGIN. cookie-id: %s, session-id: %s",request.cookie("id"),request.session().id());
+            response.redirect("/");
+        }
+    }	    
 }
