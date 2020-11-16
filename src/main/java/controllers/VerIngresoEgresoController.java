@@ -16,6 +16,10 @@ public class VerIngresoEgresoController {
 
 
     public ModelAndView inicio(Request request, Response response){
+        if(!request.cookie("id").equals(request.session().id())){
+            response.redirect("/");
+        }
+
         List<Operacion> operaciones = new ArrayList<Operacion>();
         operaciones.addAll(this.repoOperacion.mostrarTodos());
         Map<String, Object> parametros = new HashMap<>();

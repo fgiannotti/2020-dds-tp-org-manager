@@ -23,15 +23,21 @@ public class LoginController {
         RepoUsuarios repoUsuarios = new RepoUsuarios();
         UsuarioBuilder builder = new UsuarioBuilder();
         Autenticador autenticador = new Autenticador(repoUsuarios, builder);
+
         Login login = new Login(autenticador);
         try{
             String nombreDeUsuario = request.queryParams("nombreDeUsuario");
             String contrasenia     = request.queryParams("contrasenia");
 
             if(login.login(nombreDeUsuario, contrasenia)){
-                request.session(true);
                 Usuario elUsuario = repoUsuarios.buscarPorNombre(nombreDeUsuario);
-                //request.session().attribute("rol", elUsuario.getClaseUsuario().toString());
+
+                request.session(true);                     // create and return session
+                response.cookie("id",request.session().id(),1000000000);
+                response.cookie("user",elUsuario.getNombre());
+                response.cookie("rol", elUsuario.getClass().getName());
+                System.out.printf("Usuario: %s con id %s y rol %s",elUsuario.getNombre(),request.session().id(),elUsuario.getClass().getName());
+
                 response.redirect("/home");
             }
             else{
