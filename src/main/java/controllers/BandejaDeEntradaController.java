@@ -18,9 +18,7 @@ public class BandejaDeEntradaController {
 
     public ModelAndView inicio(Request request, Response response){
 
-        if(!request.cookie("id").equals(request.session().id())){
-            response.redirect("/");
-        }
+        Router.CheckIfAuthenticated(request, response);
 
         Map<String, Object> parametros = new HashMap<>();
         String usuario = request.cookie("user");
