@@ -89,4 +89,17 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion {
         this.fechaOperacion = fechaOperacion;
     }
 
+    public LocalDate getFechaOperacion() {
+        return fechaOperacion;
+    }
+
+    public Organizacion getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(Organizacion organizacion) {
+        this.organizacion = organizacion;
+    }
+
+
 }

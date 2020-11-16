@@ -35,7 +35,11 @@ public class LoginController {
                 request.session(true);                     // create and return session
                 response.cookie("id",request.session().id(),1000000000);
                 response.cookie("user",elUsuario.getNombre());
-                response.cookie("rol", elUsuario.getClass().getName());
+                String rol = "basico";
+                if (elUsuario.getClass().getName().contains("Revisor")){rol = "revisor";}
+
+                response.cookie("rol",rol);
+
                 System.out.printf("Usuario: %s con id %s y rol %s",elUsuario.getNombre(),request.session().id(),elUsuario.getClass().getName());
 
                 response.redirect("/home");

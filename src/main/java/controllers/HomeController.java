@@ -15,6 +15,11 @@ public class HomeController {
             System.out.printf("USUARIO NO AUTENTICADO, REDIRECT A LOGIN. cookie-id: %s, session-id: %s",request.cookie("id"),request.session().id());
             response.redirect("/");
         }
-        return new ModelAndView(parametros,"index-menu-revisor.hbs");
+        String rol = request.cookie("rol");
+        if (rol.equals("revisor")){
+            return new ModelAndView(parametros,"index-menu-revisor.hbs");
+        }else{
+            return new ModelAndView(parametros,"home.hbs");
+        }
     }
 }
