@@ -19,9 +19,7 @@ public class AsociadorEgresoIngresoController {
 
 
     public ModelAndView inicio(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
-            response.redirect("/");
-        }
+        Router.CheckIfAuthenticated(request, response);
 
         Map<String, Object> parametros = new HashMap<>();
         List<OperacionIngreso> operacionesIngreso = new ArrayList<OperacionIngreso>();
