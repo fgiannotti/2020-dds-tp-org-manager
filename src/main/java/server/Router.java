@@ -1,6 +1,8 @@
 package server;
 
 
+import com.github.jknack.handlebars.Helper;
+import com.github.jknack.handlebars.Options;
 import controllers.*;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -15,6 +17,9 @@ public class Router {
                 .create()
                 .withDefaultHelpers()
                 .withHelper("isTrue", BooleanHelper.isTrue)
+                .withHelper("inc", new Helper<Integer>() {
+                    public Integer apply(Integer value, Options options){ return value+1;}
+                })
                 .build();
     }
 
@@ -55,7 +60,7 @@ public class Router {
 
         Spark.get("/visualizacionIngresoEgresoPorCat", verIngresoEgresoController::inicio, Router.engine);
 
-        Spark.get("/BandejaDeMensajes", bandejaDeEntradaController::inicio, Router.engine);
+        Spark.get("/ver-bandeja", bandejaDeEntradaController::inicio, Router.engine);
 
         Spark.post("/proveedor", asociadorEgresoCategoriaController::altaIngreso); //guardar Proveedor
 

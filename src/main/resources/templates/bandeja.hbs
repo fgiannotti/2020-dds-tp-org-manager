@@ -26,7 +26,7 @@
   			top: 50%;
   			transform: translate(-50%, -50%);">
 
-	<h1> &nbsp; Veamos nuestros mensajes: </h1>
+	<h1> &emsp; &emsp; Veamos nuestros mensajes: </h1>
 
 		<div style="background-color:#b0c1eb;
 			border:1px solid black;
@@ -35,7 +35,15 @@
   			position: absolute;
   			left: 50%;
   			top: 50%;
-  			transform: translate(-50%, -50%);"> <h1 style=" position: absolute; left:50%; top:50%; transform: translate(-50%, -50%);">Aca van los mensajes</h1> </div>
+  			transform: translate(-50%, -50%);">
+            {{#each resultados}}
+                <h3>  &emsp; &emsp; Mensaje &emsp; {{inc @index}}: </h3>
+                <p> &emsp; &emsp;  &emsp; &emsp;  &emsp; &emsp; {{this}}</p>
+            {{else}}
+                <p> &emsp; &emsp; Sin mensajes.</p>
+            {{/each}}
+
+        </div>
 
 	  	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	  	<button type="button" onclick="location.href='home';" style="width: 200px; height: 30px; position: relative; left:25px"> Volver a Home</button>

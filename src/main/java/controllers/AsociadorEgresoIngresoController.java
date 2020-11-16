@@ -19,6 +19,10 @@ public class AsociadorEgresoIngresoController {
 
 
     public ModelAndView inicio(Request request, Response response){
+        if(!request.cookie("id").equals(request.session().id())){
+            response.redirect("/");
+        }
+
         Map<String, Object> parametros = new HashMap<>();
         List<OperacionIngreso> operacionesIngreso = new ArrayList<OperacionIngreso>();
         operacionesIngreso.addAll(this.repoIngreso.getAll());
@@ -30,6 +34,10 @@ public class AsociadorEgresoIngresoController {
     }
 
     public Response asociar(Request request, Response response) {
+        if(!request.cookie("id").equals(request.session().id())){
+            response.redirect("/");
+        }
+
         int unIngreso = Integer. parseInt(request.queryParams("ingreso"));
         int unEgreso = Integer. parseInt(request.queryParams("egreso"));
         System.out.println(unIngreso);

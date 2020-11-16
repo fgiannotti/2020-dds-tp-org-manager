@@ -18,6 +18,10 @@ public class OperacionController {
     private RepoOperacionesEgresos repoOperacionesEgresos = new RepoOperacionesEgresos();
 
     public ModelAndView inicio(Request request, Response response){
+        if(!request.cookie("id").equals(request.session().id())){
+            response.redirect("/");
+        }
+
         List<Proveedor> proveedores = new ArrayList<Proveedor>();
         List<Comprobante> comprobantes = new ArrayList<Comprobante>();
         List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
@@ -41,6 +45,9 @@ public class OperacionController {
     }
 
     public Response crearOperacionEgreso (Request request, Response response){
+        if(!request.cookie("id").equals(request.session().id())){
+            response.redirect("/");
+        }
         OperacionEgreso operacionEgreso = new OperacionEgreso();
         //asignarAtributosA(operacionEgreso, request);
 

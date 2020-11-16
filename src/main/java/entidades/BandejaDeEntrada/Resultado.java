@@ -46,8 +46,13 @@ public class Resultado extends EntidadPersistente {
                 " Corresponde Criterio: "+ String.valueOf(correspondeCriterio)+
                 " Fecha de Validacion: "+fechaValidacion.toString());
     }
-
     public Boolean getFueLeido(){ return this.fueLeido; }
-
+    public String toString(){
+        return "Numero Operacion: "+numeroOperacion+
+            "\n Carga Correcta: "+ String.valueOf(correspondeCargaCorrecta)+
+            "\n Corresponde Detalle: "+ String.valueOf(correspondeDetalle)+
+            "\n Corresponde Criterio: "+ String.valueOf(correspondeCriterio)+
+            "\n Fecha de Validacion: "+fechaValidacion.toString();
+    }
     public LocalDate getFechaValidacion() { return fechaValidacion; }
 }

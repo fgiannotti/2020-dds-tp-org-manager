@@ -34,6 +34,13 @@ public class BandejaDeEntrada extends EntidadPersistente {
         resultados.add(resultado);
     }
 
+    public List<Resultado> getResultadosFiltrados() {
+        List<Resultado> resultadosFiltrados = resultados;
+        for(Filtro f: filtros){
+            resultadosFiltrados = f.filtrar(resultadosFiltrados);
+        }
+        return resultadosFiltrados;
+    }
     public void setFiltros(List<Filtro> filtros) { this.filtros = filtros; }
     public List<Filtro> getFiltros() { return this.filtros; }
 

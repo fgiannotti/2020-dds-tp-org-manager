@@ -25,6 +25,7 @@ function includeHTML() {
     }
   }
 }
+
 $(document).ready(function(){
   $("#inputUsuario").on("keyup", function() {
     var value = $(this).val().toLowerCase();
