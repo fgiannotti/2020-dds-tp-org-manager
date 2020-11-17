@@ -19,12 +19,17 @@ public class VerIngresoEgresoController {
 
     public ModelAndView inicio(Request request, Response response){
         Router.CheckIfAuthenticated(request, response);
-
-        List<Operacion> operaciones = new ArrayList<Operacion>();
-        operaciones.addAll(this.repoOperacion.mostrarTodos());
+        List<OperacionEgreso> operaciones = new ArrayList<OperacionEgreso>();
+        operaciones.addAll(this.repo.getAllByUser (username));
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("operaciones", operaciones);
         return new ModelAndView(parametros,"visualizar-egresos.hbs");
+
+        //List<Operacion> operaciones = new ArrayList<Operacion>();
+        //operaciones.addAll(this.repoOperacion.mostrarTodos());
+        //Map<String, Object> parametros = new HashMap<>();
+        //parametros.put("operaciones", operaciones);
+        //return new ModelAndView(parametros,"visualizar-egresos.hbs");
     }
     //public Response filtrarPorMayor(Request request, Response response){
     //    List<OperacionEgreso> egresos = new ArrayList<OperacionEgreso>();
