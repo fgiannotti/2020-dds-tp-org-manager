@@ -55,9 +55,9 @@ public class OperacionesTest {
     @Test
     public void laOperacionEsGuardadaCorrectamenteEnLaOrg() {
         this.setup();
-        int tamanio = organizacion.getOperacionesRealizadas().size();
+        int tamanio = organizacion.getEgresos().size();
         int hash = this.operacion.hashCode();
-        Operacion actualOperacion = organizacion.getOperacionesRealizadas().get(0);
+        Operacion actualOperacion = organizacion.getEgresos().get(0);
         Assertions.assertEquals(1, tamanio);
         Assertions.assertEquals(hash, actualOperacion.hashCode());
     }
@@ -83,7 +83,7 @@ public class OperacionesTest {
     public void sePuedeObtenerProveedorDeUnaOperacion(){
         this.setup();
         String nombre = proveedor.getNombre_apellido_razon();
-        OperacionEgreso OE = (OperacionEgreso) organizacion.getOperacionesRealizadas().get(0);
+        OperacionEgreso OE = organizacion.getEgresos().get(0);
         String nombreEnOperacion = proveedores.get(0).getNombre_apellido_razon();
         Assertions.assertEquals(nombre, nombreEnOperacion);
     }
@@ -92,7 +92,7 @@ public class OperacionesTest {
     public void sePuedeObtenerDetalleItemsDeUnaOperacion(){
         String item = new String();
         this.setup();
-        OperacionEgreso OE = (OperacionEgreso) organizacion.getOperacionesRealizadas().get(0);
+        OperacionEgreso OE = (OperacionEgreso) organizacion.getEgresos().get(0);
         item = OE.getItems().get(0).toString();
         System.out.println(item);
         Assertions.assertEquals(item, this.items.get(0).toString());
@@ -101,7 +101,7 @@ public class OperacionesTest {
     @Test
     public void seRegistranLosDatosDelMedioDePago(){
         this.setup();
-        OperacionEgreso OE = (OperacionEgreso) organizacion.getOperacionesRealizadas().get(0);
+        OperacionEgreso OE = (OperacionEgreso) organizacion.getEgresos().get(0);
         Assertions.assertEquals(this.medioDePago.getMedio(), OE.getMedioDePago().getMedio());
         Assertions.assertEquals(this.medioDePago.getNumero(), OE.getMedioDePago().getNumero());
     }

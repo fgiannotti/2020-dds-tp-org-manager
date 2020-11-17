@@ -13,17 +13,19 @@ public class RepoOperacionesIngresos {
         operaciones = new ArrayList<OperacionIngreso>();
     }
 
-    public ArrayList<OperacionIngreso> getAll () {
+    public ArrayList<OperacionIngreso> getAll() {
         String query = "from OperacionIngreso";
         ArrayList<OperacionIngreso> operaciones = new ArrayList<OperacionIngreso>();
         EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
         return operaciones;
     }
-    public OperacionIngreso find (int id) {
+    public OperacionIngreso find(int id) {
         String query = "from OperacionIngreso";
         ArrayList<OperacionIngreso> operaciones = new ArrayList<OperacionIngreso>();
+
         EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
         for (OperacionIngreso operacion : operaciones) {
+            System.out.println("Busco ID:"+String.valueOf(id)+ "contra: "+String.valueOf(operacion.getId()));
             if (operacion.getId() == id){
                 return operacion;
             }

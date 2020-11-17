@@ -1,10 +1,13 @@
 package controllers;
 
+import db.EntityManagerHelper;
+import entidades.BandejaDeEntrada.Resultado;
 import entidades.Configuracion.Configuracion;
 import entidades.Configuracion.ConfiguracionApi;
 import entidades.Operaciones.Operacion;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
+import entidades.Usuarios.Revisor;
 import entidades.Usuarios.Usuario;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,30 +30,24 @@ public class AsociadorEgresoIngresoController {
     private RepoOperacionesIngresos repoIngreso = new RepoOperacionesIngresos();
     private RepoUsuarios repoUsuarios = new RepoUsuarios();
 
+    private Usuario user;
 
     public ModelAndView inicio(Request request, Response response){
         Router.CheckIfAuthenticated(request, response);
         String userName = request.cookie("user");
-        Usuario user = repoUsuarios.buscarPorNombre(userName);
+        user = repoUsuarios.buscarPorNombre(userName);
+
         Map<String, Object> parametros = new HashMap<>();
         List<OperacionIngreso> operacionesIngreso = new ArrayList<OperacionIngreso>();
-        List<OperacionIngreso> opIngreso = new ArrayList<>();
-        for (Operacion operacion1 : user.getOrganizacionALaQuePertenece().getOperacionesRealizadas()) {
-            if (operacion1.isIngreso()) {
-                opIngreso.add((OperacionIngreso) operacion1);
-            }
-        }
-        operacionesIngreso.addAll(opIngreso);
         List<OperacionEgreso> operacionesEgreso = new ArrayList<OperacionEgreso>();
-        List<OperacionIngreso> opEgreso = new ArrayList<>();
-        for (Operacion operacion1 : user.getOrganizacionALaQuePertenece().getOperacionesRealizadas()) {
-            if (operacion1.isEgreso()) {
-                opEgreso.add((OperacionIngreso) operacion1);
-            }
-        }
-        operacionesIngreso.addAll(opEgreso);
+
+        operacionesIngreso.addAll(user.getOrganizacionALaQuePertenece().getIngresos());
+
+        operacionesEgreso.addAll(user.getOrganizacionALaQuePertenece().getEgresos());
+
         parametros.put("ingresos", operacionesIngreso);
         parametros.put("egresos", operacionesEgreso);
+
         return new ModelAndView(parametros,"asociar.hbs");
     }
 
@@ -59,19 +56,21 @@ public class AsociadorEgresoIngresoController {
             response.redirect("/");
         }
         String[] ingresosEgresos = request.body().split("&");
-        ArrayList<Operacion> operacionIngreso = new ArrayList<>();
-        ArrayList<Operacion> operacionEgreso = new ArrayList<>();
+
+        ArrayList<Operacion> operacionIngresos = new ArrayList<>();
+        ArrayList<Operacion> operacionesEgresos = new ArrayList<>();
+
         for (String ingresoEgreso : ingresosEgresos) {
             String[] splitIngresoEgreso = ingresoEgreso.split("=");
             if(splitIngresoEgreso[0].equals("ingreso")){
-                operacionIngreso.add(this.repoIngreso.find(Integer.parseInt(splitIngresoEgreso[1])));
+                operacionIngresos.add(this.repoIngreso.find(Integer.parseInt(splitIngresoEgreso[1])));
             }
             if(splitIngresoEgreso[0].equals("egreso")){
-                operacionEgreso.add(this.repoEgresos.find(Integer.parseInt(splitIngresoEgreso[1])));
+                operacionesEgresos.add(this.repoEgresos.find(Integer.parseInt(splitIngresoEgreso[1])));
             }
         }
-        JSONArray jsonIngreso = this.jsonOperacional(operacionIngreso.stream());
-        JSONArray jsonEgreso= this.jsonOperacional(operacionEgreso.stream());
+        JSONArray jsonIngreso = this.jsonOperacional(operacionIngresos.stream());
+        JSONArray jsonEgreso= this.jsonOperacional(operacionesEgresos.stream());
         JSONObject json= new JSONObject();
         json.put("Ingresos",jsonIngreso);
         json.put("Egresos",jsonEgreso);
@@ -80,22 +79,54 @@ public class AsociadorEgresoIngresoController {
 
         VinculadorApi vinculador = new VinculadorApi();
         Configuracion config = new Configuracion();
+        System.out.println(json.toString() + config.getApiVinculador());
+
         JSONObject responseVinculador = vinculador.Post_JSON(json.toString(), config.getApiVinculador());
         JSONArray jsonVinculos = (JSONArray) responseVinculador.get("Relaciones");
-        jsonVinculos.forEach((jsonVinculo) -> {
-            JSONObject jsonViculaciones=(JSONObject) jsonVinculo;
+
+        List<OperacionIngreso> ingresos = new ArrayList<OperacionIngreso>();
+
+        List<Resultado> resultados = new ArrayList<Resultado>();
+
+        for (Object jsonVinculo : jsonVinculos) {
+            JSONObject jsonViculaciones = (JSONObject) jsonVinculo;
             Integer idIngreso = (Integer) jsonViculaciones.get("IDIngreso");
             JSONArray jsonEgresos = (JSONArray) jsonViculaciones.get("IDSEgresos");
-            Optional<Operacion> operacionIngresoResponse;
-            operacionIngresoResponse = Optional.ofNullable(this.repoIngreso.find(idIngreso));
-            OperacionIngreso operacionIngreso2 = (OperacionIngreso) operacionIngresoResponse.get();
+
+            Optional<Operacion> operacionIngresoResponse = Optional.ofNullable(this.repoIngreso.find(idIngreso));
+            OperacionIngreso operacionIngreso = (OperacionIngreso) operacionIngresoResponse.get();
+
+            //ahora los egresos para este ingreso
             jsonEgresos.forEach((jsonConId) -> {
                 Optional<Operacion> operacionEgresoResponse;
                 operacionEgresoResponse = Optional.ofNullable(this.repoEgresos.find(Integer.parseInt(String.valueOf(jsonConId))));
                 OperacionEgreso operacionEgreso2 = (OperacionEgreso) operacionEgresoResponse.get();
-                operacionIngreso2.agregarOperacionEgresos(operacionEgreso2);
+
+                operacionIngreso.agregarOperacionEgresos(operacionEgreso2);
             });
-        });
+
+            ingresos.add(operacionIngreso);
+        }
+
+        //pongo todos estos ingresos vinculados en la bandeja de cada usuario revisor de la empresa
+        List<Revisor> revisoresDeLaOrg = repoUsuarios.buscarRevisoresPorOrganizacion(user.getOrganizacionALaQuePertenece().getId());
+        for (Revisor revisor : revisoresDeLaOrg) {
+            for (OperacionIngreso ingreso: ingresos){
+                for(OperacionEgreso egreso:  ingreso.getOperacionEgresos()){
+                    Resultado egresoResultado = new Resultado(ingreso.getId(), egreso.getProveedores(), true, true, true, true, LocalDate.now(), revisor.getBandejaDeEntrada());
+                    resultados.add(egresoResultado);
+                }
+            }
+
+        }
+
+        if (ingresos.size() != 0){
+            System.out.println("operacion ingreso vinculada con "+ ingresos.get(0).toString()+" con " + ingresos.get(0).getOperacionEgresos().size()+" egresos");
+        }
+
+        for(Resultado resultado: resultados){
+            EntityManagerHelper.persist(resultado);
+        }
 
         response.redirect("/home"); //success
         return response;
