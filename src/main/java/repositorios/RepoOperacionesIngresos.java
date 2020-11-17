@@ -19,4 +19,10 @@ public class RepoOperacionesIngresos {
         EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
         return operaciones;
     }
+    public void guardar(OperacionIngreso nuevoIngreso) {
+
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(nuevoIngreso);
+        EntityManagerHelper.commit();
+    }
 }
