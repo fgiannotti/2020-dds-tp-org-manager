@@ -20,6 +20,18 @@ public class RepoOperacionesEgresos {
         return operaciones;
     }
 
+    public OperacionEgreso find (int id) {
+        String query = "from OperacionEgreso";
+        ArrayList<OperacionEgreso> operaciones = new ArrayList<OperacionEgreso>();
+        EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionEgreso)a); });
+        for (OperacionEgreso operacion : operaciones) {
+            if (operacion.getId() == id){
+                return operacion;
+            }
+        }
+        throw new RuntimeException(("Entidad no encontrada. id: ").concat(String.valueOf(id)));
+    }
+
     public void agregar(OperacionEgreso nuevoEgreso) {
         this.operaciones.add(nuevoEgreso);
         EntityManagerHelper.beginTransaction();

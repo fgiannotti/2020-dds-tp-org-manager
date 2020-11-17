@@ -69,7 +69,6 @@ public abstract class Organizacion extends EntidadPersistente {
         operacionIngreso = this.getOperacionesRealizadas().stream().filter(operacion -> operacion.isIngreso() && operacion.getId()==idIngreso).findFirst();
         OperacionIngreso operacionIngreso2 = (OperacionIngreso) operacionIngreso.get();
         jsonEgresos.forEach((jsonConId) -> {
-            System.out.println(jsonConId.toString());
             Optional<Operacion> operacionEgreso;
             operacionEgreso = this.getOperacionesRealizadas().stream().filter(operacion -> operacion.isEgreso() && operacion.getId()==Integer.parseInt(String.valueOf(jsonConId))).findFirst();
             OperacionEgreso operacionEgreso2 = (OperacionEgreso) operacionEgreso.get();
@@ -85,7 +84,7 @@ public abstract class Organizacion extends EntidadPersistente {
         });
     }
 
-    protected JSONArray jsonOperacional(Stream<Operacion> operacionStream){
+    public JSONArray jsonOperacional(Stream<Operacion> operacionStream){
 
         JSONArray jsonDeOperaciones = new JSONArray();
         operacionStream.forEach((operacion)-> {

@@ -16,7 +16,13 @@ public class RepoUsuarios {
         unUsuario = (Usuario) EntityManagerHelper.createQuery(query).getResultList().get(0);
         return unUsuario;
     }
+    public Usuario find (String id) {
+        Usuario unUsuario;
 
+        String query = "from Usuario where id = '" +  id + "'";
+        unUsuario = (Usuario) EntityManagerHelper.createQuery(query).getResultList().get(0);
+        return unUsuario;
+    }
     public User buscarBasicoPorNombre(String nombre) {
         User unUsuario;
 

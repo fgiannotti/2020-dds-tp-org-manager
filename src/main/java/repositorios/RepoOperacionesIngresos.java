@@ -19,6 +19,17 @@ public class RepoOperacionesIngresos {
         EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
         return operaciones;
     }
+    public OperacionIngreso find (int id) {
+        String query = "from OperacionIngreso";
+        ArrayList<OperacionIngreso> operaciones = new ArrayList<OperacionIngreso>();
+        EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
+        for (OperacionIngreso operacion : operaciones) {
+            if (operacion.getId() == id){
+                return operacion;
+            }
+        }
+        throw new RuntimeException(("Entidad no encontrada. id: ").concat(String.valueOf(id)));
+    }
     public void guardar(OperacionIngreso nuevoIngreso) {
 
         EntityManagerHelper.beginTransaction();
