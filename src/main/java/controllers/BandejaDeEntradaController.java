@@ -22,11 +22,12 @@ public class BandejaDeEntradaController {
 
         Router.CheckIfAuthenticated(request, response);
 
-        Map<String, Object> parametros = new HashMap<>();
         String usuario = request.cookie("user");
         Revisor user = repoUsuarios.buscarRevisorPorNombre(usuario);
         BandejaDeEntrada bandeja = user.getBandejaDeEntrada();
         List<Resultado> resultados = bandeja.getResultadosFiltrados();
+
+        Map<String, Object> parametros = new HashMap<>();
         parametros.put("resultados",resultados);
 
         System.out.println(Arrays.toString(resultados.toArray()));

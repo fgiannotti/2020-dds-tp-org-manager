@@ -18,11 +18,28 @@
         <br>
         <div class="general-medio">
       <h1 class="medio">Criterio:</h1>
-         </div><br>
+         </div><br><br>
          <div class="box-Medio">
            <select class="opcion-multiple">
                <option value="value1"></option>
                </select>
+             <br><br><br>
+
+             <div class="box-Medio">
+                 {{#each egresos}}
+                     <h3> Egreso {{inc @index}}: </h3>
+                     <p> {{numeroOperacion}}-{{descripcion}}-{{fechaOperacion}}-{{montoTotal}}</p>
+                 {{else}}
+                     <p> &emsp; &emsp; Sin egresos.</p>
+                 {{/each}}
+
+                 {{#each ingresos}}
+                     <h3> Egreso {{inc @index}}: </h3>
+                     <p> &emsp; {{id}}-{{descripcion}}-{{fechaOperacion}}-{{montoTotal}}</p>
+                 {{else}}
+                     <p> &emsp; &emsp; Sin egresos.</p>
+                 {{/each}}
+             </div>
           </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
           <br><br><br><br><br>
          <div class="general-home">

@@ -2,6 +2,7 @@ package repositorios;
 
 import db.EntityManagerHelper;
 import entidades.Operaciones.OperacionIngreso;
+import entidades.Organizaciones.Organizacion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +21,8 @@ public class RepoOperacionesIngresos {
         return operaciones;
     }
 
-     public ArrayList<OperacionIngreso> getAllByUser (String username) {
-        String query = "select id,\n" +
-                " descripcion,\n" +
-                " fecha_operacion,\n" +
-                " montoTotal,\n" +
-                " organizacion_id from ingresos i JOIN organizaciones o ON i.organizacion_id = o.id JOIN usuarios u ON u.organizacion_id = o.id WHERE u.nombre = '" +
-                username +  "'";
+    public ArrayList<OperacionIngreso> getAllByOrg(Organizacion org) {
+        String query = "from OperacionIngreso WHERE organizacion_id = '" + org.getId() +  "'";
         ArrayList<OperacionIngreso> operaciones = new ArrayList<OperacionIngreso>();
         EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
         return operaciones;
