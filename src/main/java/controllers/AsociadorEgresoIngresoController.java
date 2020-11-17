@@ -40,6 +40,9 @@ public class AsociadorEgresoIngresoController {
 
         int unIngreso = Integer. parseInt(request.queryParams("ingreso"));
         int unEgreso = Integer. parseInt(request.queryParams("egreso"));
+        OperacionEgreso egreso = repoEgresos.get(unEgreso);
+        OperacionIngreso ingreso = repoIngreso.get(unEgreso);
+        egreso.setIngreso(ingreso);
         System.out.println(unIngreso);
         System.out.println(unEgreso);
         response.redirect("/home"); //success

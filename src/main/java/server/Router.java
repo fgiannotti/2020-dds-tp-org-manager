@@ -37,6 +37,8 @@ public class Router {
         AsociadorEgresoCategoriaController asociadorEgresoCategoriaController = new AsociadorEgresoCategoriaController();
         VerIngresoEgresoController verIngresoEgresoController = new VerIngresoEgresoController();
         BandejaDeEntradaController bandejaDeEntradaController = new BandejaDeEntradaController();
+        ProveedorController proveedorController = new ProveedorController();
+        ArticuloController articuloController = new ArticuloController();
 
         Spark.get("/", loginController::inicio, Router.engine);
 
@@ -48,7 +50,7 @@ public class Router {
 
         Spark.get("/CrearOperacionEgreso", operacionController::inicio, Router.engine);
 
-        Spark.post("/CrearOperacionEgreso", operacionController::crearOperacionEgreso);
+        Spark.post("/CrearOperacionEgreso", proveedorController::inicio);
 
         Spark.get("/asocIngresoEgreso", asociadorEgresoIngresoController::inicio, Router.engine);
 
@@ -62,10 +64,28 @@ public class Router {
 
         Spark.get("/ver-bandeja", bandejaDeEntradaController::inicio, Router.engine);
 
-        Spark.post("/proveedor", asociadorEgresoCategoriaController::altaIngreso); //guardar Proveedor
+        Spark.post("/altaProveedor", proveedorController::altaProveedor);
 
         Spark.get("/CrearOperacionEgreso", operacionController::inicio, Router.engine);
 
+        Spark.get("/crearEgreso1", operacionController::fechaYCantidad, Router.engine);
 
+        Spark.post("/crearEgreso1", operacionController::postFechaYCantidad);
+
+        Spark.get("/crearEgreso2", operacionController::seleccionarProveedor, Router.engine);
+
+        Spark.post("/crearEgreso2", operacionController::postSeleccionarProveedor);
+
+        Spark.get("/crearEgreso3", operacionController::medioDePago, Router.engine);
+
+        Spark.post("/crearEgreso3", operacionController::postMedioDePago);
+
+        Spark.get("/crearEgreso4", articuloController::articulos, Router.engine);
+
+        Spark.post("/crearEgreso4", articuloController::postArticulos);
+
+        Spark.get("/crearEgreso5", operacionController::seleccionArticulos, Router.engine);
+
+        Spark.post("/crearEgreso5", operacionController::postSeleccionArticulos);
     }
 }

@@ -19,4 +19,11 @@ public class RepoOperacionesIngresos {
         EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
         return operaciones;
     }
+
+    public OperacionIngreso get (int id) {
+        String query = "from OperacionIngreso where id = " + id;
+        OperacionIngreso operacion = new OperacionIngreso();
+        EntityManagerHelper.createQuery(query).getFirstResult();
+        return operacion;
+    }
 }

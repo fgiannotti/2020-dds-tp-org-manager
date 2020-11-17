@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/logic.js"></script>
+    <link rel="stylesheet" href="/css/estilo-articulo.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <title>Articulo</title>
+</head>
+<body>
+    <div class="titulo">
+    <h1 class="nombre-titulo">Seleccionar Articulo</h1>
+    </div>
+    <div class="general">
+      <br>
+      <div class="general-medio">
+      <form action="/crearEgreso5" method="post" class="form-">
+    <h1 class="medio">Artículo:</h1>
+       </div><br>
+       <div class="box-Medio">
+         <select class="opcion-multiple">
+            {{#each articulos}}
+                <option value='{{nombre}}'>{{nombre}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <br><br><br>
+      <div class="general-siguiente3">
+        <br><br><br><br><br>
+        <button class="boton_siguiente" onclick="location.href='seleccionar-articulo.html'">Cargar más artículos</button>
+     </div>
+       <br><br><br><br>
+       <div class="general-siguiente">
+     <button class="boton_siguiente" type="submit">Siguiente</button>
+   </div>
+   </form>
+   <div class="general-siguiente2">
+   <button class="boton_siguiente" onclick="location.href='/crearEgreso4'">Volver</button>
+   </div>
+   <br><br><br><br><br><br>
+       <div class="general-home">
+       <button class="boton_home" onclick="location.href='/home'">Volver a Home</button>
+       </div>
+       </div>
+  </body>
+</html>

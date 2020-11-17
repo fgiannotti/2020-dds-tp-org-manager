@@ -26,7 +26,7 @@ public class AsociadorEgresoCategoriaController {
         String unMonto = request.queryParams("monto");
         System.out.println(unaDescripcion);
         System.out.println(unMonto);
-        //GuardarIngreso
+
         response.redirect("/home"); //Success
         return response;
     }

@@ -14,40 +14,36 @@
       <h1 class="nombre-titulo">Creación de Proveedor</h1>
       </div>
       <div class="general">
-      <form action="/proveedor" method="post" class="form-">
+      <form action="/altaProveedor" method="post" class="form-">
         <br>
         <div class="general-nombre">
       <h1 class="nombre-proveedor">Nombre y Apellido - <br> Razón Social:</h1>
          </div><br>
          <div class="box-Nombre">
-       <input type="text">
+       <input type="text" name="nombreORazon" >
           </div>
           <br><br><br><br>
           <div class="general-numero">
         <h1 class="numero-proveedor">DNI -CUIL/CUIT:</h1>
            </div><br>
            <div class="box-numero">
-         <input type="number">
+         <input type="text" name="dni" >
          </div>
          <br><br><br>
          <div class="general-postal">
        <h1 class="numero-postal">Dirección postal:</h1>
           </div><br>
           <div class="box-postal">
-        <input type="number">
+        <input type="number" name="direccion" >
       </div><br><br>
-        <div class="general-presupuesto">
-      <h1 class="presupuesto">Presupuesto:</h1>
-         </div><br>
-         <div class="box-presupuesto">
-       <input type="number">
-        </div><br><br><br>
+        <br><br><br>
+        <br><br>
         <div class="general-guardar">
-      <button class="boton_guardar" onclick="">Guardar</button>
+      <button class="boton_guardar" type="submit">Guardar</button>
     </div>
-         <div class="general-siguiente">
-       <button class="boton_siguiente" type="submit" onclick="location.href='index-crear-egreso.html'">Siguiente</button>
        </form>
+         <div class="general-siguiente">
+       <button class="boton_siguiente" onclick="location.href='/crearEgreso1'">Siguiente</button>
      </div><br><br><br><br>
          <div class="general-home">
          <button class="boton_home" onclick="location.href='/home'">Volver a Home</button>
