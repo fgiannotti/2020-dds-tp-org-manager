@@ -30,6 +30,13 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
   height: 70px;
   float: left;
 }
+.general-visualizar-egreso-ingreso{
+  background: none;
+  text-align: center;
+  width: 400px;
+  height: 800px;
+  float: left;
+}
 
 .general-numero{
   background: none;
