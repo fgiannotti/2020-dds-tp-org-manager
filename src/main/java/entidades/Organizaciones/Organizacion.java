@@ -55,6 +55,7 @@ public abstract class Organizacion extends EntidadPersistente {
         this.vincularRelaciones(response);
     }
 
+
     protected String fechaToString(LocalDate fecha){
         return fecha.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
