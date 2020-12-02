@@ -9,7 +9,9 @@ public class Server {
         try{ port = Integer.parseInt(System.getenv("PORT"));
         } catch( NumberFormatException e){ port=9000; }
 
-        System.out.printf("Puerto Encontrado %d",port);
+        System.out.println("Puerto Encontrado:");
+        System.out.println(port);
+
         if (port == 0) { port=9000; }
         Spark.port(port);
 
