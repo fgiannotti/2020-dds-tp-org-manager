@@ -226,7 +226,7 @@
       <workItem from="1605568642817" duration="741000" />
       <workItem from="1605569393004" duration="470000" />
       <workItem from="1605569895495" duration="4217000" />
-      <workItem from="1606925262949" duration="6754000" />
+      <workItem from="1606925262949" duration="7016000" />
     </task>
     <servers />
   </component>
@@ -426,13 +426,13 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600837603870" />
-    <state x="665" y="1285" width="599" height="601" key="find.popup" timestamp="1606929096031">
+    <state x="665" y="1285" width="599" height="601" key="find.popup" timestamp="1606932718644">
       <screen x="244" y="1103" width="1440" height="802" />
     </state>
     <state x="421" y="205" width="598" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1600749646519" />
     <state x="421" y="205" width="598" height="490" key="find.popup/0.23.1440.801@0.23.1440.801" timestamp="1603776220387" />
     <state x="534" y="221" width="681" height="604" key="find.popup/0.23.1440.802@0.23.1440.802" timestamp="1605491906642" />
-    <state x="665" y="1285" width="599" height="601" key="find.popup/244.1103.1440.802/0.23.1920.1057@244.1103.1440.802" timestamp="1606929096031" />
+    <state x="665" y="1285" width="599" height="601" key="find.popup/244.1103.1440.802/0.23.1920.1057@244.1103.1440.802" timestamp="1606932718644" />
     <state x="561" y="263" width="798" height="791" key="find.popup/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605635775470" />
     <state x="696" y="1285" width="599" height="601" key="find.popup/275.1103.1440.802/0.23.1920.1057@275.1103.1440.802" timestamp="1605570481308" />
     <state x="671" y="251" key="refactoring.ChangeSignatureDialog" timestamp="1605627710203">
