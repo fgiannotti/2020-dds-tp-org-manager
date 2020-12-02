@@ -1,1 +1,1 @@
-web: java -jar target/2020-mi-no-group-05-1.0-SNAPSHOT.jar
+web: java -cp target/classes:target/dependency/* server.Server
