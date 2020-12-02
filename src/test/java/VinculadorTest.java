@@ -78,10 +78,9 @@ public class VinculadorTest {
         this.Setup();
         organizacion.realizarVinculacion();
         Assert.assertTrue(ingreso1.getOperacionEgresos().contains(egreso1));
-        Assert.assertTrue(ingreso1.getOperacionEgresos().contains(egreso3));
-        Assert.assertTrue(ingreso2.getOperacionEgresos().contains(egreso2));
-        Assert.assertTrue(ingreso1.getOperacionEgresos().size() == 2);
-        Assert.assertTrue(ingreso2.getOperacionEgresos().size() == 1);
+        Assert.assertTrue(ingreso2.getOperacionEgresos().contains(egreso3));
+        Assert.assertEquals(2, ingreso1.getOperacionEgresos().size());
+        Assert.assertEquals(1, ingreso2.getOperacionEgresos().size());
     }
 
 }

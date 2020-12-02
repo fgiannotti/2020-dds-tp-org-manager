@@ -27,8 +27,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d398e23e-5c70-4dc6-a48f-86824f99246f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/public/css/estilo-visualizar-egreso.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/public/css/estilo-visualizar-egreso.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/visualizar-egresos.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visualizar-egresos.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SeguridadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SeguridadTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ValidacionesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ValidacionesTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/VinculadorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/VinculadorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +134,7 @@
       <recent name="db" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Server">
+  <component name="RunManager" selected="JUnit.VinculadorTest.RealizaVinculacion">
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="server.Server" />
       <module name="2020-mi-no-group-05" />
@@ -154,15 +156,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ContextTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="2020-mi-no-group-05" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ContextTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="DBTest.recuperandoRevisor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="2020-mi-no-group-05" />
       <option name="PACKAGE_NAME" value="" />
@@ -173,11 +166,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OperacionesTest.laOperacionEsGuardadaCorrectamenteEnLaOrg" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SeguridadTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="2020-mi-no-group-05" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="OperacionesTest" />
-      <option name="METHOD_NAME" value="laOperacionEsGuardadaCorrectamenteEnLaOrg" />
+      <option name="TEST_OBJECT" value="uniqueId" />
+      <uniqueIds>
+        <uniqueId value="[engine:junit-jupiter]/[class:SeguridadTest]" />
+      </uniqueIds>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="VinculadorTest.RealizaVinculacion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="2020-mi-no-group-05" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="VinculadorTest" />
+      <option name="METHOD_NAME" value="RealizaVinculacion" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -185,11 +189,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Server" />
-        <item itemvalue="JUnit.OperacionesTest.laOperacionEsGuardadaCorrectamenteEnLaOrg" />
+        <item itemvalue="JUnit.VinculadorTest.RealizaVinculacion" />
+        <item itemvalue="JUnit.SeguridadTest" />
         <item itemvalue="JUnit.All in 2020-mi-no-group-05" />
-        <item itemvalue="JUnit.ContextTest" />
         <item itemvalue="JUnit.DBTest.recuperandoRevisor" />
+        <item itemvalue="Application.Server" />
       </list>
     </recent_temporary>
   </component>
@@ -280,6 +284,10 @@
     </state>
     <state x="100" y="123" width="1240" height="601" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.801@0.23.1440.801" timestamp="1600477048929" />
     <state x="107" y="103" width="1323" height="619" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600812890147" />
+    <state x="937" y="1313" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606920501693">
+      <screen x="244" y="1103" width="1440" height="802" />
+    </state>
+    <state x="937" y="1313" key="#com.intellij.fileTypes.FileTypeChooser/244.1103.1440.802/0.23.1920.1057@244.1103.1440.802" timestamp="1606920501693" />
     <state x="765" y="263" key="#com.intellij.ide.util.MemberChooser" timestamp="1605627477842">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
@@ -318,7 +326,7 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1605612922828" />
-    <state width="1878" height="244" key="GridCell.Tab.0.bottom" timestamp="1605636695791">
+    <state width="1878" height="291" key="GridCell.Tab.0.bottom" timestamp="1606922307207">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1600750031915" />
@@ -327,9 +335,11 @@
     <state width="1398" height="113" key="GridCell.Tab.0.bottom/0.23.1440.802@0.23.1440.802" timestamp="1605625530581" />
     <state width="1493" height="108" key="GridCell.Tab.0.bottom/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1605616359644" />
     <state width="1877" height="256" key="GridCell.Tab.0.bottom/1920.0.1920.1030/0.0.1536.824@1920.0.1920.1030" timestamp="1605584216660" />
+    <state width="1878" height="291" key="GridCell.Tab.0.bottom/244.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1606922307207" />
+    <state width="1398" height="207" key="GridCell.Tab.0.bottom/244.1103.1440.802/0.23.1920.1057@244.1103.1440.802" timestamp="1606921731476" />
     <state width="1878" height="244" key="GridCell.Tab.0.bottom/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605636695791" />
     <state width="1398" height="120" key="GridCell.Tab.0.bottom/275.1103.1440.802/0.23.1920.1057@275.1103.1440.802" timestamp="1605570485471" />
-    <state width="1878" height="244" key="GridCell.Tab.0.center" timestamp="1605636695790">
+    <state width="1878" height="291" key="GridCell.Tab.0.center" timestamp="1606922307206">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1600750031914" />
@@ -338,9 +348,11 @@
     <state width="1398" height="113" key="GridCell.Tab.0.center/0.23.1440.802@0.23.1440.802" timestamp="1605625530580" />
     <state width="1493" height="108" key="GridCell.Tab.0.center/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1605616359644" />
     <state width="1877" height="256" key="GridCell.Tab.0.center/1920.0.1920.1030/0.0.1536.824@1920.0.1920.1030" timestamp="1605584216660" />
+    <state width="1878" height="291" key="GridCell.Tab.0.center/244.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1606922307206" />
+    <state width="1398" height="207" key="GridCell.Tab.0.center/244.1103.1440.802/0.23.1920.1057@244.1103.1440.802" timestamp="1606921731474" />
     <state width="1878" height="244" key="GridCell.Tab.0.center/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605636695790" />
     <state width="1398" height="120" key="GridCell.Tab.0.center/275.1103.1440.802/0.23.1920.1057@275.1103.1440.802" timestamp="1605570485470" />
-    <state width="1878" height="244" key="GridCell.Tab.0.left" timestamp="1605636695789">
+    <state width="1878" height="291" key="GridCell.Tab.0.left" timestamp="1606922307206">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1600750031913" />
@@ -349,9 +361,11 @@
     <state width="1398" height="113" key="GridCell.Tab.0.left/0.23.1440.802@0.23.1440.802" timestamp="1605625530579" />
     <state width="1493" height="108" key="GridCell.Tab.0.left/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1605616359644" />
     <state width="1877" height="256" key="GridCell.Tab.0.left/1920.0.1920.1030/0.0.1536.824@1920.0.1920.1030" timestamp="1605584216660" />
+    <state width="1878" height="291" key="GridCell.Tab.0.left/244.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1606922307206" />
+    <state width="1398" height="207" key="GridCell.Tab.0.left/244.1103.1440.802/0.23.1920.1057@244.1103.1440.802" timestamp="1606921731473" />
     <state width="1878" height="244" key="GridCell.Tab.0.left/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605636695789" />
     <state width="1398" height="120" key="GridCell.Tab.0.left/275.1103.1440.802/0.23.1920.1057@275.1103.1440.802" timestamp="1605570485469" />
-    <state width="1878" height="244" key="GridCell.Tab.0.right" timestamp="1605636695790">
+    <state width="1878" height="291" key="GridCell.Tab.0.right" timestamp="1606922307206">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state width="1398" height="339" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1600750031914" />
@@ -360,6 +374,8 @@
     <state width="1398" height="113" key="GridCell.Tab.0.right/0.23.1440.802@0.23.1440.802" timestamp="1605625530580" />
     <state width="1493" height="108" key="GridCell.Tab.0.right/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1605616359644" />
     <state width="1877" height="256" key="GridCell.Tab.0.right/1920.0.1920.1030/0.0.1536.824@1920.0.1920.1030" timestamp="1605584216660" />
+    <state width="1878" height="291" key="GridCell.Tab.0.right/244.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1606922307206" />
+    <state width="1398" height="207" key="GridCell.Tab.0.right/244.1103.1440.802/0.23.1920.1057@244.1103.1440.802" timestamp="1606921731475" />
     <state width="1878" height="244" key="GridCell.Tab.0.right/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605636695790" />
     <state width="1398" height="120" key="GridCell.Tab.0.right/275.1103.1440.802/0.23.1920.1057@275.1103.1440.802" timestamp="1605570485470" />
     <state width="1398" height="255" key="GridCell.Tab.1.bottom" timestamp="1600659883580">
@@ -406,12 +422,13 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1030/0.0.1536.824@0.0.1536.824" timestamp="1600837603870" />
-    <state x="561" y="263" width="798" height="791" key="find.popup" timestamp="1605635775470">
-      <screen x="0" y="23" width="1920" height="1057" />
+    <state x="665" y="1285" width="599" height="601" key="find.popup" timestamp="1606920451808">
+      <screen x="244" y="1103" width="1440" height="802" />
     </state>
     <state x="421" y="205" width="598" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1600749646519" />
     <state x="421" y="205" width="598" height="490" key="find.popup/0.23.1440.801@0.23.1440.801" timestamp="1603776220387" />
     <state x="534" y="221" width="681" height="604" key="find.popup/0.23.1440.802@0.23.1440.802" timestamp="1605491906642" />
+    <state x="665" y="1285" width="599" height="601" key="find.popup/244.1103.1440.802/0.23.1920.1057@244.1103.1440.802" timestamp="1606920451808" />
     <state x="561" y="263" width="798" height="791" key="find.popup/275.1103.1440.802/0.23.1920.1057@0.23.1920.1057" timestamp="1605635775470" />
     <state x="696" y="1285" width="599" height="601" key="find.popup/275.1103.1440.802/0.23.1920.1057@275.1103.1440.802" timestamp="1605570481308" />
     <state x="671" y="251" key="refactoring.ChangeSignatureDialog" timestamp="1605627710203">

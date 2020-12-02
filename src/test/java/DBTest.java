@@ -158,7 +158,7 @@ public class DBTest {
     }
     @Test
     public void recuperandoRevisor(){
-        Revisor alfonsito = (Revisor) EntityManagerHelper.createQuery("from Usuario where nombre = 'alfonso' and DTYPE = 'revisor'").getSingleResult();
+        Revisor alfonsito = (Revisor) EntityManagerHelper.createQuery("from Usuario where nombre = 'alfonso' and DTYPE = 'revisor'").setMaxResults(1).getSingleResult();
         alfonsito.verMensajes();
         BandejaDeEntrada bandejaDos = alfonsito.getBandejaDeEntrada();
         Assert.assertNotNull(bandejaDos);
