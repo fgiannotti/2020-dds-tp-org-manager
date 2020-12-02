@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Autenticador>
+<General>
     <passwordScoreMinimo>2</passwordScoreMinimo>
     <passwordLengthMinimo>8</passwordLengthMinimo>
     <intentosMaximos>2</intentosMaximos>
-</Autenticador>
+    <presupuestosMinimos>1</presupuestosMinimos>
+    <apiVinculador>http://localhost:9001/vincular</apiVinculador>
+</General>

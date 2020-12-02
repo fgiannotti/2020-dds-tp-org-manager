@@ -1,0 +1,19 @@
+body{
+  font-family: 'Lato', sans-serif;
+
+}
+
+.utnLogo{
+  width:222px;
+  height:227px;
+}
+
+.fondo{
+    height: 100%;
+    width=100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.h1 {text-align: center;}

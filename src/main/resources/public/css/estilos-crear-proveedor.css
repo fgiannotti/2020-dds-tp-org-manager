@@ -1,0 +1,172 @@
+body{
+background-image: url("https://wallpapercave.com/wp/wp6928859.png");
+}
+
+.titulo{
+  background: none;
+  text-align: center;
+}
+
+.nombre-titulo{
+  font-size:3em;
+  color: black;
+  font-family:"Cambria";
+  font-weight: lighter;
+}
+
+.general{
+  background: white;
+  border-radius: 2em 2em;
+  align-self: center;
+  margin: 0 auto;
+  width: 500px;
+  height: 370px;
+}
+
+.general-nombre{
+  background: none;
+  text-align: center;
+  width: 210px;
+  height: 70px;
+  float: left;
+}
+
+.general-presupuesto{
+  background: none;
+  text-align: center;
+  width: 210px;
+  height: 50px;
+  float: left;
+}
+
+.general-numero{
+  background: none;
+  text-align: center;
+  width: 210px;
+  height: 70px;
+  float: left;
+}
+
+.general-postal{
+  background: none;
+  text-align: center;
+  width: 200px;
+  height: 50px;
+  float: left;
+}
+
+.general-guardar{
+  background: none;
+  text-align: center;
+  width: 200px;
+  height: 40px;
+  float: left;
+}
+
+.general-siguiente{
+  background: none;
+  text-align: center;
+  width: 200px;
+  height: 40px;
+  float: right;
+}
+
+.general-home{
+  background: none;
+  text-align: center;
+  width: 500px;
+  height: 50px;
+  float: center;
+}
+
+.boton_guardar{
+  border: none;
+  background: #A3ABAF;
+  width: 10em;
+  height: 2em;
+  text-align: center;
+  font-size: 15px;
+  font-family:"Segoe UI";
+  font-style:italic;
+  color: black;
+}
+
+.boton_siguiente{
+  border: none;
+  background: #A3ABAF;
+  width: 10em;
+  height: 2em;
+  text-align: center;
+  font-size: 15px;
+  font-family:"Segoe UI";
+  font-style:italic;
+  color: black;
+}
+
+.boton_home{
+  border: none;
+  background: #A3ABAF;
+  width: 20em;
+  height: 3em;
+  text-align: center;
+  font-size: 15px;
+  font-family:"Segoe UI";
+  font-style:italic;
+  color: black;
+}
+
+.box-Nombre{
+  width: 200px;
+  height: 20px;
+  background:white;
+  float: right;
+  align-content: center;
+}
+
+.box-presupuesto{
+  width: 200px;
+  height: 20px;
+  background:white;
+  float: right;
+  align-content: center;
+}
+
+.nombre-proveedor{
+  font-size: 20px;
+  font-family:"Cambria";
+  color: black;
+}
+
+.numero-proveedor{
+  font-size: 20px;
+  font-family:"Cambria";
+  color: black;
+}
+
+.numero-postal{
+  font-size: 20px;
+  font-family:"Cambria";
+  color: black;
+}
+
+.presupuesto{
+  font-size: 20px;
+  font-family:"Cambria";
+  color: black;
+}
+
+.box-numero{
+  width: 200px;
+  height: 20px;
+  background:white;
+  float: right;
+  align-content: center;
+}
+
+.box-postal{
+  width: 200px;
+  height: 20px;
+  background:white;
+  float: right;
+  align-content: center;
+}

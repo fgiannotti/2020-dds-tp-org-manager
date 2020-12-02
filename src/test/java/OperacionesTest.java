@@ -1,19 +1,20 @@
-import Items.Articulo;
-import Items.Item;
-import MedioDePago.*;
-import Operaciones.Comprobante;
-import Operaciones.Operacion;
-import Operaciones.OperacionEgreso;
-import Operaciones.Proveedor;
-import Organizaciones.Actividad;
-import Organizaciones.Empresa;
-import Organizaciones.Organizacion;
+import entidades.Estrategias.Criterio;
+import entidades.Items.Articulo;
+import entidades.Items.Item;
+import entidades.MedioDePago.Debito;
+import entidades.MedioDePago.MedioDePago;
+import entidades.Operaciones.Comprobante;
+import entidades.Operaciones.Operacion;
+import entidades.Operaciones.OperacionEgreso;
+import entidades.Operaciones.Proveedor;
+import entidades.Organizaciones.Comercio;
+import entidades.Organizaciones.Empresa;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class OperacionesTest {
@@ -23,6 +24,7 @@ public class OperacionesTest {
     public MedioDePago medioDePago;
     public List<Item> items;
     public List<Articulo> articulos;
+    public List<Proveedor> proveedores = new ArrayList<Proveedor>();
 
     @Before
     public void setup(){
@@ -41,18 +43,21 @@ public class OperacionesTest {
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
+        List<Proveedor> proveedorestest = new ArrayList<Proveedor>();
+        proveedores = proveedorestest;
+        proveedores.add(proveedor);
         medioDePago = new Debito("Visa debito", 1000);
-        organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, 1410, 300, 5, Actividad.COMERCIO, (float)20000.0);
-        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, new Date(), "DNI", null, items);
+        organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, null, 300, 5, new Comercio(), (float)20000.0);
+        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", null, items,1, Criterio.MENOR_VALOR);
         organizacion.agregarOperacion(operacion);
     }
 
     @Test
     public void laOperacionEsGuardadaCorrectamenteEnLaOrg() {
         this.setup();
-        int tamanio = organizacion.getOperacionesRealizadas().size();
+        int tamanio = organizacion.getEgresos().size();
         int hash = this.operacion.hashCode();
-        Operacion actualOperacion = organizacion.getOperacionesRealizadas().get(0);
+        Operacion actualOperacion = organizacion.getEgresos().get(0);
         Assertions.assertEquals(1, tamanio);
         Assertions.assertEquals(hash, actualOperacion.hashCode());
     }
@@ -61,7 +66,7 @@ public class OperacionesTest {
     public void laOperacionPuedeSerGuardadaSinComprobante(){
         this.setup();
         Assertions.assertDoesNotThrow( () -> {
-            new OperacionEgreso(1000, "Pago de AGUITA", this.proveedor, medioDePago, new Date(), "DNI", null, items);
+            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", null, items,1, Criterio.MENOR_VALOR);
         });
     }
 
@@ -70,7 +75,7 @@ public class OperacionesTest {
         this.setup();
         Comprobante comprobante = new Comprobante(this.items);
         Assertions.assertDoesNotThrow( () -> {
-            new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, new Date(), "DNI", comprobante, items);
+            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", comprobante, items,1, Criterio.MENOR_VALOR);
         });
     }
 
@@ -78,8 +83,8 @@ public class OperacionesTest {
     public void sePuedeObtenerProveedorDeUnaOperacion(){
         this.setup();
         String nombre = proveedor.getNombre_apellido_razon();
-        OperacionEgreso OE = (OperacionEgreso) organizacion.getOperacionesRealizadas().get(0);
-        String nombreEnOperacion = OE.getProveedor().getNombre_apellido_razon();
+        OperacionEgreso OE = organizacion.getEgresos().get(0);
+        String nombreEnOperacion = proveedores.get(0).getNombre_apellido_razon();
         Assertions.assertEquals(nombre, nombreEnOperacion);
     }
 
@@ -87,7 +92,7 @@ public class OperacionesTest {
     public void sePuedeObtenerDetalleItemsDeUnaOperacion(){
         String item = new String();
         this.setup();
-        OperacionEgreso OE = (OperacionEgreso) organizacion.getOperacionesRealizadas().get(0);
+        OperacionEgreso OE = (OperacionEgreso) organizacion.getEgresos().get(0);
         item = OE.getItems().get(0).toString();
         System.out.println(item);
         Assertions.assertEquals(item, this.items.get(0).toString());
@@ -96,7 +101,7 @@ public class OperacionesTest {
     @Test
     public void seRegistranLosDatosDelMedioDePago(){
         this.setup();
-        OperacionEgreso OE = (OperacionEgreso) organizacion.getOperacionesRealizadas().get(0);
+        OperacionEgreso OE = (OperacionEgreso) organizacion.getEgresos().get(0);
         Assertions.assertEquals(this.medioDePago.getMedio(), OE.getMedioDePago().getMedio());
         Assertions.assertEquals(this.medioDePago.getNumero(), OE.getMedioDePago().getNumero());
     }
