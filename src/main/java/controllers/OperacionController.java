@@ -218,7 +218,7 @@ public class OperacionController {
         System.out.println(segundoCriterio);
         //builder.asignarOrganizacion(organizacion);
         builder.confirmarEgreso();
-        response.redirect("/");
+        response.redirect("/home");
         return response;
     }
 
