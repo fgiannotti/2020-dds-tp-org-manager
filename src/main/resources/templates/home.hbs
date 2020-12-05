@@ -12,28 +12,35 @@
 
     <title>Home</title>
 </head>
-<body>
-<h1 class="titulo">Poem</h1>
-<form action="/logout" method="get" class="form-">
-    <button class="boton_salir" onclick="location.href='index-login.html'" type="submit">Salir</button>
-</form>
-<button class="boton_crearOPE" onclick="location.href='CrearOperacionEgreso';">
-    <p class="texto-operacion">Crear Operacion de Egreso</p>
-</button>
-<button class="boton_crearIN" onclick="location.href='ingreso'">
-    <p class="texto-ingreso">Cargar Operacion de Ingreso</p>
-</button>
-<button class="boton_asociar" onclick="location.href='asocIngresoEgreso'">
-    <p class="texto-asociar">Asociar Ingresos</p>
-</button>
-<button class="boton_visualizacion" onclick="location.href='visualizacionIngresoEgresoPorCat'">
-    <p class="texto-visualizacion">Visualizar Egresos</p>
-</button>
-<h3 class="subtitulo">¿Quienes somos?</h3>
-<p class= "descripcion">
-    Somos una organización sin fines de lucro fundada en el año 2003, donde nuestra misión es acompañar la preparación laboral, promover el desarrollo, generar emprendimientos y fortalecer organizaciones productivas ya constituidas.
-    <br>
-    Apoyamos a toda persona que necesite apoyo, asesoramiento y/o acompañamiento en proyectar sus ideas como herramientas para generar un trabajo autónomo, así como a jóvenes y adultos que necesitan orientación y capacitación para mejorar su formación con el fin de conseguir un empleo
-</p>
-</body>
+ <body>
+    <div>
+    <h1 class="titulo">Proem</h1>
+    </div>
+      <div class="button-container">
+        <form action="/logout" method="get" class="form-">
+            <button class="boton_salir" onclick="location.href='index-login.html'" type="submit">Salir</button>
+        </form>
+        <button class="boton_crearOPE" onclick="location.href='CrearOperacionEgreso';">
+            <p class="texto-operacion">Crear Operacion de Egreso</p>
+        </button>
+        <button class="boton_crearIN" onclick="location.href='asocEgresoPresupuestoACategoria'">
+            <p class="texto-ingreso">Cargar Operacion de Ingreso</p>
+        </button>
+        <button class="boton_asociar" onclick="location.href='asocIngresoEgreso'">
+            <p class="texto-asociar">Asociar Ingresos</p>
+        </button>
+        <button class="boton_visualizacion" onclick="location.href='visualizacionIngresoEgresoPorCat'">
+            <p class="texto-visualizacion">Visualizar Egresos</p>
+        </button>
+    </div> <br><br><br><br><br><br><br><br>
+    <div class="div-gral">
+    <h1 class="subtitulo"> ¿Quienes somos? <br><br>Somos una organización sin fines de lucro fundada en el año 2003, donde
+      nuestra misión es acompañar
+      la preparación laboral, promover el desarrollo, generar emprendimientos
+      y fortalecer organizaciones productivas ya constituidas.<br>
+      Apoyamos a toda persona que necesite apoyo, asesoramiento y/o acompañamiento en proyectar sus ideas
+      como herramientas para generar un trabajo autónomo, así como a jóvenes y adultos que necesitan orientación y capacitación
+      para mejorar su formación con el fin de conseguir un empleo</h1>
+  </div>
+  </body>
 </html>

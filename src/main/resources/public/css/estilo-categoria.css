@@ -1,0 +1,151 @@
+body{
+background-image: url("https://wallpapercave.com/wp/wp6928859.png");
+}
+
+.titulo{
+  background: none;
+  text-align: center;
+}
+
+.nombre-titulo{
+  font-size:3em;
+  color: black;
+  font-family:"Cambria";
+  font-weight: lighter;
+}
+
+.general{
+  background: white;
+  border-radius: 2em 2em;
+  align-self: center;
+  margin: 0 auto;
+  width: 500px;
+  height: 320px;
+}
+
+.general-fecha{
+  background: white;
+  text-align: center;
+  width: 210px;
+  height: 70px;
+  float: left;
+}
+
+.general-proveedor{
+  background: white;
+  text-align: center;
+  width: 210px;
+  height: 70px;
+  float: left;
+}
+
+.general-valor{
+  background: white;
+  text-align: center;
+  width: 210px;
+  height: 70px;
+  float: left;
+}
+
+.general-medio{
+  background: white;
+  text-align: center;
+  width: 210px;
+  height: 70px;
+  float: left;
+}
+
+.general-siguiente{
+  background: none;
+  text-align: center;
+  width: 200px;
+  height: 40px;
+  float: right;
+}
+
+.general-siguiente2{
+  background: none;
+  text-align: center;
+  width: 200px;
+  height: 40px;
+  float: left;
+}
+
+.general-home{
+  background: none;
+  text-align: center;
+  width: 500px;
+  height: 50px;
+  float: center;
+}
+
+.boton_siguiente{
+  border: none;
+  background: #A3ABAF;
+  width: 10em;
+  height: 2em;
+  text-align: center;
+  font-size: 15px;
+  font-family:"Segoe UI";
+  font-style:italic;
+  color: black;
+}
+
+.boton_home{
+  border: none;
+  background: #A3ABAF;
+  width: 20em;
+  height: 3em;
+  text-align: center;
+  font-size: 15px;
+  font-family:"Segoe UI";
+  font-style:italic;
+  color: black;
+}
+
+.box-Fecha{
+  width: 200px;
+  height: 20px;
+  background:white;
+  float: right;
+  align-content: center;
+}
+
+.fecha{
+  font-size: 20px;
+  font-family:"Cambria";
+  color: black;
+}
+
+.proveedor{
+  font-size: 20px;
+  font-family:"Cambria";
+  color: black;
+}
+
+.numero-valor{
+  font-size: 20px;
+  font-family:"Cambria";
+  color: black;
+}
+
+.box-proveedor{
+  width: 200px;
+  height: 20px;
+  background:white;
+  float: right;
+  align-content: center;
+}
+
+.box-valor{
+  width: 200px;
+  height: 20px;
+  background:white;
+  float: right;
+  align-content: center;
+}
+
+.opcion-multiple{
+  width: 150px;
+  height: 20px;
+}

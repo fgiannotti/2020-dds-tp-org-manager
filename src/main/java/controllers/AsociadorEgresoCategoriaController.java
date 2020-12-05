@@ -20,7 +20,10 @@ public class AsociadorEgresoCategoriaController {
         if(!request.cookie("id").equals(request.session().id())){
             response.redirect("/");
         }
-
+        String unaDescripcion = request.queryParams("descripcion");
+        String unMonto = request.queryParams("monto");
+        System.out.println(unaDescripcion);
+        System.out.println(unMonto);
         response.redirect("/home"); //Success
         return response;
     }

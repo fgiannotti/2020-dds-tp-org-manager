@@ -40,6 +40,11 @@ public class Articulo extends EntidadPersistente {
         this.proveedor = Objects.requireNonNull(proveedor, "El proovedor no puede ser nulo");
     }
 
+    public Articulo(String nombre, Float precioTotal) {
+        this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
+        this.precioTotal = Objects.requireNonNull(precioTotal, "El precio total no puede ser nulo");
+    }
+
     public String getNombre() {
         return nombre;
     }
