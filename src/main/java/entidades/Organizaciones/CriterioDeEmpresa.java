@@ -24,6 +24,7 @@ public class CriterioDeEmpresa extends EntidadPersistente {
         this.criteriosHijos = criteriosMenores;
         this.categorias = categorias != null ? categorias : this.categorias;
     }
+    public CriterioDeEmpresa(){}
 
     public String getNombre() {
         return nombre;
