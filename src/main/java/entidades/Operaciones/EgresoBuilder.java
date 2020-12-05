@@ -39,9 +39,13 @@ public class EgresoBuilder {
         unEgreso.setComprobante(unComprobante);
     }
 
-
     public void confirmarEgreso() {
+        EntityManagerHelper.beginTransaction();
         EntityManagerHelper.persist(unEgreso);
+        EntityManagerHelper.commit();
     }
 
+    /*public void asignarCriterio(CriterioDeEmpresa unCriterio) {
+        unEgreso.
+    }*/
 }

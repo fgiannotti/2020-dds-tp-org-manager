@@ -89,7 +89,7 @@ public class OperacionController {
     public Response postSeleccionarProveedor(Request request, Response response){
         String proveedor = request.queryParams("proveedor");
         int presupuesto = Integer.parseInt(request.queryParams("presupuesto"));
-        Proveedor unProveedorEntero = (Proveedor)EntityManagerHelper.createQuery("from Proveedor where nombre_apellido_razon = " + proveedor).getResultList().get(0);
+        Proveedor unProveedorEntero = (Proveedor)EntityManagerHelper.createQuery("from Proveedor where nombre_apellido_razon = '" + proveedor+"'").getResultList().get(0);
         builder.asignarProveedor(unProveedorEntero);
         response.redirect("/crearEgreso3");
         return response;
@@ -106,7 +106,7 @@ public class OperacionController {
     public Response postMedioDePago(Request request, Response response){
         String medioDePago = request.queryParams("medioDePago");
         int total = Integer.parseInt(request.queryParams("total"));
-        MedioDePago unMedio = (MedioDePago) EntityManagerHelper.createQuery("from MedioDePago where medio = " + medioDePago).getResultList().get(0);
+        MedioDePago unMedio = (MedioDePago) EntityManagerHelper.createQuery("from MedioDePago where id = " + medioDePago).getResultList().get(0);
         builder.asignarMedioDePago(unMedio);
         response.redirect("/crearEgreso4");
         return response;
@@ -125,7 +125,7 @@ public class OperacionController {
 
     public Response postSeleccionArticulos(Request request, Response response){
         String nombre = request.queryParams("nombreArticulo");
-        Articulo articulo = (Articulo) EntityManagerHelper.createQuery("from MedioDePago where nombre = " + nombre).getResultList().get(0);
+        Articulo articulo = (Articulo) EntityManagerHelper.createQuery("from Articulo where nombre = " + nombre+"'").getResultList().get(0);
         builder.asignarArticulo(articulo);
         response.redirect("/crearEgreso6");
         return response;
@@ -202,6 +202,10 @@ public class OperacionController {
         List<Organizacion> organizaciones = new ArrayList<Organizacion>();
         EntityManagerHelper.createQuery("from Organizacion").getResultList().forEach((a) -> { organizaciones.add((Organizacion)a); });
         parametros.put("organizaciones", organizaciones);
+
+        List<CriterioDeEmpresa> criterios = new ArrayList<CriterioDeEmpresa>();
+        EntityManagerHelper.createQuery("from CriterioDeEmpresa").getResultList().forEach((a) -> { criterios.add((CriterioDeEmpresa) a); });
+        parametros.put("criterios", criterios);
         return new ModelAndView(parametros,"cargar-organizacion.hbs");
     }
 
