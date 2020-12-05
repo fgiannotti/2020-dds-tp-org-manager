@@ -150,3 +150,8 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
   top:300px;
   text-align:center;
 }
+
+.button-container{
+  text-align: center;
+  align: center;
+}

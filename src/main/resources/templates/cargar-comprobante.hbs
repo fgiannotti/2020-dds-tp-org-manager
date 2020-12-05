@@ -7,38 +7,38 @@
     <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="/js/logic.js"></script>
-    <link rel="stylesheet" href="/css/estilo-articulo.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
-    <title>Articulo</title>
+    <link rel="stylesheet" href="/css/estilo-comprobante.css">
+    <title>Comprobante</title>
 </head>
-<body>
+  <body>
     <div class="titulo">
-    <h1 class="nombre-titulo">Seleccionar Articulo</h1>
+    <h1 class="nombre-titulo">Cargar Comprobante (Opcional)</h1>
     </div>
     <div class="general">
       <br>
       <div class="general-medio">
-      <form action="/crearEgreso5" method="post" class="form-">
-    <h1 class="medio">Artículo:</h1>
+      <form action="/crearEgreso6" method="post" class="form-">
+    <h1 class="medio">Tipo de <br>Comprobante:</h1>
        </div><br>
        <div class="box-Medio">
-         <select class="opcion-multiple" name="nombreArticulo">
-            {{#each articulos}}
-                <option value='{{nombre}}'>{{nombre}}</option>
-            {{/each}}
-          </select>
+        <input type="text" name="tipoComprobante">
         </div>
         <br><br><br>
+        <div class="general-numero">
+      <h1 class="numero">Numero de Comprobante:</h1>
+         </div><br>
+         <div class="box-numero">
+       <input type="number" name="numeroComprobante">
+       </div>
        <br><br><br><br>
        <div class="general-siguiente">
      <button class="boton_siguiente" type="submit">Siguiente</button>
+     </form>
    </div>
-   </form>
    <div class="general-siguiente2">
-   <button class="boton_siguiente" onclick="location.href='/crearEgreso4'">Volver</button>
+   <button class="boton_siguiente" onclick="location.href='/crearEgreso5'">Volver</button>
    </div>
-   <br><br><br><br><br><br>
+   <br><br><br><br><br>
        <div class="general-home">
        <button class="boton_home" onclick="location.href='/home'">Volver a Home</button>
        </div>

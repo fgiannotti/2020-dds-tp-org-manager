@@ -17,27 +17,33 @@
       <div class="general">
         <form action="/asocIngresoEgreso" method="post" class="form-">
         <br><br><br>
+
       <div class="general-medio">
-      <h1 class="medio">Operación ingreso:</h1>
-         </div><br>
+
+        <h1 class="medio">Operaciones de ingreso:</h1>
+      </div>
+            <br>
          <div class="box-Medio">
-           <select class="opcion-multiple" name="ingreso">
-             {{#each ingresos}}
-                 <option value='{{numeroOperacion}}'>{{descripcion}}</option>
-             {{/each}}
-           </select>
-          </div>
-          <br><br><br>
-          <div class="general-numero">
-        <h1 class="numero">Operación egreso:</h1>
-           </div><br>
-           <div class="box-numero">
-             <select class="opcion-multiple" name="egreso">
-                {{#each egresos}}
-                  <option value='{{numeroOperacion}}'>{{descripcion}}</option>
-                {{/each}}
-             </select>
+               {{#each ingresos}}
+                       <input type="checkbox" id="cbox1" value="ingresos"> <label for="cbox2">{{descripcion}}</label>
+                   <br><br>
+               {{/each}}
          </div>
+
+          <br><br><br>
+            <hr>
+
+            <div class="general-numero">
+
+        <h1 class="numero">Operaciones de egreso:</h1>
+           </div>
+                <br>
+           <div class="box-numero">
+                {{#each egresos}}
+                        <input type="checkbox" id="cbox2" value="egresos"> <label for="cbox2">{{descripcion}}</label>
+                    <br><br>
+                {{/each}}
+           </div>
          <br><br><br>
          <div class="general-siguiente">
        <button class="boton_siguiente" type="submit">Asociar</button>

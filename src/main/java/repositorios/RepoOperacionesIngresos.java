@@ -20,10 +20,10 @@ public class RepoOperacionesIngresos {
         return operaciones;
     }
 
-    public OperacionIngreso get (int id) {
-        String query = "from OperacionIngreso where id = " + id;
-        OperacionIngreso operacion = new OperacionIngreso();
-        EntityManagerHelper.createQuery(query).getFirstResult();
-        return operacion;
+    public void guardar(OperacionIngreso nuevoIngreso) {
+
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(nuevoIngreso);
+        EntityManagerHelper.commit();
     }
 }

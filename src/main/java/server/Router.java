@@ -4,6 +4,8 @@ package server;
 import com.github.jknack.handlebars.Helper;
 import com.github.jknack.handlebars.Options;
 import controllers.*;
+import spark.Request;
+import spark.Response;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.BooleanHelper;
@@ -33,6 +35,7 @@ public class Router {
         LoginController loginController = new LoginController();
         HomeController homeController = new HomeController();
         OperacionController operacionController = new OperacionController();
+        OperacionIngresoController operacionIngresoController = new OperacionIngresoController();
         AsociadorEgresoIngresoController asociadorEgresoIngresoController = new AsociadorEgresoIngresoController();
         AsociadorEgresoCategoriaController asociadorEgresoCategoriaController = new AsociadorEgresoCategoriaController();
         VerIngresoEgresoController verIngresoEgresoController = new VerIngresoEgresoController();
@@ -56,9 +59,9 @@ public class Router {
 
         Spark.post("/asocIngresoEgreso", asociadorEgresoIngresoController::asociar);
 
-        Spark.get("/asocEgresoPresupuestoACategoria", asociadorEgresoCategoriaController::inicio, Router.engine);
+        Spark.get("/ingreso", operacionIngresoController::inicio, Router.engine);
 
-        Spark.post("/asocEgresoPresupuestoACategoria", asociadorEgresoCategoriaController::altaIngreso);
+        Spark.post("/ingreso", operacionIngresoController::altaIngreso);
 
         Spark.get("/visualizacionIngresoEgresoPorCat", verIngresoEgresoController::inicio, Router.engine);
 
@@ -87,5 +90,28 @@ public class Router {
         Spark.get("/crearEgreso5", operacionController::seleccionArticulos, Router.engine);
 
         Spark.post("/crearEgreso5", operacionController::postSeleccionArticulos);
+
+        Spark.get("/crearEgreso6", operacionController::cargarComprobante, Router.engine);
+
+        Spark.post("/crearEgreso6", operacionController::postCargarComprobante);
+
+        Spark.get("/crearEgreso7", operacionController::cargarCriterio, Router.engine);
+
+        Spark.post("/crearEgreso7", operacionController::postCargarCriterio);
+
+        Spark.get("/crearEgreso8", operacionController::cargarCriterioComplejo, Router.engine);
+
+        Spark.post("/crearEgreso8", operacionController::postCargarCriterioComplejo);
+
+        Spark.get("/crearEgreso9", operacionController::cargarOrganizacion, Router.engine);
+
+        Spark.post("/crearEgreso9", operacionController::postCargarOrganizacion);
     }
+    
+        public static void CheckIfAuthenticated(Request request, Response response){
+        if(request.cookie("id") == null || !request.cookie("id").equals(request.session().id())){
+            System.out.printf("USUARIO NO AUTENTICADO, REDIRECT A LOGIN. cookie-id: %s, session-id: %s",request.cookie("id"),request.session().id());
+            response.redirect("/");
+        }
+    }	    
 }
