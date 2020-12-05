@@ -41,7 +41,12 @@ public class EgresoBuilder {
 
 
     public void confirmarEgreso() {
+        EntityManagerHelper.beginTransaction();
         EntityManagerHelper.persist(unEgreso);
+        EntityManagerHelper.commit();
     }
 
+    /*public void asignarCriterio(CriterioDeEmpresa unCriterio) {
+        unEgreso.
+    }*/
 }

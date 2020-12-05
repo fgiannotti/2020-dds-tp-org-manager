@@ -21,14 +21,14 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Column
     private int numeroOperacion;
 
-    @OneToMany(mappedBy = "egreso", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "egreso", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<Proveedor> proveedores = new ArrayList<Proveedor>();
 
     @Column(name = "fecha_operacion", columnDefinition = "DATE")
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate fechaOperacion;
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.MERGE})
     private MedioDePago medioDePago;
 
     @Column
