@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <General>
-    <fechaDesde>2020-08-01</fechaDesde>
-    <fechaHasta>2020-09-10</fechaHasta>
+    <fechaDesde>2020-01-01</fechaDesde>
+    <fechaHasta>2021-09-10</fechaHasta>
     <condicionVinculador>PeriodoAceptabilidad</condicionVinculador>
     <criterioVinculacion>Mix</criterioVinculacion>
     <criteriosDeMix>
-        <criterio>OrdenValorPrimerIngreso</criterio>
-        <criterio>Fecha</criterio>
+        <criterio>OrdenValorPrimerEgreso</criterio>
     </criteriosDeMix>
 </General>

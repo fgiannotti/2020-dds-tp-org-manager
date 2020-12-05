@@ -53,12 +53,12 @@ public class SeguridadTest {
     public void tiraErrorLuegoDe3IntentosFallidos() {
         Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, null, 1, 5, new Comercio(), (float)150000.0){};
         Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, null, 1, null);
-        login.register("Nachooo", organizacion, ":JM!VbT+y'-#?9c98`d,");
-        login.login("Nachooo", "asd");
-        login.login("Nachooo", "asd");
-        login.login("Nachooo", "asd");
+        login.register("Nacho", organizacion, ":JM!VbT+y'-#?9c98`d,");
+        login.login("Nacho", "asd");
+        login.login("Nacho", "asd");
+        login.login("Nacho", "asd");
         Assertions.assertThrows(RuntimeException.class, () -> {
-            login.login("Nachooo", "asd");
+            login.login("Nacho", "asd");
         });
     }
 

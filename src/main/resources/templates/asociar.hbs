@@ -25,7 +25,7 @@
             <br>
          <div class="box-Medio">
                {{#each ingresos}}
-                       <input type="checkbox" id="cbox1" value="ingresos"> <label for="cbox2">{{descripcion}}</label>
+                       <input type="checkbox" id="cbox1" name="ingreso" value="{{id}}"> <label for="cbox2">{{id}}-{{descripcion}}</label>
                    <br><br>
                {{/each}}
          </div>
@@ -39,11 +39,11 @@
            </div>
                 <br>
            <div class="box-numero">
-                {{#each egresos}}
-                        <input type="checkbox" id="cbox2" value="egresos"> <label for="cbox2">{{descripcion}}</label>
-                    <br><br>
-                {{/each}}
-           </div>
+                          {{#each egresos}}
+                                  <input type="checkbox" id="cbox1" name="egreso" value="{{id}}"> <label for="cbox2">{{id}}-{{descripcion}}</label>
+                              <br><br>
+                          {{/each}}
+                    </div>
          <br><br><br>
          <div class="general-siguiente">
        <button class="boton_siguiente" type="submit">Asociar</button>
