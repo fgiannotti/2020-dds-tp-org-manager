@@ -125,7 +125,7 @@ public class OperacionController {
 
     public Response postSeleccionArticulos(Request request, Response response){
         String nombre = request.queryParams("nombreArticulo");
-        Articulo articulo = (Articulo) EntityManagerHelper.createQuery("from Articulo where nombre = " + nombre+"'").getResultList().get(0);
+        Articulo articulo = (Articulo) EntityManagerHelper.createQuery("from Articulo where nombre = '" + nombre+"'").getResultList().get(0);
         builder.asignarArticulo(articulo);
         response.redirect("/crearEgreso6");
         return response;
