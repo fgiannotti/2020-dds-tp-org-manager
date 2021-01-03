@@ -82,15 +82,17 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            
+
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source />
+                    <target />
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
@@ -114,7 +116,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <version>5.5.0</version>
             <scope>test</scope>
         </dependency>
 
@@ -173,7 +175,7 @@
             <artifactId>spark-assembly_2.10</artifactId>
             <version>1.1.0</version>
             <type>pom</type>
-            <scope>import</scope>
+            <scope>test</scope>
         </dependency>
 
         <dependency>

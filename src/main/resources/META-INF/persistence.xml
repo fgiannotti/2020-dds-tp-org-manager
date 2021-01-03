@@ -12,7 +12,8 @@
             <property name="hibernate.archive.autodetection" value="class"/>
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://b368eb90b9c9b1:8ca3e2e9@us-cdbr-east-02.cleardb.com/heroku_4a77a3eedcfe1de?reconnect=true&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;maxReconnects=10" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/test" />
+
             <property name="hibernate.connection.username" value="root" />
             <property name="hibernate.connection.password" value="root" />
 
