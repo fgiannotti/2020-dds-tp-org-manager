@@ -5,6 +5,8 @@ import com.github.jknack.handlebars.Helper;
 import com.github.jknack.handlebars.Options;
 import controllers.*;
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
@@ -27,7 +29,8 @@ public class Router {
     }
 
     public static void init() {
-        BasicConfigurator.configure();
+        BasicConfigurator.configure(); //te lo deja con debug
+        Logger.getRootLogger().setLevel(Level.INFO);
         Router.initEngine();
         Spark.staticFileLocation("/public");
         System.out.println("Configure");
