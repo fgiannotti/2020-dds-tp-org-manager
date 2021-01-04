@@ -1,3 +1,4 @@
+import org.eclipse.jetty.plus.annotation.RunAs;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
@@ -13,6 +14,6 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
 
     @Test
     public void contextUpWithTransaction() throws Exception {
-        withTransaction(() -> {});
+        withTransaction(RunAs::new);
     }
 }

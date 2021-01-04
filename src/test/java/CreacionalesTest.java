@@ -210,7 +210,7 @@ public class CreacionalesTest<nuevaEmpresa> {
         this.setup();
         Categoria unaCategoria = new Categoria("Descripcion de una categoria");
         Categoria otraCategoria = new Categoria("Descripcion de otra categoria");
-        List<Categoria> listaDeCategrias = new ArrayList<>();
+        List<Categoria> listaDeCategrias = new ArrayList<Categoria>();
         listaDeCategrias.add(unaCategoria);
         listaDeCategrias.add(otraCategoria);
         CriterioDeEmpresa unCriterio = new CriterioDeEmpresa("criterio de prueba", null, listaDeCategrias);
@@ -223,7 +223,7 @@ public class CreacionalesTest<nuevaEmpresa> {
         this.setup();
         CriterioDeEmpresa criteroHijoUno = new CriterioDeEmpresa("criterio hijo uno", null, null);
         CriterioDeEmpresa criteroHijoDos = new CriterioDeEmpresa("criterio hijo dos", null, null);
-        List<CriterioDeEmpresa> listaDeCriterios = new ArrayList<>();
+        List<CriterioDeEmpresa> listaDeCriterios = new ArrayList<CriterioDeEmpresa>();
         listaDeCriterios.add(criteroHijoUno);
         listaDeCriterios.add(criteroHijoDos);
         CriterioDeEmpresa unCriterio = new CriterioDeEmpresa("criterio padre", listaDeCriterios, null);

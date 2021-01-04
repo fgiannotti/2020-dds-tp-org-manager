@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 public class ValidacionesTest {
     public BandejaDeEntrada bandeja;
     public BandejaDeEntrada bandeja2;
@@ -169,3 +169,4 @@ public class ValidacionesTest {
     }
 
 }
+*/
