@@ -40,8 +40,10 @@ public class Server {
         if (port == 0) { port=9000; }
         Spark.port(port);
         //persistirInicial();
+        //DebugScreen.enableDebugScreen();
         Router.init();
-        DebugScreen.enableDebugScreen();
+        System.out.println("Fin configure");
+
     }
 
     public static void persistirInicial(){

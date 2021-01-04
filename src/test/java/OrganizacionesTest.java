@@ -1,15 +1,17 @@
 import entidades.Organizaciones.*;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class OrganizacionesTest {
     public Empresa empresaMicro;
     public Empresa empresaPequenia;
     public Empresa empresaTramo1;
     public Empresa empresaTramo2;
     public Empresa empresaCareta;
-    @Before
+    @BeforeAll
     public void Setup () {
         empresaMicro = new Empresa("EmpresaMicro", "Empresita", 2023123123, null, 1, 5, new Comercio(), (float)150000.0){};
         empresaPequenia = new Empresa("EmpresaConstructora", "MiEmpresita", 203123123, null, 2, 44, new Construccion(), (float)80000000.0){};

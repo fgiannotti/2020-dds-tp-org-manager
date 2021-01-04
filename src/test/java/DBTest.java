@@ -15,14 +15,17 @@ import entidades.Organizaciones.*;
 import entidades.Usuarios.Revisor;
 import entidades.Usuarios.User;
 import entidades.Usuarios.Usuario;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DBTest {
     public BandejaDeEntrada bandeja;
     public BandejaDeEntrada bandeja2;
@@ -54,7 +57,7 @@ public class DBTest {
     public FiltroPorEstado filtroPorEstadoNoLeido;
     public List<Filtro> filtros = new ArrayList<Filtro>();
 
-    @Before
+    @BeforeAll
     public void setup() {
         proveedor = new Proveedor("Nachito deliveries", "123123", "Calle falsa 123");
         double price = 50.0;
@@ -120,7 +123,7 @@ public class DBTest {
     @Test
     public void recuperandoIngreso(){
         OperacionIngreso ingreso = (OperacionIngreso) EntityManagerHelper.createQuery("from OperacionIngreso where id = 1").getSingleResult();
-        Assert.assertEquals(100, ingreso.getMontoTotal());
+        assertEquals(100, ingreso.getMontoTotal());
     }
 
     @Test
@@ -133,7 +136,7 @@ public class DBTest {
     @Test
     public void recuperandoEgreso(){
         OperacionEgreso egreso = (OperacionEgreso) EntityManagerHelper.createQuery("from OperacionEgreso where id = 1").getSingleResult();
-        Assert.assertEquals(1, egreso.getId());
+        assertEquals(1, egreso.getId());
     }
     @Test
     public void PersistiendoBandeja(){
@@ -146,8 +149,8 @@ public class DBTest {
     @Test
     public void recuperandoBandeja(){
         BandejaDeEntrada bandejaDeEntrada = (BandejaDeEntrada) EntityManagerHelper.createQuery("from BandejaDeEntrada where id = 2").getSingleResult();
-        Assert.assertEquals(bandejaDeEntrada.getId(),2);
-        Assert.assertFalse(bandejaDeEntrada.getFiltros().isEmpty());
+        assertEquals(bandejaDeEntrada.getId(),2);
+        assertFalse(bandejaDeEntrada.getFiltros().isEmpty());
     }
     @Test
     public void PersistiendoRevisor(){
@@ -161,6 +164,6 @@ public class DBTest {
         Revisor alfonsito = (Revisor) EntityManagerHelper.createQuery("from Usuario where nombre = 'alfonso' and DTYPE = 'revisor'").setMaxResults(1).getSingleResult();
         alfonsito.verMensajes();
         BandejaDeEntrada bandejaDos = alfonsito.getBandejaDeEntrada();
-        Assert.assertNotNull(bandejaDos);
+        assertNotNull(bandejaDos);
     }
 }

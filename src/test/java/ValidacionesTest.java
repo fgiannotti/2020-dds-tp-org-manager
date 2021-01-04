@@ -1,4 +1,4 @@
-import entidades.BandejaDeEntrada.BandejaDeEntrada;
+/*import entidades.BandejaDeEntrada.BandejaDeEntrada;
 import entidades.BandejaDeEntrada.Resultado;
 import entidades.Estrategias.*;
 import entidades.Items.Articulo;
@@ -8,8 +8,8 @@ import entidades.MedioDePago.MedioDePago;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.Presupuesto;
 import entidades.Operaciones.Proveedor;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -37,7 +37,7 @@ public class ValidacionesTest {
     public List<Item> items = new ArrayList<Item>();
     public List<Articulo> articulos = new ArrayList<Articulo>();
 
-    @Before
+    @BeforeAll
     public void Setup () {
         filtroPorFecha = new FiltroPorFecha(LocalDate.now(),bandeja);
         filtroPorEstadoNoLeido = new FiltroPorEstado(false,bandeja);
@@ -169,3 +169,4 @@ public class ValidacionesTest {
     }
 
 }
+*/
