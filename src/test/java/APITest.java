@@ -1,33 +1,28 @@
 import entidades.DatosFinancieros.ListadoDeDivisas;
 import entidades.DatosGeograficos.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import utils.Services.ServicioMELI;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class APITest {
+    ServicioMELI servicioMELI = ServicioMELI.instancia();
+    ListadoDePaises listadoDePaisesDisponibles = new ListadoDePaises(servicioMELI.listadoDePaises());
+    ListadoDeDivisas divisasDisponibles = new ListadoDeDivisas(servicioMELI.listadoDeDivisas());
     Scanner inputScanner;
-    ServicioMELI servicioMELI;
-    ListadoDePaises listadoDePaisesDisponibles;
     ListadoDeProvincias provinciasDelPais;
     ListadoDeCiudades ciudadesDeLaProvincia;
-    ListadoDeDivisas divisasDisponibles;
     String idPaisElegido;
     String idProvinciaElegida;
 
-    @Before
-    public void setup() throws  IOException{
-     servicioMELI = ServicioMELI.instancia();
-     listadoDePaisesDisponibles = new ListadoDePaises(servicioMELI.listadoDePaises());
-     divisasDisponibles = new ListadoDeDivisas(servicioMELI.listadoDeDivisas());
+    public APITest() throws IOException {
     }
 
     @Test
     public void testFuncionamientoIntegracion() throws IOException {
-        this.setup();
         inputScanner = new Scanner(System.in);
         System.out.println("Listado de todos los paises disponibles:");
         System.out.println(listadoDePaisesDisponibles.toString());

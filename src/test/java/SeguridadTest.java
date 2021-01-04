@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 import utils.Seguridad.Login;
 import entidades.Organizaciones.Comercio;
 import entidades.Organizaciones.Empresa;
@@ -5,17 +7,18 @@ import entidades.Organizaciones.Juridica;
 import repositorios.RepoUsuarios;
 import utils.Seguridad.Autenticador;
 import repositorios.Builders.UsuarioBuilder;
-import org.junit.Before;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SeguridadTest {
     private RepoUsuarios repoUsuarios = new RepoUsuarios();
     private UsuarioBuilder builder = new UsuarioBuilder();
     private Autenticador autenticador = new Autenticador(repoUsuarios, builder);
     private Login login = new Login(autenticador);
 
-    @Before
+    @BeforeAll
     public void Setup () {
         this.login = new Login(autenticador);
     }

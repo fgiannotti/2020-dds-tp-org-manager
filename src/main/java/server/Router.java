@@ -4,6 +4,7 @@ package server;
 import com.github.jknack.handlebars.Helper;
 import com.github.jknack.handlebars.Options;
 import controllers.*;
+import org.apache.log4j.BasicConfigurator;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
@@ -26,8 +27,11 @@ public class Router {
     }
 
     public static void init() {
+        BasicConfigurator.configure();
         Router.initEngine();
         Spark.staticFileLocation("/public");
+        System.out.println("Configure");
+
         Router.configure();
     }
 

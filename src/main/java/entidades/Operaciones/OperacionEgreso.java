@@ -28,7 +28,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate fechaOperacion;
 
-    @OneToOne(cascade = {CascadeType.MERGE})
+    @OneToOne(cascade=CascadeType.ALL)
     private MedioDePago medioDePago;
 
     @Column

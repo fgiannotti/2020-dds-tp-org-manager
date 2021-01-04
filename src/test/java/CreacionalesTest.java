@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 import repositorios.Builders.EmpresaBuilder;
 import entidades.DatosGeograficos.Ciudad;
 import entidades.DatosGeograficos.Direccion;
@@ -14,8 +16,6 @@ import entidades.Operaciones.Comprobante;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.Proveedor;
 import entidades.Organizaciones.*;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreacionalesTest<nuevaEmpresa> {
     Proveedor proveedorTest0 = new Proveedor();
     Articulo articuloTest0 = new Articulo("Auriculares", 20, "Maximo sonido", proveedorTest0);
@@ -40,7 +43,7 @@ public class CreacionalesTest<nuevaEmpresa> {
     Provincia unaProvincia = new Provincia("Buenas Aires");
     Pais unPais = new Pais("Argentina", "Locale");
     DireccionPostal unaDireccionPostalDePrueba = new DireccionPostal(unaDireccion, unaCiudadFacherita, unaProvincia, unPais);
-    @Before
+    @BeforeAll
     public void setup(){
         proveedorTest0.setDireccionPostal("6321456");
         proveedorTest0.setNombre_apellido_razon("Jorge Guaymallen");
@@ -52,35 +55,35 @@ public class CreacionalesTest<nuevaEmpresa> {
         this.setup();
         Item itemTest = new Item ("Combo Navideno", "Alegra tus fiestas", articulos);
         Float result = (float)310;
-        Assert.assertEquals(result, itemTest.getPrecioTotal());
+        assertEquals(result, itemTest.getPrecioTotal());
     }
 
     @Test
     public void testCreacionArticulo(){
         this.setup();
         Articulo articuloTest = new Articulo("Auriculares", 20, "Maximo sonido", proveedorTest0);
-        Assert.assertEquals("Auriculares", articuloTest.getNombre());
+        assertEquals("Auriculares", articuloTest.getNombre());
     }
 
     @Test
     public void testCreacionProovedor(){
         this.setup();
         Proveedor proveedorTest = new Proveedor("Ruben Phillips", "23623656", "4694");
-        Assert.assertEquals("23623656", proveedorTest.getDocumento());
+        assertEquals("23623656", proveedorTest.getDocumento());
     }
 
     @Test
     public void sePuedeCrearEntidadJuridicaSinBases(){
         this.setup();
         Juridica organizacion = new Juridica("organizacionJuridica.SRL","Sarasa", 2023123123, null, 1, null);
-        Assert.assertEquals("Sarasa", organizacion.getRazonSocial());
+        assertEquals("Sarasa", organizacion.getRazonSocial());
     }
 
     @Test
     public void testCreacionComprobante(){
         this.setup();
         Comprobante comprobantePrueba1 = new Comprobante(itemsTest1);
-        Assert.assertEquals(itemsTest1, comprobantePrueba1.getItems());
+        assertEquals(itemsTest1, comprobantePrueba1.getItems());
     }
 
     @Test
@@ -89,63 +92,63 @@ public class CreacionalesTest<nuevaEmpresa> {
         List<Proveedor> proveedoresTest0 = new ArrayList<Proveedor>();
         proveedoresTest0.add(proveedorTest0);
         OperacionEgreso operacionPrueba1 = new OperacionEgreso(310, "Compra navidenia",proveedoresTest0, creditoTest1, LocalDate.now(), "Factura", comprobanteTest2, itemsTest1, 1,Criterio.MENOR_VALOR);
-        Assertions.assertEquals(310, operacionPrueba1.getMontoTotal());
-        Assertions.assertEquals(comprobanteTest2, operacionPrueba1.getComprobante());
-        Assertions.assertEquals(itemsTest1, operacionPrueba1.getItems());
+        assertEquals(310, operacionPrueba1.getMontoTotal());
+        assertEquals(comprobanteTest2, operacionPrueba1.getComprobante());
+        assertEquals(itemsTest1, operacionPrueba1.getItems());
     }
 
     @Test
     public void testCreacionMedioDePago(){
         this.setup();
         Debito tarjetaDeDebito = new Debito("Tarjeta Debito ICBC", 12204210);
-        Assertions.assertEquals(12204210, tarjetaDeDebito.getNumero());
+        assertEquals(12204210, tarjetaDeDebito.getNumero());
     }
 
     @Test
     public void testCreacionOSC(){
         this.setup();
         OSC caritas = new OSC("caritas", "Caritas ONG", 2040511992, null, 201032);
-        Assertions.assertEquals("caritas", caritas.getNombreFicticio());
+        assertEquals("caritas", caritas.getNombreFicticio());
     }
 
     @Test
     public void testCreacionBase(){
         this.setup();
         Base cooperativaAlimentar = new Base("alimentar", "cooperativa de trabajadores del sector alimenticio", caritas);
-        Assertions.assertEquals("alimentar", cooperativaAlimentar.getNombreFicticio());
-        Assertions.assertEquals(caritas, cooperativaAlimentar.getEntidadPadre());
+        assertEquals("alimentar", cooperativaAlimentar.getNombreFicticio());
+        assertEquals(caritas, cooperativaAlimentar.getEntidadPadre());
     }
 
     @Test
     public void testCreacionMicro(){
         this.setup();
         Empresa acme = new Empresa("acme company" , "acme systems", 01040501, null, 30, 5, new Servicios(), (float)10000.00);
-        Assertions.assertEquals("acme company", acme.getNombreFicticio());
-        Assertions.assertEquals(TipoEmpresa.MICRO, acme.getTipo());
+        assertEquals("acme company", acme.getNombreFicticio());
+        assertEquals(TipoEmpresa.MICRO, acme.getTipo());
     }
 
     @Test
     public void testCreacionPequenia(){
         this.setup();
         Empresa dia = new Empresa("DIA" , "Supermercados Dia SRL", 201629002, null, 600, 30, new Comercio(), (float)38000000.00);
-        Assertions.assertEquals("DIA", dia.getNombreFicticio());
-        Assertions.assertEquals(TipoEmpresa.PEQUENIA, dia.getTipo());
+        assertEquals("DIA", dia.getNombreFicticio());
+        assertEquals(TipoEmpresa.PEQUENIA, dia.getTipo());
     }
 
     @Test
     public void testCreacionMedianaTramo1(){
         this.setup();
         Empresa piramides = new Empresa("Piramides constructora" , "Martin Lopez", 20152909, null, 3000, 185, new Construccion(), (float)400000000.00);
-        Assertions.assertEquals("Piramides constructora", piramides.getNombreFicticio());
-        Assertions.assertEquals(TipoEmpresa.MEDIANATRAMO1, piramides.getTipo());
+        assertEquals("Piramides constructora", piramides.getNombreFicticio());
+        assertEquals(TipoEmpresa.MEDIANATRAMO1, piramides.getTipo());
     }
 
     @Test
     public void testCreacionMedianaTramo2() {
         this.setup();
         Empresa Mercadolibre = new Empresa("Mercadolibre", "Marcos Galperin",90807060, null, 12000, 600, new IndustriaYMineria(), (float)1709590000.00);
-        Assertions.assertEquals("Mercadolibre", Mercadolibre.getNombreFicticio());
-        Assertions.assertEquals(TipoEmpresa.MEDIANATRAMO2, Mercadolibre.getTipo());
+        assertEquals("Mercadolibre", Mercadolibre.getNombreFicticio());
+        assertEquals(TipoEmpresa.MEDIANATRAMO2, Mercadolibre.getTipo());
     }
 
     @Test
@@ -153,7 +156,7 @@ public class CreacionalesTest<nuevaEmpresa> {
         this.setup();
         Juridica organizacion = new Juridica("JuridicaEjemplar","Sarasa", 2023123123, null, 1, null);
         Base orgBase = new Base("Base", "Tengo solo un padre", organizacion);
-        Assert.assertEquals("JuridicaEjemplar", orgBase.getEntidadPadre().getNombreFicticio());
+        assertEquals("JuridicaEjemplar", orgBase.getEntidadPadre().getNombreFicticio());
     }
 
     @Test
@@ -181,28 +184,28 @@ public class CreacionalesTest<nuevaEmpresa> {
         }
 
         Assertions.assertNotNull(nuevaEmpresa);
-        Assertions.assertEquals("pepito", nuevaEmpresa.getNombreFicticio());
-        Assertions.assertEquals("Jorge Lopez", nuevaEmpresa.getRazonSocial());
-        Assertions.assertEquals(20302030, nuevaEmpresa.getCuit());
-        Assertions.assertEquals(unaDireccionPostalDePrueba, nuevaEmpresa.getDirPostal());
-        Assertions.assertEquals(30, nuevaEmpresa.getCantidadPersonal());
-        Assertions.assertEquals("Agropecuario" , nuevaEmpresa.getActividad().getNombre());
-        Assertions.assertEquals(345429999f, nuevaEmpresa.getPromedioVentas());
-        Assertions.assertEquals(TipoEmpresa.MEDIANATRAMO1, nuevaEmpresa.getTipo());
+        assertEquals("pepito", nuevaEmpresa.getNombreFicticio());
+        assertEquals("Jorge Lopez", nuevaEmpresa.getRazonSocial());
+        assertEquals(20302030, nuevaEmpresa.getCuit());
+        assertEquals(unaDireccionPostalDePrueba, nuevaEmpresa.getDirPostal());
+        assertEquals(30, nuevaEmpresa.getCantidadPersonal());
+        assertEquals("Agropecuario" , nuevaEmpresa.getActividad().getNombre());
+        assertEquals(345429999f, nuevaEmpresa.getPromedioVentas());
+        assertEquals(TipoEmpresa.MEDIANATRAMO1, nuevaEmpresa.getTipo());
     }
 
     @Test
     public void crearCriterioDeEmpresaVacio(){
         this.setup();
         CriterioDeEmpresa unCriterio = new CriterioDeEmpresa("criterio de prueba", null, null);
-        Assert.assertEquals("criterio de prueba", unCriterio.getNombre());
+        assertEquals("criterio de prueba", unCriterio.getNombre());
     }
 
     @Test
     public void crearUnaCategoria(){
         this.setup();
         Categoria unaCategoria = new Categoria("Descripcion de categoria");
-        Assert.assertEquals("Descripcion de categoria", unaCategoria.getDescripcion());
+        assertEquals("Descripcion de categoria", unaCategoria.getDescripcion());
     }
 
     @Test
@@ -214,8 +217,8 @@ public class CreacionalesTest<nuevaEmpresa> {
         listaDeCategrias.add(unaCategoria);
         listaDeCategrias.add(otraCategoria);
         CriterioDeEmpresa unCriterio = new CriterioDeEmpresa("criterio de prueba", null, listaDeCategrias);
-        Assert.assertEquals("Descripcion de una categoria", unCriterio.getCategorias().get(0).getDescripcion());
-        Assert.assertEquals("Descripcion de otra categoria", unCriterio.getCategorias().get(1).getDescripcion());
+        assertEquals("Descripcion de una categoria", unCriterio.getCategorias().get(0).getDescripcion());
+        assertEquals("Descripcion de otra categoria", unCriterio.getCategorias().get(1).getDescripcion());
     }
 
     @Test
@@ -227,8 +230,8 @@ public class CreacionalesTest<nuevaEmpresa> {
         listaDeCriterios.add(criteroHijoUno);
         listaDeCriterios.add(criteroHijoDos);
         CriterioDeEmpresa unCriterio = new CriterioDeEmpresa("criterio padre", listaDeCriterios, null);
-        Assert.assertEquals("criterio hijo uno", unCriterio.getCriteriosHijos().get(0).getNombre());
-        Assert.assertEquals("criterio hijo dos", unCriterio.getCriteriosHijos().get(1).getNombre());
+        assertEquals("criterio hijo uno", unCriterio.getCriteriosHijos().get(0).getNombre());
+        assertEquals("criterio hijo dos", unCriterio.getCriteriosHijos().get(1).getNombre());
     }
 
     @Test
@@ -245,10 +248,10 @@ public class CreacionalesTest<nuevaEmpresa> {
         listaDeCategrias.add(unaCategoria);
         listaDeCategrias.add(otraCategoria);
         CriterioDeEmpresa unCriterio = new CriterioDeEmpresa("criterio padre", listaDeCriterios, listaDeCategrias);
-        Assert.assertEquals("criterio hijo uno", unCriterio.getCriteriosHijos().get(0).getNombre());
-        Assert.assertEquals("criterio hijo dos", unCriterio.getCriteriosHijos().get(1).getNombre());
-        Assert.assertEquals("Descripcion de una categoria", unCriterio.getCategorias().get(0).getDescripcion());
-        Assert.assertEquals("Descripcion de otra categoria", unCriterio.getCategorias().get(1).getDescripcion());
+        assertEquals("criterio hijo uno", unCriterio.getCriteriosHijos().get(0).getNombre());
+        assertEquals("criterio hijo dos", unCriterio.getCriteriosHijos().get(1).getNombre());
+        assertEquals("Descripcion de una categoria", unCriterio.getCategorias().get(0).getDescripcion());
+        assertEquals("Descripcion de otra categoria", unCriterio.getCategorias().get(1).getDescripcion());
     }
 
     @Test
@@ -256,7 +259,7 @@ public class CreacionalesTest<nuevaEmpresa> {
         this.setup();
         Juridica organizacion = new Juridica("JuridicaEjemplar","Sarasa", 2023123123, null, 1, null);
         organizacion.crearCriterioDeEmpresa("criterioDeOrganizacion", null, null);
-        Assert.assertEquals("criterioDeOrganizacion", organizacion.getCriterios().get(0).getNombre());
+        assertEquals("criterioDeOrganizacion", organizacion.getCriterios().get(0).getNombre());
     }
 
     @Test
@@ -265,7 +268,7 @@ public class CreacionalesTest<nuevaEmpresa> {
         organizacion.crearCriterioDeEmpresa("criterioDeOrganizacion", null, null);
         CriterioDeEmpresa criterio =organizacion.getCriterios().get(0);
         organizacion.crearCategoria(criterio,"categoriaDeOrganizacion");
-        Assert.assertEquals("categoriaDeOrganizacion", organizacion.getCriterios().get(0).getCategorias().get(0).getDescripcion());
+        assertEquals("categoriaDeOrganizacion", organizacion.getCriterios().get(0).getCategorias().get(0).getDescripcion());
     }
 
 

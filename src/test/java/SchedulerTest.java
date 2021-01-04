@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+/*
 
 public class SchedulerTest {
     Proveedor proveedorTest0 = new Proveedor("Jorge Guaymallen", "6321456", "1714");
@@ -45,4 +45,4 @@ public class SchedulerTest {
         Thread.sleep(5000);
     }
 }
-
+*/

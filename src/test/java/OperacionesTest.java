@@ -9,14 +9,16 @@ import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.Proveedor;
 import entidades.Organizaciones.Comercio;
 import entidades.Organizaciones.Empresa;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class OperacionesTest {
     public Empresa organizacion;
     public Operacion operacion;
@@ -26,7 +28,7 @@ public class OperacionesTest {
     public List<Articulo> articulos;
     public List<Proveedor> proveedores = new ArrayList<Proveedor>();
 
-    @Before
+    @BeforeAll
     public void setup(){
         proveedor = new Proveedor("Nachito deliveries", "123123", "Calle falsa 123");
         double price = 50.0;
