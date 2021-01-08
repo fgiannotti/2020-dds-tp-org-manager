@@ -1,22 +1,35 @@
 package utils.Seguridad;
 
+import com.sun.tools.internal.xjc.model.CDefaultValue;
 import entidades.Configuracion.Configuracion;
 import entidades.Organizaciones.Organizacion;
 import entidades.Usuarios.TipoUsuario;
+import javafx.util.Pair;
 import repositorios.RepoUsuarios;
 import entidades.Usuarios.Usuario;
 import repositorios.Builders.UsuarioBuilder;
 import com.nulabinc.zxcvbn.Strength;
 import com.nulabinc.zxcvbn.Zxcvbn;
+import scala.Int;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Autenticador {
-    private UsuarioBuilder usuarioBuilder;
-    private RepoUsuarios repoUsuarios;
-    private Map<String, Integer> intentosPorUsuario = new HashMap<String, Integer>();
-    private Configuracion configuracion;
+    private final UsuarioBuilder usuarioBuilder;
+    private final RepoUsuarios repoUsuarios;
+    private Map<String, Pair<Integer, LocalDateTime>> usuariosInfo = new HashMap<String, Pair<Integer,LocalDateTime>>();
+    private final Configuracion configuracion;
+
+    private static final Pair<Integer,LocalDateTime> defaultPair = new Pair<>(0, LocalDateTime.now());
+
+    public Autenticador(RepoUsuarios repo, UsuarioBuilder builder) {
+        this.repoUsuarios = repo;
+        this.usuarioBuilder = builder;
+        this.configuracion = new Configuracion();
+    }
 
     public Boolean controlDePassword(String password) {
         Zxcvbn zxcvbn = new Zxcvbn();
@@ -25,28 +38,37 @@ public class Autenticador {
     }
 
     public Boolean checkUser(String nombre, String password) throws RuntimeException {
-        Usuario user = repoUsuarios.buscarPorNombre(nombre);
-        int intentos = intentosPorUsuario.getOrDefault(nombre, 0);
-        if (intentos > configuracion.getIntentosMaximos()) {
+        Usuario usuario = repoUsuarios.buscarPorNombre(nombre);
+        Pair<Integer,LocalDateTime> userInfo = usuariosInfo.getOrDefault(nombre, defaultPair);
+        //si supera cant intentos max OR fecha de bloqueo es posterior a la fehca actual
+        if (userInfo.getKey() > configuracion.getIntentosMaximos() || userInfo.getValue().isAfter(LocalDateTime.now())) {
+            bloquearUsuario(nombre);
             throw new RuntimeException("Usuario bloqueado");
         }
-        if (!user.getPassword().equals(password)) {
-            sumarUnIntento(user.getNombre());
+
+        if (!usuario.getPassword().equals(password)) {
+            sumarUnIntento(usuario.getNombre());
             throw new RuntimeException("Contraseña incorrecta");
         }
         System.err.println ( "autenticado" );
-        resetearIntentosDe(user.getNombre());
+        resetearIntentosDe(usuario.getNombre());
         return true;
     }
+    private void bloquearUsuario(String nombre){
+        usuariosInfo.remove(nombre);
 
+        usuariosInfo.put(nombre, new Pair<>(0, LocalDateTime.now().plusMinutes(2)));
+    }
     private void resetearIntentosDe(String nombre) {
-        intentosPorUsuario.remove(nombre);
+        usuariosInfo.remove(nombre);
     }
 
     private void sumarUnIntento(String nombre) {
-        int x = intentosPorUsuario.getOrDefault(nombre, 0);
-        x++;
-        intentosPorUsuario.put(nombre, x);
+
+        Pair<Integer,LocalDateTime> usuarioInfo = usuariosInfo.getOrDefault(nombre, defaultPair);
+        Pair<Integer,LocalDateTime> usuarioInfoActualizada =  new Pair<Integer,LocalDateTime>(usuarioInfo.getKey()+1,LocalDateTime.now());
+
+        usuariosInfo.put(nombre, usuarioInfoActualizada);
     }
 
     public void crearUsuario(String nombre, Organizacion organizacion ,String password) throws RuntimeException {
@@ -62,9 +84,5 @@ public class Autenticador {
         return repoUsuarios;
     }
 
-    public Autenticador(RepoUsuarios repo, UsuarioBuilder builder) {
-        this.repoUsuarios = repo;
-        this.usuarioBuilder = builder;
-        this.configuracion = new Configuracion();
-    }
+
 }

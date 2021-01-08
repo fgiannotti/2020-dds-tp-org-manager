@@ -19,7 +19,9 @@ public abstract class Usuario extends EntidadPersistente {
     private String nombre;
     @Column(name = "contraseña")
     private String password;
-
+    @Column(name = "bloqueado")
+    private Boolean bloqueado;
+    
     public Usuario(){}
 
     public Usuario (String nombre, String password, Organizacion organizacion) {
