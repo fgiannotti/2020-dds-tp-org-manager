@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
+import repositorios.UserNotFoundException;
 import utils.Seguridad.Login;
 import entidades.Organizaciones.Comercio;
 import entidades.Organizaciones.Empresa;
@@ -25,18 +26,18 @@ public class SeguridadTest {
 
     @Test
     public void weakPasswordIsWeakTest_testCase1() {
-        Boolean bool = this.autenticador.controlDePassword("weak");
+        Boolean bool = this.autenticador.esSegura("weak");
         Assertions.assertFalse(bool);
     }
 
     @Test
-    public void controlDePasswordTest() {
-        Boolean bool = this.autenticador.controlDePassword(":JM!VbT+y'-#?9c98`d,");
+    public void esSeguraTest() {
+        Boolean bool = this.autenticador.esSegura(":JM!VbT+y'-#?9c98`d,");
         Assertions.assertTrue(bool);
     }
 
     @Test
-    public void puedoRegistrarUsuario() {
+    public void puedoRegistrarUsuario() throws UserNotFoundException {
         Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, null, 1, 5, new Comercio(), (float)150000.0){};
         Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, null, 1, null);
         login.register("Nacho", organizacion,":JM!VbT+y'-#?9c98`d,");
@@ -44,7 +45,7 @@ public class SeguridadTest {
     }
 
     @Test
-    public void puedoLoggearmeUnaVezRegistradoUsuario() {
+    public void puedoLoggearmeUnaVezRegistradoUsuario() throws Exception {
         this.Setup();
         Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, null, 1, 5, new Comercio(), (float)150000.0){};
         Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, null, 1, null);
@@ -53,14 +54,14 @@ public class SeguridadTest {
     }
 
     @Test
-    public void tiraErrorLuegoDe3IntentosFallidos() {
+    public void tiraErrorLuegoDe3IntentosFallidos() throws Exception {
         Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, null, 1, 5, new Comercio(), (float)150000.0){};
         Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, null, 1, null);
         login.register("Nacho", organizacion, ":JM!VbT+y'-#?9c98`d,");
         login.login("Nacho", "asd");
         login.login("Nacho", "asd");
         login.login("Nacho", "asd");
-        Assertions.assertThrows(RuntimeException.class, () -> {
+        Assertions.assertThrows(Exception.class, () -> {
             login.login("Nacho", "asd");
         });
     }

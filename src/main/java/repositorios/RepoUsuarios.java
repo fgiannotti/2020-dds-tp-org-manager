@@ -12,12 +12,15 @@ public class RepoUsuarios {
     public RepoUsuarios () {
     }
 
-    public Usuario buscarPorNombre(String nombre) {
+    public Usuario buscarPorNombre(String nombre) throws UserNotFoundException {
         Usuario unUsuario;
 
         String query = "from Usuario where nombre = '" +  nombre + "'";
-        unUsuario = (Usuario) EntityManagerHelper.createQuery(query).getResultList().get(0);
-        return unUsuario;
+        ArrayList<Usuario> usuarios = (ArrayList<Usuario>) EntityManagerHelper.createQuery(query).getResultList();
+        if(usuarios.isEmpty()){
+            throw new UserNotFoundException("Error: usuario "+ nombre + " no fue encontrado");
+        }
+        return usuarios.get(0);
     }
     public Usuario find (String id) {
         Usuario unUsuario;

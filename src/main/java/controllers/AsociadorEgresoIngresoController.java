@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import repositorios.RepoOperacionesEgresos;
 import repositorios.RepoOperacionesIngresos;
 import repositorios.RepoUsuarios;
+import repositorios.UserNotFoundException;
 import server.Router;
 import spark.ModelAndView;
 import spark.Request;
@@ -32,7 +33,7 @@ public class AsociadorEgresoIngresoController {
 
     private Usuario user;
 
-    public ModelAndView inicio(Request request, Response response){
+    public ModelAndView inicio(Request request, Response response) throws UserNotFoundException {
         Router.CheckIfAuthenticated(request, response);
         String userName = request.cookie("user");
         user = repoUsuarios.buscarPorNombre(userName);

@@ -3,10 +3,7 @@ package controllers;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import entidades.Usuarios.Usuario;
-import repositorios.RepoOperaciones;
-import repositorios.RepoOperacionesEgresos;
-import repositorios.RepoOperacionesIngresos;
-import repositorios.RepoUsuarios;
+import repositorios.*;
 import server.Router;
 import spark.ModelAndView;
 import spark.Request;
@@ -23,7 +20,7 @@ public class VerIngresoEgresoController {
     private RepoUsuarios repoUsuarios = new RepoUsuarios();
 
 
-    public ModelAndView inicio(Request request, Response response){
+    public ModelAndView inicio(Request request, Response response) throws UserNotFoundException {
         Router.CheckIfAuthenticated(request, response);
 
         Usuario usuario = repoUsuarios.buscarPorNombre(request.cookie("user"));
