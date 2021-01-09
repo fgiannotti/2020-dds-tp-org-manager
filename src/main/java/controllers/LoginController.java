@@ -15,16 +15,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginController {
-
+    private final RepoUsuarios repoUsuarios = new RepoUsuarios();
+    private final UsuarioBuilder builder = new UsuarioBuilder();
+    private final Autenticador autenticador = new Autenticador(repoUsuarios, builder);
     public ModelAndView inicio(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         return new ModelAndView(parametros, "login.hbs");
     }
 
     public ModelAndView login(Request request, Response response) {
-        RepoUsuarios repoUsuarios = new RepoUsuarios();
-        UsuarioBuilder builder = new UsuarioBuilder();
-        Autenticador autenticador = new Autenticador(repoUsuarios, builder);
 
         HashMap<String, Object> parametros =  new HashMap<String, Object>();
 

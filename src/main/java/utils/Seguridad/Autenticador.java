@@ -17,7 +17,7 @@ import java.util.Map;
 public class Autenticador {
     private final UsuarioBuilder usuarioBuilder;
     private RepoUsuarios repoUsuarios;
-    private Map<String, Pair<Integer, LocalDateTime>> usuariosInfo = new HashMap<String, Pair<Integer,LocalDateTime>>();
+    private Map<String, Pair<Integer, LocalDateTime>> usuariosInfo = new HashMap<>();
     private final Configuracion configuracion = new Configuracion();
 
     private static final Pair<Integer,LocalDateTime> defaultPair = new Pair<>(0, LocalDateTime.MIN);
@@ -35,19 +35,24 @@ public class Autenticador {
 
     public void checkUser(String nombre, String password) throws Exception {
         Usuario usuario = repoUsuarios.buscarPorNombre(nombre);
+        System.out.print("mapa encontrado: ");
+        System.out.print(usuariosInfo);
         Pair<Integer,LocalDateTime> userInfo = usuariosInfo.getOrDefault(nombre, defaultPair);
+        System.out.print("\n par encontrado: ");
+        System.out.print(userInfo);
 
         //si supera cant intentos max OR fecha de bloqueo es posterior a la fecha actual
-        System.out.printf("Intentos: %d de %d",userInfo.getKey(),configuracion.getIntentosMaximos());
+        System.out.printf("\n \n Intentos: %d de %d \n",userInfo.getKey(),configuracion.getIntentosMaximos());
+
         if (userInfo.getKey() > configuracion.getIntentosMaximos() || userInfo.getValue().isAfter(LocalDateTime.now())) {
             bloquearUsuario(nombre);
             throw new UserBlockedException("Usuario bloqueado");
         }
 
         if (!usuario.getPassword().equals(password)) {
-            System.err.print("contraseña inc");
+            System.out.print("contraseña inc \n");
             sumarUnIntento(usuario.getNombre());
-            throw new InvalidPasswordException("Contraseña incorrecta");
+            throw new InvalidPasswordException("Contraseña incorrecta \n");
         }
         System.err.println ( "autenticado" );
         resetearIntentosDe(usuario.getNombre());
@@ -64,11 +69,15 @@ public class Autenticador {
     private void sumarUnIntento(String nombre) {
         Pair<Integer,LocalDateTime> usuarioInfo = usuariosInfo.getOrDefault(nombre, defaultPair);
         Integer intentos = usuarioInfo.getKey();
+
         Pair<Integer,LocalDateTime> usuarioInfoActualizada =  new Pair<Integer,LocalDateTime>(intentos+1,LocalDateTime.now());
-        System.err.print(usuarioInfoActualizada);
-        usuariosInfo.put(nombre, usuarioInfoActualizada);
-        System.out.print("usuarioInfo");
-        System.out.print(usuarioInfo);
+
+        System.out.print("actualice la info a: ");
+        System.out.print(usuarioInfoActualizada);
+
+        this.usuariosInfo.put(nombre, usuarioInfoActualizada);
+        System.out.print("\n el mapa total usuarios dsp del put: ");
+        System.out.print(this.usuariosInfo);
     }
 
     public void crearUsuario(String nombre, Organizacion organizacion ,String password) throws RuntimeException {
