@@ -1,7 +1,9 @@
 body{
 background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 }
-
+.row {
+  border: 1px dashed red /* demo */
+}
 .boton_crearOPE {
   position: absolute;
   left:10px;

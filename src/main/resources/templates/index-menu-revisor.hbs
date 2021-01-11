@@ -1,42 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/27517fada0.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilos-home.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
     <title>Home</title>
 </head>
 <body>
-    <h1 class="titulo">Poem</h1>
-    <form action="/logout" method="get" class="form-">
-        <button class="boton_salir" onclick="location.href='index-login.html'" type="submit">Salir</button>
-    </form>
-    <button class="boton_crearOPE" onclick="location.href='CrearOperacionEgreso';">
-        <p class="texto-operacion">Crear Operacion de Egreso</p>
-    </button>
-    <button class="boton_crearIN" onclick="location.href='ingreso'">
-        <p class="texto-ingreso">Cargar Operacion de Ingreso</p>
-    </button>
-    <button class="boton_asociar" onclick="location.href='asocIngresoEgreso'">
-        <p class="texto-asociar">Asociar Ingresos</p>
-    </button>
-    <button class="boton_visualizacion" onclick="location.href='visualizacionIngresoEgresoPorCat'">
-        <p class="texto-visualizacion">Visualizar Egresos</p>
-    </button>
-    <button class="boton_bandeja" onclick="location.href='ver-bandeja'">
-        <p class="texto-bandeja">Bandeja de Entrada</p>
-    </button>
-    <h3 class="subtitulo">¿Quienes somos?</h3>
-    <p class= "descripcion">
-        Somos una organización sin fines de lucro fundada en el año 2003, donde nuestra misión es acompañar la preparación laboral, promover el desarrollo, generar emprendimientos y fortalecer organizaciones productivas ya constituidas.
-        <br>
-        Apoyamos a toda persona que necesite apoyo, asesoramiento y/o acompañamiento en proyectar sus ideas como herramientas para generar un trabajo autónomo, así como a jóvenes y adultos que necesitan orientación y capacitación para mejorar su formación con el fin de conseguir un empleo
-    </p>
-  </body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="space-evenly-horizontal navbar-nav ml-auto">
+            <button type="button" class="btn btn-dark align-content-center"
+                    onclick="location.href='CrearOperacionEgreso'">Crear Operacion de Egreso
+            </button>
+            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
+                Cargar Operacion de Ingreso
+            </button>
+            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='asocHome'">
+                Asociar
+            </button>
+            <button type="button" class="btn btn-dark align-content-center"
+                    onclick="location.href='visualizacionIngresoEgresoPorCat'">Visualizar Egresos
+            </button>
+            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ver-bandeja'">
+                Bandeja de Entrada
+            </button>
+        </div>
+
+        <form action="/logout" method="get" class="form d-flex justify-content-end">
+                <button class="btn btn-dark" onclick="location.href='index-login.html'" type="submit">Salir</button>
+            </form>
+
+    </div>
+</nav>
+
+
+<h1 class="titulo">Poem</h1>
+
+
+<h3 class="subtitulo">¿Quienes somos?</h3>
+<p class="descripcion">
+    Somos una organización sin fines de lucro fundada en el año 2003, donde nuestra misión es acompañar la preparación
+    laboral, promover el desarrollo, generar emprendimientos y fortalecer organizaciones productivas ya constituidas.
+    <br>
+    Apoyamos a toda persona que necesite apoyo, asesoramiento y/o acompañamiento en proyectar sus ideas como
+    herramientas para generar un trabajo autónomo, así como a jóvenes y adultos que necesitan orientación y capacitación
+    para mejorar su formación con el fin de conseguir un empleo
+</p>
+</body>
 </html>

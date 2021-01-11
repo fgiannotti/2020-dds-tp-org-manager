@@ -12,6 +12,12 @@ background-image: url("https://i.pinimg.com/originals/da/a6/55/daa6550f1247a7350
   height: 50%;
   opacity: 1.5;
 }
+.space-evenly-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
 
 .space-evenly-vert {
   display: flex;
