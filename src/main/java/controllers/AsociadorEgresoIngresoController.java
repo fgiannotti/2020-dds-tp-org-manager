@@ -52,7 +52,7 @@ public class AsociadorEgresoIngresoController {
         return new ModelAndView(parametros,"asociar-home.hbs");
     }
 
-    public Response asociar(Request request, Response response) {
+    public Response asociarIngresoEgreso(Request request, Response response) {
         if(!request.cookie("id").equals(request.session().id())){
             response.redirect("/");
         }

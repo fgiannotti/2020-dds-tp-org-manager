@@ -8,11 +8,17 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <!-- CSS only -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!-- CSS only -->
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilos-home.css">
     <title>Home</title>
@@ -34,18 +40,21 @@
             <button type="button" class="btn btn-dark align-content-center"
                     onclick="location.href='visualizacionIngresoEgresoPorCat'">Visualizar Egresos
             </button>
-            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ver-bandeja'">
-                Bandeja de Entrada
-            </button>
+
         </div>
 
-        <form action="/logout" method="get" class="form d-flex justify-content-end">
-            <button class="btn btn-dark" onclick="location.href='index-login.html'" type="submit">Salir</button>
-        </form>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-dark" onclick="location.href='ver-bandeja'">
+                Bandeja de Entrada
+            </button>
+            <form action="/logout" method="get" class="form">
+                <button class="btn btn-dark" onclick="location.href='index-login.html'" type="submit">Salir</button>
+            </form>
+        </div>
+
 
     </div>
 </nav>
-
 
 <h1 class="display-1 space-around-horizontal text-center text-dark">Poem</h1>
 
