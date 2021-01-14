@@ -13,6 +13,27 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
   font-family:"Cambria";
   font-weight: lighter;
 }
+.btn-xlg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.750rem;
+  border-radius: 0.45rem;
+}
+
+.space-evenly-vert {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.container-egresos{
+  width: fit-content;
+  height: fit-content;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: auto;
+  margin-left: auto;
+}
 
 .general{
   background: white;

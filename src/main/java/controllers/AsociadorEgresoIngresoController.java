@@ -49,7 +49,7 @@ public class AsociadorEgresoIngresoController {
         parametros.put("ingresos", operacionesIngreso);
         parametros.put("egresos", operacionesEgreso);
 
-        return new ModelAndView(parametros,"asociar-home.hbs");
+        return new ModelAndView(parametros,"asociar-egreso-ingreso.hbs");
     }
 
     public Response asociarIngresoEgreso(Request request, Response response) {
