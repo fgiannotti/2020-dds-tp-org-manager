@@ -29,8 +29,8 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 .container-egresos{
   width: fit-content;
   height: fit-content;
-  padding-right: var(--bs-gutter-x, 0.75rem);
-  padding-left: var(--bs-gutter-x, 0.75rem);
+  padding-right: 8%;
+  padding-left: 8%;
   margin-right: auto;
   margin-left: auto;
 }
