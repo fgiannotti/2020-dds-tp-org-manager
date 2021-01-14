@@ -31,22 +31,29 @@
                 Cargar Operacion de Ingreso
             </button>
 
-            <div class="dropdown">
+            <div class="dropdown align-content-md-around">
                 <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                         aria-expanded="true">
                     Asociar
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><a class="dropdown-item" href="#">Categoria Egreso</a></li>
+                    <li><a class="dropdown-item" href="#">Categoria Presupuesto</a></li>
                 </ul>
             </div>
 
+            <div class="dropdown align-content-center">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Visualizar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/ver-ingresos'">Ver Ingresos</a></li>
+                    <li><a class="dropdown-item" href="#">Ver Egresos</a></li>
+                </ul>
+            </div>
 
-            <button type="button" class="btn btn-dark align-content-center"
-                    onclick="location.href='visualizacionIngresoEgresoPorCat'">Visualizar Egresos
-            </button>
 
         </div>
 
