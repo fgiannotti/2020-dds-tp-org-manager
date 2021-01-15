@@ -72,7 +72,9 @@ public class Router {
 
         Spark.post("/ingreso", operacionIngresoController::altaIngreso);
 
-        Spark.get("/ver-ingresos", verIngresoEgresoController::inicio, Router.engine);
+        Spark.get("/ver-ingresos", verIngresoEgresoController::verIngreso, Router.engine);
+
+        Spark.get("/ver-egresos", verIngresoEgresoController::verEgreso, Router.engine);
 
         Spark.get("/ver-bandeja", bandejaDeEntradaController::inicio, Router.engine);
 

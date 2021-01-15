@@ -19,21 +19,21 @@
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
     <!-- CSS only -->
-    <title>Ver Egresos</title>
+    <title>Ver Ingresos</title>
 </head>
 <body>
 <div class="d-flex justify-content-center">
-    <h1 class="text-center display-3">Visualizar Egresos </h1>
+    <h1 class="text-center display-3">Visualizar Ingresos </h1>
 </div>
 
 <div class="general-egresos rounded">
     <div class="text-center space-evenly-vert m-4">
 
-        {{#each egresos}}
+        {{#each ingresos}}
             <div class="space-evenly-vert padding-body-egreso">
 
                 <div class="align-content-start">
-                    <h3>Egreso {{inc @index}} </h3>
+                    <h3>Ingreso {{inc @index}} </h3>
                 </div>
                 <div class="container-body-egreso justify-content-start">
                     <p>Nro: {{numeroOperacion}}</p>
@@ -44,7 +44,7 @@
             </div>
 
         {{else}}
-            <p> Sin egresos.</p>
+            <p> Sin ingresos.</p>
 
         {{/each}}
 

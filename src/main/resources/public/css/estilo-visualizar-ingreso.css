@@ -1,35 +1,19 @@
-body {
+body{
     background-image: url("https://wallpapercave.com/wp/wp6928859.png");
     font-family: "Lato", sans-serif;
 }
 
-.titulo {
+.titulo{
     background: none;
     text-align: center;
-}
-.padding-body-egreso{
-    padding: 16px;
-    min-width: 300px;
-    max-width: 400px;
-}
-.padding-button-home{
-    padding: 4px;
-}
-.container-body-egreso {
-    width: 70%;
-    padding-right: var(--bs-gutter-x, 0.75rem);
-    padding-left: var(--bs-gutter-x, 0.75rem);
-    margin-right: auto;
-    margin-left: 8px;
-}
-.nombre-titulo {
-    font-size: 3em;
+.nombre-titulo{
+    font-size:3em;
     color: black;
-    font-family: "Cambria";
+    font-family:"Cambria";
     font-weight: lighter;
 }
 
-.general {
+.general{
     background: white;
     border-radius: 2em 2em;
     align-self: center;
@@ -38,7 +22,7 @@ body {
     height: 1000px;
 }
 
-.general-medio {
+.general-medio{
     background: none;
     text-align: center;
     width: 210px;
@@ -46,7 +30,7 @@ body {
     float: left;
 }
 
-.general-egresos {
+.general-ingresos{
     background: white;
     border-radius: 2em 2em;
     align-self: center;
@@ -54,8 +38,7 @@ body {
     width: fit-content;
     height: fit-content;
 }
-
-.general-numero {
+.general-numero{
     background: none;
     text-align: center;
     width: 210px;
@@ -63,7 +46,7 @@ body {
     float: left;
 }
 
-.general-siguiente {
+.general-siguiente{
     background: none;
     text-align: center;
     width: 200px;
@@ -71,7 +54,7 @@ body {
     float: right;
 }
 
-.general-home {
+.general-home{
     background: none;
     text-align: center;
     width: 500px;
@@ -79,76 +62,76 @@ body {
     float: center;
 }
 
-.boton_siguiente {
+.boton_siguiente{
     border: none;
     background: #A3ABAF;
     width: 10em;
     height: 2em;
     text-align: center;
     font-size: 15px;
-    font-family: "Segoe UI";
-    font-style: italic;
+    font-family:"Segoe UI";
+    font-style:italic;
     color: black;
 }
 
-.boton_home {
+.boton_home{
     border: none;
     background: #A3ABAF;
     width: 20em;
     height: 3em;
     text-align: center;
     font-size: 15px;
-    font-family: "Segoe UI";
-    font-style: italic;
+    font-family:"Segoe UI";
+    font-style:italic;
     color: black;
 }
 
-.box-Medio {
+.box-Medio{
     width: 200px;
     height: 20px;
-    background: white;
+    background:white;
     float: right;
     align-content: center;
 }
 
-.medio {
+.medio{
     font-size: 20px;
-    font-family: "Cambria";
+    font-family:"Cambria";
     color: black;
 }
 
-.numero {
+.numero{
     font-size: 20px;
-    font-family: "Cambria";
+    font-family:"Cambria";
     color: black;
 }
 
-.box-numero {
+.box-numero{
     width: 200px;
     height: 20px;
-    background: white;
+    background:white;
     float: right;
     align-content: center;
 }
 
-.opcion-multiple {
+.opcion-multiple{
     width: 150px;
     height: 20px;
 }
 
-.boton_guardar {
+.boton_guardar{
     border: none;
     background: #A3ABAF;
     width: 10em;
     height: 2em;
     text-align: center;
     font-size: 15px;
-    font-family: "Segoe UI";
-    font-style: italic;
+    font-family:"Segoe UI";
+    font-style:italic;
     color: black;
 }
 
-.general-guardar {
+.general-guardar{
     background: none;
     text-align: center;
     width: 200px;
