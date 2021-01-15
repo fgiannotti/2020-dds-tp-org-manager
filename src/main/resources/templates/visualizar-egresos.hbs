@@ -72,23 +72,21 @@
     </div>
 </nav>
 
-<br><br>
+<br>
 <div class="space-evenly-vert">
     <div class="card text-dark bg-light mb-3 padd" style="max-width: 18rem; min-width: 24rem;">
     <div class="card-header display-7 text-center">Egresos</div>
             <div class="card-body">
                 {{#each egresos}}
                 <div class="space-evenly-vert align-items-start">
-                    {{#if @index}}
-                    <hr> {{/if}}
                     <div class="align-content-start">
-                        <h5 class="card-title"> Egreso {{inc @index}} </h5>
+                        <h5 class="card-title" style="margin-top: .5rem"> Egreso {{inc @index}} </h5>
                     </div>
                 <div class="container-body-egreso justify-content-start">
-                     <p class="card-text">Nro: {{numeroOperacion}}</p>
-                    <p>Descripcion:{{descripcion}}</p>
-                    <p>Fecha: {{fechaOperacion}}</p>
-                    <p>Monto Total: {{montoTotal}}</p>
+                     <p class="card-text" style="margin-bottom: 0">Nro: {{numeroOperacion}}</p>
+                    <p class="card-text" style="margin-bottom: 0">Descripcion:{{descripcion}}</p>
+                    <p class="card-text" style="margin-bottom: 0">Fecha: {{fechaOperacion}}</p>
+                    <p class="card-text" style="margin-bottom: 0">Monto Total: {{montoTotal}}</p>
                 </div>
             </div>
             {{else}}
