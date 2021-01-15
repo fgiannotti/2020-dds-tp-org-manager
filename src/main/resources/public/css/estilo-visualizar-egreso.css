@@ -1,5 +1,5 @@
 body {
-    background-image: url("https://wallpapercave.com/wp/wp6928859.png");
+    background: white;
     font-family: "Lato", sans-serif;
 }
 
@@ -7,14 +7,17 @@ body {
     background: none;
     text-align: center;
 }
-.padding-body-egreso{
+
+.padding-body-egreso {
     padding: 16px;
     min-width: 300px;
     max-width: 400px;
 }
-.padding-button-home{
+
+.padding-button-home {
     padding: 4px;
 }
+
 .container-body-egreso {
     width: 70%;
     padding-right: var(--bs-gutter-x, 0.75rem);
@@ -22,6 +25,7 @@ body {
     margin-right: auto;
     margin-left: 8px;
 }
+
 .nombre-titulo {
     font-size: 3em;
     color: black;
@@ -30,12 +34,25 @@ body {
 }
 
 .general {
-    background: white;
+    background: lightgrey;
     border-radius: 2em 2em;
     align-self: center;
     margin: 0 auto;
     width: 500px;
     height: 1000px;
+}
+
+.display-7 {
+    font-size: calc(1rem + 1vw);
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.space-evenly-vert {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .general-medio {
@@ -47,7 +64,7 @@ body {
 }
 
 .general-egresos {
-    background: white;
+    background: lightgrey;
     border-radius: 2em 2em;
     align-self: center;
     margin: 0 auto;
