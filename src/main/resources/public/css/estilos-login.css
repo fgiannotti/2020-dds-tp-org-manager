@@ -1,6 +1,19 @@
-body{
-background-image: url("https://i.pinimg.com/originals/da/a6/55/daa6550f1247a73508c5560300d9d697.jpg");
+
+body {
+  font-family: "Lato", sans-serif;
+  height: 100%;
+  min-height: 100%;
+  background: url("https://i.pinimg.com/originals/da/a6/55/daa6550f1247a73508c5560300d9d697.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
+
+html {
+  height: 100%;
+
+ }
 
 .general{
   background: white;
