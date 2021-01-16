@@ -49,8 +49,6 @@ public class RepoOperacionesEgresos {
 
     public OperacionEgreso get (int id) {
         String query = "from OperacionEgreso where id = " + id;
-        OperacionEgreso operacion = new OperacionEgreso();
-        EntityManagerHelper.createQuery(query).getFirstResult();
-        return operacion;
+        return (OperacionEgreso) EntityManagerHelper.createQuery(query).getSingleResult();
     }
 }

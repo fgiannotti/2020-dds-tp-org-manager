@@ -20,6 +20,19 @@ public class Presupuesto extends EntidadPersistente {
     private Integer cantidad;
     @Column
     private Float total;
+
+    @Override
+    public String toString() {
+        return "Presupuesto{" +
+                "items=" + items +
+                ", cantidad=" + cantidad +
+                ", total=" + total +
+                ", documento=" + documento +
+                ", proveedor=" + proveedor +
+                ", categorias=" + categorias +
+                '}';
+    }
+
     @Transient
     private Comprobante documento;
     @Transient

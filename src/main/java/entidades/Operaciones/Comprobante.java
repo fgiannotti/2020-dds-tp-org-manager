@@ -7,9 +7,18 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jdk.nashorn.internal.objects.NativeArray.length;
+
 @Entity
 @Table(name="comprobantes")
 public class Comprobante extends EntidadPersistente {
+    @Override
+    public String toString() {
+        return "Comprobante{" +
+                "numeroComprobante=" + numeroComprobante +
+                ", items=" + length(items) +
+                '}';
+    }
 
     @Column(name="numero_comprobante")
     private int numeroComprobante;

@@ -7,6 +7,7 @@ import entidades.MedioDePago.MedioDePago;
 import entidades.Operaciones.*;
 import entidades.Organizaciones.CriterioDeEmpresa;
 import entidades.Organizaciones.Organizacion;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import repositorios.RepoOperacionesEgresos;
 import server.Router;
 import spark.ModelAndView;
@@ -55,8 +56,8 @@ public class OperacionController {
         parametros.put("egreso", operacionEgreso);
         parametros.put("proveedores", operacionEgreso.getProveedores());
         parametros.put("egresoID",egresoID);
-        System.out.print(""operacionEgreso);
-        System.out.print(parametros);
+        System.out.print(operacionEgreso);
+        System.out.print(operacionEgreso.getComprobante());
         return new ModelAndView(parametros,"egreso.hbs");
     }
 

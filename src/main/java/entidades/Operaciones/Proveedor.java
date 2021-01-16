@@ -8,6 +8,17 @@ import java.util.Objects;
 @Entity
 @Table(name="proveedores")
 public class Proveedor extends EntidadPersistente {
+    @Override
+    public String toString() {
+        return "Proveedor{" +
+                "nombreApellidoRazon='" + nombreApellidoRazon + '\'' +
+                ", documento='" + documento + '\'' +
+                ", direccionPostal='" + direccionPostal + '\'' +
+                ", presupuesto=" + presupuesto +
+                ", egreso=" + egreso +
+                '}';
+    }
+
     @Column
     private String nombreApellidoRazon;
     @Column
@@ -62,12 +73,4 @@ public class Proveedor extends EntidadPersistente {
     }
 
 
-    @Override
-    public String toString() {
-        return "Proveedor{" +
-                "nombreApellidoRazon='" + nombreApellidoRazon + '\'' +
-                ", documento='" + documento + '\'' +
-                ", direccionPostal='" + direccionPostal + '\'' +
-                '}';
-    }
 }

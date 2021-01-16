@@ -28,6 +28,28 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate fechaOperacion;
 
+    @Override
+    public String toString() {
+        return "OperacionEgreso{" +
+                "numeroOperacion=" + numeroOperacion +
+                ", proveedores=" + proveedores +
+                ", fechaOperacion=" + fechaOperacion +
+                ", medioDePago=" + medioDePago +
+                ", tipoDocumento='" + tipoDocumento + '\'' +
+                ", comprobante=" + comprobante +
+                ", montoTotal=" + montoTotal +
+                ", descripcion='" + descripcion + '\'' +
+                ", items=" + items +
+                ", presupuestosPreliminares=" + presupuestosPreliminares +
+                ", articulo=" + articulo +
+                ", cantidadMinimaDePresupuestos=" + cantidadMinimaDePresupuestos +
+                ", ingreso=" + ingreso +
+                ", criterio=" + criterio +
+                ", categorias=" + categorias +
+                ", organizacion=" + organizacion +
+                '}';
+    }
+
     @OneToOne(cascade=CascadeType.ALL)
     private MedioDePago medioDePago;
 

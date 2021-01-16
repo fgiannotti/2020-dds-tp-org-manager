@@ -71,42 +71,47 @@
 
     </div>
 </nav>
-
-<div class="card text-dark bg-light-tp mb-3"
-     style="min-height: 24rem; min-width: 28rem; padding: 16px" type="submit">
-    <div class="card-header display-7 text-center"> Egreso {{egresoID}}</div>
-    <div class="card-body">
-        <div class="space-evenly-vert align-items-start">
-            <div class="container-body-egreso justify-content-start" style="padding-right: 0">
-                <p class="card-title">Numero de operacion: {{egreso.numeroOperacion}}</p>
-                <p class="card-text">Descripcion: {{egreso.descripcion}}</p>
-                <p class="card-text">Fecha: {{egreso.fechaOperacion}}</p>
-                <p class="card-text">Monto Total: {{egreso.montoTotal}}</p>
-                <p class="card-text">Tipo documento: {{egreso.tipoDocumento}}</p>
-                <p class="card-text">Comprobante: {{egreso.comprobante}}</p>
-                <p class="card-text">Presupuestos Minimos: {{egreso.cantidadMinimaDePresupuestos}}
-                <p class="card-text">Criterio: {{egreso.criterio}}</p>
-                <p class="card-text">Ingreso Asociado: {{egreso.ingreso}}</p>
-
-
-                <hr>
-                <div>
-                    {{#each proveedores}}
-                        <p class="card-title">Proveedores</p>
-                        <p class="card-text"> Proveedor {{nombreApellidoRazon}}</p>
-                        <p class="card-text"> Direccion Postal:  {{direccionPostal}}</p>
-                        <p class="card-text"> Presupuesto:  {{presupuesto}}</p>
+<div class="d-flex justify-content-center" style="padding: 16px">
+    <div class="card text-dark bg-light-tp mb-3"
+         style="min-height: 24rem; min-width: 28rem; max-width: 70%">
+        <div class="card-header display-7 text-center"> Egreso {{egresoID}}</div>
+        <div class="card-body">
+            <div class="space-evenly-vert align-items-start">
+                <div class="container-body-egreso justify-content-start" style="padding-right: 0">
+                    <p class="card-title">Numero de operacion: {{egreso.numeroOperacion}}</p>
+                    <p class="card-text">Descripcion: {{egreso.descripcion}}</p>
+                    <p class="card-text">Fecha: {{egreso.fechaOperacion}}</p>
+                    <p class="card-text">Monto Total: {{egreso.montoTotal}}</p>
+                    <p class="card-text">Tipo documento: {{egreso.tipoDocumento}}</p>
+                    <p class="card-text" style="margin-bottom: 8px">Comprobante: </p>
+                    <p class="card-text" style="margin-bottom: 0;margin-left: 24px">nro {{egreso.comprobante.numeroComprobante}}  </p>
+                    <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Items: </p>
+                    {{#each egreso.comprobante.items}}
+                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px">{{inc @index}}.    {{nombre}} - {{descripcion}}.
+                        </p>
                     {{/each}}
+
+                    <p class="card-text" style="margin: 16px">Presupuestos Minimos: {{egreso.cantidadMinimaDePresupuestos}}
+                    <p class="card-text">Criterio: {{egreso.criterio}}</p>
+                    <p class="card-text">Ingreso Asociado: {{egreso.ingreso}}</p>
+
+
+
+                    <div>
+                        <hr>
+                        {{#each proveedores}}
+                            <p class="card-title text-center">Proveedores</p>
+                            <p class="card-text"> Proveedor {{nombreApellidoRazon}}</p>
+                            <p class="card-text"> Direccion Postal:  {{direccionPostal}}</p>
+                            <p class="card-text"> Presupuesto:  {{presupuesto}}</p>
+                        {{else}}
+                            <p class="card-text text-center"> Sin proveedores. </p>
+                        {{/each}}
+                    </div>
                 </div>
-
-
             </div>
         </div>
     </div>
-</div>
-</form>
-
-
 </div>
 
 <div class="d-flex justify-content-center padding-button-home">

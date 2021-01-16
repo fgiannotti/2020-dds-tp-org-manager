@@ -45,16 +45,6 @@ public class Item extends EntidadPersistente {
         return descripcion;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "precioTotal=" + this.getPrecioTotal() +
-                ", descripcion='" + descripcion + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", articulos=" + articulos +
-                '}';
-    }
-
     public boolean estoyEnEstosItemsDelPresupuesto(List<Item> items) {
         return items.stream().anyMatch(item -> this.igual(item));
     }
@@ -78,6 +68,16 @@ public class Item extends EntidadPersistente {
 
     public void setComprobante(Comprobante comprobante) {
         this.comprobante = comprobante;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "descripcion='" + descripcion + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", articulos=" + articulos +
+                ", comprobante=" + comprobante +
+                '}';
     }
 }
 
