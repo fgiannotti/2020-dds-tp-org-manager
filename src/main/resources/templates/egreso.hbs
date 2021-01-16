@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,11 +17,11 @@
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
     <script src="/js/logic.js"></script>
-    <link rel="stylesheet" href="/css/estilo-organizacion.css">
-    <title>Asociar ingresos a egresos</title>
+    <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
+    <!-- CSS only -->
+    <title>Ver Egresos</title>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="space-around-horizontal navbar-nav ml-auto">
@@ -68,63 +68,51 @@
             </form>
         </div>
 
+
     </div>
 </nav>
 
-<br>
+<div class="card text-dark bg-light-tp mb-3"
+     style="min-height: 24rem; min-width: 28rem; padding: 16px" type="submit">
+    <div class="card-header display-7 text-center"> Egreso {{egresoID}}</div>
+    <div class="card-body">
+        <div class="space-evenly-vert align-items-start">
+            <div class="container-body-egreso justify-content-start" style="padding-right: 0">
+                <p class="card-title">Numero de operacion: {{egreso.numeroOperacion}}</p>
+                <p class="card-text">Descripcion: {{egreso.descripcion}}</p>
+                <p class="card-text">Fecha: {{egreso.fechaOperacion}}</p>
+                <p class="card-text">Monto Total: {{egreso.montoTotal}}</p>
+                <p class="card-text">Tipo documento: {{egreso.tipoDocumento}}</p>
+                <p class="card-text">Comprobante: {{egreso.comprobante}}</p>
+                <p class="card-text">Presupuestos Minimos: {{egreso.cantidadMinimaDePresupuestos}}
+                <p class="card-text">Criterio: {{egreso.criterio}}</p>
+                <p class="card-text">Ingreso Asociado: {{egreso.ingreso}}</p>
 
-<form action="/asocIngresoEgreso" method="post" class="form">
-    <div class="space-evenly-vert">
-        <div class="card text-dark bg-light-tp mb-3 padd" style="max-width: 18rem; min-width: 24rem;">
-            <div class="card-header display-7 text-center">Asociar Ingreso Egreso</div>
-            <div class="card-body">
-                <div class="align-content-start">
-                    <h5 class="card-title"> Ingresos </h5>
-                </div>
-                <div class="container">
-                    {{#each egresos}}
-                        <div class="space-evenly-vert align-items-start " style="margin-left: 8px">
-                            <label for="cbox1">
-                                <input type="checkbox" id="cbox1" name="ingreso" value="{{id}}">
-                                Nro: {{id}} Descripcion:{{descripcion}}
-                            </label> <label
-                                for="cbox2"></label>
-                        </div>
-                    {{else}}
-                        <p> Sin egresos.</p>
+
+                <hr>
+                <div>
+                    {{#each proveedores}}
+                        <p class="card-title">Proveedores</p>
+                        <p class="card-text"> Proveedor {{nombreApellidoRazon}}</p>
+                        <p class="card-text"> Direccion Postal:  {{direccionPostal}}</p>
+                        <p class="card-text"> Presupuesto:  {{presupuesto}}</p>
                     {{/each}}
                 </div>
-                <br>
-                <div class="align-content-start">
-                    <h5 class="card-title"> Egresos </h5>
-                </div>
-                <div class="container">
-                    {{#each ingresos}}
-                        <div class="space-evenly-vert align-items-start" style="margin-left: 8px">
-                            <label for="cbox2">
-                                <input type="checkbox" id="cbox2" name="egreso" value="{{id}}">
-                                Nro: {{id}} Descripcion:{{descripcion}}
-                            </label>
-                        </div>
-                    {{else}}
-                        <p> Sin egresos.</p>
-                    {{/each}}
-                </div>
-            </div>
-            <div class="justify-content-end d-flex" style="margin: 1rem">
-                <button class="btn btn-lg btn-dark rounded-pill" type="submit">Asociar</button>
+
+
             </div>
         </div>
-
-        <br>
     </div>
+</div>
 </form>
 
-<br>
-<div class="d-flex justify-content-center">
-    <button class="btn btn-xlg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home
-    </button>
+
 </div>
-<br>
+
+<div class="d-flex justify-content-center padding-button-home">
+    <button class="btn btn-lg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home</button>
+</div>
+</div>
+
 </body>
 </html>

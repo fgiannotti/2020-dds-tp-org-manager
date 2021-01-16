@@ -1,6 +1,11 @@
 body {
     background: white;
     font-family: "Lato", sans-serif;
+    height: 100%;
+    min-height: 100%;
+}
+html{
+    height: 100%;
 }
 
 .titulo {
@@ -53,6 +58,32 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+}
+.clickeable:hover{
+    box-shadow: 1px 8px 20px lightgrey;
+    background-color: lightgray
+}
+.clickeable:focus{
+    outline: 0;
+    box-shadow: 1px 8px 20px darkgrey;
+    background-color: darkgrey;
+}
+
+.bg-light-tp{
+    background-color: #f8f9fa;
+}
+.space-evenly-vert {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.distribute-cards-evenly{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .general-medio {

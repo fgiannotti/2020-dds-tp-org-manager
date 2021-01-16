@@ -84,9 +84,9 @@ public class OperacionesTest {
     @Test
     public void sePuedeObtenerProveedorDeUnaOperacion(){
         this.setup();
-        String nombre = proveedor.getNombre_apellido_razon();
+        String nombre = proveedor.getnombreApellidoRazon();
         OperacionEgreso OE = organizacion.getEgresos().get(0);
-        String nombreEnOperacion = proveedores.get(0).getNombre_apellido_razon();
+        String nombreEnOperacion = proveedores.get(0).getnombreApellidoRazon();
         Assertions.assertEquals(nombre, nombreEnOperacion);
     }
 

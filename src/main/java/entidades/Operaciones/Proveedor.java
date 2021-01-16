@@ -9,7 +9,7 @@ import java.util.Objects;
 @Table(name="proveedores")
 public class Proveedor extends EntidadPersistente {
     @Column
-    private String nombre_apellido_razon;
+    private String nombreApellidoRazon;
     @Column
     private String documento;
     @Column
@@ -20,8 +20,8 @@ public class Proveedor extends EntidadPersistente {
     @JoinColumn(name = "operacion_id", referencedColumnName = "id")
     private OperacionEgreso egreso;
 
-    public Proveedor(String nombre_apellido_razon, String documento, String direccionPostal) {
-        this.nombre_apellido_razon = Objects.requireNonNull(nombre_apellido_razon, "El nombre_apellido_razon no puede ser nulo");
+    public Proveedor(String nombreApellidoRazon, String documento, String direccionPostal) {
+        this.nombreApellidoRazon = Objects.requireNonNull(nombreApellidoRazon, "El nombreApellidoRazon no puede ser nulo");
         this.documento = Objects.requireNonNull(documento, "El documento no puede ser nulo");
         this.direccionPostal = Objects.requireNonNull(direccionPostal, "La direccion postal no puede ser nula");
     }
@@ -29,12 +29,12 @@ public class Proveedor extends EntidadPersistente {
     public Proveedor() {
     }
 
-    public String getNombre_apellido_razon() {
-        return nombre_apellido_razon;
+    public String getnombreApellidoRazon() {
+        return nombreApellidoRazon;
     }
 
-    public void setNombre_apellido_razon(String nombre_apellido_razon) {
-        this.nombre_apellido_razon = nombre_apellido_razon;
+    public void setnombreApellidoRazon(String nombreApellidoRazon) {
+        this.nombreApellidoRazon = nombreApellidoRazon;
     }
 
     public String getDocumento() {
@@ -65,7 +65,7 @@ public class Proveedor extends EntidadPersistente {
     @Override
     public String toString() {
         return "Proveedor{" +
-                "nombre_apellido_razon='" + nombre_apellido_razon + '\'' +
+                "nombreApellidoRazon='" + nombreApellidoRazon + '\'' +
                 ", documento='" + documento + '\'' +
                 ", direccionPostal='" + direccionPostal + '\'' +
                 '}';

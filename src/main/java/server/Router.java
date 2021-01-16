@@ -117,6 +117,8 @@ public class Router {
         Spark.get("/crearEgreso9", operacionController::cargarOrganizacion, Router.engine);
 
         Spark.post("/crearEgreso9", operacionController::postCargarOrganizacion);
+
+        Spark.get("/egreso/:id",operacionController::verEgreso,Router.engine);
     }
     
         public static void CheckIfAuthenticated(Request request, Response response){

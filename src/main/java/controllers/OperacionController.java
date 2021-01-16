@@ -48,11 +48,24 @@ public class OperacionController {
         return new ModelAndView(parametros,"crear-proveedor.hbs");
     }
 
+    public ModelAndView verEgreso(Request request,Response response){
+        String egresoID = request.params("id");
+        OperacionEgreso operacionEgreso = repoOperacionesEgresos.get(new Integer(egresoID));
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("egreso", operacionEgreso);
+        parametros.put("proveedores", operacionEgreso.getProveedores());
+        parametros.put("egresoID",egresoID);
+        System.out.print(""operacionEgreso);
+        System.out.print(parametros);
+        return new ModelAndView(parametros,"egreso.hbs");
+    }
+
     public ModelAndView fechaYCantidad(Request request, Response response){
         builder.nuevoEgreso();
         if(!request.cookie("id").equals(request.session().id())){
             response.redirect("/");
         }
+
         Map<String, Object> parametros = new HashMap<>();
         return new ModelAndView(parametros,"index-crear-egreso.hbs");
     }
@@ -89,7 +102,7 @@ public class OperacionController {
     public Response postSeleccionarProveedor(Request request, Response response){
         String proveedor = request.queryParams("proveedor");
         int presupuesto = Integer.parseInt(request.queryParams("presupuesto"));
-        Proveedor unProveedorEntero = (Proveedor)EntityManagerHelper.createQuery("from Proveedor where nombre_apellido_razon = '" + proveedor+"'").getResultList().get(0);
+        Proveedor unProveedorEntero = (Proveedor)EntityManagerHelper.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor+"'").getResultList().get(0);
         builder.asignarProveedor(unProveedorEntero);
         response.redirect("/crearEgreso3");
         return response;

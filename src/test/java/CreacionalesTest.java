@@ -46,7 +46,7 @@ public class CreacionalesTest<nuevaEmpresa> {
     @BeforeAll
     public void setup(){
         proveedorTest0.setDireccionPostal("6321456");
-        proveedorTest0.setNombre_apellido_razon("Jorge Guaymallen");
+        proveedorTest0.setnombreApellidoRazon("Jorge Guaymallen");
         proveedorTest0.setDireccionPostal("1714");
 
     }

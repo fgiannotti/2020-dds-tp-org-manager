@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" >
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,7 +19,7 @@
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
     <!-- CSS only -->
-    <title>Ver Ingresos</title>
+    <title>Ver Egresos</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -73,32 +73,34 @@
 </nav>
 
 <br>
-<div class="space-evenly-vert">
-    <div class="card text-dark bg-light mb-3 padd" style="max-width: 18rem; min-width: 24rem;">
-        <div class="card-header display-7 text-center">Ingresos</div>
-        <div class="card-body">
-            {{#each ingresos}}
-                <div class="space-evenly-vert align-items-start">
+<div class="space-evenly-vert" style="align-items: stretch; overflow:auto; min-height: 80%; padding: 16px">
 
-                    <div class="align-content-start">
-                        <h5 class="card-title" style="margin-top: .5rem"> Ingreso {{inc @index}} </h5>
-                    </div>
-                    <div class="container-body-egreso justify-content-start">
-                        <p class="card-text" style="margin-bottom: 0">Nro: {{numeroOperacion}}</p>
-                        <p class="card-text" style="margin-bottom: 0">Descripcion:{{descripcion}}</p>
-                        <p class="card-text" style="margin-bottom: 0">Fecha: {{fechaOperacion}}</p>
-                        <p class="card-text" style="margin-bottom: 0">Monto Total: {{montoTotal}}</p>
+    <div class="distribute-cards-evenly">
+
+        {{#each ingresos}}
+            <div class="card clickeable text-dark bg-light-tp mb-3" style="min-height: 16rem; min-width: 22rem; max-height: 20rem;">
+                <div class="card-header display-7 text-center">Ingreso {{inc @index}}</div>
+                <div class="card-body">
+                    <div class="space-evenly-vert align-items-start">
+                        <div class="container-body-egreso justify-content-start" style="padding-right: 0">
+                            <p class="card-text">Nro: {{numeroOperacion}}</p>
+                            <p class="card-text">Descripcion: {{descripcion}}</p>
+                            <p class="card-text">Fecha: {{fechaOperacion}}</p>
+                            <p class="card-text">Monto Total: {{montoTotal}}</p>
+                        </div>
                     </div>
                 </div>
-            {{else}}
-                <p> Sin ingresos.</p>
-            {{/each}}
-        </div>
+            </div>
+        {{else}}
+            <p> Sin ingresos.</p>
+        {{/each}}
+
+    </div>
+
+    <div class="d-flex justify-content-center padding-button-home">
+        <button class="btn btn-lg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home</button>
     </div>
 </div>
 
-<div class="d-flex justify-content-center padding-button-home">
-    <button class="btn btn-lg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home</button>
-</div>
 </body>
 </html>
