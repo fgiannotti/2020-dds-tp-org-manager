@@ -32,7 +32,7 @@ public class OperacionesTest {
     public void setup(){
         proveedor = new Proveedor("Nachito deliveries", "123123", "Calle falsa 123");
         double price = 50.0;
-        Articulo articulo = new Articulo("CocoWater", (float)price, "Agua de coco 500 ml", proveedor);
+        Articulo articulo = new Articulo("CocoWater", (int)price, "Agua de coco 500 ml", proveedor);
         articulos = new ArrayList<Articulo>();
         articulos.add(articulo);
         articulos.add(articulo);

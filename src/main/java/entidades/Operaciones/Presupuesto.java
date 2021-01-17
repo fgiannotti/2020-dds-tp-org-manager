@@ -11,7 +11,8 @@ import java.util.List;
 @Entity
 @Table(name="presupuestos")
 public class Presupuesto extends EntidadPersistente {
-    @Transient
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "presupuesto_id")
     private List<Item> items = new ArrayList<Item>();
     @Column
     private Integer cantidad;
@@ -24,15 +25,13 @@ public class Presupuesto extends EntidadPersistente {
                 "items=" + items +
                 ", cantidad=" + cantidad +
                 ", total=" + total +
-                ", documento=" + documento +
                 ", proveedor=" + proveedor +
                 ", categorias=" + categorias +
                 '}';
     }
 
-    @Transient
-    private Comprobante documento;
-    @Transient
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
     private Proveedor proveedor;
 
     @ManyToMany(cascade = { CascadeType.MERGE })
@@ -42,15 +41,12 @@ public class Presupuesto extends EntidadPersistente {
             inverseJoinColumns = { @JoinColumn(name = "categoria_id", referencedColumnName = "id") })
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
-    public Presupuesto(){
+    public Presupuesto(){ }
 
-    }
-
-    public Presupuesto(List<Item> items, Integer cantidad, Float total, Comprobante documento, Proveedor proveedor,List<Categoria> categoriasOpcionales) {
+    public Presupuesto(List<Item> items, Integer cantidad, Float total, Proveedor proveedor,List<Categoria> categoriasOpcionales) {
         this.items = items;
         this.cantidad = cantidad;
         this.total = total;
-        this.documento = documento;
         this.proveedor = proveedor;
         if (categoriasOpcionales != null){
             this.categorias = categoriasOpcionales;
@@ -81,14 +77,6 @@ public class Presupuesto extends EntidadPersistente {
 
     public void setTotal(Float total) {
         this.total = total;
-    }
-
-    public Comprobante getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(Comprobante documento) {
-        this.documento = documento;
     }
 
     public Proveedor getProveedor() {

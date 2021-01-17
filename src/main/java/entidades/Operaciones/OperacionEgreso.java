@@ -21,7 +21,8 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Column
     private int numeroOperacion;
 
-    @OneToMany(mappedBy = "egreso", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "egreso_id")
     private List<Proveedor> proveedores = new ArrayList<Proveedor>();
 
     @Column(name = "fecha_operacion", columnDefinition = "DATE")
@@ -68,7 +69,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Transient
     private List<Item> items = new ArrayList<Item>();
 
-    @Transient
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<Presupuesto> presupuestosPreliminares = new ArrayList<Presupuesto>();
 
     @Transient
@@ -93,7 +94,9 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Column
     private Criterio criterio;
 
-    @Transient
+    @ManyToMany
+    @JoinTable(name = "egresos_x_categorias", joinColumns = @JoinColumn(name = "egreso_id",referencedColumnName = "id",unique = false),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id",referencedColumnName = "id",unique = false))
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
     @ManyToOne(cascade = {CascadeType.ALL})

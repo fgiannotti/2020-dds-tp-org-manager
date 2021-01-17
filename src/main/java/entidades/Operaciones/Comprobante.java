@@ -10,30 +10,25 @@ import java.util.List;
 import static jdk.nashorn.internal.objects.NativeArray.length;
 
 @Entity
-@Table(name="comprobantes")
+@Table(name = "comprobantes")
 public class Comprobante extends EntidadPersistente {
-    @Override
-    public String toString() {
-        return "Comprobante{" +
-                "numeroComprobante=" + numeroComprobante +
-                ", items=" + length(items) +
-                '}';
-    }
 
-    @Column(name="numero_comprobante")
+    @Column(name = "numero_comprobante")
     private int numeroComprobante;
 
-    @OneToMany(mappedBy = "comprobante", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "comprobante_id")
     private List<Item> items = new ArrayList<Item>();
 
     public Comprobante(List<Item> items) {
         this.numeroComprobante = this.hashCode();
-        this.items = new ArrayList<Item>() {};
-        this.items.addAll(items);
+        this.items = items;
     }
+
     public Comprobante() {
         this.numeroComprobante = this.hashCode();
     }
+
     public void setItems(List<Item> items) {
         this.items = items;
     }
@@ -49,6 +44,15 @@ public class Comprobante extends EntidadPersistente {
     public void setNumeroComprobante(int numeroComprobante) {
         this.numeroComprobante = numeroComprobante;
     }
+
+    @Override
+    public String toString() {
+        return "Comprobante{" +
+                "numeroComprobante=" + numeroComprobante +
+                ", items=" + items.size() +
+                '}';
+    }
+
 
 }
 

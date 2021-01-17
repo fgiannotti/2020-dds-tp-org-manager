@@ -16,7 +16,6 @@ public class CriterioDeEmpresa extends EntidadPersistente {
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
     @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
     private Organizacion organizacion;
 
     public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosMenoresOpcionales, List<Categoria> categoriasOpcionales) {

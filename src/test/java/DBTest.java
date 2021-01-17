@@ -58,9 +58,8 @@ public class DBTest {
     public void setup() {
         proveedor = new Proveedor("Nachito deliveries", "123123", "Calle falsa 123");
         double price = 50.0;
-        Articulo articulo = new Articulo("CocoWater", (float) price, "Agua de coco 500 ml", proveedor);
+        Articulo articulo = new Articulo("CocoWater", (int) price, "Agua de coco 500 ml", proveedor);
         Item aguitasDeCoco = new Item("refrescante", "Pack de aguitas de coco, vienen 5. Si, cinco.", articulos);
-        articulo.setItem(aguitasDeCoco);
         articulos = new ArrayList<Articulo>();
         articulos.add(articulo);
         articulos.add(articulo);
@@ -72,7 +71,6 @@ public class DBTest {
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
-        aguitasDeCoco.setComprobante(new Comprobante(items));
         proveedores.add(proveedor);
         medioDePago = new Debito("Visa debito", "1000");
         OperacionIngreso ingreso = new OperacionIngreso(100, "desc", LocalDate.now(), orgBase);
@@ -183,7 +181,7 @@ public class DBTest {
                 new Categoria("bebidas")
         ));
 
-        Presupuesto presupuesto = new Presupuesto(items, 4, (float) 1001.0, new Comprobante(items),
+        Presupuesto presupuesto = new Presupuesto(items, 4, (float) 1001.0,
                 new Proveedor("cacho", "38420420", "calleCacho2B"), categorias
         );
         EntityManagerHelper.beginTransaction();
@@ -195,4 +193,5 @@ public class DBTest {
         Presupuesto presupuestoRecup = (Presupuesto) EntityManagerHelper.getEntityManager().createQuery("FROM Presupuesto WHERE id = '" + presupuesto.getId() + "'").getSingleResult();
         assertEquals(presupuesto, presupuestoRecup);
     }
+
 }

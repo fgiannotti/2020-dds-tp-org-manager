@@ -91,20 +91,20 @@
                         </p>
                     {{/each}}
 
-                    <p class="card-text" style="margin: 16px">Presupuestos Minimos: {{egreso.cantidadMinimaDePresupuestos}}
+                    <p class="card-text" style="margin-top: 16px">Presupuestos Minimos: {{egreso.cantidadMinimaDePresupuestos}}
                     <p class="card-text">Criterio: {{egreso.criterio}}</p>
                     <p class="card-text">Ingreso Asociado: {{egreso.ingreso}}</p>
 
                     <div>
-                        <hr>
-                        <p class="card-title text-center">Proveedores</p>
+                        <div class="card-header"></div>
+                        <p class="card-title text-center">Presupuestos</p>
 
-                        {{#each proveedores}}
-                            <p class="card-title"> Proveedor {{nombreApellidoRazon}}</p>
-                            <p class="card-text"> Direccion Postal:  {{direccionPostal}}</p>
+                        {{#each presupuestos}}
+                            <p class="card-title text-center"> Proveedor {{proveedor.nombreApellidoRazon}}</p>
+                            <p class="card-text"> Direccion Postal:  {{proveedor.direccionPostal}}</p>
                             <p class="card-text"> Presupuesto:  {{cantidad}} items de monto total {{total}}</p>
                         {{else}}
-                            <p class="card-text text-center"> Sin proveedores. </p>
+                            <p class="card-text text-center"> Sin presupuestos. </p>
                         {{/each}}
                     </div>
                 </div>

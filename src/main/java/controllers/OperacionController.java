@@ -54,10 +54,11 @@ public class OperacionController {
         OperacionEgreso operacionEgreso = repoOperacionesEgresos.get(new Integer(egresoID));
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("egreso", operacionEgreso);
-        parametros.put("proveedores", operacionEgreso.getProveedores());
+        parametros.put("presupuestos", operacionEgreso.getPresupuestosPreliminares());
         parametros.put("egresoID",egresoID);
-        System.out.print(operacionEgreso);
-        System.out.print(operacionEgreso.getComprobante());
+        System.out.println(operacionEgreso);
+        System.out.println(operacionEgreso.getPresupuestosPreliminares());
+        System.out.println(operacionEgreso.getComprobante());
         return new ModelAndView(parametros,"egreso.hbs");
     }
 

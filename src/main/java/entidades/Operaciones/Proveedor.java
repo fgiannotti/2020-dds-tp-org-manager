@@ -3,21 +3,13 @@ package entidades.Operaciones;
 import db.Converters.EntidadPersistente;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name="proveedores")
 public class Proveedor extends EntidadPersistente {
-    @Override
-    public String toString() {
-        return "Proveedor{" +
-                "nombreApellidoRazon='" + nombreApellidoRazon + '\'' +
-                ", documento='" + documento + '\'' +
-                ", direccionPostal='" + direccionPostal + '\'' +
-                ", presupuesto=" + presupuesto +
-                ", egreso=" + egreso.getId() +
-                '}';
-    }
 
     @Column
     private String nombreApellidoRazon;
@@ -25,11 +17,6 @@ public class Proveedor extends EntidadPersistente {
     private String documento;
     @Column
     private String direccionPostal;
-    @OneToOne(cascade = {CascadeType.ALL})
-    private Presupuesto presupuesto;
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "operacion_id", referencedColumnName = "id")
-    private OperacionEgreso egreso;
 
     public Proveedor(String nombreApellidoRazon, String documento, String direccionPostal) {
         this.nombreApellidoRazon = Objects.requireNonNull(nombreApellidoRazon, "El nombreApellidoRazon no puede ser nulo");
@@ -46,14 +33,6 @@ public class Proveedor extends EntidadPersistente {
 
     public void setNombreApellidoRazon(String nombreApellidoRazon) {
         this.nombreApellidoRazon = nombreApellidoRazon;
-    }
-
-    public OperacionEgreso getEgreso() {
-        return egreso;
-    }
-
-    public void setEgreso(OperacionEgreso egreso) {
-        this.egreso = egreso;
     }
 
     public String getnombreApellidoRazon() {
@@ -80,13 +59,12 @@ public class Proveedor extends EntidadPersistente {
         this.direccionPostal = direccionPostal;
     }
 
-    public Presupuesto getPresupuesto() {
-        return presupuesto;
+    @Override
+    public String toString() {
+        return "Proveedor{" +
+                "nombreApellidoRazon='" + nombreApellidoRazon + '\'' +
+                ", documento='" + documento + '\'' +
+                ", direccionPostal='" + direccionPostal + '\'' +
+                '}';
     }
-
-    public void setPresupuesto(Presupuesto presupuesto) {
-        this.presupuesto = presupuesto;
-    }
-
-
 }

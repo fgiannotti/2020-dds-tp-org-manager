@@ -2,6 +2,7 @@ package entidades.Items;
 
 import entidades.Operaciones.Comprobante;
 import db.Converters.EntidadPersistente;
+import entidades.Operaciones.Presupuesto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,24 +10,28 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="items")
+@Table(name = "items")
 public class Item extends EntidadPersistente {
     @Column
     private String descripcion;
+
     @Column
     private String nombre;
-    @OneToMany(mappedBy = "item", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "item_id")
     private List<Articulo> articulos = new ArrayList<Articulo>();
 
-
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "comprobante_id", referencedColumnName = "id")
-    private Comprobante comprobante;
-
-    public Item(){
+    public Item() {
     }
 
-    public Item(String descripcion, String nombre, List<Articulo> articulos){
+    public Item(String descripcion, String nombre, List<Articulo> articulos) {
+        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
+        this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
+        this.articulos = articulos;
+    }
+
+    public Item(String descripcion, String nombre, List<Articulo> articulos, Presupuesto presupuestoOpcional, Comprobante comprobanteOpcional) {
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
         this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
         this.articulos = articulos;
@@ -62,21 +67,12 @@ public class Item extends EntidadPersistente {
         return articulosDelItem.stream().allMatch(articulo -> articulo.estoyEn(this.articulos));
     }
 
-    public Comprobante getComprobante() {
-        return comprobante;
-    }
-
-    public void setComprobante(Comprobante comprobante) {
-        this.comprobante = comprobante;
-    }
-
     @Override
     public String toString() {
         return "Item{" +
                 "descripcion='" + descripcion + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", articulos=" + articulos +
-                ", comprobante=" + comprobante +
                 '}';
     }
 }
