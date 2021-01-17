@@ -14,20 +14,20 @@ public abstract class MedioDePago extends EntidadPersistente {
    protected String medio;
 
    @Column(name="numero")
-   protected int numero;
+   protected String numero;
 
    public String getMedio() {
       return medio;
    }
 
-   public int getNumero() {
+   public String getNumero() {
       return numero;
    }
 
    public MedioDePago() {
    }
 
-   public MedioDePago(String medio, int numero) {
+   public MedioDePago(String medio, String numero) {
       this.medio = Objects.requireNonNull(medio, "El medio no puede ser nulo");
       this.numero = numero;
    }

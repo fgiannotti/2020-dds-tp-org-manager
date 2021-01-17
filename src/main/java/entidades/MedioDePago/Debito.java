@@ -11,7 +11,7 @@ public class Debito extends MedioDePago {
     public Debito() {
     }
 
-    public Debito(String medio, int numero) {
+    public Debito(String medio, String numero) {
         this.medio = medio;
         this.numero = numero;
     }

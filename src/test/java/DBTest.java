@@ -36,11 +36,11 @@ public class DBTest {
     public List<Articulo> articulos;
     public List<Proveedor> proveedores = new ArrayList<Proveedor>();
     public DireccionPostal direccionPostal = new DireccionPostal(new Direccion("calle123", 1500, 2), new Ciudad("ciudad1"), new Provincia("bs as"), new Pais("arg", "AR"));
-    public Organizacion juridica = new Juridica("org-jur", "razon", 2222, direccionPostal, 12, null);
+    public Organizacion juridica = new Juridica("org-jur", "razon", "2222", direccionPostal, 12, null);
     public Usuario usuario1 = new User("pepito", "pep's-pass", juridica);
     public Revisor revisor1 = new Revisor("alfonso", "alfi123", juridica, bandeja2);
     public List<Usuario> usuarios = new ArrayList<Usuario>();
-    public Organizacion juridica2 = new OSC("org-jur", "razon", 2222, direccionPostal, 12);
+    public Organizacion juridica2 = new OSC("org-jur", "razon", "2222", direccionPostal, 12);
     public Organizacion orgBase = new Base("org-base", "AA SA", (Juridica) juridica);
     public Organizacion orgBase2 = new Base("org-base", "AA SA", (Juridica) juridica2);
 
@@ -74,10 +74,10 @@ public class DBTest {
         items.add(aguitasDeCoco);
         aguitasDeCoco.setComprobante(new Comprobante(items));
         proveedores.add(proveedor);
-        medioDePago = new Debito("Visa debito", 1000);
+        medioDePago = new Debito("Visa debito", "1000");
         OperacionIngreso ingreso = new OperacionIngreso(100, "desc", LocalDate.now(), orgBase);
-        organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, direccionPostal, 300, 5, new Comercio(), (float) 20000.0);
-        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", new Comprobante(items), items, 1, Criterio.MENOR_VALOR);
+        organizacion = new Empresa("La del claudio", "Claudio Perez", "1325011222", direccionPostal, 300, 5, new Comercio(), (float) 20000.0);
+        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", new Comprobante(items), items, 1, Criterio.MENOR_VALOR,new ArrayList<>());
         operacion.setIngreso(ingreso);
         operacion.setOrganizacion(organizacion);
         organizacion.agregarOperacion(operacion);

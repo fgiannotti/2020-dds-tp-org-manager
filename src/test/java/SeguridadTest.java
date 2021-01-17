@@ -38,8 +38,8 @@ public class SeguridadTest {
 
     @Test
     public void puedoRegistrarUsuario() throws UserNotFoundException {
-        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, null, 1, 5, new Comercio(), (float)150000.0){};
-        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, null, 1, null);
+        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", "2023123123", null, 1, 5, new Comercio(), (float)150000.0){};
+        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", "2023123123", null, 1, null);
         login.register("Nacho", organizacion,":JM!VbT+y'-#?9c98`d,");
         Assertions.assertEquals(autenticador.getRepoUsuarios().buscarPorNombre("Nacho").getNombre(), "Nacho");
     }
@@ -47,16 +47,16 @@ public class SeguridadTest {
     @Test
     public void puedoLoggearmeUnaVezRegistradoUsuario() throws Exception {
         this.Setup();
-        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, null, 1, 5, new Comercio(), (float)150000.0){};
-        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, null, 1, null);
+        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", "2023123123", null, 1, 5, new Comercio(), (float)150000.0){};
+        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", "2023123123", null, 1, null);
         login.register("Nacho", organizacion,":JM!VbT+y'-#?9c98`d,");
         login.login("Nacho", ":JM!VbT+y'-#?9c98`d,");
     }
 
     @Test
     public void tiraErrorLuegoDe3IntentosFallidos() throws Exception {
-        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", 2023123123, null, 1, 5, new Comercio(), (float)150000.0){};
-        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", 2023123123, null, 1, null);
+        Empresa unaEmpresa = new Empresa("EmpresaMicro", "Empresita", "2023123123", null, 1, 5, new Comercio(), (float)150000.0){};
+        Juridica organizacion = new Juridica("organizacionJuridica.SRL","Descripcion", "2023123123", null, 1, null);
         login.register("Nacho", organizacion, ":JM!VbT+y'-#?9c98`d,");
         login.login("Nacho", "asd");
         login.login("Nacho", "asd");

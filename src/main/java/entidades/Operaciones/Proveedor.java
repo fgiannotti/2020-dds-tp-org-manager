@@ -15,7 +15,7 @@ public class Proveedor extends EntidadPersistente {
                 ", documento='" + documento + '\'' +
                 ", direccionPostal='" + direccionPostal + '\'' +
                 ", presupuesto=" + presupuesto +
-                ", egreso=" + egreso +
+                ", egreso=" + egreso.getId() +
                 '}';
     }
 
@@ -38,6 +38,22 @@ public class Proveedor extends EntidadPersistente {
     }
 
     public Proveedor() {
+    }
+
+    public String getNombreApellidoRazon() {
+        return nombreApellidoRazon;
+    }
+
+    public void setNombreApellidoRazon(String nombreApellidoRazon) {
+        this.nombreApellidoRazon = nombreApellidoRazon;
+    }
+
+    public OperacionEgreso getEgreso() {
+        return egreso;
+    }
+
+    public void setEgreso(OperacionEgreso egreso) {
+        this.egreso = egreso;
     }
 
     public String getnombreApellidoRazon() {

@@ -54,6 +54,8 @@ public class Presupuesto extends EntidadPersistente {
         this.proveedor = proveedor;
         if (categoriasOpcionales != null){
             this.categorias = categoriasOpcionales;
+        }else{
+            this.categorias = new ArrayList<>();
         }
     }
 

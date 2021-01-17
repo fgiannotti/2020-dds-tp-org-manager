@@ -48,9 +48,9 @@ public class OperacionesTest {
         List<Proveedor> proveedorestest = new ArrayList<Proveedor>();
         proveedores = proveedorestest;
         proveedores.add(proveedor);
-        medioDePago = new Debito("Visa debito", 1000);
-        organizacion = new Empresa("La del claudio", "Claudio Perez", 1325011222, null, 300, 5, new Comercio(), (float)20000.0);
-        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", null, items,1, Criterio.MENOR_VALOR);
+        medioDePago = new Debito("Visa debito", "1000");
+        organizacion = new Empresa("La del claudio", "Claudio Perez", "1325011222", null, 300, 5, new Comercio(), (float)20000.0);
+        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", null, items,1, Criterio.MENOR_VALOR,null);
         organizacion.agregarOperacion(operacion);
     }
 
@@ -68,7 +68,7 @@ public class OperacionesTest {
     public void laOperacionPuedeSerGuardadaSinComprobante(){
         this.setup();
         Assertions.assertDoesNotThrow( () -> {
-            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", null, items,1, Criterio.MENOR_VALOR);
+            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", null, items,1, Criterio.MENOR_VALOR, new ArrayList<>());
         });
     }
 
@@ -77,7 +77,7 @@ public class OperacionesTest {
         this.setup();
         Comprobante comprobante = new Comprobante(this.items);
         Assertions.assertDoesNotThrow( () -> {
-            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", comprobante, items,1, Criterio.MENOR_VALOR);
+            new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", comprobante, items,1, Criterio.MENOR_VALOR, new ArrayList<>());
         });
     }
 

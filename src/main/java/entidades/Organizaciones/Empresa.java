@@ -22,19 +22,27 @@ public class Empresa extends Juridica {
     @Column(name="tipo_empresa")
     @Enumerated
     private TipoEmpresa tipo;
-    @Transient
-    private CategorizadorEmpresa categorizadorEmpresa;
 
-    public Empresa(String nombreFicticio, String razonSocial, Integer cuit, DireccionPostal dirPostal, Integer codigoInscripcion, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {
+    @Transient
+    private final CategorizadorEmpresa categorizadorEmpresa = new CategorizadorEmpresa();
+
+    public Empresa(String nombreFicticio, String razonSocial, String cuit, DireccionPostal dirPostal, Integer codigoInscripcion, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {
         super(nombreFicticio, razonSocial, cuit, dirPostal, codigoInscripcion, null);
         this.actividad = actividad;
-        this.categorizadorEmpresa = new CategorizadorEmpresa();
         try {
             this.tipo = this.categorizadorEmpresa.categorizar(cantidadPersonal, actividad, promedioVentas);
         }
         catch (RuntimeException e){
             throw (e);
         }
+    }
+
+    public Empresa(String nombreFicticio, String razonSocial, String cuit, DireccionPostal dirPostal, Integer codigoInscripcion, Base entidadHija, int cantidadPersonal, Actividad actividad, Float promedioVentas) {
+        super(nombreFicticio, razonSocial, cuit, dirPostal, codigoInscripcion, entidadHija);
+        this.cantidadPersonal = cantidadPersonal;
+        this.actividad = actividad;
+        this.promedioVentas = promedioVentas;
+        this.tipo = this.categorizadorEmpresa.categorizar(cantidadPersonal, actividad, promedioVentas);
     }
 
     public Empresa(){
@@ -75,14 +83,6 @@ public class Empresa extends Juridica {
 
     public void setTipo(TipoEmpresa tipo) {
         this.tipo = tipo;
-    }
-
-    public CategorizadorEmpresa getCategorizadorEmpresa() {
-        return categorizadorEmpresa;
-    }
-
-    public void setCategorizadorEmpresa(CategorizadorEmpresa categorizadorEmpresa) {
-        this.categorizadorEmpresa = categorizadorEmpresa;
     }
 
     @Override

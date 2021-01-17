@@ -102,8 +102,8 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
 
     public OperacionEgreso(){ }
 
-    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores, MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos, Criterio criterio){
-        this.presupuestosPreliminares = new ArrayList<Presupuesto>();
+    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores, MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos, Criterio criterio, List<Presupuesto> presupuestosPreliminaresOpcionales){
+        this.presupuestosPreliminares = presupuestosPreliminaresOpcionales != null ? presupuestosPreliminaresOpcionales : this.presupuestosPreliminares;
         this.numeroOperacion = getNuevoNumeroOperacion();
         this.montoTotal = montoTotal;
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
@@ -116,8 +116,14 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
         this.criterio = criterio;
     }
-    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores, MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,Criterio criterio,Organizacion organizacion){
-        this.presupuestosPreliminares = new ArrayList<Presupuesto>();
+    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores,
+                           MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento,
+                           Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,
+                           Criterio criterio,Organizacion organizacion,
+                           List<Presupuesto> presupuestosPreliminaresOpcionales,List<Categoria> categoriasOpcionales){
+
+        this.categorias = categoriasOpcionales != null ? categoriasOpcionales : this.categorias;
+        this.presupuestosPreliminares = presupuestosPreliminaresOpcionales != null ? presupuestosPreliminaresOpcionales : this.presupuestosPreliminares;
         this.numeroOperacion = getNuevoNumeroOperacion();
         this.montoTotal = montoTotal;
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");

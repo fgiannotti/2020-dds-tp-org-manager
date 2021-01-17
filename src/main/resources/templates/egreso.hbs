@@ -73,7 +73,7 @@
 </nav>
 <div class="d-flex justify-content-center" style="padding: 16px">
     <div class="card text-dark bg-light-tp mb-3"
-         style="min-height: 24rem; min-width: 28rem; max-width: 70%">
+         style="min-height: 24rem; min-width: 32rem; max-width: 70%">
         <div class="card-header display-7 text-center"> Egreso {{egresoID}}</div>
         <div class="card-body">
             <div class="space-evenly-vert align-items-start">
@@ -95,15 +95,14 @@
                     <p class="card-text">Criterio: {{egreso.criterio}}</p>
                     <p class="card-text">Ingreso Asociado: {{egreso.ingreso}}</p>
 
-
-
                     <div>
                         <hr>
+                        <p class="card-title text-center">Proveedores</p>
+
                         {{#each proveedores}}
-                            <p class="card-title text-center">Proveedores</p>
-                            <p class="card-text"> Proveedor {{nombreApellidoRazon}}</p>
+                            <p class="card-title"> Proveedor {{nombreApellidoRazon}}</p>
                             <p class="card-text"> Direccion Postal:  {{direccionPostal}}</p>
-                            <p class="card-text"> Presupuesto:  {{presupuesto}}</p>
+                            <p class="card-text"> Presupuesto:  {{cantidad}} items de monto total {{total}}</p>
                         {{else}}
                             <p class="card-text text-center"> Sin proveedores. </p>
                         {{/each}}

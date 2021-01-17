@@ -10,6 +10,8 @@ public class AccountMoney extends MedioDePago {
     public AccountMoney() {
     }
 
-    public AccountMoney(String medio, int numero) {
+    public AccountMoney(String medio) {
+        this.medio = medio;
+        this.numero = "";
     }
 }

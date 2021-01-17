@@ -5,6 +5,7 @@ import entidades.Operaciones.Proveedor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "resultados")
@@ -12,7 +13,7 @@ public class Resultado extends EntidadPersistente {
     @Column(name = "numero_operacion")
     private int numeroOperacion;
     @Transient
-    private List<Proveedor> proveedores;
+    private List<Proveedor> proveedores = new ArrayList<>();
     @Column(name = "corresponde_carga_correcta")
     private Boolean correspondeCargaCorrecta;
     @Column(name = "corresponde_detalle")

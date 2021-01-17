@@ -6,6 +6,7 @@ import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.Presupuesto;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,15 +24,35 @@ public class Categoria extends EntidadPersistente {
     }
 
     @ManyToMany(mappedBy = "categorias", cascade = CascadeType.MERGE)
-    private List<Presupuesto> presupuestos;
+    private List<Presupuesto> presupuestos = new ArrayList<>();
 
     @Transient
-    private List<OperacionEgreso> egresos;
+    private List<OperacionEgreso> egresos = new ArrayList<>();
 
     public Categoria(String descripcion) {
         this.descripcion = descripcion;
     }
 
+    public Categoria(String descripcion, CriterioDeEmpresa criterio, List<Presupuesto> presupuestosOpcionales, List<OperacionEgreso> egresosOpcionales) {
+        this.descripcion = descripcion;
+        this.criterio = criterio;
+        if (presupuestosOpcionales != null){
+            this.presupuestos = presupuestosOpcionales;
+        }else{
+            this.presupuestos = new ArrayList<>();
+        }
+        if (egresosOpcionales != null){
+            this.egresos = egresosOpcionales;
+        }else{
+            this.egresos = new ArrayList<>();
+        }
+    }
+    public void agregarEgreso(OperacionEgreso egreso){
+        this.egresos.add(egreso);
+    }
+    public void agregarPresupuesto(Presupuesto presupuesto){
+        this.presupuestos.add(presupuesto);
+    }
     public String getDescripcion() {
         return descripcion;
     }

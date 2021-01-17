@@ -10,6 +10,7 @@ public class ATM extends MedioDePago {
     public ATM() {
     }
 
-    public ATM(String medio, int numero) {
+    public ATM(String medio, String numero) {
+        super(medio,numero);
     }
 }

@@ -7,7 +7,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("credito")
 public class Credito extends MedioDePago{
 
-    public Credito(String medio, int numero) {
+    public Credito(String medio, String numero) {
+        super(medio,numero);
     }
 
     public Credito() {

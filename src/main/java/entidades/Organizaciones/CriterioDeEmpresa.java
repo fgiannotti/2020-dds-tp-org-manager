@@ -19,10 +19,10 @@ public class CriterioDeEmpresa extends EntidadPersistente {
     @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
     private Organizacion organizacion;
 
-    public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosMenores, List<Categoria> categorias) {
+    public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosMenoresOpcionales, List<Categoria> categoriasOpcionales) {
         this.nombre = nombre;
-        this.criteriosHijos = criteriosMenores;
-        this.categorias = categorias != null ? categorias : this.categorias;
+        this.criteriosHijos = criteriosMenoresOpcionales != null ? criteriosMenoresOpcionales : this.criteriosHijos;
+        this.categorias = categoriasOpcionales != null ? categoriasOpcionales : this.categorias;
     }
     public CriterioDeEmpresa(){}
 
