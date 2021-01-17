@@ -53,6 +53,18 @@ html{
     line-height: 1.2;
 }
 
+
+.display-9 {
+    font-size: calc(0.65rem + 0.75vw);
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.display-8 {
+    font-size: calc(0.75rem + 0.75vw);
+    font-weight: 300;
+    line-height: 1.2;
+}
 .space-evenly-vert {
     display: flex;
     flex-direction: column;

@@ -77,14 +77,14 @@
         <div class="card-header display-7 text-center"> Egreso {{egresoID}}</div>
         <div class="card-body">
             <div class="space-evenly-vert align-items-start">
-                <div class="container-body-egreso justify-content-start" style="padding-right: 0">
+                <div class="justify-content-start" style="padding-right: 0">
                     <p class="card-title">Numero de operacion: {{egreso.numeroOperacion}}</p>
                     <p class="card-text">Descripcion: {{egreso.descripcion}}</p>
                     <p class="card-text">Fecha: {{egreso.fechaOperacion}}</p>
                     <p class="card-text">Monto Total: {{egreso.montoTotal}}</p>
                     <p class="card-text">Tipo documento: {{egreso.tipoDocumento}}</p>
                     <p class="card-text" style="margin-bottom: 8px">Comprobante: </p>
-                    <p class="card-text" style="margin-bottom: 0;margin-left: 24px">nro {{egreso.comprobante.numeroComprobante}}  </p>
+                    <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Numero de comprobante: {{egreso.comprobante.numeroComprobante}}  </p>
                     <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Items: </p>
                     {{#each egreso.comprobante.items}}
                         <p class="card-text" style="margin-bottom: 0; margin-left: 60px">{{inc @index}}.    {{nombre}} - {{descripcion}}.
@@ -96,11 +96,11 @@
                     <p class="card-text">Ingreso Asociado: {{egreso.ingreso}}</p>
 
                     <div>
-                        <div class="card-header"></div>
-                        <p class="card-title text-center">Presupuestos</p>
+                        <div class="border" style="color: lightgray"></div>
+                        <p class="card-title display-8 text-center">Presupuestos</p>
 
                         {{#each presupuestos}}
-                            <p class="card-title text-center"> Proveedor {{proveedor.nombreApellidoRazon}}</p>
+                            <p class="card-title display-9 text-center"> Proveedor {{proveedor.nombreApellidoRazon}}</p>
                             <p class="card-text"> Direccion Postal:  {{proveedor.direccionPostal}}</p>
                             <p class="card-text"> Presupuesto:  {{cantidad}} items de monto total {{total}}</p>
                         {{else}}
