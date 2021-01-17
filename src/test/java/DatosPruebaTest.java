@@ -127,10 +127,6 @@ public class DatosPruebaTest {
         itemsOpSerr.addAll(itemsREX);
         itemsOpSerr.addAll(itemsSanJorge);
         itemsOpSerr.addAll(itemsREX);
-        for (Categoria cat : categoriasOpSerrentino) {
-            cat.agregarEgreso(opSerrentino);
-            cat.agregarPresupuesto(prepSerrentino);
-        }
 
     }
 
@@ -139,19 +135,6 @@ public class DatosPruebaTest {
     public void persistiendoOperacionSERRENTINO() {
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(new CriterioDeEmpresa("test", null, null));
-
-        EntityManagerHelper.getEntityManager().persist(compOpSerrentino);
-        for (Categoria cat : opSerrentino.getCategorias()) {
-            EntityManagerHelper.getEntityManager().persist(cat);
-        }
-
-        for (Proveedor p : opSerrentino.getProveedores()) {
-            EntityManagerHelper.getEntityManager().persist(p);
-        }
-        for (Item i : itemsOpSerr) {
-            EntityManagerHelper.getEntityManager().persist(i);
-        }
-        EntityManagerHelper.commit();
 
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(opSerrentino);
@@ -174,9 +157,6 @@ public class DatosPruebaTest {
 
         EntityManagerHelper.beginTransaction();
         System.out.println(prepSerrentino);
-        for (Item i : itemsSerrentino) {
-            EntityManagerHelper.getEntityManager().persist(i);
-        }
 
         EntityManagerHelper.getEntityManager().persist(prepSerrentino);
         EntityManagerHelper.commit();

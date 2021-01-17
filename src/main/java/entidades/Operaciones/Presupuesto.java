@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name="presupuestos")
 public class Presupuesto extends EntidadPersistente {
-    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "presupuesto_id")
     private List<Item> items = new ArrayList<Item>();
     @Column
@@ -19,22 +19,11 @@ public class Presupuesto extends EntidadPersistente {
     @Column
     private Float total;
 
-    @Override
-    public String toString() {
-        return "Presupuesto{" +
-                "items=" + items +
-                ", cantidad=" + cantidad +
-                ", total=" + total +
-                ", proveedor=" + proveedor +
-                ", categorias=" + categorias +
-                '}';
-    }
-
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
     private Proveedor proveedor;
 
-    @ManyToMany(cascade = { CascadeType.MERGE })
+    @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "presupuesto_x_categoria",
             joinColumns = { @JoinColumn(name = "presupuesto_id", referencedColumnName = "id") },
@@ -42,6 +31,7 @@ public class Presupuesto extends EntidadPersistente {
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
     public Presupuesto(){ }
+
 
     public Presupuesto(List<Item> items, Integer cantidad, Float total, Proveedor proveedor,List<Categoria> categoriasOpcionales) {
         this.items = items;
@@ -97,6 +87,17 @@ public class Presupuesto extends EntidadPersistente {
 
     public void setCategorias(List<Categoria> categorias) {
         this.categorias = categorias;
+    }
+
+    @Override
+    public String toString() {
+        return "Presupuesto{" +
+                "items=" + items +
+                ", cantidad=" + cantidad +
+                ", total=" + total +
+                ", proveedor=" + proveedor +
+                ", categorias=" + categorias +
+                '}';
     }
 
 }

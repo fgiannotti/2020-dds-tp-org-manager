@@ -21,7 +21,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Column
     private int numeroOperacion;
 
-    @OneToMany(cascade = {CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "egreso_id")
     private List<Proveedor> proveedores = new ArrayList<Proveedor>();
 
@@ -69,7 +69,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Transient
     private List<Item> items = new ArrayList<Item>();
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Presupuesto> presupuestosPreliminares = new ArrayList<Presupuesto>();
 
     @Transient
@@ -77,14 +77,6 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
 
     @Column
     private Integer cantidadMinimaDePresupuestos;
-
-    public OperacionIngreso getIngreso() {
-        return ingreso;
-    }
-
-    public void setIngreso(OperacionIngreso ingreso) {
-        this.ingreso = ingreso;
-    }
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "ingreso_id", referencedColumnName = "id")
@@ -94,7 +86,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Column
     private Criterio criterio;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "egresos_x_categorias", joinColumns = @JoinColumn(name = "egreso_id",referencedColumnName = "id",unique = false),
             inverseJoinColumns = @JoinColumn(name = "categoria_id",referencedColumnName = "id",unique = false))
     private List<Categoria> categorias = new ArrayList<Categoria>();
@@ -119,6 +111,14 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
         this.criterio = criterio;
     }
+    public OperacionIngreso getIngreso() {
+        return ingreso;
+    }
+
+    public void setIngreso(OperacionIngreso ingreso) {
+        this.ingreso = ingreso;
+    }
+
     public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores,
                            MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento,
                            Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,
