@@ -4,10 +4,7 @@ import entidades.Items.Item;
 import entidades.Organizaciones.Categoria;
 import db.Converters.EntidadPersistente;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,19 +34,27 @@ public class Presupuesto extends EntidadPersistente {
     private Comprobante documento;
     @Transient
     private Proveedor proveedor;
-    @Transient
+
+    @ManyToMany(cascade = { CascadeType.MERGE })
+    @JoinTable(
+            name = "presupuesto_x_categoria",
+            joinColumns = { @JoinColumn(name = "presupuesto_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "categoria_id", referencedColumnName = "id") })
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
     public Presupuesto(){
 
     }
 
-    public Presupuesto(List<Item> items, Integer cantidad, Float total, Comprobante documento, Proveedor proveedor) {
+    public Presupuesto(List<Item> items, Integer cantidad, Float total, Comprobante documento, Proveedor proveedor,List<Categoria> categoriasOpcionales) {
         this.items = items;
         this.cantidad = cantidad;
         this.total = total;
         this.documento = documento;
         this.proveedor = proveedor;
+        if (categoriasOpcionales != null){
+            this.categorias = categoriasOpcionales;
+        }
     }
 
     public List<Item> getItems() {
@@ -94,6 +99,14 @@ public class Presupuesto extends EntidadPersistente {
 
     public void agregarCategoria(Categoria categoria){
         this.categorias.add(categoria);
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
     }
 
 }
