@@ -72,7 +72,7 @@ public abstract class Organizacion {
             operacionEgreso = this.getEgresos().stream().filter(operacion -> operacion.getId()==Integer.parseInt(String.valueOf(jsonConId))).findFirst();
             OperacionEgreso operacionEgreso2 = operacionEgreso.get();
 
-            operacionIngreso2.agregarOperacionEgresos(operacionEgreso2);
+            operacionIngreso2.agregarOperacionEgreso(operacionEgreso2);
         });
     }
 

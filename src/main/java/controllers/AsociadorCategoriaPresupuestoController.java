@@ -39,7 +39,9 @@ public class AsociadorCategoriaPresupuestoController {
 
         return new ModelAndView(parametros,"asociar-presupuesto-categoria.hbs");
     }
-    public Response asociarCategoriaPresupuesto(Request request, Response response){
-        return response;
+    public ModelAndView asociarCategoriaPresupuesto(Request request, Response response){
+        Map<String, Object> parametros = new HashMap<>();
+
+        return new ModelAndView(parametros,"asociar-presupuesto-categoria.hbs");
     }
 }

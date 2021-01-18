@@ -46,11 +46,49 @@ public class AsociadorEgresoIngresoController {
         parametros.put("ingresos", operacionesIngreso);
         parametros.put("egresos", operacionesEgreso);
 
-        return new ModelAndView(parametros,"asociar-egreso-ingreso.hbs");
+        return new ModelAndView(parametros, "asociar-egreso-ingreso.hbs");
     }
 
-    public Response asociarIngresoEgreso(Request request, Response response) {
-        if(!request.cookie("id").equals(request.session().id())){
+    public ModelAndView asociarIngresoEgreso(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+
+        String[] ingresosEgresos = request.body().split("&");
+
+        ArrayList<OperacionIngreso> operacionesIngreso = new ArrayList<>();
+        ArrayList<OperacionEgreso> operacionesEgreso = new ArrayList<>();
+        //obtengo los ingresos y egresos del body
+        for (String ingresoEgreso : ingresosEgresos) {
+            String[] splitIngresoEgreso = ingresoEgreso.split("=");
+            if (splitIngresoEgreso[0].equals("ingreso")) {
+                operacionesIngreso.add(this.repoIngreso.get(Integer.parseInt(splitIngresoEgreso[1])));
+            }
+            if (splitIngresoEgreso[0].equals("egreso")) {
+                operacionesEgreso.add(this.repoEgresos.get(Integer.parseInt(splitIngresoEgreso[1])));
+            }
+        }
+        OperacionIngreso ingreso = operacionesIngreso.get(0);
+
+        if (operacionesIngreso.size() > 1) {
+            parametros.put("asociar-invalido", true);
+        }
+
+        int asocFailCount = 0;
+        for (OperacionEgreso egreso : operacionesEgreso) {
+            try {
+                repoEgresos.asociarIngreso(egreso, ingreso);
+            } catch (Exception e) {
+                parametros.put("asociar-fallo", true);
+                asocFailCount++;
+            }
+        }
+
+        parametros.put("failCount", asocFailCount);
+        parametros.put("totalCount", operacionesIngreso.size());
+        return new ModelAndView(parametros, "asociar-egreso-ingreso.hbs");
+    }
+
+    public Response asociarIngresoEgreso2(Request request, Response response) {
+        if (!request.cookie("id").equals(request.session().id())) {
             response.redirect("/");
         }
         String[] ingresosEgresos = request.body().split("&");
@@ -60,20 +98,20 @@ public class AsociadorEgresoIngresoController {
 
         for (String ingresoEgreso : ingresosEgresos) {
             String[] splitIngresoEgreso = ingresoEgreso.split("=");
-            if(splitIngresoEgreso[0].equals("ingreso")){
+            if (splitIngresoEgreso[0].equals("ingreso")) {
                 operacionIngresos.add(this.repoIngreso.find(Integer.parseInt(splitIngresoEgreso[1])));
             }
-            if(splitIngresoEgreso[0].equals("egreso")){
+            if (splitIngresoEgreso[0].equals("egreso")) {
                 operacionesEgresos.add(this.repoEgresos.find(Integer.parseInt(splitIngresoEgreso[1])));
             }
         }
         JSONArray jsonIngreso = this.jsonOperacional(operacionIngresos.stream());
-        JSONArray jsonEgreso= this.jsonOperacional(operacionesEgresos.stream());
-        JSONObject json= new JSONObject();
-        json.put("Ingresos",jsonIngreso);
-        json.put("Egresos",jsonEgreso);
+        JSONArray jsonEgreso = this.jsonOperacional(operacionesEgresos.stream());
+        JSONObject json = new JSONObject();
+        json.put("Ingresos", jsonIngreso);
+        json.put("Egresos", jsonEgreso);
         ConfiguracionApi configApi = new ConfiguracionApi();
-        json.put("Configuracion",configApi.getJsonConfig());
+        json.put("Configuracion", configApi.getJsonConfig());
 
         VinculadorApi vinculador = new VinculadorApi();
         Configuracion config = new Configuracion();
@@ -100,7 +138,7 @@ public class AsociadorEgresoIngresoController {
                 operacionEgresoResponse = Optional.ofNullable(this.repoEgresos.find(Integer.parseInt(String.valueOf(jsonConId))));
                 OperacionEgreso operacionEgreso2 = (OperacionEgreso) operacionEgresoResponse.get();
 
-                operacionIngreso.agregarOperacionEgresos(operacionEgreso2);
+                operacionIngreso.agregarOperacionEgreso(operacionEgreso2);
             });
 
             ingresos.add(operacionIngreso);
@@ -109,8 +147,8 @@ public class AsociadorEgresoIngresoController {
         //pongo todos estos ingresos vinculados en la bandeja de cada usuario revisor de la empresa
         List<Revisor> revisoresDeLaOrg = repoUsuarios.buscarRevisoresPorOrganizacion(user.getOrganizacionALaQuePertenece().getId());
         for (Revisor revisor : revisoresDeLaOrg) {
-            for (OperacionIngreso ingreso: ingresos){
-                for(OperacionEgreso egreso:  ingreso.getOperacionEgresos()){
+            for (OperacionIngreso ingreso : ingresos) {
+                for (OperacionEgreso egreso : ingreso.getOperacionesEgreso()) {
                     Resultado egresoResultado = new Resultado(ingreso.getId(), egreso.getProveedores(), true, true, true, true, LocalDate.now(), revisor.getBandejaDeEntrada());
                     resultados.add(egresoResultado);
                 }
@@ -118,18 +156,19 @@ public class AsociadorEgresoIngresoController {
 
         }
 
-        if (ingresos.size() != 0){
-            System.out.println("operacion ingreso vinculada con "+ ingresos.get(0).toString()+" con " + ingresos.get(0).getOperacionEgresos().size()+" egresos");
+        if (ingresos.size() != 0) {
+            System.out.println("operacion ingreso vinculada con " + ingresos.get(0).toString() + " con " + ingresos.get(0).getOperacionesEgreso().size() + " egresos");
         }
 
-        for(Resultado resultado: resultados){
+        for (Resultado resultado : resultados) {
             EntityManagerHelper.persist(resultado);
         }
 
         response.redirect("/home"); //success
         return response;
     }
-    protected String fechaToString(LocalDate fecha){
+
+    protected String fechaToString(LocalDate fecha) {
         return fecha.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 

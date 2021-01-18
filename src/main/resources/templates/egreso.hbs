@@ -81,27 +81,32 @@
                     <p class="card-title">Numero de operacion: {{egreso.numeroOperacion}}</p>
                     <p class="card-text">Descripcion: {{egreso.descripcion}}</p>
                     <p class="card-text">Fecha: {{egreso.fechaOperacion}}</p>
-                    <p class="card-text">Monto Total: {{egreso.montoTotal}}</p>
+                    <p class="card-text">Monto Total: {{egreso.montoTotal}} $ </p>
                     <p class="card-text" style="margin-bottom: 8px">Comprobante: </p>
                     <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Numero de comprobante: {{egreso.comprobante.numeroComprobante}}  </p>
                     <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Items: </p>
                     {{#each egreso.comprobante.items}}
-                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px">{{inc @index}}.    {{nombre}} - {{descripcion}}.
+                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">{{inc @index}}.    {{nombre}} - {{descripcion}}.
                         </p>
                     {{/each}}
 
                     <p class="card-text" style="margin-top: 16px">Presupuestos Minimos: {{egreso.cantidadMinimaDePresupuestos}}
                     <p class="card-text">Criterio: {{egreso.criterio}}</p>
-                    <p class="card-text">Ingreso Asociado: {{egreso.ingreso}}</p>
+                    <p class="card-text">Ingreso Asociado: {{tiene-ingreso}}</p>
+                    {{#if tiene-ingreso}}
+                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">Ingreso: {{ingreso.descripcion}} </p>
+                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">Monto total: {{ingreso.montoTotal}} $ </p>
+                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">Fecha de Operacion: {{ingreso.fechaOperacion}} </p>
+                    {{/if}}
 
-                    <div>
+                    <div class="" style="padding: 16px">
                         <div class="border" style="color: lightgray"></div>
                         <p class="card-title display-8 text-center" style="margin-top: 16px; margin-bottom: 16px;">Presupuestos</p>
 
                         {{#each presupuestos}}
                             <p class="card-title display-10 text-center"> Proveedor {{proveedor.nombreApellidoRazon}}</p>
                             <p class="card-text"> Direccion Postal:  {{proveedor.direccionPostal}}</p>
-                            <p class="card-text"> Presupuesto:  {{cantidad}} items de monto total {{total}}</p>
+                            <p class="card-text"> Presupuesto:  {{cantidad}} items de monto total {{total}} $</p>
                         {{else}}
                             <p class="card-text text-center"> Sin presupuestos. </p>
                         {{/each}}

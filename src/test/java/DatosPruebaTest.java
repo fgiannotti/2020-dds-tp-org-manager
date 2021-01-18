@@ -1,3 +1,4 @@
+import controllers.AsociadorEgresoIngresoController;
 import db.EntityManagerHelper;
 import entidades.BandejaDeEntrada.BandejaDeEntrada;
 import entidades.BandejaDeEntrada.Resultado;
@@ -17,6 +18,7 @@ import entidades.Usuarios.Usuario;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import repositorios.RepoOperacionesEgresos;
 
 import javax.persistence.EntityManager;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -120,9 +122,14 @@ public class DatosPruebaTest {
     public OperacionEgreso opLap2;
     public OperacionEgreso opTelas;
 
+    //--  INGRESOS  --
+    public OperacionIngreso ingresoDonacionTerceros = new OperacionIngreso((float) 20000.0,"Donacion de terceros.",LocalDate.of(2020,2,25),eeafBA);
+    public OperacionIngreso ingresoRimoli = new OperacionIngreso((float) 10000.0,"Donacion de Rimoli SA.",LocalDate.of(2020,5,2),eeafBA);
+    public OperacionIngreso ingresoGranImperio = new OperacionIngreso((float) 10000.0,"Donacion de Gran Imperio.",LocalDate.of(2020,8,3),eeafBA);
+
     //--  USUARIOS  --
     public Usuario aroco = new Revisor("aroco","aroco20",eeafBA,null);
-
+    //--  EXTRAS  --
     public List<Item> itemsOpSerr = new ArrayList<>();
 
     @BeforeAll
@@ -132,7 +139,16 @@ public class DatosPruebaTest {
         itemsOpSerr.addAll(itemsREX);
 
     }
+    @Test
+    public void persistiendoIngresos(){
+        for (OperacionIngreso ing: new ArrayList<>(Arrays.asList(ingresoDonacionTerceros,ingresoGranImperio,ingresoRimoli))){
+            ing.getOrganizacion().setId(1);
+            EntityManagerHelper.beginTransaction();
+            EntityManagerHelper.getEntityManager().persist(ing);
+            EntityManagerHelper.commit();
+        }
 
+    }
     @Test
     public void persistiendoUsuarios(){
         EntityManagerHelper.beginTransaction();
@@ -176,5 +192,14 @@ public class DatosPruebaTest {
 
         EntityManagerHelper.getEntityManager().persist(prepSerrentino);
         EntityManagerHelper.commit();
+    }
+
+    @Test
+    public void asociarIngresoEgreso() throws Exception {
+        RepoOperacionesEgresos repoEgresos = new RepoOperacionesEgresos();
+        opSerrentino.setId(11);
+        ingresoDonacionTerceros.setId(1);
+        repoEgresos.asociarIngreso(opSerrentino,ingresoDonacionTerceros);
+
     }
 }

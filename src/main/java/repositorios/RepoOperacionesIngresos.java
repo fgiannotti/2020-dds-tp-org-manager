@@ -1,6 +1,7 @@
 package repositorios;
 
 import db.EntityManagerHelper;
+import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import entidades.Organizaciones.Organizacion;
 
@@ -27,7 +28,12 @@ public class RepoOperacionesIngresos {
         EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
         return operaciones;
     }
-    
+
+    public OperacionIngreso get(int id) {
+        String query = "from OperacionIngreso where id = " + id;
+        return (OperacionIngreso) EntityManagerHelper.createQuery(query).getSingleResult();
+    }
+
     public OperacionIngreso find(int id) {
         String query = "from OperacionIngreso";
         ArrayList<OperacionIngreso> operaciones = new ArrayList<OperacionIngreso>();

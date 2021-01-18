@@ -16,15 +16,17 @@ public class AsociadorEgresoCategoriaController {
         return new ModelAndView(parametros,"asociar-egreso-categoria.hbs");
     }
     //me parece que no tiene sentido este metodo
-    public Response asociarCategoriaEgreso(Request request, Response response) throws Exception {
+    public ModelAndView asociarCategoriaEgreso(Request request, Response response) throws Exception {
         if(!request.cookie("id").equals(request.session().id())){
             response.redirect("/");
         }
+        Map<String, Object> parametros = new HashMap<>();
+
         String unaDescripcion = request.queryParams("descripcion");
         String unMonto = request.queryParams("monto");
         System.out.println(unaDescripcion);
         System.out.println(unMonto);
         response.redirect("/home"); //Success
-        return response;
+        return new ModelAndView(parametros,"asociar-egreso-categoria.hbs");
     }
 }
