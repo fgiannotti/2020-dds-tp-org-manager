@@ -45,6 +45,8 @@ public class Router {
         OperacionIngresoController operacionIngresoController = new OperacionIngresoController();
         AsociadorEgresoIngresoController asociadorEgresoIngresoController = new AsociadorEgresoIngresoController();
         AsociadorEgresoCategoriaController asociadorEgresoCategoriaController = new AsociadorEgresoCategoriaController();
+        AsociadorCategoriaPresupuestoController asociadorCategoriaPresupuestoController = new AsociadorCategoriaPresupuestoController();
+
         VerIngresoEgresoController verIngresoEgresoController = new VerIngresoEgresoController();
         BandejaDeEntradaController bandejaDeEntradaController = new BandejaDeEntradaController();
         ProveedorController proveedorController = new ProveedorController();
@@ -67,6 +69,14 @@ public class Router {
         Spark.get("/asocIngresoEgreso", asociadorEgresoIngresoController::inicio, Router.engine);
 
         Spark.post("/asocIngresoEgreso", asociadorEgresoIngresoController::asociarIngresoEgreso);
+
+        Spark.get("/asocCategoriaEgreso",asociadorEgresoCategoriaController::inicio,Router.engine);
+
+        Spark.post("/asocCategoriaEgreso",asociadorEgresoCategoriaController::asociarCategoriaEgreso);
+
+        Spark.get("/asocCategoriaPresupuesto",asociadorCategoriaPresupuestoController::inicio,Router.engine);
+
+        Spark.post("/asocCategoriaPresupuesto",asociadorCategoriaPresupuestoController::asociarCategoriaPresupuesto);
 
         Spark.get("/ingreso", operacionIngresoController::inicio, Router.engine);
 

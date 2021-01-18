@@ -27,9 +27,9 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class AsociadorEgresoIngresoController {
-    private RepoOperacionesEgresos repoEgresos = new RepoOperacionesEgresos();
-    private RepoOperacionesIngresos repoIngreso = new RepoOperacionesIngresos();
-    private RepoUsuarios repoUsuarios = new RepoUsuarios();
+    private final RepoOperacionesEgresos repoEgresos = new RepoOperacionesEgresos();
+    private final RepoOperacionesIngresos repoIngreso = new RepoOperacionesIngresos();
+    private final RepoUsuarios repoUsuarios = new RepoUsuarios();
 
     private Usuario user;
 

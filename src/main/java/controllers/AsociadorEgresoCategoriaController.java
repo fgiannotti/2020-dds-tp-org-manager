@@ -13,10 +13,10 @@ public class AsociadorEgresoCategoriaController {
         Router.CheckIfAuthenticated(request, response);
 
         Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros,"cargar-ingreso.hbs");
+        return new ModelAndView(parametros,"asociar-egreso-categoria.hbs");
     }
     //me parece que no tiene sentido este metodo
-    public Response altaIngreso(Request request, Response response) throws Exception {
+    public Response asociarCategoriaEgreso(Request request, Response response) throws Exception {
         if(!request.cookie("id").equals(request.session().id())){
             response.redirect("/");
         }

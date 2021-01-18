@@ -39,10 +39,10 @@
                         aria-expanded="true">
                     Asociar
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
-                    <li><a class="dropdown-item" href="#">Categoria Egreso</a></li>
-                    <li><a class="dropdown-item" href="#">Categoria Presupuesto</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria Presupuesto</a></li>
                 </ul>
             </div>
 
@@ -92,7 +92,7 @@
                 </div>
             </div>
         {{else}}
-            <p> Sin ingresos.</p>
+            <p class="display-7 text-center"> Sin ingresos.</p>
         {{/each}}
 
     </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" dir="ltr" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:margin-left="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -41,8 +41,10 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
-                    <li><a class="dropdown-item" href="#">Categoria Egreso</a></li>
-                    <li><a class="dropdown-item" href="#">Categoria Presupuesto</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a>
+                    </li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria
+                        Presupuesto</a></li>
                 </ul>
             </div>
 
@@ -74,29 +76,29 @@
 <br>
 
 <form action="/asocIngresoEgreso" method="post" class="form">
-    <div class="space-evenly-vert">
-        <div class="card text-dark bg-light-tp mb-3 padd" style="max-width: 18rem; min-width: 24rem;">
-            <div class="card-header display-7 text-center">Asociar Ingreso Egreso</div>
+    <div class="space-evenly-vert" style="padding: 32px">
+        <div class="card text-dark bg-light-tp mb-3" style="max-width: 18rem; min-width: 24rem;">
+            <div class="card-header display-7 text-center" style="background-color: #f8f9fa;">Asociar Ingreso Egreso</div>
             <div class="card-body">
                 <div class="align-content-start">
-                    <h5 class="card-title"> Ingresos </h5>
+                    <h5 class="card-title"> Egresos </h5>
                 </div>
                 <div class="container">
                     {{#each egresos}}
-                        <div class="space-evenly-vert align-items-start " style="margin-left: 8px">
+                        <div class="space-evenly-vert align-items-start"  style="margin-left: 8px;">
                             <label for="cbox1">
-                                <input type="checkbox" id="cbox1" name="ingreso" value="{{id}}">
+                                <input type="radio" id="cbox1" name="ingreso" value="{{id}}">
                                 Nro: {{id}} Descripcion:{{descripcion}}
                             </label> <label
                                 for="cbox2"></label>
                         </div>
                     {{else}}
-                        <p class="display-7"> Sin egresos.</p>
+                        <p class="display-8 text-center"> Sin egresos.</p>
                     {{/each}}
                 </div>
                 <br>
                 <div class="align-content-start">
-                    <h5 class="card-title"> Egresos </h5>
+                    <h5 class="card-title"> Ingresos </h5>
                 </div>
                 <div class="container">
                     {{#each ingresos}}
@@ -107,7 +109,7 @@
                             </label>
                         </div>
                     {{else}}
-                        <p class="display-7"> Sin egresos.</p>
+                        <p class="display-8 text-center"> Sin ingresos.</p>
                     {{/each}}
                 </div>
             </div>
