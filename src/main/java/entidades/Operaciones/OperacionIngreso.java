@@ -14,7 +14,7 @@ import java.util.Objects;
 @Table(name="ingresos")
 public class OperacionIngreso extends EntidadPersistente implements Operacion {
     @Column(name="monto_total")
-    private int montoTotal;
+    private float montoTotal;
     @Column
     private String descripcion;
     @OneToMany(mappedBy = "ingreso", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
@@ -41,11 +41,11 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion {
     public OperacionIngreso(){
     }
 
-    public int getMontoTotal(){
+    public float getMontoTotal(){
         return montoTotal;
     }
 
-    public void setMontoTotal( int newMonto ){
+    public void setMontoTotal(float newMonto ){
         montoTotal = newMonto;
     }
 

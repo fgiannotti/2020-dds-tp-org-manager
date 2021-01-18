@@ -82,7 +82,6 @@
                     <p class="card-text">Descripcion: {{egreso.descripcion}}</p>
                     <p class="card-text">Fecha: {{egreso.fechaOperacion}}</p>
                     <p class="card-text">Monto Total: {{egreso.montoTotal}}</p>
-                    <p class="card-text">Tipo documento: {{egreso.tipoDocumento}}</p>
                     <p class="card-text" style="margin-bottom: 8px">Comprobante: </p>
                     <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Numero de comprobante: {{egreso.comprobante.numeroComprobante}}  </p>
                     <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Items: </p>
@@ -97,10 +96,10 @@
 
                     <div>
                         <div class="border" style="color: lightgray"></div>
-                        <p class="card-title display-8 text-center">Presupuestos</p>
+                        <p class="card-title display-8 text-center" style="margin-top: 16px; margin-bottom: 16px;">Presupuestos</p>
 
                         {{#each presupuestos}}
-                            <p class="card-title display-9 text-center"> Proveedor {{proveedor.nombreApellidoRazon}}</p>
+                            <p class="card-title display-10 text-center"> Proveedor {{proveedor.nombreApellidoRazon}}</p>
                             <p class="card-text"> Direccion Postal:  {{proveedor.direccionPostal}}</p>
                             <p class="card-text"> Presupuesto:  {{cantidad}} items de monto total {{total}}</p>
                         {{else}}

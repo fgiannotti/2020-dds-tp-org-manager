@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import utils.Vinculador.VinculadorApi;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -20,24 +21,22 @@ import java.util.stream.Stream;
 @Entity
 @Table(name = "organizaciones")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Organizacion extends EntidadPersistente {
-    @Column(name="nombre_ficticio")
-    private String nombreFicticio;
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<OperacionEgreso> egresos = new ArrayList<OperacionEgreso>();
+public abstract class Organizacion {
+    @Id
+    @GeneratedValue
+    private int id;
 
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @Column(name="nombre_ficticio",unique = true)
+    private String nombreFicticio;
+
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "org_id")
     private List<CriterioDeEmpresa> criterios = new ArrayList<CriterioDeEmpresa>();
 
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<OperacionIngreso> ingresos = new ArrayList<>();
-
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Usuario> usuarios = new ArrayList<>();
 
     protected Organizacion() {}
 
-    public String getJsonVincular(){
+    /*public String getJsonVincular(){
         JSONArray jsonIngreso= this.crearJsonIngreso();
         JSONArray jsonEgreso= this.crearJsonEgreso();
         JSONObject json= new JSONObject();
@@ -53,14 +52,14 @@ public abstract class Organizacion extends EntidadPersistente {
         Configuracion config = new Configuracion();
         JSONObject response = vinculador.Post_JSON(this.getJsonVincular(), config.getApiVinculador());
         this.vincularRelaciones(response);
-    }
+    }*/
 
 
     protected String fechaToString(LocalDate fecha){
         return fecha.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
-    public void vincular(JSONObject jsonViculaciones){
+    /*public void vincular(JSONObject jsonViculaciones){
         Integer idIngreso = (Integer) jsonViculaciones.get("IDIngreso");
         JSONArray jsonEgresos = (JSONArray) jsonViculaciones.get("IDSEgresos");
         Optional<OperacionIngreso> operacionIngreso;
@@ -118,7 +117,7 @@ public abstract class Organizacion extends EntidadPersistente {
 
     protected JSONArray crearJsonIngreso(){
         return this.jsonOperacionalIngreso(this.getIngresos().stream());
-    }
+    }*/
 
     public String getNombreFicticio() {
         return nombreFicticio;
@@ -130,17 +129,8 @@ public abstract class Organizacion extends EntidadPersistente {
 
     public Organizacion(String nombreFicticio) {
         this.nombreFicticio = Objects.requireNonNull(nombreFicticio, "El nombre ficticio no puede ser nulo");
-        this.egresos = new ArrayList<OperacionEgreso>();
-        this.ingresos = new ArrayList<OperacionIngreso>();
     }
 
-    public void agregarOperacion(Operacion operacion){
-        if (operacion.isIngreso()){
-            this.ingresos.add((OperacionIngreso) operacion);
-        }else{
-            this.egresos.add((OperacionEgreso) operacion);
-        }
-    }
 
     public void agregarCriterio(CriterioDeEmpresa criterio){  this.criterios.add(criterio); }
 
@@ -166,28 +156,11 @@ public abstract class Organizacion extends EntidadPersistente {
         return criterios;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
+    public int getId() {
+        return id;
     }
 
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public void setId(int id) {
+        this.id = id;
     }
-
-    public List<OperacionIngreso> getIngresos() {
-        return ingresos;
-    }
-
-    public void setIngresos(List<OperacionIngreso> ingresos) {
-        this.ingresos = ingresos;
-    }
-    public List<OperacionEgreso> getEgresos() {
-        return egresos;
-    }
-
-    public void setEgresos(List<OperacionEgreso> egresos) {
-        this.egresos = egresos;
-    }
-
-
 }

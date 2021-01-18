@@ -51,18 +51,8 @@ public class OperacionesTest {
         medioDePago = new Debito("Visa debito", "1000");
         organizacion = new Empresa("La del claudio", "Claudio Perez", "1325011222", null, 300, 5, new Comercio(), (float)20000.0);
         operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", null, items,1, Criterio.MENOR_VALOR,null);
-        organizacion.agregarOperacion(operacion);
     }
 
-    @Test
-    public void laOperacionEsGuardadaCorrectamenteEnLaOrg() {
-        this.setup();
-        int tamanio = organizacion.getEgresos().size();
-        int hash = this.operacion.hashCode();
-        Operacion actualOperacion = organizacion.getEgresos().get(0);
-        Assertions.assertEquals(1, tamanio);
-        Assertions.assertEquals(hash, actualOperacion.hashCode());
-    }
 
     @Test
     public void laOperacionPuedeSerGuardadaSinComprobante(){
@@ -85,7 +75,7 @@ public class OperacionesTest {
     public void sePuedeObtenerProveedorDeUnaOperacion(){
         this.setup();
         String nombre = proveedor.getnombreApellidoRazon();
-        OperacionEgreso OE = organizacion.getEgresos().get(0);
+        OperacionEgreso OE = (OperacionEgreso) operacion;
         String nombreEnOperacion = proveedores.get(0).getnombreApellidoRazon();
         Assertions.assertEquals(nombre, nombreEnOperacion);
     }
@@ -94,7 +84,7 @@ public class OperacionesTest {
     public void sePuedeObtenerDetalleItemsDeUnaOperacion(){
         String item = new String();
         this.setup();
-        OperacionEgreso OE = (OperacionEgreso) organizacion.getEgresos().get(0);
+        OperacionEgreso OE = (OperacionEgreso)operacion;
         item = OE.getItems().get(0).toString();
         System.out.println(item);
         Assertions.assertEquals(item, this.items.get(0).toString());
@@ -103,7 +93,7 @@ public class OperacionesTest {
     @Test
     public void seRegistranLosDatosDelMedioDePago(){
         this.setup();
-        OperacionEgreso OE = (OperacionEgreso) organizacion.getEgresos().get(0);
+        OperacionEgreso OE = (OperacionEgreso) operacion;
         Assertions.assertEquals(this.medioDePago.getMedio(), OE.getMedioDePago().getMedio());
         Assertions.assertEquals(this.medioDePago.getNumero(), OE.getMedioDePago().getNumero());
     }

@@ -46,15 +46,17 @@
                 <input name="contrasenia" type="password" placeholder="Contraseña">
             </div>
             {{#if incorrecta}}
-                <span class="textoRojo"> Contraseña incorrecta.</span>
+                <div class="input-row"><span class="textoRojo text-center"> Contraseña incorrecta. </span>
+                </div>
             {{/if}}
             {{#if user-invalido}}
-                <span class="textoRojo"> Usuario inexistente. </span>
+                <div class="input-row"><span class="textoRojo text-center"> Usuario inexistente. </span>
+                </div>
             {{/if}}
 
             {{#if bloqueado}}
-                <span class="textoRojo"> Usuario bloqueado, espere 5 minutos. </span>
-            {{/if}}
+                <div class="input-row"><span class="textoRojo text-center"> Usuario bloqueado, espere 5 minutos. </span>
+                </div>            {{/if}}
             <div class="general-home" style="margin-top:16px">
                 <button class="texto btn btn-dark rounded-pill" type="submit"
                         onclick="location.href='index-menu-revisor.html'">Iniciar Sesión

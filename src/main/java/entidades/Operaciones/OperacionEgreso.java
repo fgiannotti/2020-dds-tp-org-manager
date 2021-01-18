@@ -29,28 +29,6 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate fechaOperacion;
 
-    @Override
-    public String toString() {
-        return "OperacionEgreso{" +
-                "numeroOperacion=" + numeroOperacion +
-                ", proveedores=" + proveedores +
-                ", fechaOperacion=" + fechaOperacion +
-                ", medioDePago=" + medioDePago +
-                ", tipoDocumento='" + tipoDocumento + '\'' +
-                ", comprobante=" + comprobante +
-                ", montoTotal=" + montoTotal +
-                ", descripcion='" + descripcion + '\'' +
-                ", items=" + items +
-                ", presupuestosPreliminares=" + presupuestosPreliminares +
-                ", articulo=" + articulo +
-                ", cantidadMinimaDePresupuestos=" + cantidadMinimaDePresupuestos +
-                ", ingreso=" + ingreso +
-                ", criterio=" + criterio +
-                ", categorias=" + categorias +
-                ", organizacion=" + organizacion +
-                '}';
-    }
-
     @OneToOne(cascade=CascadeType.ALL)
     private MedioDePago medioDePago;
 
@@ -61,7 +39,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     private Comprobante comprobante;
 
     @Column
-    private int montoTotal;
+    private float montoTotal;
 
     @Column
     private String descripcion;
@@ -89,9 +67,9 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "egresos_x_categorias", joinColumns = @JoinColumn(name = "egreso_id",referencedColumnName = "id",unique = false),
             inverseJoinColumns = @JoinColumn(name = "categoria_id",referencedColumnName = "id",unique = false))
-    private List<Categoria> categorias = new ArrayList<Categoria>();
+    private List<Categoria> categorias = new ArrayList<>();
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
     private Organizacion organizacion;
 
@@ -119,7 +97,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.ingreso = ingreso;
     }
 
-    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores,
+    public OperacionEgreso(float montoTotal, String descripcion, List<Proveedor> proveedores,
                            MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento,
                            Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,
                            Criterio criterio,Organizacion organizacion,
@@ -156,6 +134,29 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         //this.comprobante.setOrganizacion();
         this.comprobante.setItems(this.items);                  //  Al adjuntar el comprobante al
     }                                                           //  documento ambos deben tener los mismos items
+
+    @Override
+    public String toString() {
+        return "OperacionEgreso{" +
+                "numeroOperacion=" + numeroOperacion +
+                ", proveedores=" + proveedores +
+                ", fechaOperacion=" + fechaOperacion +
+                ", medioDePago=" + medioDePago +
+                ", tipoDocumento='" + tipoDocumento + '\'' +
+                ", comprobante=" + comprobante +
+                ", montoTotal=" + montoTotal +
+                ", descripcion='" + descripcion + '\'' +
+                ", items=" + items +
+                ", presupuestosPreliminares=" + presupuestosPreliminares +
+                ", articulo=" + articulo +
+                ", cantidadMinimaDePresupuestos=" + cantidadMinimaDePresupuestos +
+                ", ingreso=" + ingreso +
+                ", criterio=" + criterio +
+                ", categorias=" + categorias +
+                ", organizacion=" + organizacion +
+                '}';
+    }
+
 
     public void addItem(Item item){
         this.items.add(item);
@@ -278,11 +279,11 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         return this.hashCode();
     }
 
-    public int getMontoTotal(){
+    public float getMontoTotal(){
         return montoTotal;
     }
 
-    public void setMontoTotal( int newMonto ){
+    public void setMontoTotal(float newMonto ){
         montoTotal = newMonto;
     }
 

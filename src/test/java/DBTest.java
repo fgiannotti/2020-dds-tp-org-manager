@@ -78,13 +78,8 @@ public class DBTest {
         operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", new Comprobante(items), items, 1, Criterio.MENOR_VALOR,new ArrayList<>());
         operacion.setIngreso(ingreso);
         operacion.setOrganizacion(organizacion);
-        organizacion.agregarOperacion(operacion);
 
         usuarios.add(usuario1);
-        juridica.setUsuarios(usuarios);
-        juridica2.setUsuarios(usuarios);
-        orgBase.setUsuarios(usuarios);
-        orgBase2.setUsuarios(usuarios);
         filtros.add(new FiltroPorFecha(LocalDate.now(), bandeja));
         filtroPorFecha = new FiltroPorFecha(LocalDate.now(), bandeja);
         filtroPorEstadoNoLeido = new FiltroPorEstado(false, bandeja);

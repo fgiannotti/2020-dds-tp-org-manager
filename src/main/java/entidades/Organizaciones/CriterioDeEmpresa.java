@@ -12,7 +12,7 @@ public class CriterioDeEmpresa extends EntidadPersistente {
     private String nombre;
     @Transient
     private List<CriterioDeEmpresa> criteriosHijos = new ArrayList<CriterioDeEmpresa>();
-    @OneToMany(mappedBy = "criterio", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
     @ManyToOne(cascade = {CascadeType.ALL})

@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import javax.persistence.EntityManager;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -106,7 +107,7 @@ public class DatosPruebaTest {
 
     //--  EGRESOS  --
     public Comprobante compOpSerrentino = new Comprobante(itemsSerrentino);
-    public OperacionEgreso opSerrentino = new OperacionEgreso(19950, "Egreso serrentino",
+    public OperacionEgreso opSerrentino = new OperacionEgreso((float) 19949.7, "Egreso serrentino",
             proveOpSerrentino, creditoSerrentino, LocalDate.of(2020, 10, 3), "", compOpSerrentino, itemsSerrentino,
             3, Criterio.MENOR_VALOR, eeafBA, preliminaresOpSerrentino, categoriasOpSerrentino);
 
@@ -119,6 +120,8 @@ public class DatosPruebaTest {
     public OperacionEgreso opLap2;
     public OperacionEgreso opTelas;
 
+    //--  USUARIOS  --
+    public Usuario aroco = new Revisor("aroco","aroco20",eeafBA,null);
 
     public List<Item> itemsOpSerr = new ArrayList<>();
 
@@ -130,11 +133,24 @@ public class DatosPruebaTest {
 
     }
 
+    @Test
+    public void persistiendoUsuarios(){
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(aroco);
+        EntityManagerHelper.commit();
+    }
 
     @Test
     public void persistiendoOperacionSERRENTINO() {
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(new CriterioDeEmpresa("test", null, null));
+        try {
+            EntityManagerHelper.getEntityManager().persist(opSerrentino.getOrganizacion());
+            EntityManagerHelper.commit();
+        }catch (Exception e){
+            opSerrentino.getOrganizacion().setId(1);
+            EntityManagerHelper.rollback();
+        }
 
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(opSerrentino);

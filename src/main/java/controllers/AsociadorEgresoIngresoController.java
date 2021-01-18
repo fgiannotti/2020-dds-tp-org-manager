@@ -39,12 +39,9 @@ public class AsociadorEgresoIngresoController {
         user = repoUsuarios.buscarPorNombre(userName);
 
         Map<String, Object> parametros = new HashMap<>();
-        List<OperacionIngreso> operacionesIngreso = new ArrayList<OperacionIngreso>();
-        List<OperacionEgreso> operacionesEgreso = new ArrayList<OperacionEgreso>();
 
-        operacionesIngreso.addAll(user.getOrganizacionALaQuePertenece().getIngresos());
-
-        operacionesEgreso.addAll(user.getOrganizacionALaQuePertenece().getEgresos());
+        List<OperacionIngreso> operacionesIngreso = new ArrayList<OperacionIngreso>(repoIngreso.getAllByOrg(user.getOrganizacionALaQuePertenece()));
+        List<OperacionEgreso> operacionesEgreso = new ArrayList<OperacionEgreso>(repoEgresos.getAllByOrg(user.getOrganizacionALaQuePertenece()));
 
         parametros.put("ingresos", operacionesIngreso);
         parametros.put("egresos", operacionesEgreso);

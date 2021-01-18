@@ -19,9 +19,9 @@ public class Revisor extends Usuario {
         this.bandejaDeEntrada = bandejaDeEntrada;
     }
 
-    public Revisor (String nombre, String password, Organizacion organizacion,BandejaDeEntrada bandeja) {
+    public Revisor (String nombre, String password, Organizacion organizacion,BandejaDeEntrada bandejaOpcional) {
         super(nombre,password,organizacion);
-        this.bandejaDeEntrada = bandeja;
+        this.bandejaDeEntrada = bandejaOpcional != null ? bandejaOpcional : this.bandejaDeEntrada;
     }
 
     public BandejaDeEntrada getBandejaDeEntrada() {
