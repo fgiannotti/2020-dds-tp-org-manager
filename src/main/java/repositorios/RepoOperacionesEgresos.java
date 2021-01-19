@@ -3,6 +3,7 @@ package repositorios;
 import db.EntityManagerHelper;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
+import entidades.Organizaciones.Categoria;
 import entidades.Organizaciones.Organizacion;
 
 import java.util.ArrayList;
@@ -78,5 +79,19 @@ public class RepoOperacionesEgresos {
         EntityManagerHelper.getEntityManager().persist(ingreso);
         EntityManagerHelper.commit();*/
         //no es necesario creo, ingreso deberia traerte su lista sin necesidad de persistirlo
+    }
+
+    public void asociarCategorias(OperacionEgreso egreso, ArrayList<Categoria> categorias) {
+        int orgID = repoOrg.findOrgID(egreso.getOrganizacion().getNombreFicticio());
+        egreso.getCategorias().addAll(categorias);
+        egreso.getOrganizacion().setId(orgID);
+        try {
+            EntityManagerHelper.beginTransaction();
+            EntityManagerHelper.getEntityManager().merge(egreso);
+            EntityManagerHelper.commit();
+        } catch (Exception e){
+            System.err.println("ERROR asociando egreso con categorias: "+e.getMessage());
+            throw(e);
+        }
     }
 }
