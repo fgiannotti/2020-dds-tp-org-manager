@@ -77,14 +77,15 @@ public class AsociadorEgresoIngresoController {
             try {
                 repoEgresos.asociarIngreso(egreso, ingreso);
             } catch (Exception e) {
-                parametros.put("asociar-fallo", true);
                 asocFailCount++;
             }
         }
-
+        parametros.put("asociarEIok", asocFailCount == 0);
+        parametros.put("asociarEIfail", asocFailCount > 0);
         parametros.put("failCount", asocFailCount);
-        parametros.put("totalCount", operacionesIngreso.size());
-        return new ModelAndView(parametros, "asociar-egreso-ingreso.hbs");
+        parametros.put("totalECount", operacionesIngreso.size());
+        //response.redirect("/home");
+        return new ModelAndView(parametros, "index-menu-revisor.hbs");
     }
 
     public Response asociarIngresoEgreso2(Request request, Response response) {

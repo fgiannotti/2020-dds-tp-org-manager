@@ -34,19 +34,23 @@
             </button>
 
             <div class="dropdown align-content-md-around">
-                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
                         aria-expanded="true">
                     Asociar
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
-                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a></li>
-                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria Presupuesto</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a>
+                    </li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria
+                        Presupuesto</a></li>
                 </ul>
             </div>
 
             <div class="dropdown align-content-center">
-                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
                         aria-expanded="true">
                     Visualizar
                 </button>
@@ -87,5 +91,12 @@
         capacitación para mejorar su formación con el fin de conseguir un empleo.
     </p>
 </div>
+{{#if asociarEIok}}
+    <script>alert("Se asociaron los {{totalECount}} egresos al ingreso elegido")</script>
+{{else}}
+    {{#if asociarEIfail}}
+        <script>alert("Hubo un error asociando los egresos al ingreso elegido")</script>
+    {{/if}}
+{{/if}}
 </body>
 </html>
