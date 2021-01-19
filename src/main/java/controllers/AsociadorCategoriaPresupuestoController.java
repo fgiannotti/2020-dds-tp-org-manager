@@ -33,11 +33,10 @@ public class AsociadorCategoriaPresupuestoController {
 
         Map<String, Object> parametros = new HashMap<>();
 
-        List<OperacionIngreso> operacionesIngreso = new ArrayList<OperacionIngreso>(repoIngreso.getAllByOrg(user.getOrganizacionALaQuePertenece()));
-        List<OperacionEgreso> operacionesEgreso = new ArrayList<OperacionEgreso>(repoEgresos.getAllByOrg(user.getOrganizacionALaQuePertenece()));
-
-        parametros.put("ingresos", operacionesIngreso);
-        parametros.put("egresos", operacionesEgreso);
+        List<Categoria> categorias = repoCategorias.getAll();
+        List<Presupuesto> presupuestos = repoPresupuestos.getAllByOrg(user.getOrganizacion());
+        parametros.put("categorias", categorias);
+        parametros.put("presupuestos", presupuestos);
 
         return new ModelAndView(parametros,"asociar-presupuesto-categoria.hbs");
     }
@@ -66,9 +65,12 @@ public class AsociadorCategoriaPresupuestoController {
             try {
                 repoPresupuestos.asociarCategorias(presu, categorias);
             } catch (Exception e) {
-                parametros.put("asociar-fallo", true);
+                parametros.put("asociarCPfail", true);
             }
         }
-        return new ModelAndView(parametros,"asociar-presupuesto-categoria.hbs");
+
+        parametros.put("refererAsociarCP", true);
+        //response.redirect("/home");
+        return new ModelAndView(parametros, "index-menu-revisor.hbs");
     }
 }

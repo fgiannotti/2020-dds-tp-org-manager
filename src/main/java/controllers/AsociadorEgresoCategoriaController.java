@@ -3,10 +3,8 @@ package controllers;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import entidades.Organizaciones.Categoria;
-import repositorios.RepoCategorias;
-import repositorios.RepoOperacionesEgresos;
-import repositorios.RepoOperacionesIngresos;
-import repositorios.RepoUsuarios;
+import entidades.Usuarios.Usuario;
+import repositorios.*;
 import server.Router;
 import spark.ModelAndView;
 import spark.Request;
@@ -14,17 +12,26 @@ import spark.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AsociadorEgresoCategoriaController {
     private final RepoOperacionesEgresos repoEgresos = new RepoOperacionesEgresos();
     private final RepoCategorias repoCategorias = new RepoCategorias();
     private final RepoUsuarios repoUsuarios = new RepoUsuarios();
+    private Usuario user;
 
-    public ModelAndView inicio(Request request, Response response){
+    public ModelAndView inicio(Request request, Response response) throws UserNotFoundException {
         Router.CheckIfAuthenticated(request, response);
+        user = repoUsuarios.buscarPorNombre(request.cookie("user"));
 
         Map<String, Object> parametros = new HashMap<>();
+
+        List<Categoria> categorias = repoCategorias.getAll();
+        List<OperacionEgreso> operacionesEgreso = new ArrayList<OperacionEgreso>(repoEgresos.getAllByOrg(user.getOrganizacionALaQuePertenece()));
+
+        parametros.put("categorias", categorias);
+        parametros.put("egresos", operacionesEgreso);
         return new ModelAndView(parametros,"asociar-egreso-categoria.hbs");
     }
     public ModelAndView asociarCategoriaEgreso(Request request, Response response) throws Exception {
@@ -52,9 +59,10 @@ public class AsociadorEgresoCategoriaController {
             try {
                 repoEgresos.asociarCategorias(egreso, categorias);
             } catch (Exception e) {
-                parametros.put("asociar-fallo", true);
+                parametros.put("asociarECfail", true);
             }
         }
-        return new ModelAndView(parametros,"asociar-egreso-categoria.hbs");
+        parametros.put("refererAsociarEC", true);
+        return new ModelAndView(parametros,"index-menu-revisor.hbs");
     }
 }

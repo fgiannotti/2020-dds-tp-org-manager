@@ -92,10 +92,24 @@
     </p>
 </div>
 {{#if asociarEIok}}
-    <script>alert("Se asociaron los {{totalECount}} egresos al ingreso elegido")</script>
+    <script>alert("Se asociaron los {{totalECount}} egresos al ingreso elegido.")</script>
 {{else}}
     {{#if asociarEIfail}}
-        <script>alert("Hubo un error asociando los egresos al ingreso elegido")</script>
+        <script>alert("Hubo un error asociando los egresos al ingreso elegido.")</script>
+    {{/if}}
+{{/if}}
+{{#if refererAsociarCP}}
+    {{#if asociarCPfail}}
+        <script>alert("Hubo un error asociando las categorias a los presupuestos seleccionados.")</script>
+    {{else}}
+        <script>alert("Se asociaron las categorias a los presupuestos seleccionados.")</script>
+    {{/if}}
+{{/if}}
+{{#if refererAsociarEC}}
+    {{#if asociarECfail}}
+        <script>alert("Hubo un error asociando las categorias a los egresos seleccionados.")</script>
+    {{else}}
+        <script>alert("Se asociaron las categorias a los egresos seleccionados.")</script>
     {{/if}}
 {{/if}}
 </body>

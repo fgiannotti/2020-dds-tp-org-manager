@@ -4,11 +4,12 @@ import db.EntityManagerHelper;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.Presupuesto;
 import entidades.Organizaciones.Categoria;
+import entidades.Organizaciones.Organizacion;
 
 import java.util.ArrayList;
 
 public class RepoPresupuestos {
-
+    RepoOperacionesEgresos repoEgresos = new RepoOperacionesEgresos();
     public Presupuesto find(int id){
         return (Presupuesto) EntityManagerHelper.createQuery("FROM Presupuesto WHERE id ='"+id+"'").getSingleResult();
     }
@@ -26,5 +27,14 @@ public class RepoPresupuestos {
             System.err.println("ERROR asociando presupuesto con categorias: "+e.getMessage());
             throw(e);
         }
+    }
+
+    public ArrayList<Presupuesto> getAllByOrg(Organizacion organizacion) {
+        ArrayList<Presupuesto> result = new ArrayList<>();
+        ArrayList<OperacionEgreso> egresos = repoEgresos.getAllByOrg(organizacion);
+        for(OperacionEgreso e : egresos){
+            result.addAll(e.getPresupuestosPreliminares());
+        }
+        return result;
     }
 }
