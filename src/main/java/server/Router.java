@@ -78,6 +78,8 @@ public class Router {
 
         Spark.post("/asocCategoriaPresupuesto",asociadorCategoriaPresupuestoController::asociarCategoriaPresupuesto,Router.engine);
 
+        Spark.get("/egreso/:id",operacionController::verEgreso,Router.engine);
+
         Spark.get("/ingreso", operacionIngresoController::inicio, Router.engine);
 
         Spark.post("/ingreso", operacionIngresoController::altaIngreso);
@@ -128,7 +130,6 @@ public class Router {
 
         Spark.post("/crearEgreso9", operacionController::postCargarOrganizacion);
 
-        Spark.get("/egreso/:id",operacionController::verEgreso,Router.engine);
     }
     
         public static void CheckIfAuthenticated(Request request, Response response){

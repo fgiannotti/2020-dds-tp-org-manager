@@ -19,6 +19,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import repositorios.RepoOperacionesEgresos;
+import repositorios.RepoPresupuestos;
 
 import javax.persistence.EntityManager;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -200,6 +201,20 @@ public class DatosPruebaTest {
         opSerrentino.setId(11);
         ingresoDonacionTerceros.setId(1);
         repoEgresos.asociarIngreso(opSerrentino,ingresoDonacionTerceros);
+
+    }
+    @Test
+    public void asociarCategoriasEgreso() throws Exception {
+        RepoOperacionesEgresos repoEgresos = new RepoOperacionesEgresos();
+        opSerrentino.setId(11);
+        repoEgresos.asociarCategorias(opSerrentino, (ArrayList<Categoria>) categoriasOpSerrentino);
+
+    }
+    @Test
+    public void asociarCategoriasPresupuesto() throws Exception {
+        RepoPresupuestos repoPresupuestos = new RepoPresupuestos();
+        opSerrentino.setId(11);
+        repoPresupuestos.asociarCategorias(prepSerrentino, (ArrayList<Categoria>) categoriasOpSerrentino);
 
     }
 }
