@@ -61,6 +61,7 @@ public class Router {
         Spark.get("/home", homeController::inicio, Router.engine);
 
         Spark.get("/CrearOperacionEgreso", operacionController::inicio, Router.engine);
+        Spark.post("/upload/:id",operacionController::upload);
 
         Spark.post("/CrearOperacionEgreso", proveedorController::inicio);
 

@@ -7,6 +7,7 @@ import entidades.MedioDePago.MedioDePago;
 import entidades.Operaciones.*;
 import entidades.Organizaciones.CriterioDeEmpresa;
 import entidades.Organizaciones.Organizacion;
+import org.apache.commons.compress.utils.IOUtils;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import repositorios.RepoOperacionesEgresos;
 import server.Router;
@@ -14,6 +15,13 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletException;
+import javax.servlet.http.Part;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +32,7 @@ public class OperacionController {
     private RepoOperacionesEgresos repoOperacionesEgresos = new RepoOperacionesEgresos();
     private EgresoBuilder builder = new EgresoBuilder();
 
-    public ModelAndView inicio(Request request, Response response){
+    public ModelAndView inicio(Request request, Response response) {
         Router.CheckIfAuthenticated(request, response);
 
         List<Proveedor> proveedores = new ArrayList<Proveedor>();
@@ -34,54 +42,93 @@ public class OperacionController {
         List<Articulo> articulos = new ArrayList<Articulo>();
         List<OperacionIngreso> ingresos = new ArrayList<OperacionIngreso>();
         Map<String, Object> parametros = new HashMap<>();
-        EntityManagerHelper.createQuery("from Proveedor").getResultList().forEach((a) -> { proveedores.add((Proveedor)a); });
+        EntityManagerHelper.createQuery("from Proveedor").getResultList().forEach((a) -> {
+            proveedores.add((Proveedor) a);
+        });
         parametros.put("proveedores", proveedores);
-        EntityManagerHelper.createQuery("from Comprobante").getResultList().forEach((a) -> { comprobantes.add((Comprobante)a); });
+        EntityManagerHelper.createQuery("from Comprobante").getResultList().forEach((a) -> {
+            comprobantes.add((Comprobante) a);
+        });
         parametros.put("comprobantes", comprobantes);
-        EntityManagerHelper.createQuery("from Presupuesto").getResultList().forEach((a) -> { presupuestos.add((Presupuesto)a); });
+        EntityManagerHelper.createQuery("from Presupuesto").getResultList().forEach((a) -> {
+            presupuestos.add((Presupuesto) a);
+        });
         parametros.put("presupuestos", presupuestos);
-        EntityManagerHelper.createQuery("from Articulo").getResultList().forEach((a) -> { articulos.add((Articulo)a); });
+        EntityManagerHelper.createQuery("from Articulo").getResultList().forEach((a) -> {
+            articulos.add((Articulo) a);
+        });
         parametros.put("articulos", articulos);
-        EntityManagerHelper.createQuery("from Item").getResultList().forEach((a) -> { items.add((Item)a); });
+        EntityManagerHelper.createQuery("from Item").getResultList().forEach((a) -> {
+            items.add((Item) a);
+        });
         parametros.put("items", items);
-        EntityManagerHelper.createQuery("from OperacionIngreso").getResultList().forEach((a) -> { ingresos.add((OperacionIngreso)a); });
+        EntityManagerHelper.createQuery("from OperacionIngreso").getResultList().forEach((a) -> {
+            ingresos.add((OperacionIngreso) a);
+        });
         parametros.put("ingresos", ingresos);
-        return new ModelAndView(parametros,"crear-proveedor.hbs");
+        return new ModelAndView(parametros, "crear-proveedor.hbs");
     }
 
-    public ModelAndView verEgreso(Request request,Response response){
+    public ModelAndView verEgreso(Request request, Response response) {
         String egresoID = request.params("id");
         OperacionEgreso operacionEgreso = repoOperacionesEgresos.get(new Integer(egresoID));
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("egreso", operacionEgreso);
         boolean tieneIngreso = operacionEgreso.getIngreso() != null;
         parametros.put("tiene-ingreso", tieneIngreso);
-        if (tieneIngreso){parametros.put("ingreso",operacionEgreso.getIngreso());}
+        if (tieneIngreso) {
+            parametros.put("ingreso", operacionEgreso.getIngreso());
+        }
 
         parametros.put("presupuestos", operacionEgreso.getPresupuestosPreliminares());
-        parametros.put("egresoID",egresoID);
-        return new ModelAndView(parametros,"egreso.hbs");
+        parametros.put("egresoID", egresoID);
+        return new ModelAndView(parametros, "egreso.hbs");
     }
 
-    public ModelAndView fechaYCantidad(Request request, Response response){
+    public ModelAndView fechaYCantidad(Request request, Response response) {
         builder.nuevoEgreso();
-        if(!request.cookie("id").equals(request.session().id())){
+        if (!request.cookie("id").equals(request.session().id())) {
             response.redirect("/");
         }
 
         Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros,"index-crear-egreso.hbs");
+        return new ModelAndView(parametros, "index-crear-egreso.hbs");
     }
 
-    public Response crearOperacionEgreso (Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
+    public Response upload(Request req, Response response) throws ServletException, IOException {
+        Map<String, Object> parametros = new HashMap<>();
+        req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("src/main/resources/public/files/"));
+        Part filePart = null;
+        try {
+            filePart = req.raw().getPart("myfile");
+        } catch (IOException | ServletException e) {
+            e.printStackTrace();
+            throw (e);
+        }
+
+        try (InputStream inputStream = filePart.getInputStream()) {
+            OutputStream outputStream = new FileOutputStream("src/main/resources/public/files/"+filePart.getSubmittedFileName());
+            IOUtils.copy(inputStream, outputStream);
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("File uploaded and saved.");
+        response.redirect("/egreso/"+req.params("id"));
+        return response;
+
+    }
+
+    public Response crearOperacionEgreso(Request request, Response response) {
+        if (!request.cookie("id").equals(request.session().id())) {
             response.redirect("/");
         }
         OperacionEgreso operacionEgreso = new OperacionEgreso();
         return response;
     }
 
-    public Response postFechaYCantidad(Request request, Response response){
+    public Response postFechaYCantidad(Request request, Response response) {
         String fecha = request.queryParams("fecha");
         int cantidadPresupuestos = Integer.parseInt(request.queryParams("cantidadMinima"));
         int valorTotal = Integer.parseInt(request.queryParams("valorTotal"));
@@ -91,35 +138,37 @@ public class OperacionController {
         return response;
     }
 
-    public ModelAndView seleccionarProveedor(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
+    public ModelAndView seleccionarProveedor(Request request, Response response) {
+        if (!request.cookie("id").equals(request.session().id())) {
             response.redirect("/");
         }
         Map<String, Object> parametros = new HashMap<>();
         List<Proveedor> proveedores = new ArrayList<Proveedor>();
-        EntityManagerHelper.createQuery("from Proveedor").getResultList().forEach((a) -> { proveedores.add((Proveedor)a); });
+        EntityManagerHelper.createQuery("from Proveedor").getResultList().forEach((a) -> {
+            proveedores.add((Proveedor) a);
+        });
         parametros.put("proveedores", proveedores);
-        return new ModelAndView(parametros,"index-seleccionar-proveedores.hbs");
+        return new ModelAndView(parametros, "index-seleccionar-proveedores.hbs");
     }
 
-    public Response postSeleccionarProveedor(Request request, Response response){
+    public Response postSeleccionarProveedor(Request request, Response response) {
         String proveedor = request.queryParams("proveedor");
         int presupuesto = Integer.parseInt(request.queryParams("presupuesto"));
-        Proveedor unProveedorEntero = (Proveedor)EntityManagerHelper.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor+"'").getResultList().get(0);
+        Proveedor unProveedorEntero = (Proveedor) EntityManagerHelper.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor + "'").getResultList().get(0);
         builder.asignarProveedor(unProveedorEntero);
         response.redirect("/crearEgreso3");
         return response;
     }
 
-    public ModelAndView medioDePago(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
+    public ModelAndView medioDePago(Request request, Response response) {
+        if (!request.cookie("id").equals(request.session().id())) {
             response.redirect("/");
         }
         Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros,"crear-medio-pago.hbs");
+        return new ModelAndView(parametros, "crear-medio-pago.hbs");
     }
 
-    public Response postMedioDePago(Request request, Response response){
+    public Response postMedioDePago(Request request, Response response) {
         String medioDePago = request.queryParams("medioDePago");
         int total = Integer.parseInt(request.queryParams("total"));
         MedioDePago unMedio = (MedioDePago) EntityManagerHelper.createQuery("from MedioDePago where id = " + medioDePago).getResultList().get(0);
@@ -128,37 +177,39 @@ public class OperacionController {
         return response;
     }
 
-    public ModelAndView seleccionArticulos(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
+    public ModelAndView seleccionArticulos(Request request, Response response) {
+        if (!request.cookie("id").equals(request.session().id())) {
             response.redirect("/");
         }
         Map<String, Object> parametros = new HashMap<>();
         List<Articulo> articulos = new ArrayList<Articulo>();
-        EntityManagerHelper.createQuery("from Articulo").getResultList().forEach((a) -> { articulos.add((Articulo)a); });
+        EntityManagerHelper.createQuery("from Articulo").getResultList().forEach((a) -> {
+            articulos.add((Articulo) a);
+        });
         parametros.put("articulos", articulos);
-        return new ModelAndView(parametros,"seleccion-articulos.hbs");
+        return new ModelAndView(parametros, "seleccion-articulos.hbs");
     }
 
-    public Response postSeleccionArticulos(Request request, Response response){
+    public Response postSeleccionArticulos(Request request, Response response) {
         String nombre = request.queryParams("nombreArticulo");
-        Articulo articulo = (Articulo) EntityManagerHelper.createQuery("from Articulo where nombre = '" + nombre+"'").getResultList().get(0);
+        Articulo articulo = (Articulo) EntityManagerHelper.createQuery("from Articulo where nombre = '" + nombre + "'").getResultList().get(0);
         builder.asignarArticulo(articulo);
         response.redirect("/crearEgreso6");
         return response;
     }
 
-    public ModelAndView cargarComprobante(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
+    public ModelAndView cargarComprobante(Request request, Response response) {
+        if (!request.cookie("id").equals(request.session().id())) {
             response.redirect("/");
         }
         Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros,"cargar-comprobante.hbs");
+        return new ModelAndView(parametros, "cargar-comprobante.hbs");
     }
 
-    public Response postCargarComprobante(Request request, Response response){
+    public Response postCargarComprobante(Request request, Response response) {
         String tipoComprobante = request.queryParams("tipoComprobante");
         String stringNum = request.queryParams("numeroComprobante");
-        if(stringNum == "") {
+        if (stringNum == "") {
             int numeroComprobante = Integer.parseInt(request.queryParams("numeroComprobante"));
             System.out.println(numeroComprobante);
         }
@@ -167,18 +218,18 @@ public class OperacionController {
         return response;
     }
 
-    public ModelAndView cargarCriterio(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
+    public ModelAndView cargarCriterio(Request request, Response response) {
+        if (!request.cookie("id").equals(request.session().id())) {
             response.redirect("/");
         }
         Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros,"cargar-criterio.hbs");
+        return new ModelAndView(parametros, "cargar-criterio.hbs");
     }
 
-    public Response postCargarCriterio(Request request, Response response){
+    public Response postCargarCriterio(Request request, Response response) {
         String nombreCriterio = request.queryParams("nombreCriterio");
         String categoria = request.queryParams("categoria");
-        if (nombreCriterio != "" && categoria != ""){
+        if (nombreCriterio != "" && categoria != "") {
             CriterioDeEmpresa unCriterio = new CriterioDeEmpresa();
             //builder.asignarCriterio(unCriterio);
         }
@@ -188,18 +239,20 @@ public class OperacionController {
         return response;
     }
 
-    public ModelAndView cargarCriterioComplejo(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
+    public ModelAndView cargarCriterioComplejo(Request request, Response response) {
+        if (!request.cookie("id").equals(request.session().id())) {
             response.redirect("/");
         }
         Map<String, Object> parametros = new HashMap<>();
         List<CriterioDeEmpresa> criterios = new ArrayList<CriterioDeEmpresa>();
-        EntityManagerHelper.createQuery("from CriterioDeEmpresa").getResultList().forEach((a) -> { criterios.add((CriterioDeEmpresa)a); });
+        EntityManagerHelper.createQuery("from CriterioDeEmpresa").getResultList().forEach((a) -> {
+            criterios.add((CriterioDeEmpresa) a);
+        });
         parametros.put("criterios", criterios);
-        return new ModelAndView(parametros,"crearComplejos.hbs");
+        return new ModelAndView(parametros, "crearComplejos.hbs");
     }
 
-    public Response postCargarCriterioComplejo(Request request, Response response){
+    public Response postCargarCriterioComplejo(Request request, Response response) {
         String nombreCriterio = request.queryParams("nombreCriterio");
         String primerCriterio = request.queryParams("primerCriterio");
         String segundoCriterio = request.queryParams("segundoCriterio");
@@ -210,22 +263,26 @@ public class OperacionController {
         return response;
     }
 
-    public ModelAndView cargarOrganizacion(Request request, Response response){
-        if(!request.cookie("id").equals(request.session().id())){
+    public ModelAndView cargarOrganizacion(Request request, Response response) {
+        if (!request.cookie("id").equals(request.session().id())) {
             response.redirect("/");
         }
         Map<String, Object> parametros = new HashMap<>();
         List<Organizacion> organizaciones = new ArrayList<Organizacion>();
-        EntityManagerHelper.createQuery("from Organizacion").getResultList().forEach((a) -> { organizaciones.add((Organizacion)a); });
+        EntityManagerHelper.createQuery("from Organizacion").getResultList().forEach((a) -> {
+            organizaciones.add((Organizacion) a);
+        });
         parametros.put("organizaciones", organizaciones);
 
         List<CriterioDeEmpresa> criterios = new ArrayList<CriterioDeEmpresa>();
-        EntityManagerHelper.createQuery("from CriterioDeEmpresa").getResultList().forEach((a) -> { criterios.add((CriterioDeEmpresa) a); });
+        EntityManagerHelper.createQuery("from CriterioDeEmpresa").getResultList().forEach((a) -> {
+            criterios.add((CriterioDeEmpresa) a);
+        });
         parametros.put("criterios", criterios);
-        return new ModelAndView(parametros,"cargar-organizacion.hbs");
+        return new ModelAndView(parametros, "cargar-organizacion.hbs");
     }
 
-    public Response postCargarOrganizacion(Request request, Response response){
+    public Response postCargarOrganizacion(Request request, Response response) {
         String nombreCriterio = request.queryParams("nombreCriterio");
         String primerCriterio = request.queryParams("organizacion");
         String segundoCriterio = request.queryParams("segundoCriterio");
