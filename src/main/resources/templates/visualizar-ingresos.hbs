@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" >
+<html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,7 +19,7 @@
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
     <!-- CSS only -->
-    <title>Ver Egresos</title>
+    <title>Ver Ingresos</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -39,7 +39,7 @@
                         aria-expanded="true">
                     Asociar
                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
                     <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a></li>
                     <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria Presupuesto</a></li>
@@ -72,27 +72,30 @@
     </div>
 </nav>
 
-<br>
+
 <div class="space-evenly-vert" style="align-items: stretch; overflow:auto; min-height: 80%; padding: 16px">
 
     <div class="distribute-cards-evenly">
 
         {{#each ingresos}}
-            <div class="card clickeable text-dark bg-light-tp mb-3" style="min-height: 16rem; min-width: 22rem; max-height: 20rem;">
-                <div class="card-header display-7 text-center">Ingreso {{inc @index}}</div>
-                <div class="card-body">
-                    <div class="space-evenly-vert align-items-start">
-                        <div class="container-body-egreso justify-content-start" style="padding-right: 0">
-                            <p class="card-text">Nro: {{numeroOperacion}}</p>
-                            <p class="card-text">Descripcion: {{descripcion}}</p>
-                            <p class="card-text">Fecha: {{fechaOperacion}}</p>
-                            <p class="card-text">Monto Total: {{montoTotal}}</p>
+            <div style="margin: 16px" onclick="window.location='/ingreso/{{id}}';">
+                <div class="card clickeable text-dark bg-light-tp mb-3"
+                     style="min-height: 16rem; min-width: 22rem; max-height: 20rem;"
+                     onclick="location.href='/ingreso/{{id}}">
+                    <div class="card-header display-7 text-center"> Ingreso {{inc @index}}</div>
+                    <div class="card-body">
+                        <div class="space-evenly-vert align-items-start">
+                            <div class="container-body-egreso justify-content-start" style="padding-right: 0">
+                                <p class="card-text">Descripcion: {{descripcion}}</p>
+                                <p class="card-text">Fecha: {{fechaOperacion}}</p>
+                                <p class="card-text">Monto Total: {{montoTotal}}0 $</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         {{else}}
-            <p class="display-7 text-center"> Sin ingresos.</p>
+            <p class="display-7"> Sin ingreso.</p>
         {{/each}}
 
     </div>

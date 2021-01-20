@@ -1,5 +1,6 @@
 package controllers;
 
+import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import entidades.Usuarios.Usuario;
 import repositorios.Builders.OperacionIngresoBuilder;
@@ -48,5 +49,16 @@ public class OperacionIngresoController {
         System.out.println("Guardado OK de ingreso "+ unaDescripcion + " con id autogenerado: " + String.valueOf(operacionIngreso.getId()));
         response.redirect("/home"); //Success
         return response;
+    }
+
+    public ModelAndView verIngreso(Request request, Response response) {
+        String ingresoID = request.params("id");
+        OperacionIngreso operacionIngreso = repoOperacionesIngresos.get(new Integer(ingresoID));
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("ingreso", operacionIngreso);
+        parametros.put("ingresoID", operacionIngreso.getId());
+
+        return new ModelAndView(parametros,"ingreso.hbs");
     }
 }

@@ -78,7 +78,7 @@
     <div class="distribute-cards-evenly">
 
         {{#each egresos}}
-            <div onclick="window.location='/egreso/{{id}}';">
+            <div style="margin: 16px" onclick="window.location='/egreso/{{id}}';">
                 <div class="card clickeable text-dark bg-light-tp mb-3"
                      style="min-height: 16rem; min-width: 22rem; max-height: 20rem;"
                      onclick="location.href='/egreso/{{id}}">
@@ -89,7 +89,7 @@
                                 <p class="card-text">Nro: {{numeroOperacion}}</p>
                                 <p class="card-text">Descripcion: {{descripcion}}</p>
                                 <p class="card-text">Fecha: {{fechaOperacion}}</p>
-                                <p class="card-text">Monto Total: {{montoTotal}}</p>
+                                <p class="card-text">Monto Total: {{montoTotal}}0 $</p>
                             </div>
                         </div>
                     </div>

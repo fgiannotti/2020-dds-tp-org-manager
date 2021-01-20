@@ -77,12 +77,12 @@ html{
     align-items: center;
 }
 .clickeable:hover{
-    box-shadow: 1px 8px 20px lightgrey;
+    box-shadow: 4px 8px 20px lightgrey;
     background-color: lightgray
 }
 .clickeable:focus{
     outline: 0;
-    box-shadow: 1px 8px 20px darkgrey;
+    box-shadow: 4px 8px 20px darkgrey;
     background-color: darkgrey;
 }
 

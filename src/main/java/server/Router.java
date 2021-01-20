@@ -76,6 +76,7 @@ public class Router {
         Spark.post("/asocCategoriaPresupuesto",asociadorCategoriaPresupuestoController::asociarCategoriaPresupuesto,Router.engine);
 
         Spark.get("/egreso/:id",operacionController::verEgreso,Router.engine);
+        Spark.get("/ingreso/:id", operacionIngresoController::verIngreso, Router.engine);
 
         Spark.get("/ingreso", operacionIngresoController::inicio, Router.engine);
 
