@@ -18,9 +18,11 @@ html{
     min-width: 300px;
     max-width: 400px;
 }
-
+input[type="file"] {
+    display: inline;
+}
 .padding-button-home {
-    padding: 4px;
+    padding: 8px;
 }
 
 .container-body-egreso {

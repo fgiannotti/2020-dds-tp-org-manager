@@ -113,22 +113,32 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-evenly" style="padding: 16px" >
-                <a href="/files/SO - 1° Parcial 2C2016.pdf" class="btn btn-dark rounded-pill" download="SO - 1° Parcial 2C2016.pdf" style="font-size: 16px,">Descargar</a>
-                <button onclick="window.open('/files/SO - 1° Parcial 2C2016.pdf')"  class="btn btn btn-dark rounded-pill">Ver PDF</button>
+            <div class="border" style="color: lightgray"></div>
+            <p class="card-title text-center display-9"> Factura </p>
+            {{#if tieneFile}}
+                <p class="card-text text-center display-10"> {{fileName}} </p>
+                <div class="d-flex justify-content-evenly" style="padding: 16px" >
+                    <a href="/files/{{fileName}}" class="btn btn-dark rounded-pill" download="{{fileName}}" style="font-size: 16px;">Descargar</a>
+                    <button onclick="window.open('{{fileName}}')"  class="btn btn btn-dark rounded-pill">Ver Archivo</button>
+                </div>
+            {{else}}
+                <p class="card-text text-center display-10"> Sin factura. </p>
+            {{/if}}
+            <div class="d-flex justify-content-end" style="padding-top: 8px">
+                <form action="/upload/{{egresoID}}" method="post" enctype="multipart/form-data">
+                    <label for="myfile">  </label>
+                    <input type="file" id="myfile" name="myfile"/>
+
+                    <div class="d-flex justify-content-end p-4">
+                        <button class="btn btn-outline-dark" type="submit">Subir</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-<div class="d-flex justify-content-center padding-button-home">
-    <form action="/upload/{{egresoID}}" method="post" enctype="multipart/form-data">
-        <label for="myfile">Subir archivo pdf</label>
-        <input type="file" id="myfile" name="myfile"/>
-        <input type="submit" id="buttonUpload" value="Upload"/>
-        <br>
-    </form>
-</div>
+
 
 <div class="d-flex justify-content-center padding-button-home">
     <button class="btn btn-lg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home</button>

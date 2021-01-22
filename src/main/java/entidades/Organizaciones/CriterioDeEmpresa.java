@@ -13,9 +13,11 @@ public class CriterioDeEmpresa extends EntidadPersistente {
     @Transient
     private List<CriterioDeEmpresa> criteriosHijos = new ArrayList<CriterioDeEmpresa>();
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "criterio_id")
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
     @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "org_id")
     private Organizacion organizacion;
 
     public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosMenoresOpcionales, List<Categoria> categoriasOpcionales) {
@@ -23,6 +25,14 @@ public class CriterioDeEmpresa extends EntidadPersistente {
         this.criteriosHijos = criteriosMenoresOpcionales != null ? criteriosMenoresOpcionales : this.criteriosHijos;
         this.categorias = categoriasOpcionales != null ? categoriasOpcionales : this.categorias;
     }
+
+    public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosHijos, List<Categoria> categorias, Organizacion organizacion) {
+        this.nombre = nombre;
+        this.criteriosHijos = criteriosHijos;
+        this.categorias = categorias;
+        this.organizacion = organizacion;
+    }
+
     public CriterioDeEmpresa(){}
 
     public String getNombre() {

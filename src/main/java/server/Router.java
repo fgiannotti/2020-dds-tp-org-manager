@@ -34,7 +34,6 @@ public class Router {
         Router.initEngine();
         Spark.staticFileLocation("/public");
         System.out.println("Configure");
-
         Router.configure();
     }
 
@@ -72,10 +71,10 @@ public class Router {
 
         Spark.get("/asocCategoriaEgreso",asociadorEgresoCategoriaController::inicio,Router.engine);
         Spark.post("/asocCategoriaEgreso",asociadorEgresoCategoriaController::asociarCategoriaEgreso,Router.engine);
+        Spark.post("/cacheCategoria",asociadorEgresoCategoriaController::agregarCategoria,Router.engine);
 
         Spark.get("/asocCategoriaPresupuesto",asociadorCategoriaPresupuestoController::inicio,Router.engine);
         Spark.post("/asocCategoriaPresupuesto",asociadorCategoriaPresupuestoController::asociarCategoriaPresupuesto,Router.engine);
-
         Spark.get("/egreso/:id",operacionController::verEgreso,Router.engine);
         Spark.get("/ingreso/:id", operacionIngresoController::verIngreso, Router.engine);
 

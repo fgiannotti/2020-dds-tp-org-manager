@@ -15,6 +15,12 @@ public class RepoCategorias {
     public ArrayList<Categoria> getAll(){
         return (ArrayList<Categoria>) EntityManagerHelper.createQuery("FROM Categoria").getResultList();
     }
+    public int persistCategoria(Categoria categoria){
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.persist(categoria);
+        EntityManagerHelper.commit();
+        return categoria.getId();
+    }
 
     public RepoCategorias() {
     }

@@ -1,5 +1,6 @@
 package controllers;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import db.EntityManagerHelper;
 import entidades.Items.Articulo;
 import entidades.Items.Item;
@@ -31,6 +32,7 @@ import java.util.Map;
 public class OperacionController {
     private RepoOperacionesEgresos repoOperacionesEgresos = new RepoOperacionesEgresos();
     private EgresoBuilder builder = new EgresoBuilder();
+    private Map<String, String> egresosFileName = new HashMap<>();
 
     public ModelAndView inicio(Request request, Response response) {
         Router.CheckIfAuthenticated(request, response);
@@ -79,9 +81,15 @@ public class OperacionController {
         if (tieneIngreso) {
             parametros.put("ingreso", operacionEgreso.getIngreso());
         }
-
         parametros.put("presupuestos", operacionEgreso.getPresupuestosPreliminares());
         parametros.put("egresoID", egresoID);
+        Boolean tieneFile = egresosFileName.get(request.cookie("user")) != null;
+        parametros.put("tieneFile", tieneFile);
+        if (tieneFile) {
+            parametros.put("fileName", egresosFileName.get(egresoID));
+        }
+        System.err.println(egresosFileName.get(egresoID));
+
         return new ModelAndView(parametros, "egreso.hbs");
     }
 
@@ -105,9 +113,12 @@ public class OperacionController {
             e.printStackTrace();
             throw (e);
         }
-
+        String egresoID = req.params("id");
         try (InputStream inputStream = filePart.getInputStream()) {
-            OutputStream outputStream = new FileOutputStream("src/main/resources/public/files/"+filePart.getSubmittedFileName());
+            String fileName = filePart.getSubmittedFileName();
+            OutputStream outputStream = new FileOutputStream("src/main/resources/public/files/" + fileName);
+            egresosFileName.put(egresoID, fileName);
+
             IOUtils.copy(inputStream, outputStream);
             outputStream.close();
         } catch (Exception e) {
@@ -115,7 +126,7 @@ public class OperacionController {
         }
 
         System.out.println("File uploaded and saved.");
-        response.redirect("/egreso/"+req.params("id"));
+        response.redirect("/egreso/" + egresoID);
         return response;
 
     }
