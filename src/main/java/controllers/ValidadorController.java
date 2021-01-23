@@ -45,7 +45,8 @@ public class ValidadorController {
         Integer cargasInvalidas = 0;
         for (OperacionEgreso egreso: egresos){
             Pair<Boolean,String> resultado = validador.validar(egreso);
-            if (!resultado.getKey()){
+            Boolean validarOK = resultado.getKey();
+            if (!validarOK){
                 cargasInvalidas++;
             }
         }
@@ -53,12 +54,10 @@ public class ValidadorController {
 
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("validarDone",true);
-        parametros.put("cargasInvalidas",cargasInvalidas);
+        parametros.put("cargasValidas",egresos.size() - cargasInvalidas);
         parametros.put("cargasTotales",egresos.size());
-        response.cookie("validarDone","true");
-        response.cookie("cargasInvalidas", String.valueOf(cargasInvalidas));
-        response.cookie("argasTotales", String.valueOf(egresos.size()));
 
+        homeController.setParametrosAuxiliares(parametros);
         return homeController.inicio(request,response);
     }
 }

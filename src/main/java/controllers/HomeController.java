@@ -10,22 +10,19 @@ import java.util.Map;
 import server.Router;
 
 public class HomeController {
-    public ModelAndView inicio(Request request, Response response){
-        Map<String, Object> parametros = new HashMap<>();
+    private Map<String,Object> parametrosAuxiliares;
 
+    public ModelAndView inicio(Request request, Response response){
         Router.CheckIfAuthenticated(request, response);
         String rol = request.cookie("rol");
-        System.err.println("validador Done cookie:"+request.cookie("validarDone"));
-        Boolean validarDone = Boolean.valueOf(request.cookie("validarDone"));
-        System.err.println("validarDone: "+validarDone);
-        if (!validarDone) {
-            //probar leyendo BODY, esta cayendo en false
-            Integer cargasInvalidas = Integer.parseInt(request.cookie("cargasInvalidas"));
-            Integer cargasTotales = Integer.valueOf(request.cookie("cargasTotales"));
 
-            parametros.put("validarDone",true);
-            parametros.put("cargasInvalidas",cargasInvalidas);
-            parametros.put("cargasTotales",cargasTotales);
+        Map<String, Object> parametros = new HashMap<>();
+        if (parametrosAuxiliares != null) {
+            //probar leyendo BODY, esta cayendo en false
+
+            parametros.put("validarDone",parametrosAuxiliares.get("validarDone"));
+            parametros.put("cargasValidas",parametrosAuxiliares.get("cargasValidas"));
+            parametros.put("cargasTotales",parametrosAuxiliares.get("cargasTotales"));
         }
 
         if (rol.equals("revisor")){
@@ -33,5 +30,13 @@ public class HomeController {
         }else{
             return new ModelAndView(parametros,"home.hbs");
         }
+    }
+
+    public Map<String, Object> getParametrosAuxiliares() {
+        return parametrosAuxiliares;
+    }
+
+    public void setParametrosAuxiliares(Map<String, Object> parametrosAuxiliares) {
+        this.parametrosAuxiliares = parametrosAuxiliares;
     }
 }

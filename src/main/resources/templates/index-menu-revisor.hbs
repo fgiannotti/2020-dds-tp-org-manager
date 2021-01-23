@@ -75,7 +75,7 @@
 
     </div>
 </nav>
-<div class="d-flex justify-content-end">
+<div class="d-flex justify-content-end" style="padding: 16px">
     <form action="/validar" method="post" class="form">
         <button class="btn btn-dark" onclick="location.href='index-login.html'" type="submit">Ejecutar validador</button>
     </form>
@@ -117,7 +117,7 @@
     {{/if}}
 {{/if}}
 {{#if validarDone}}
-    <script>alert("Se ejecutó el validador. Resultaron {{cargasInvalidas}} de {{cargasTotales}} egresos invalidos")</script>
+    <script>alert("Se ejecutó el validador. Resultaron {{cargasValidas}} de {{cargasTotales}} egresos validos!")</script>
 {{/if}}
 </body>
 </html>
