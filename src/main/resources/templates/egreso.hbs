@@ -119,7 +119,7 @@
                 <p class="card-text text-center display-10"> {{fileName}} </p>
                 <div class="d-flex justify-content-evenly" style="padding: 16px" >
                     <a href="/files/{{fileName}}" class="btn btn-dark rounded-pill" download="{{fileName}}" style="font-size: 16px;">Descargar</a>
-                    <button onclick="window.open('{{fileName}}')"  class="btn btn btn-dark rounded-pill">Ver Archivo</button>
+                    <button onclick="window.open('../files/{{fileName}}')"  class="btn btn btn-dark rounded-pill">Ver Archivo</button>
                 </div>
             {{else}}
                 <p class="card-text text-center display-10"> Sin factura. </p>

@@ -82,8 +82,9 @@ public class OperacionController {
             parametros.put("ingreso", operacionEgreso.getIngreso());
         }
         parametros.put("presupuestos", operacionEgreso.getPresupuestosPreliminares());
+        //GET FILE
         parametros.put("egresoID", egresoID);
-        Boolean tieneFile = egresosFileName.get(request.cookie("user")) != null;
+        Boolean tieneFile = egresosFileName.get(egresoID) != null;
         parametros.put("tieneFile", tieneFile);
         if (tieneFile) {
             parametros.put("fileName", egresosFileName.get(egresoID));
@@ -106,7 +107,7 @@ public class OperacionController {
     public Response upload(Request req, Response response) throws ServletException, IOException {
         Map<String, Object> parametros = new HashMap<>();
         req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("src/main/resources/public/files/"));
-        Part filePart = null;
+        Part filePart;
         try {
             filePart = req.raw().getPart("myfile");
         } catch (IOException | ServletException e) {

@@ -12,4 +12,4 @@ buildNumber.properties
 .idea/
 .*
 lib/
-*/files/*
+src/main/resources/public/files/
