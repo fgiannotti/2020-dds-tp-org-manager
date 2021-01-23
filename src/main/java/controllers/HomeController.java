@@ -15,6 +15,19 @@ public class HomeController {
 
         Router.CheckIfAuthenticated(request, response);
         String rol = request.cookie("rol");
+        System.err.println("validador Done cookie:"+request.cookie("validarDone"));
+        Boolean validarDone = Boolean.valueOf(request.cookie("validarDone"));
+        System.err.println("validarDone: "+validarDone);
+        if (!validarDone) {
+            //probar leyendo BODY, esta cayendo en false
+            Integer cargasInvalidas = Integer.parseInt(request.cookie("cargasInvalidas"));
+            Integer cargasTotales = Integer.valueOf(request.cookie("cargasTotales"));
+
+            parametros.put("validarDone",true);
+            parametros.put("cargasInvalidas",cargasInvalidas);
+            parametros.put("cargasTotales",cargasTotales);
+        }
+
         if (rol.equals("revisor")){
             return new ModelAndView(parametros,"index-menu-revisor.hbs");
         }else{

@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DatosPruebaTest {
-    public BandejaDeEntrada bandeja;
+    public BandejaDeEntrada bandejaRevisores = new BandejaDeEntrada();
     public BandejaDeEntrada bandeja2;
 
     //-- DIRECCIONES  --
@@ -129,7 +129,8 @@ public class DatosPruebaTest {
     public OperacionIngreso ingresoGranImperio = new OperacionIngreso((float) 10000.0,"Donacion de Gran Imperio.",LocalDate.of(2020,8,3),eeafBA);
 
     //--  USUARIOS  --
-    public Usuario aroco = new Revisor("aroco","aroco20",eeafBA,null);
+
+    public Usuario aroco = new Revisor("aroco","aroco20",eeafBA,bandejaRevisores);
     //--  EXTRAS  --
     public List<Item> itemsOpSerr = new ArrayList<>();
 

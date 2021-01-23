@@ -47,7 +47,7 @@ public class Server {
     }
 
     public static void persistirInicial(){
-         BandejaDeEntrada bandeja;
+         BandejaDeEntrada bandejaRevisores = new BandejaDeEntrada();
          BandejaDeEntrada bandeja2;
 
         //-- DIRECCIONES  --
@@ -144,7 +144,7 @@ public class Server {
          OperacionIngreso ingresoGranImperio = new OperacionIngreso((float) 10000.0,"Donacion de Gran Imperio.",LocalDate.of(2020,8,3),eeafBA);
 
         //--  USUARIOS  --
-         Usuario aroco = new Revisor("aroco","aroco20",eeafBA,null);
+         Usuario aroco = new Revisor("aroco","aroco20",eeafBA,bandejaRevisores);
         //--  EXTRAS  --
          List<Item> itemsOpSerr = new ArrayList<>();
 

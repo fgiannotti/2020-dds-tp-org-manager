@@ -3,16 +3,14 @@ package entidades.Usuarios;
 import entidades.BandejaDeEntrada.BandejaDeEntrada;
 import entidades.Organizaciones.Organizacion;
 
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("revisor")
 public class Revisor extends Usuario {
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "bandeja_id")
     private BandejaDeEntrada bandejaDeEntrada;
 
     public Revisor(BandejaDeEntrada bandejaDeEntrada){
