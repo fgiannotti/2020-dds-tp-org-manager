@@ -34,43 +34,6 @@ public class OperacionController {
     private EgresoBuilder builder = new EgresoBuilder();
     private Map<String, String> egresosFileName = new HashMap<>();
 
-    public ModelAndView inicio(Request request, Response response) {
-        Router.CheckIfAuthenticated(request, response);
-
-        List<Proveedor> proveedores = new ArrayList<Proveedor>();
-        List<Comprobante> comprobantes = new ArrayList<Comprobante>();
-        List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
-        List<Item> items = new ArrayList<Item>();
-        List<Articulo> articulos = new ArrayList<Articulo>();
-        List<OperacionIngreso> ingresos = new ArrayList<OperacionIngreso>();
-        Map<String, Object> parametros = new HashMap<>();
-        EntityManagerHelper.createQuery("from Proveedor").getResultList().forEach((a) -> {
-            proveedores.add((Proveedor) a);
-        });
-        parametros.put("proveedores", proveedores);
-        EntityManagerHelper.createQuery("from Comprobante").getResultList().forEach((a) -> {
-            comprobantes.add((Comprobante) a);
-        });
-        parametros.put("comprobantes", comprobantes);
-        EntityManagerHelper.createQuery("from Presupuesto").getResultList().forEach((a) -> {
-            presupuestos.add((Presupuesto) a);
-        });
-        parametros.put("presupuestos", presupuestos);
-        EntityManagerHelper.createQuery("from Articulo").getResultList().forEach((a) -> {
-            articulos.add((Articulo) a);
-        });
-        parametros.put("articulos", articulos);
-        EntityManagerHelper.createQuery("from Item").getResultList().forEach((a) -> {
-            items.add((Item) a);
-        });
-        parametros.put("items", items);
-        EntityManagerHelper.createQuery("from OperacionIngreso").getResultList().forEach((a) -> {
-            ingresos.add((OperacionIngreso) a);
-        });
-        parametros.put("ingresos", ingresos);
-        return new ModelAndView(parametros, "crear-proveedor.hbs");
-    }
-
     public ModelAndView verEgreso(Request request, Response response) {
         String egresoID = request.params("id");
         OperacionEgreso operacionEgreso = repoOperacionesEgresos.get(new Integer(egresoID));
@@ -92,16 +55,6 @@ public class OperacionController {
         System.err.println(egresosFileName.get(egresoID));
 
         return new ModelAndView(parametros, "egreso.hbs");
-    }
-
-    public ModelAndView fechaYCantidad(Request request, Response response) {
-        builder.nuevoEgreso();
-        if (!request.cookie("id").equals(request.session().id())) {
-            response.redirect("/");
-        }
-
-        Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros, "index-crear-egreso.hbs");
     }
 
     public Response upload(Request req, Response response) throws ServletException, IOException {
@@ -132,34 +85,88 @@ public class OperacionController {
 
     }
 
-    public Response crearOperacionEgreso(Request request, Response response) {
-        if (!request.cookie("id").equals(request.session().id())) {
-            response.redirect("/");
-        }
-        OperacionEgreso operacionEgreso = new OperacionEgreso();
-        return response;
+
+    public ModelAndView inicio(Request request, Response response) {
+        Router.CheckIfAuthenticated(request, response);
+
+        List<Proveedor> proveedores = new ArrayList<Proveedor>();
+        List<Comprobante> comprobantes = new ArrayList<Comprobante>();
+        List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
+        List<Item> items = new ArrayList<Item>();
+        List<Articulo> articulos = new ArrayList<Articulo>();
+        List<OperacionIngreso> ingresos = new ArrayList<OperacionIngreso>();
+
+        Map<String, Object> parametros = new HashMap<>();
+        EntityManagerHelper.createQuery("from Proveedor").getResultList().forEach((a) -> {
+            proveedores.add((Proveedor) a);
+        });
+        parametros.put("proveedores", proveedores);
+        EntityManagerHelper.createQuery("from Comprobante").getResultList().forEach((a) -> {
+            comprobantes.add((Comprobante) a);
+        });
+        parametros.put("comprobantes", comprobantes);
+        EntityManagerHelper.createQuery("from Presupuesto").getResultList().forEach((a) -> {
+            presupuestos.add((Presupuesto) a);
+        });
+        parametros.put("presupuestos", presupuestos);
+        EntityManagerHelper.createQuery("from Articulo").getResultList().forEach((a) -> {
+            articulos.add((Articulo) a);
+        });
+        parametros.put("articulos", articulos);
+        EntityManagerHelper.createQuery("from Item").getResultList().forEach((a) -> {
+            items.add((Item) a);
+        });
+        parametros.put("items", items);
+        EntityManagerHelper.createQuery("from OperacionIngreso").getResultList().forEach((a) -> {
+            ingresos.add((OperacionIngreso) a);
+        });
+        parametros.put("ingresos", ingresos);
+        builder.nuevoEgreso();
+        parametros.put("proveedores", proveedores);
+
+        return new ModelAndView(parametros, "index-crear-egreso.hbs");
     }
 
+    public ModelAndView fechaYCantidad(Request request, Response response) {
+        Router.CheckIfAuthenticated(request, response);
+        builder.nuevoEgreso();
+
+        Map<String, Object> parametros = new HashMap<>();
+        List<Proveedor> proveedores = new ArrayList<>();
+        EntityManagerHelper.createQuery("from Proveedor").getResultList().forEach((a) -> {
+            proveedores.add((Proveedor) a);
+        });
+        parametros.put("proveedores", proveedores);
+        return new ModelAndView(parametros, "index-crear-egreso.hbs");
+    }
     public Response postFechaYCantidad(Request request, Response response) {
+        String proveedor = request.queryParams("proveedor");
+        Proveedor unProveedorEntero = (Proveedor) EntityManagerHelper.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor + "'").getResultList().get(0);
+        builder.asignarProveedor(unProveedorEntero);
+
         String fecha = request.queryParams("fecha");
         int cantidadPresupuestos = Integer.parseInt(request.queryParams("cantidadMinima"));
         int valorTotal = Integer.parseInt(request.queryParams("valorTotal"));
+
+
         LocalDate unaFecha = LocalDate.parse(fecha);
         builder.asignarFechaPresupuestosMinYValor(unaFecha, cantidadPresupuestos, valorTotal);
         response.redirect("/crearEgreso2");
         return response;
     }
 
+
     public ModelAndView seleccionarProveedor(Request request, Response response) {
-        if (!request.cookie("id").equals(request.session().id())) {
-            response.redirect("/");
-        }
+        Router.CheckIfAuthenticated(request, response);
+
         Map<String, Object> parametros = new HashMap<>();
-        List<Proveedor> proveedores = new ArrayList<Proveedor>();
-        EntityManagerHelper.createQuery("from Proveedor").getResultList().forEach((a) -> {
-            proveedores.add((Proveedor) a);
+        List<Presupuesto> presupuestos = new ArrayList<>();
+        Proveedor proveedor = builder.unEgreso.getProveedores().get(0);
+        EntityManagerHelper.createQuery("FROM Presupuesto WHERE proveedor_id = '"+proveedor.getId()+"'").getResultList().forEach((a) -> {
+            presupuestos.add((Presupuesto) a);
         });
-        parametros.put("proveedores", proveedores);
+        parametros.put("proveedorElegido",proveedor);
+        parametros.put("presupuestos", presupuestos);
         return new ModelAndView(parametros, "index-seleccionar-proveedores.hbs");
     }
 
@@ -221,7 +228,7 @@ public class OperacionController {
     public Response postCargarComprobante(Request request, Response response) {
         String tipoComprobante = request.queryParams("tipoComprobante");
         String stringNum = request.queryParams("numeroComprobante");
-        if (stringNum == "") {
+        if (stringNum.equals("")) {
             int numeroComprobante = Integer.parseInt(request.queryParams("numeroComprobante"));
             System.out.println(numeroComprobante);
         }
@@ -352,5 +359,12 @@ public class OperacionController {
             Rol unRol = repoRol.buscar(new Integer(request.queryParams("rol")));
             operacionEgreso.setRol(unRol);
         }
+    }*/
+        /*public Response crearOperacionEgreso(Request request, Response response) {
+        if (!request.cookie("id").equals(request.session().id())) {
+            response.redirect("/");
+        }
+        OperacionEgreso operacionEgreso = new OperacionEgreso();
+        return response;
     }*/
 }

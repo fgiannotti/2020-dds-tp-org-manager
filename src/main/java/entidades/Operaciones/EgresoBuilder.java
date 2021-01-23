@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EgresoBuilder {
-    private OperacionEgreso unEgreso;
+    public OperacionEgreso unEgreso;
 
     public void nuevoEgreso () {
         unEgreso = new OperacionEgreso();

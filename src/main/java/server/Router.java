@@ -59,10 +59,10 @@ public class Router {
 
         Spark.get("/home", homeController::inicio, Router.engine);
 
-        Spark.get("/CrearOperacionEgreso", operacionController::inicio, Router.engine);
+        Spark.get("/crearOperacionEgreso", operacionController::inicio, Router.engine);
         Spark.post("/upload/:id",operacionController::upload);
 
-        Spark.post("/CrearOperacionEgreso", proveedorController::inicio);
+        Spark.post("/crearOperacionEgreso", proveedorController::inicio);
 
         Spark.get("/asocHome", asociadorEgresoIngresoController::inicio, Router.engine);
 
@@ -91,6 +91,7 @@ public class Router {
         Spark.post("/altaProveedor", proveedorController::altaProveedor);
 
         Spark.post("/validar",validadorController::validar,Router.engine);
+
         Spark.get("/CrearOperacionEgreso", operacionController::inicio, Router.engine);
         Spark.get("/crearEgreso1", operacionController::fechaYCantidad, Router.engine);
         Spark.post("/crearEgreso1", operacionController::postFechaYCantidad);

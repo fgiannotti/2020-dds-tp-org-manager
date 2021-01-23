@@ -27,7 +27,7 @@
         <div class="space-around-horizontal navbar-nav ml-auto">
             <a class="navbar-brand" onclick="location.href='/home'">Home</a>
             <button type="button" class="btn btn-dark align-content-center"
-                    onclick="location.href='CrearOperacionEgreso'">Crear Operacion de Egreso
+                    onclick="location.href='crearOperacionEgreso'">Crear Operacion de Egreso
             </button>
             <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
                 Cargar Operacion de Ingreso
@@ -126,10 +126,10 @@
             {{/if}}
             <div class="d-flex justify-content-end" style="padding-top: 8px">
                 <form action="/upload/{{egresoID}}" method="post" enctype="multipart/form-data">
-                    <label for="myfile">  </label>
+                    <label for="myfile">
                     <input type="file" id="myfile" name="myfile"/>
-
-                    <div class="d-flex justify-content-end p-4">
+                    </label>
+                    <div class="d-flex justify-content-en p-4">
                         <button class="btn btn-outline-dark" type="submit">Subir</button>
                     </div>
                 </form>

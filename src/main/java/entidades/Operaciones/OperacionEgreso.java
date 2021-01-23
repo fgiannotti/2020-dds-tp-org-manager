@@ -23,7 +23,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
 
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "egreso_id")
-    private List<Proveedor> proveedores = new ArrayList<Proveedor>();
+    private List<Proveedor> proveedores = new ArrayList<>();
 
     @Column(name = "fecha_operacion", columnDefinition = "DATE")
     @Convert(converter = LocalDateAttributeConverter.class)
