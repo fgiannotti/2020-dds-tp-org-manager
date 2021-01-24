@@ -27,7 +27,7 @@
         <div class="space-around-horizontal navbar-nav ml-auto">
             <a class="navbar-brand" onclick="location.href='/home'">Home</a>
             <button type="button" class="btn btn-dark align-content-center"
-                    onclick="location.href='crearOperacionEgreso'">Crear Operacion de Egreso
+                    onclick="location.href='crearOperacionEgreso'">Seleccionar un Presupuesto
             </button>
             <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
                 Cargar Operacion de Ingreso
@@ -73,50 +73,99 @@
 
     </div>
 </nav>
+
 <form action="/crearEgreso2" method="post" class="form">
     <div class="d-flex justify-content-center" style="padding: 64px">
         <div class="card text-dark bg-light-tp mb-3"
              style="min-height: 18rem; min-width: 36rem; max-width: 70%">
-            <div class="card-header display-7 text-center"> Creación de Operación de Egreso</div>
-            <div class="card-body" style="margin-top: 32px">
-                <div class="space-evenly-vert align-items-start">
+            <div class="card-header display-7 text-center">Seleccionar Presupuesto</div>
+            <div class="card-body space-evenly-vert" style="margin-top: 32px">
+                <div class="space-evenly-vert align-items-start" style="width: -webkit-fill-available">
                     <div class="" style="padding-right: 0;width: -webkit-fill-available">
 
                         <div class="d-flex justify-content-between">
-                            <p class="card-text">Prespuestos de {{proveedorElegido.nombreApellidoRazon}}:</p>
-                            <select name="proveedor">
+                            <span class="card-text" style="padding-top: 4px">Prespuestos de {{proveedorElegido.nombreApellidoRazon}}:</span>
+                            <select name="proveedor" style="padding: 4px">
                                 {{#each presupuestos}}
-                                <option value='{{nombreApellidoRazon}}'>{{nombreApellidoRazon}}</option>
-                            {{/each}}
-                                </select>
+                                    <option value='{{id}}'>{{cantidad}} items de monto total {{total}}</option>
+                                {{/each}}
+                            </select>
                         </div>
 
-                        <div class="d-flex justify-content-between">
-                            <p class="card-text">Crear nuevo presupuesto:</p>
-                            <label>
-                                <input type="text" name="presupuestoName" required="required">
-                            </label>
-                        </div>
-
-
-                        <div class="d-flex justify-content-between">
-                            <p class="card-text">Valor Total:</p>
-                            <label>
-                                <input type="text" name="valorTotal" required="required">
-                            </label>
-                        </div>
                     </div>
+                </div>
+                <div class="d-flex justify-content-center m-4">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Agregar presupuesto
+                    </button>
                 </div>
             </div>
         </div>
-
     </div>
-    <div class="d-flex justify-content-center padding-button-home">
+    <div class="d-flex justify-content-evenly padding-button-home">
         <button class="btn btn-dark rounded-pill" onclick="location.href='/crearEgreso1'">Volver</button>
 
         <button class="btn btn-dark rounded-pill" type="submit">Siguiente</button>
     </div>
 </form>
+
+<!-- Modal -->
+<form action="/cachePresupuestos" method="post" class="form">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Crear nuevo Presupuesto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="d-flex justify-content-between">
+                        <p class="card-text">Valor Total:</p>
+                        <label>
+                            <input type="text" name="valorTotal" required="required">
+                        </label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="card-text">Item:</p>
+                        <label>
+                            <input type="text" name="itemName" required="required">
+                        </label>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <p class="card-text">Cantidad: </p>
+                        <label>
+                            <input type="text" name="cantidadItem" required="required">
+                        </label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="card-text">Monto del articulo:</p>
+                        <label>
+                            <input type="text" name="valorItem" required="required">
+                        </label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="card-text">Descripción:</p>
+                        <label>
+                            <input type="text" name="descripcionItem" required="required">
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar
+                    </button>
+                    <button class="btn btn-primary d-flex justify-content-center" type="submit">Agregar
+                        Presupuesto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 
 <div class="d-flex justify-content-center padding-button-home">
     <button class="btn btn-lg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home</button>

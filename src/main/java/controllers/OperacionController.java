@@ -6,11 +6,13 @@ import entidades.Items.Articulo;
 import entidades.Items.Item;
 import entidades.MedioDePago.MedioDePago;
 import entidades.Operaciones.*;
+import entidades.Organizaciones.Categoria;
 import entidades.Organizaciones.CriterioDeEmpresa;
 import entidades.Organizaciones.Organizacion;
 import org.apache.commons.compress.utils.IOUtils;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import repositorios.RepoOperacionesEgresos;
+import repositorios.UserNotFoundException;
 import server.Router;
 import spark.ModelAndView;
 import spark.Request;
@@ -24,15 +26,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OperacionController {
     private RepoOperacionesEgresos repoOperacionesEgresos = new RepoOperacionesEgresos();
     private EgresoBuilder builder = new EgresoBuilder();
     private Map<String, String> egresosFileName = new HashMap<>();
+    private Map<String, Proveedor> proveedorCache = new HashMap<>();
+    private Map<String, List<Presupuesto>> presupuestoCache = new HashMap<>();
 
     public ModelAndView verEgreso(Request request, Response response) {
         String egresoID = request.params("id");
@@ -139,6 +140,7 @@ public class OperacionController {
         parametros.put("proveedores", proveedores);
         return new ModelAndView(parametros, "index-crear-egreso.hbs");
     }
+
     public Response postFechaYCantidad(Request request, Response response) {
         String proveedor = request.queryParams("proveedor");
         Proveedor unProveedorEntero = (Proveedor) EntityManagerHelper.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor + "'").getResultList().get(0);
@@ -162,14 +164,20 @@ public class OperacionController {
         Map<String, Object> parametros = new HashMap<>();
         List<Presupuesto> presupuestos = new ArrayList<>();
         Proveedor proveedor = builder.unEgreso.getProveedores().get(0);
-        EntityManagerHelper.createQuery("FROM Presupuesto WHERE proveedor_id = '"+proveedor.getId()+"'").getResultList().forEach((a) -> {
+        EntityManagerHelper.createQuery("FROM Presupuesto WHERE proveedor_id = '" + proveedor.getId() + "'").getResultList().forEach((a) -> {
             presupuestos.add((Presupuesto) a);
         });
-        parametros.put("proveedorElegido",proveedor);
+        proveedorCache.put(request.session().id(), proveedor);
+        List<Presupuesto> presupuestosCacheList = (List<Presupuesto>) presupuestoCache.getOrDefault(request.session().id(), new ArrayList<Presupuesto>());
+        presupuestos.addAll(presupuestosCacheList);
+
+        parametros.put("proveedorElegido", proveedor);
         parametros.put("presupuestos", presupuestos);
+
         return new ModelAndView(parametros, "index-seleccionar-proveedores.hbs");
     }
 
+    //descartado por ahora
     public Response postSeleccionarProveedor(Request request, Response response) {
         String proveedor = request.queryParams("proveedor");
         int presupuesto = Integer.parseInt(request.queryParams("presupuesto"));
@@ -248,7 +256,7 @@ public class OperacionController {
     public Response postCargarCriterio(Request request, Response response) {
         String nombreCriterio = request.queryParams("nombreCriterio");
         String categoria = request.queryParams("categoria");
-        if (nombreCriterio != "" && categoria != "") {
+        if (!nombreCriterio.equals("") && categoria != "") {
             CriterioDeEmpresa unCriterio = new CriterioDeEmpresa();
             //builder.asignarCriterio(unCriterio);
         }
@@ -312,6 +320,33 @@ public class OperacionController {
         builder.confirmarEgreso();
         response.redirect("/home");
         return response;
+    }
+
+    public ModelAndView cachePresupuesto(Request request, Response response) throws UserNotFoundException {
+        String itemName = request.queryParams("itemName");
+        Integer cantidadItem = Integer.valueOf(request.queryParams("cantidadItem"));
+        Float valorTotal = Float.valueOf(request.queryParams("valorItem"));
+        String descripcionItem = request.queryParams("descripcionItem");
+
+        Articulo articulo = new Articulo(descripcionItem, valorTotal, descripcionItem);
+        Item item = new Item(descripcionItem, itemName, new ArrayList<>(Arrays.asList(articulo)));
+
+        Float valorTotalPresu = Float.valueOf(request.queryParams("valorTotal"));
+        Proveedor proveedor = proveedorCache.get(request.session().id());
+        Presupuesto presupuesto = new Presupuesto(new ArrayList<Item>(Arrays.asList(item)), 1, valorTotalPresu, proveedor, null);
+        List<Presupuesto> presupuestosCacheList = presupuestoCache.getOrDefault(request.session().id(), new ArrayList<Presupuesto>());
+        presupuestosCacheList.add(presupuesto);
+        presupuestoCache.put(request.session().id(), presupuestosCacheList);
+        /*List<Presupuesto> categoriasFound = proveedorCache.get(request.session().id());
+        if (categoriasFound == null) {
+            categoriasFound = new ArrayList<>();
+        }
+        //seteo un id unico para encontrarlo dsp
+        categoria.setId(UUID.randomUUID().hashCode());
+        categoriasFound.add(categoria);
+
+        categoriasCache.put(request.session().id(), categoriasFound);*/
+        return this.seleccionarProveedor(request, response);
     }
 
     /*public Response guardar(Request request, Response response){
