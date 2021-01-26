@@ -15,6 +15,9 @@ public class EgresoBuilder {
         unEgreso = new OperacionEgreso();
     }
 
+    public void asignarPresupuestosPreliminares(List<Presupuesto> presupuestosPrelim){
+        unEgreso.setPresupuestosPreliminares(presupuestosPrelim);
+    }
     public void asignarFechaPresupuestosMinYValor (LocalDate fecha, int presupuestos, int valor) {
         unEgreso.setFechaOperacion(fecha);
         unEgreso.setCantidadMinimaDePresupuestos(presupuestos);

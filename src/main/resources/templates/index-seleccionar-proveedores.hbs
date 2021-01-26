@@ -75,7 +75,7 @@
 </nav>
 
 <form action="/crearEgreso2" method="post" class="form">
-    <div class="d-flex justify-content-center" style="padding: 64px">
+    <div class="d-flex justify-content-center" style="padding-top: 64px;padding-bottom: 16px;">
         <div class="card text-dark bg-light-tp mb-3"
              style="min-height: 18rem; min-width: 36rem; max-width: 70%">
             <div class="card-header display-7 text-center">Seleccionar Presupuesto</div>
@@ -85,11 +85,11 @@
 
                         <div class="d-flex justify-content-between">
                             <span class="card-text"
-                                  style="padding-top: 4px">Prespuestos de {{proveedorElegido.nombreApellidoRazon}}
-                                :</span>
-                            <select name="proveedor" style="padding: 4px">
+                                  style="padding-top: 4px">Prespuestos de {{proveedorElegido.nombreApellidoRazon}}:
+                            </span>
+                            <select name="presupuestoID" style="padding: 4px">
                                 {{#each presupuestos}}
-                                    <option value='{{id}}'>{{cantidad}} items de monto total {{total}}</option>
+                                    <option value='{{id}}'>{{cantidad}} item/s de monto total {{total}}</option>
                                 {{/each}}
                             </select>
                         </div>
@@ -98,7 +98,7 @@
                 </div>
                 <div class="d-flex justify-content-center m-4">
                     <button type="button" class="btn btn-dark" data-bs-toggle="modal"
-                            data-bs-target="#presupuestoModal" onclick="resetClicks()">
+                            data-bs-target="#presupuestoModal" onclick="resetCount()">
                         Agregar nuevo presupuesto
                     </button>
                 </div>
@@ -126,16 +126,11 @@
                 <div class="modal-body" id="presupuestoModalBody">
                     <p>Items del presupuesto: </p>
 
-                    <div class="card" id="itemCard0" style="margin:8px">
+                    <div class="card" id="itemCard0" style="margin:8px;max-width: 80%;margin-left: 10%;">
                         <div class="card-body" id="itemCardBody">
+                            <p class="card-title">Item</p>
                             <div class="d-flex justify-content-between">
-                                <p class="card-text">Valor Total:</p>
-                                <label>
-                                    <input type="text" name="valorTotal0" required="required">
-                                </label>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <p class="card-text">Item:</p>
+                                <p class="card-text">Nombre:</p>
                                 <label>
                                     <input type="text" name="itemName0" id="itemName" required="required">
                                 </label>
@@ -163,7 +158,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-sm btn-dark" type="button" onclick="addItem2()"> Agregar Item</button>
+                        <button class="btn btn-sm btn-dark" type="button" onclick="addItem2()" style="margin:8px"> Agregar Item</button>
                     </div>
 
 
@@ -171,7 +166,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar
                     </button>
-                    <button class="btn btn-primary d-flex justify-content-center" type="submit">Agregar
+                    <input type="text" hidden="hidden" name="itemCount" id="itemCount">
+                    <button class="btn btn-primary d-flex justify-content-center" onclick="setItemCount()" type="submit">Agregar
                         Presupuesto
                     </button>
                 </div>
@@ -181,23 +177,26 @@
 </form>
 
 <script>
-    var itemsCount = 0;
+    let itemsCount = 0;
 
-    function resetClicks() {
+    function getCount(){return itemsCount;}
+    function setItemCount(){
+        document.getElementById("itemCount").setAttribute('value',getCount());
+    }
+    function resetCount() {
         itemsCount = 0;
     }
 
     function addItem2() {
-        itemCard = document.getElementById('itemCard'+itemsCount);
-        itemsCount += 1;
-        itemCard2 = itemCard.cloneNode(true);
+        let itemCard = document.getElementById('itemCard'+itemsCount);
+        let itemCard2 = itemCard.cloneNode(true);
         //set new ID
         itemCard2.setAttribute('id', itemCard2.attributes.item(1).value.slice(0,-1) + itemsCount);
 
         //card --> card-body --> []dflex con los inputs (solo en pos impar)
         let dflexs = itemCard2.childNodes.item(1).childNodes;
-
-        for (let i = 0; i < dflexs.length; i++) {
+        itemsCount += 1;
+        for (let i = 3; i < dflexs.length; i++) {
             if (i % 2 === 0){
                 continue;
             }
@@ -209,7 +208,6 @@
             input.setAttribute('name', input.name.slice(0,-1)+itemsCount);
 
         }
-
 
         itemCard.after(itemCard2);
     }

@@ -12,6 +12,7 @@ import entidades.Organizaciones.Organizacion;
 import org.apache.commons.compress.utils.IOUtils;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import repositorios.RepoOperacionesEgresos;
+import repositorios.RepoPresupuestos;
 import repositorios.UserNotFoundException;
 import server.Router;
 import spark.ModelAndView;
@@ -30,6 +31,7 @@ import java.util.*;
 
 public class OperacionController {
     private RepoOperacionesEgresos repoOperacionesEgresos = new RepoOperacionesEgresos();
+    private RepoPresupuestos repoPresupuestos = new RepoPresupuestos();
     private EgresoBuilder builder = new EgresoBuilder();
     private Map<String, String> egresosFileName = new HashMap<>();
     private Map<String, Proveedor> proveedorCache = new HashMap<>();
@@ -141,7 +143,7 @@ public class OperacionController {
         return new ModelAndView(parametros, "index-crear-egreso.hbs");
     }
 
-    public Response postFechaYCantidad(Request request, Response response) {
+    public Response postProveedorFechaYCantMin(Request request, Response response) {
         String proveedor = request.queryParams("proveedor");
         Proveedor unProveedorEntero = (Proveedor) EntityManagerHelper.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor + "'").getResultList().get(0);
         builder.asignarProveedor(unProveedorEntero);
@@ -177,12 +179,23 @@ public class OperacionController {
         return new ModelAndView(parametros, "index-seleccionar-proveedores.hbs");
     }
 
-    //descartado por ahora
-    public Response postSeleccionarProveedor(Request request, Response response) {
-        String proveedor = request.queryParams("proveedor");
-        int presupuesto = Integer.parseInt(request.queryParams("presupuesto"));
-        Proveedor unProveedorEntero = (Proveedor) EntityManagerHelper.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor + "'").getResultList().get(0);
-        builder.asignarProveedor(unProveedorEntero);
+    public Response postSeleccionarPresupuesto(Request request, Response response) {
+        int presupuestoID = Integer.parseInt(request.queryParams("presupuestoID"));
+        List<Presupuesto> presupuestos = presupuestoCache.get(request.session().id());
+        Presupuesto presupuestoFound = null;
+        try {
+            for (Presupuesto p : presupuestos) {
+                if (p.getIdCacheado().equals(request.session().id())) {
+                    presupuestoFound = p;
+                }
+            }
+        }catch (Exception ignored){}
+
+        if(presupuestoFound == null){
+            presupuestoFound = repoPresupuestos.find(presupuestoID);
+        }
+
+        builder.asignarPresupuestosPreliminares(new ArrayList<Presupuesto>(Arrays.asList(presupuestoFound)));
         response.redirect("/crearEgreso3");
         return response;
     }
@@ -323,29 +336,42 @@ public class OperacionController {
     }
 
     public ModelAndView cachePresupuesto(Request request, Response response) throws UserNotFoundException {
-        String itemName = request.queryParams("itemName");
-        Integer cantidadItem = Integer.valueOf(request.queryParams("cantidadItem"));
-        Float valorTotal = Float.valueOf(request.queryParams("valorItem"));
-        String descripcionItem = request.queryParams("descripcionItem");
+        List<Articulo> articulos = new ArrayList<>();
+        List<Item> items = new ArrayList<>();
 
-        Articulo articulo = new Articulo(descripcionItem, valorTotal, descripcionItem);
-        Item item = new Item(descripcionItem, itemName, new ArrayList<>(Arrays.asList(articulo)));
+        Integer itemCount = request.queryParams("itemCount") != null ? Integer.parseInt(request.queryParams("itemCount"))+1:1;
+        System.err.println("items al presu:"+ itemCount);
+        Integer i = 0;
+        float valorTotalPresu = 0;
+        while(i<=itemCount){
+            try {
+                String itemName = request.queryParams("itemName" + i);
+                Integer cantidadItem = Integer.valueOf(request.queryParams("cantidadItem" + i));
+                Float valorItem = Float.valueOf(request.queryParams("valorItem" + i));
+                String descripcionItem = request.queryParams("descripcionItem" + i);
 
-        Float valorTotalPresu = Float.valueOf(request.queryParams("valorTotal"));
+                Articulo articulo = new Articulo(descripcionItem, valorItem, descripcionItem);
+                Item item = new Item(descripcionItem, itemName, new ArrayList<>(Arrays.asList(articulo)));
+                valorTotalPresu += valorItem * cantidadItem;
+                articulos.add(articulo);
+                items.add(item);
+            }catch(NullPointerException | NumberFormatException e){
+                break;
+            }
+            i++;
+        }
+
         Proveedor proveedor = proveedorCache.get(request.session().id());
-        Presupuesto presupuesto = new Presupuesto(new ArrayList<Item>(Arrays.asList(item)), 1, valorTotalPresu, proveedor, null);
+
+        Presupuesto presupuesto = new Presupuesto(items, items.size(), valorTotalPresu, proveedor, null);
+        presupuesto.setId(UUID.randomUUID().hashCode());
+        presupuesto.setIdCacheado(request.session().id());
+
         List<Presupuesto> presupuestosCacheList = presupuestoCache.getOrDefault(request.session().id(), new ArrayList<Presupuesto>());
+
         presupuestosCacheList.add(presupuesto);
         presupuestoCache.put(request.session().id(), presupuestosCacheList);
-        /*List<Presupuesto> categoriasFound = proveedorCache.get(request.session().id());
-        if (categoriasFound == null) {
-            categoriasFound = new ArrayList<>();
-        }
-        //seteo un id unico para encontrarlo dsp
-        categoria.setId(UUID.randomUUID().hashCode());
-        categoriasFound.add(categoria);
 
-        categoriasCache.put(request.session().id(), categoriasFound);*/
         return this.seleccionarProveedor(request, response);
     }
 
