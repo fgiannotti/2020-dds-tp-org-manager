@@ -8,6 +8,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilo-comprobante.css">
+    <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
+
     <title>Comprobante</title>
 </head>
   <body>
@@ -30,17 +32,22 @@
          <div class="box-numero">
        <input type="number" name="numeroComprobante">
        </div>
+        <select required="required" name="presupuestoID" style="padding: 4px">
+            {{#each presupuestos}}
+                <option value='{{id}}'>{{cantidad}} item/s de monto total {{total}}</option>
+            {{/each}}
+        </select>
        <br><br><br><br>
        <div class="general-siguiente">
      <button class="boton_siguiente" type="submit">Siguiente</button>
      </form>
    </div>
    <div class="general-siguiente2">
-   <button class="boton_siguiente" onclick="location.href='/crearEgreso3'">Volver</button>
+   <button class="boton_siguiente" type="button"  onclick="location.href='/crearEgreso3'">Volver</button>
    </div>
    <br><br><br><br><br>
        <div class="general-home">
-       <button class="boton_home" onclick="location.href='/home'">Volver a Home</button>
+       <button class="boton_home" type="button" onclick="location.href='/home'">Volver a Home</button>
        </div>
        </div>
   </body>

@@ -16,9 +16,18 @@ public class Comprobante extends EntidadPersistente {
     @Column(name = "numero_comprobante")
     private int numeroComprobante;
 
+    @Column(name = "tipo_comprobante")
+    private String tipoComprobante;
+
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "comprobante_id")
     private List<Item> items = new ArrayList<Item>();
+
+    public Comprobante(int numeroComprobante, String tipoComprobante, List<Item> items) {
+        this.numeroComprobante = numeroComprobante;
+        this.tipoComprobante = tipoComprobante;
+        this.items = items;
+    }
 
     public Comprobante(List<Item> items) {
         this.numeroComprobante = this.hashCode();

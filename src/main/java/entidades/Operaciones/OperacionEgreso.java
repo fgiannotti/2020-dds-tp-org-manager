@@ -21,8 +21,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Column
     private int numeroOperacion;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "egreso_id")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Proveedor> proveedores = new ArrayList<>();
 
     @Column(name = "fecha_operacion", columnDefinition = "DATE")

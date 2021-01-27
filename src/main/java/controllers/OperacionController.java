@@ -40,6 +40,8 @@ public class OperacionController {
     private Map<String, String> egresosFileName = new HashMap<>();
     private Map<String, Proveedor> proveedorCache = new HashMap<>();
     private Map<String, List<Presupuesto>> presupuestoCache = new HashMap<>();
+    private Map<String,Proveedor> proveedorElegidoCache = new HashMap<>();
+
     private Map<String, List<MedioDePago>> mediosDePagoCache = new HashMap<>();
     public Map<String, Usuario> cacheUsuarios = new HashMap<>();
     private Map<String, List<Categoria>> categoriasCache = new HashMap<>();
@@ -48,7 +50,6 @@ public class OperacionController {
     private Usuario buscarEnCache(String sessionID) {
         return cacheUsuarios.get(sessionID);
     }
-
     public ModelAndView verEgreso(Request request, Response response) {
         String egresoID = request.params("id");
         OperacionEgreso operacionEgreso = repoOperacionesEgresos.get(new Integer(egresoID));
@@ -120,14 +121,16 @@ public class OperacionController {
         String proveedor = request.queryParams("proveedor");
         Proveedor unProveedorEntero = (Proveedor) EntityManagerHelper.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor + "'").getResultList().get(0);
         builder.asignarProveedor(unProveedorEntero);
-
+        proveedorElegidoCache.put(request.session().id(),unProveedorEntero);
         String fecha = request.queryParams("fecha");
         int cantidadPresupuestos = Integer.parseInt(request.queryParams("cantidadMinima"));
         int valorTotal = Integer.parseInt(request.queryParams("valorTotal"));
 
+        String desc = request.queryParams("descripcion");
 
         LocalDate unaFecha = LocalDate.parse(fecha);
         builder.asignarFechaPresupuestosMinYValor(unaFecha, cantidadPresupuestos, valorTotal);
+        builder.asignarDescripcion(desc);
         response.redirect("/crearEgreso2");
         return response;
     }
@@ -191,6 +194,7 @@ public class OperacionController {
         });
         List<MedioDePago> mpsCache = mediosDePagoCache.getOrDefault(request.session().id(), new ArrayList<>());
         mediosDePago.addAll(mpsCache);
+        builder.asignarOrganizacion(user.getOrganizacion());
 
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("mediosDePago", mediosDePago);
@@ -233,10 +237,10 @@ public class OperacionController {
 
     public Response postMedioDePago(Request request, Response response) {
         int medioDePagoID = Integer.parseInt(request.queryParams("medioDePago"));
-        List<MedioDePago> mediosDePagoFound = mediosDePagoCache.getOrDefault(request.session().id(), new ArrayList<>());
+        List<MedioDePago> mediosDePagoCacheados = mediosDePagoCache.getOrDefault(request.session().id(), new ArrayList<>());
 
         MedioDePago medioDePagoEncontrado = null;
-        for (MedioDePago mp : mediosDePagoFound) {
+        for (MedioDePago mp : mediosDePagoCacheados) {
             if (mp.getId() == medioDePagoID) {
                 medioDePagoEncontrado = mp;
                 medioDePagoEncontrado.setId(0);
@@ -259,21 +263,27 @@ public class OperacionController {
 
     // /crearEgreso6
     public ModelAndView cargarComprobante(Request request, Response response) {
-        if (!request.cookie("id").equals(request.session().id())) {
-            response.redirect("/");
-        }
+        //Router.CheckIfAuthenticated(request,response);
+
         Map<String, Object> parametros = new HashMap<>();
+        int proveedorID = proveedorElegidoCache.get(request.session().id()).getId();
+        List<Presupuesto> presus = repoPresupuestos.findByProv(proveedorID);
+
+        parametros.put("presupuestos",presus);
         return new ModelAndView(parametros, "cargar-comprobante.hbs");
     }
 
     public Response postCargarComprobante(Request request, Response response) {
-        String tipoComprobante = request.queryParams("tipoComprobante");
-        String stringNum = request.queryParams("numeroComprobante");
-        if (stringNum.equals("")) {
-            int numeroComprobante = Integer.parseInt(request.queryParams("numeroComprobante"));
-            System.out.println(numeroComprobante);
-        }
-        System.out.println(tipoComprobante);
+        String tipoComp = request.queryParams("tipoComprobante");
+        int nroComp = Integer.parseInt(request.queryParams("numeroComprobante"));
+        String presupuestoID = request.queryParams("presupuestoID");
+
+        Presupuesto presuElegido = repoPresupuestos.find(Integer.parseInt(presupuestoID));
+        Comprobante comp = new Comprobante(nroComp,tipoComp,presuElegido.getItems());
+
+        builder.unEgreso.setItems(presuElegido.getItems());
+        builder.asignarComprobante(comp);
+
         response.redirect("/crearEgreso7");
         return response;
     }
@@ -294,26 +304,40 @@ public class OperacionController {
             criterioDeEmpresas.add((CriterioDeEmpresa) a);
         });
 
-        List<Categoria> allCategorias = categoriasCache.getOrDefault(request.session().id(), new ArrayList<>());
-
+        List<Categoria> allCats = new ArrayList<>();
+        List<Categoria> catsCache = categoriasCache.get(request.session().id());
+        if (catsCache != null){
+            allCats.addAll(catsCache);
+        }
         EntityManagerHelper.createQuery("FROM Categoria").getResultList().forEach((a) -> {
-            allCategorias.add((Categoria) a);
+            allCats.add((Categoria) a);
         });
 
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("criterios", criterioDeEmpresas);
-        parametros.put("categorias", allCategorias);
+        parametros.put("categorias", allCats);
         return new ModelAndView(parametros, "cargar-criterio.hbs");
     }
 
-    public Response postCargarCriterio(Request request, Response response) {
+    public ModelAndView postCargarCriterio(Request request, Response response) {
         String nombreCriterio = request.queryParams("nombreCriterio");
         String[] bodyParams = request.body().split("&");
         List<Categoria> categorias = getCategoriasFromCheckbox(bodyParams,categoriasCache.getOrDefault(request.session().id(), new ArrayList<>()));
 
         builder.asignarCategorias(categorias);
-        response.redirect("/crearEgreso8");
-        return response;
+        builder.generarNroOperacion();
+        boolean saveOK =true;
+        try {
+            builder.confirmarEgreso();
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+            saveOK = false;
+        }
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("saveEgreso",true);
+        parametros.put("saveOK",saveOK);
+        return new ModelAndView(parametros, "index-menu-revisor.hbs");
     }
 
     public ModelAndView cargarCriterioComplejo(Request request, Response response) {

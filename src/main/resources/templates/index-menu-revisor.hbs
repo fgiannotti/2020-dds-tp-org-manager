@@ -119,5 +119,12 @@
 {{#if validarDone}}
     <script>alert("Se ejecutó el validador. Resultaron {{cargasValidas}} de {{cargasTotales}} egresos validos!")</script>
 {{/if}}
+{{#if saveEgreso}}
+    {{#if saveOK}}
+        <script>alert("Se guardó el egreso exitosamente.")</script>
+    {{else}}
+        <script>alert("Ocurrió un error al guardar el egreso. Intente de nuevo.")</script>
+    {{/if}}
+{{/if}}
 </body>
 </html>

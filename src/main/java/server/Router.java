@@ -104,24 +104,25 @@ public class Router {
         Spark.post("/cacheMedioDePago",operacionController::agregarMedioPago,Router.engine);
         Spark.post("/crearEgreso3", operacionController::postMedioDePago);
 
-        //no se usan
-        Spark.get("/crearEgreso4", articuloController::articulos, Router.engine);
-        Spark.post("/crearEgreso4", articuloController::postArticulos);
-        Spark.get("/crearEgreso5", operacionController::seleccionArticulos, Router.engine);
-        Spark.post("/crearEgreso5", operacionController::postSeleccionArticulos);
-        //---
+
         Spark.get("/crearEgreso6", operacionController::cargarComprobante, Router.engine);
         Spark.post("/crearEgreso6", operacionController::postCargarComprobante);
 
         Spark.get("/crearEgreso7", operacionController::cargarCriterio, Router.engine);
         Spark.post("/cacheCategoria2",operacionController::agregarCategoria2,Router.engine);
-        Spark.post("/crearEgreso7", operacionController::postCargarCriterio);
+        Spark.post("/crearEgreso7", operacionController::postCargarCriterio,Router.engine);
+
+        //no se usan
+        Spark.get("/crearEgreso4", articuloController::articulos, Router.engine);
+        Spark.post("/crearEgreso4", articuloController::postArticulos);
+        Spark.get("/crearEgreso5", operacionController::seleccionArticulos, Router.engine);
+        Spark.post("/crearEgreso5", operacionController::postSeleccionArticulos);
 
         Spark.get("/crearEgreso8", operacionController::cargarCriterioComplejo, Router.engine);
         Spark.post("/crearEgreso8", operacionController::postCargarCriterioComplejo);
-
         Spark.get("/crearEgreso9", operacionController::cargarOrganizacion, Router.engine);
         Spark.post("/crearEgreso9", operacionController::postCargarOrganizacion);
+        //---
 
     }
     

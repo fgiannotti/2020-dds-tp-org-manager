@@ -3,6 +3,8 @@ package repositorios;
 import db.EntityManagerHelper;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
+import entidades.Operaciones.Presupuesto;
+import entidades.Operaciones.Proveedor;
 import entidades.Organizaciones.Categoria;
 import entidades.Organizaciones.Organizacion;
 
@@ -11,7 +13,7 @@ import java.util.List;
 
 public class RepoOperacionesEgresos {
     private List<OperacionEgreso> operaciones = new ArrayList<OperacionEgreso>();
-    private  RepoOrganizaciones repoOrg;
+    private RepoOrganizaciones repoOrg;
 
     public RepoOperacionesEgresos() {
         operaciones = new ArrayList<OperacionEgreso>();
@@ -53,8 +55,32 @@ public class RepoOperacionesEgresos {
     public void agregar(OperacionEgreso nuevoEgreso) {
         this.operaciones.add(nuevoEgreso);
         EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.getEntityManager().persist(nuevoEgreso);
+
+
+        try {
+            for(Proveedor p:nuevoEgreso.getProveedores()) {
+                EntityManagerHelper.getEntityManager().merge(p);
+            }
+            EntityManagerHelper.getEntityManager().merge(nuevoEgreso);
+        } catch (Exception e) {
+            System.err.println("FAILED MERGING. TRYING TO PRESIST." + e.getMessage()+"\n");
+
+            try {
+                EntityManagerHelper.getEntityManager().merge(nuevoEgreso.getMedioDePago());
+                for(Proveedor p:nuevoEgreso.getProveedores()) {
+                    EntityManagerHelper.getEntityManager().merge(p);
+                }
+                for(Presupuesto p:nuevoEgreso.getPresupuestosPreliminares()) {
+                    EntityManagerHelper.getEntityManager().merge(p);
+                }
+            } catch (Exception e2) {
+                System.err.println("FAIL MERGEANDO MPAGO, PROVS Y PRESUS" + e2.getMessage());
+            }
+
+            EntityManagerHelper.getEntityManager().persist(nuevoEgreso);
+        }
         EntityManagerHelper.commit();
+
     }
 
     public OperacionEgreso get(int id) {
@@ -62,7 +88,7 @@ public class RepoOperacionesEgresos {
         return (OperacionEgreso) EntityManagerHelper.createQuery(query).getSingleResult();
     }
 
-    public void asociarIngreso(OperacionEgreso egreso, OperacionIngreso ingreso){
+    public void asociarIngreso(OperacionEgreso egreso, OperacionIngreso ingreso) {
         int orgID = repoOrg.findOrgID(egreso.getOrganizacion().getNombreFicticio());
         egreso.setIngreso(ingreso);
         egreso.getOrganizacion().setId(orgID);
@@ -71,9 +97,9 @@ public class RepoOperacionesEgresos {
             EntityManagerHelper.beginTransaction();
             EntityManagerHelper.getEntityManager().merge(egreso);
             EntityManagerHelper.commit();
-        } catch (Exception e){
-            System.err.println("ERROR asociando egreso con ingreso: "+e.getMessage());
-            throw(e);
+        } catch (Exception e) {
+            System.err.println("ERROR asociando egreso con ingreso: " + e.getMessage());
+            throw (e);
         }
         /*EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(ingreso);
@@ -89,9 +115,9 @@ public class RepoOperacionesEgresos {
             EntityManagerHelper.beginTransaction();
             EntityManagerHelper.getEntityManager().merge(egreso);
             EntityManagerHelper.commit();
-        } catch (Exception e){
-            System.err.println("ERROR asociando egreso con categorias: "+e.getMessage());
-            throw(e);
+        } catch (Exception e) {
+            System.err.println("ERROR asociando egreso con categorias: " + e.getMessage());
+            throw (e);
         }
     }
 }

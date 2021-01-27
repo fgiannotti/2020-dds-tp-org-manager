@@ -18,6 +18,8 @@
 
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilo-medio-pago.css">
+    <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
+
     <!-- CSS only -->
     <title>Medio de Pago</title>
 </head>
@@ -101,12 +103,12 @@
                             </span>
 
                             <select name="tieneComprobante" required="required" style="margin:4px">
-                                <option value='true'>si</option>
                                 <option value='false'>no</option>
+                                <option value='true'>si</option>
                             </select>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center m-4" style="padding-top: 64px">
+                    <div class="d-flex justify-content-center m-4" style="padding-top: 64px; width:-webkit-fill-available">
                         <button type="button" class="btn btn-dark" data-bs-toggle="modal"
                                 data-bs-target="#medioPagoModal">
                             Agregar nuevo Medio de Pago
