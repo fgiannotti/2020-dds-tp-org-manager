@@ -94,6 +94,23 @@
                                 {{/each}}
                             </select>
                         </div>
+
+                        <div class="d-flex justify-content-between">
+                            <span class="card-text"
+                                  style="padding-top: 4px">Posee un comprobante?
+                            </span>
+
+                            <select name="tieneComprobante" required="required" style="margin:4px">
+                                <option value='true'>si</option>
+                                <option value='false'>no</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center m-4" style="padding-top: 64px">
+                        <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                data-bs-target="#medioPagoModal">
+                            Agregar nuevo Medio de Pago
+                        </button>
                     </div>
                 </div>
             </div>
@@ -105,18 +122,62 @@
         <button class="btn btn-dark rounded-pill" type="submit">Siguiente</button>
     </div>
 </form>
+
 <div class="d-flex justify-content-center" style="padding: 8px">
     <form action="/cacheMedioDePago" method="post" class="form">
-        <select class="opcion-multiple" name="medioDePagoTipo">
-            <option value="1">Debito</option>
-            <option value="2">Crédito</option>
-            <option value="3">AMS</option>
-            <option value="4">Ticket</option>
-            <option value="5">Account Money</option>
-        </select>
-        <input type="text" id="cbox2" name="newMedioDePagoNombre" placeholder="Nombre"/>
-        <input type="text" id="cbox3" name="newMedioDePagoNumero" placeholder="Numero"/>
-        <button class="btn btn-dark" type="submit" style="padding-left: 8px">Añadir Medio De Pago</button>
+        <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true" id="medioPagoModal">
+            <div class="modal-dialog" style="max-width: 36%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo Medio de Pago</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="medioPagoModalBody">
+
+                        <div class="card" id="card0" style="margin:8px;max-width: 80%;margin-left: 10%;">
+                            <div class="card-body" id="cardBody">
+                                <div class="d-flex justify-content-between">
+                                    <p class="card-text">Tipo de pago:</p>
+                                    <label>
+                                        <select class="opcion-multiple" name="medioDePagoTipo">
+                                            <option value="1">Debito</option>
+                                            <option value="2">Crédito</option>
+                                            <option value="3">AMS</option>
+                                            <option value="4">Ticket</option>
+                                            <option value="5">Account Money</option>
+                                        </select>
+                                    </label>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <p class="card-text">Descripcion: </p>
+                                    <label>
+                                        <input type="text" id="cbox2" name="newMedioDePagoNombre" placeholder="Nombre"/>
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p class="card-text">Numero:</p>
+                                    <label>
+                                        <input type="text" id="cbox3" name="newMedioDePagoNumero" placeholder="Numero"/>
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar
+                        </button>
+                        <button class="btn btn-primary d-flex justify-content-center" type="submit">Agregar Medio
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 </body>

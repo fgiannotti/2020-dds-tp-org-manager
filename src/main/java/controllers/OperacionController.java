@@ -263,22 +263,28 @@ public class OperacionController {
     }
 
     public Response postMedioDePago(Request request, Response response) {
-        Integer medioDePagoID = Integer.parseInt(request.queryParams("medioDePago"));
-        List<MedioDePago> mediosDePagoFound = mediosDePagoCache.get(request.session().id());
+        int medioDePagoID = Integer.parseInt(request.queryParams("medioDePago"));
+        List<MedioDePago> mediosDePagoFound = mediosDePagoCache.getOrDefault(request.session().id(),new ArrayList<>());
 
         MedioDePago medioDePagoEncontrado = null;
         for(MedioDePago mp: mediosDePagoFound){
             if (mp.getId() == medioDePagoID){
                 medioDePagoEncontrado = mp;
+                medioDePagoEncontrado.setId(0);
+                break;
             }
         }
         if (medioDePagoEncontrado==null){
-            EntityManagerHelper.beginTransaction();
-            EntityManagerHelper.persist(medioDePagoEncontrado);
-            EntityManagerHelper.commit();
+            medioDePagoEncontrado = (MedioDePago) EntityManagerHelper.createQuery("FROM MedioDePago WHERE id = '" + medioDePagoID + "'").getSingleResult();
         }
+
         builder.asignarMedioDePago(medioDePagoEncontrado);
-        response.redirect("/crearEgreso6");
+        boolean tieneComprobante = Boolean.parseBoolean(request.queryParams("tieneComprobante"));
+        if (tieneComprobante){
+            response.redirect("/crearEgreso6");
+        }else{
+            response.redirect("/crearEgreso7");
+        }
         return response;
     }
 
