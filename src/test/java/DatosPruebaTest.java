@@ -62,9 +62,9 @@ public class DatosPruebaTest {
     public CriterioDeEmpresa causante = new CriterioDeEmpresa("Causante", null, null);
     public CriterioDeEmpresa gastosMantenimiento = new CriterioDeEmpresa("Gastos de Mantenimiento", new ArrayList<>(Arrays.asList(lugarAplicacion)), null);
     //--  CATEGORIAS  --
-    public Categoria fachada = new Categoria("Fachada", gastosMantenimiento, null, null);
-    public Categoria interior = new Categoria("Interior", lugarAplicacion, null, null);
-    public Categoria humedad = new Categoria("Humedad", causante, null, null);
+    public Categoria fachada = new Categoria("Fachada", gastosMantenimiento);
+    public Categoria interior = new Categoria("Interior", lugarAplicacion);
+    public Categoria humedad = new Categoria("Humedad", causante);
     public List<Categoria> categoriasOpSerrentino = new ArrayList<>(Arrays.asList(fachada, interior, humedad));
 
     //--  PROVEEDORES  --

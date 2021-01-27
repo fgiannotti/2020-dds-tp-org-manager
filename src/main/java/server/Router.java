@@ -93,27 +93,28 @@ public class Router {
         Spark.post("/validar",validadorController::validar,Router.engine);
 
         Spark.get("/CrearOperacionEgreso", operacionController::inicio, Router.engine);
-        Spark.get("/crearEgreso1", operacionController::fechaYCantidad, Router.engine);
+        //Spark.get("/crearEgreso1", operacionController::fechaYCantidad, Router.engine);
         Spark.post("/crearEgreso1", operacionController::postProveedorFechaYCantMin);
 
-        Spark.get("/crearEgreso2", operacionController::seleccionarProveedor, Router.engine);
+        Spark.get("/crearEgreso2", operacionController::seleccionarPresupuesto, Router.engine);
         Spark.post("/cachePresupuestos",operacionController::cachePresupuesto,Router.engine);
         Spark.post("/crearEgreso2", operacionController::postSeleccionarPresupuesto);
 
-        Spark.post("/cacheMedioDePago",operacionController::agregarMedioPago,Router.engine);
-
         Spark.get("/crearEgreso3", operacionController::medioDePago, Router.engine);
+        Spark.post("/cacheMedioDePago",operacionController::agregarMedioPago,Router.engine);
         Spark.post("/crearEgreso3", operacionController::postMedioDePago);
 
+        //no se usan
         Spark.get("/crearEgreso4", articuloController::articulos, Router.engine);
         Spark.post("/crearEgreso4", articuloController::postArticulos);
         Spark.get("/crearEgreso5", operacionController::seleccionArticulos, Router.engine);
         Spark.post("/crearEgreso5", operacionController::postSeleccionArticulos);
-
+        //---
         Spark.get("/crearEgreso6", operacionController::cargarComprobante, Router.engine);
         Spark.post("/crearEgreso6", operacionController::postCargarComprobante);
 
         Spark.get("/crearEgreso7", operacionController::cargarCriterio, Router.engine);
+        Spark.post("/cacheCategoria2",operacionController::agregarCategoria2,Router.engine);
         Spark.post("/crearEgreso7", operacionController::postCargarCriterio);
 
         Spark.get("/crearEgreso8", operacionController::cargarCriterioComplejo, Router.engine);

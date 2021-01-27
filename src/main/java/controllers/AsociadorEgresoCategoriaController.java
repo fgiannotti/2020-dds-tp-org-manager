@@ -96,6 +96,7 @@ public class AsociadorEgresoCategoriaController {
         categoriasFound.add(categoria);
 
         categoriasCache.put(request.session().id(), categoriasFound);
+
         return this.inicio(request, response);
     }
 

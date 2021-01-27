@@ -3,6 +3,7 @@ package entidades.Operaciones;
 import db.EntityManagerHelper;
 import entidades.Items.Articulo;
 import entidades.MedioDePago.MedioDePago;
+import entidades.Organizaciones.Categoria;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public class EgresoBuilder {
         unEgreso.setMedioDePago(medio);
     }
 
+    public void asignarCategorias(List<Categoria> cats) {
+        unEgreso.setCategorias(cats);
+    }
     public void asignarArticulo (Articulo unArticulo){
         unEgreso.setArticulo(unArticulo);
     }

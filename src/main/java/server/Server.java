@@ -77,9 +77,9 @@ public class Server {
          CriterioDeEmpresa causante = new CriterioDeEmpresa("Causante", null, null,eeafBA);
          CriterioDeEmpresa gastosMantenimiento = new CriterioDeEmpresa("Gastos de Mantenimiento", new ArrayList<>(Arrays.asList(lugarAplicacion)), null,eeafBA);
         //--  CATEGORIAS  --
-         Categoria fachada = new Categoria("Fachada", gastosMantenimiento, null, null);
-         Categoria interior = new Categoria("Interior", lugarAplicacion, null, null);
-         Categoria humedad = new Categoria("Humedad", causante, null, null);
+         Categoria fachada = new Categoria("Fachada", gastosMantenimiento);
+         Categoria interior = new Categoria("Interior", lugarAplicacion);
+         Categoria humedad = new Categoria("Humedad", causante);
          List<Categoria> categoriasOpSerrentino = new ArrayList<>(Arrays.asList(fachada, interior, humedad));
 
         //--  PROVEEDORES  --

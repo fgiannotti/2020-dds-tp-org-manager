@@ -28,7 +28,7 @@ public class Categoria extends EntidadPersistente {
         this.descripcion = descripcion;
     }
 
-    public Categoria(String descripcion, CriterioDeEmpresa criterio, List<Presupuesto> presupuestosOpcionales, List<OperacionEgreso> egresosOpcionales) {
+    public Categoria(String descripcion, CriterioDeEmpresa criterio) {
         this.descripcion = descripcion;
         this.criterio = criterio;
     }
