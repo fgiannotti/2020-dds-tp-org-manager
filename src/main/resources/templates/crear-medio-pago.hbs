@@ -3,53 +3,121 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilo-medio-pago.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
+    <!-- CSS only -->
     <title>Medio de Pago</title>
 </head>
-  <body>
-      <div class="titulo">
-      <h1 class="nombre-titulo">Seleccionar Medio de Pago</h1>
-      </div>
-      <div class="general">
-        <br><br>
-        <div class="general-medio">
-      <form action="/crearEgreso3" method="post" class="form-">
-       <h1 class="medio">Medio de Pago:</h1>
-         </div><br>
-         <div class="box-Medio">
-          <select class="opcion-multiple" name="medioDePago">
-              <option value="1">Debito</option>
-              <option value="2">Crédito</option>
-              <option value="3">AMS</option>
-              <option value="4">Ticket</option>
-              <option value="5">Account Money</option>
-            </select>
-          </div>
-          <br><br><br>
-          <div class="general-numero">
-        <h1 class="numero">Total:</h1>
-           </div><br>
-           <div class="box-numero">
-         <input type="text" name="total" required>
-         </div>
-         <br><br><br>
-         <div class="general-siguiente">
-       <button class="boton_siguiente" type="submit">Siguiente</button>
-     </div>
-     </form>
-     <div class="general-siguiente2">
-     <button class="boton_siguiente" onclick="location.href='/crearEgreso2'">Volver</button>
-     </div>
-     <br><br><br><br><br>
-         <div class="general-home">
-         <button class="boton_home" onclick="location.href='/home'">Volver a Home</button>
-         </div>
-         </div>
-    </body>
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="space-around-horizontal navbar-nav ml-auto">
+            <a class="navbar-brand" onclick="location.href='/home'">Home</a>
+            <button type="button" class="btn btn-dark align-content-center"
+                    onclick="location.href='crearOperacionEgreso'">Seleccionar un Presupuesto
+            </button>
+            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
+                Cargar Operacion de Ingreso
+            </button>
+
+            <div class="dropdown align-content-md-around">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Asociar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a>
+                    </li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria
+                        Presupuesto</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown align-content-center">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Visualizar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/ver-ingresos'">Ver Ingresos</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/ver-egresos'">Ver Egresos</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-dark" onclick="location.href='ver-bandeja'">
+                Bandeja de Entrada
+            </button>
+            <form action="/logout" method="get" class="form">
+                <button class="btn btn-dark" onclick="location.href='index-login.html'" type="submit">Salir</button>
+            </form>
+        </div>
+
+
+    </div>
+</nav>
+
+<form action="/crearEgreso3" method="post" class="form">
+    <div class="d-flex justify-content-center" style="padding-top: 64px;padding-bottom: 16px;">
+        <div class="card text-dark bg-light-tp mb-3"
+             style="min-height: 18rem; min-width: 36rem; max-width: 70%">
+            <div class="card-header display-7 text-center">Seleccionar Medio de Pago</div>
+            <div class="card-body space-evenly-vert" style="margin-top: 32px">
+                <div class="space-evenly-vert align-items-start" style="width: -webkit-fill-available">
+                    <div class="" style="padding-right: 0;width: -webkit-fill-available">
+
+                        <div class="d-flex justify-content-between">
+                            <span class="card-text"
+                                  style="padding-top: 4px">Medio de Pago:
+                            </span>
+
+                            <select name="medioDePago" required="required" style="margin:4px">
+                                {{#each mediosDePago}}
+                                    <option value='{{id}}'>{{medio}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-evenly padding-button-home">
+        <button class="btn btn-dark rounded-pill" onclick="location.href='/crearEgreso2'">Volver</button>
+
+        <button class="btn btn-dark rounded-pill" type="submit">Siguiente</button>
+    </div>
+</form>
+<div class="d-flex justify-content-center" style="padding: 8px">
+    <form action="/cacheMedioDePago" method="post" class="form">
+        <select class="opcion-multiple" name="medioDePagoTipo">
+            <option value="1">Debito</option>
+            <option value="2">Crédito</option>
+            <option value="3">AMS</option>
+            <option value="4">Ticket</option>
+            <option value="5">Account Money</option>
+        </select>
+        <input type="text" id="cbox2" name="newMedioDePagoNombre" placeholder="Nombre"/>
+        <input type="text" id="cbox3" name="newMedioDePagoNumero" placeholder="Numero"/>
+        <button class="btn btn-dark" type="submit" style="padding-left: 8px">Añadir Medio De Pago</button>
+    </form>
+</div>
+</body>
 </html>

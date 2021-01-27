@@ -4,16 +4,20 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import db.EntityManagerHelper;
 import entidades.Items.Articulo;
 import entidades.Items.Item;
-import entidades.MedioDePago.MedioDePago;
+import entidades.MedioDePago.*;
 import entidades.Operaciones.*;
 import entidades.Organizaciones.Categoria;
 import entidades.Organizaciones.CriterioDeEmpresa;
 import entidades.Organizaciones.Organizacion;
+import entidades.Usuarios.User;
+import entidades.Usuarios.Usuario;
 import org.apache.commons.compress.utils.IOUtils;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import repositorios.RepoOperacionesEgresos;
 import repositorios.RepoPresupuestos;
+import repositorios.RepoUsuarios;
 import repositorios.UserNotFoundException;
+import scala.Int;
 import server.Router;
 import spark.ModelAndView;
 import spark.Request;
@@ -32,10 +36,12 @@ import java.util.*;
 public class OperacionController {
     private RepoOperacionesEgresos repoOperacionesEgresos = new RepoOperacionesEgresos();
     private RepoPresupuestos repoPresupuestos = new RepoPresupuestos();
+    private RepoUsuarios repoUsuarios = new RepoUsuarios();
     private EgresoBuilder builder = new EgresoBuilder();
     private Map<String, String> egresosFileName = new HashMap<>();
     private Map<String, Proveedor> proveedorCache = new HashMap<>();
     private Map<String, List<Presupuesto>> presupuestoCache = new HashMap<>();
+    private Map<String,  List<MedioDePago>> mediosDePagoCache = new HashMap<>();
 
     public ModelAndView verEgreso(Request request, Response response) {
         String egresoID = request.params("id");
@@ -200,20 +206,79 @@ public class OperacionController {
         return response;
     }
 
-    public ModelAndView medioDePago(Request request, Response response) {
+    public ModelAndView medioDePago(Request request, Response response) throws UserNotFoundException {
         if (!request.cookie("id").equals(request.session().id())) {
             response.redirect("/");
         }
+        String userName = request.cookie("user");
+        Usuario user = repoUsuarios.buscarPorNombre(userName);
+        List<MedioDePago> mediosDePago = new ArrayList<>();
+
+        EntityManagerHelper.createQuery("FROM OperacionEgreso").getResultList().forEach((a) -> {
+            OperacionEgreso op = (OperacionEgreso) a;
+            if (op.getOrganizacion().getId() == user.getOrganizacion().getId()){
+                mediosDePago.add(op.getMedioDePago());
+            }
+        });
+        List<MedioDePago> mpsCache = mediosDePagoCache.getOrDefault(request.session().id(),new ArrayList<>());
+        mediosDePago.addAll(mpsCache);
+
         Map<String, Object> parametros = new HashMap<>();
+        parametros.put("mediosDePago",mediosDePago);
         return new ModelAndView(parametros, "crear-medio-pago.hbs");
     }
 
+    public ModelAndView agregarMedioPago(Request request, Response response) throws UserNotFoundException {
+        String nombreMP = request.queryParams("newMedioDePagoNombre");
+        String numeroMP = request.queryParams("newMedioDePagoNumero");
+        int tipoMP = Integer.parseInt(request.queryParams("medioDePagoTipo"));
+
+        MedioDePago mp = null;
+        switch (tipoMP){
+            case 1:
+                mp = new Debito(nombreMP,numeroMP);
+            case 2:
+                mp = new Credito(nombreMP,numeroMP);
+            case 3:
+                mp = new ATM(nombreMP,numeroMP);
+            case 4:
+                mp = new Ticket(nombreMP,numeroMP);
+            case 5:
+                mp = new AccountMoney(nombreMP);
+            default:
+                mp = new Credito(nombreMP,numeroMP);
+
+        }
+
+        List<MedioDePago> mediosDePagoFound = mediosDePagoCache.get(request.session().id());
+        if (mediosDePagoFound == null) {
+            mediosDePagoFound = new ArrayList<>();
+        }
+        //seteo un id unico para encontrarlo dsp
+        mp.setId(UUID.randomUUID().hashCode());
+        mediosDePagoFound.add(mp);
+
+        mediosDePagoCache.put(request.session().id(), mediosDePagoFound);
+        return this.medioDePago(request, response);
+    }
+
     public Response postMedioDePago(Request request, Response response) {
-        String medioDePago = request.queryParams("medioDePago");
-        int total = Integer.parseInt(request.queryParams("total"));
-        MedioDePago unMedio = (MedioDePago) EntityManagerHelper.createQuery("from MedioDePago where id = " + medioDePago).getResultList().get(0);
-        builder.asignarMedioDePago(unMedio);
-        response.redirect("/crearEgreso4");
+        Integer medioDePagoID = Integer.parseInt(request.queryParams("medioDePago"));
+        List<MedioDePago> mediosDePagoFound = mediosDePagoCache.get(request.session().id());
+
+        MedioDePago medioDePagoEncontrado = null;
+        for(MedioDePago mp: mediosDePagoFound){
+            if (mp.getId() == medioDePagoID){
+                medioDePagoEncontrado = mp;
+            }
+        }
+        if (medioDePagoEncontrado==null){
+            EntityManagerHelper.beginTransaction();
+            EntityManagerHelper.persist(medioDePagoEncontrado);
+            EntityManagerHelper.commit();
+        }
+        builder.asignarMedioDePago(medioDePagoEncontrado);
+        response.redirect("/crearEgreso6");
         return response;
     }
 
