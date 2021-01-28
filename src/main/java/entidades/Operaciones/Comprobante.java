@@ -19,7 +19,7 @@ public class Comprobante extends EntidadPersistente {
     @Column(name = "tipo_comprobante")
     private String tipoComprobante;
 
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     @JoinColumn(name = "comprobante_id")
     private List<Item> items = new ArrayList<Item>();
 

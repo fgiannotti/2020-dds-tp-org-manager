@@ -60,6 +60,7 @@ public class OperacionController {
         if (tieneIngreso) {
             parametros.put("ingreso", operacionEgreso.getIngreso());
         }
+
         parametros.put("presupuestos", operacionEgreso.getPresupuestosPreliminares());
         //GET FILE
         parametros.put("egresoID", egresoID);
@@ -117,6 +118,7 @@ public class OperacionController {
 
         return new ModelAndView(parametros, "index-crear-egreso.hbs");
     }
+
     public Response postProveedorFechaYCantMin(Request request, Response response) {
         String proveedor = request.queryParams("proveedor");
         Proveedor unProveedorEntero = (Proveedor) EntityManagerHelper.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor + "'").getResultList().get(0);

@@ -19,7 +19,7 @@
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
     <!-- CSS only -->
-    <title>Ver Egresos</title>
+    <title>Ver Egreso</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -39,10 +39,12 @@
                         aria-expanded="true">
                     Asociar
                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
-                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a></li>
-                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria Presupuesto</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a>
+                    </li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria
+                        Presupuesto</a></li>
                 </ul>
             </div>
 
@@ -82,29 +84,50 @@
                     <p class="card-text">Descripcion: {{egreso.descripcion}}</p>
                     <p class="card-text">Fecha: {{egreso.fechaOperacion}}</p>
                     <p class="card-text">Monto Total: {{egreso.montoTotal}}0 $ </p>
-                    <p class="card-text" style="margin-bottom: 8px">Comprobante: </p>
-                    <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Numero de comprobante: {{egreso.comprobante.numeroComprobante}}  </p>
+                    <p class="card-text">Categorias:</p>
+
+                    <div class="container">
+                        {{#each egreso.categorias}}
+                            <div class="space-evenly-vert align-items-start" style="margin-left: 16px">
+                                <p class="card-text">Descripcion:{{descripcion}}.
+                                    {{#if criterio}} Criterio {{criterio.nombre}} {{else}} Sin Criterio{{/if}}
+                                </p>
+                            </div>
+                        {{else}}
+                            <p class="display-8 text-center"> Sin categorias.</p>
+                        {{/each}}
+                    </div>
+                    <p class="card-text" style="margin-bottom: 8px;margin-top:8px">Comprobante: </p>
+                    <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Numero de
+                        comprobante: {{egreso.comprobante.numeroComprobante}}  </p>
                     <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Items: </p>
                     {{#each egreso.comprobante.items}}
-                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">{{inc @index}}.    {{nombre}} - {{descripcion}}.
+                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">{{inc @index}}.    {{nombre}}
+                            - {{descripcion}}.
                         </p>
                     {{/each}}
 
-                    <p class="card-text" style="margin-top: 16px">Presupuestos Minimos: {{egreso.cantidadMinimaDePresupuestos}}
+                    <p class="card-text" style="margin-top: 16px">Presupuestos
+                        Minimos: {{egreso.cantidadMinimaDePresupuestos}}
                     <p class="card-text">Criterio: {{egreso.criterio}}</p>
                     <p class="card-text">Ingreso Asociado: {{tiene-ingreso}}</p>
                     {{#if tiene-ingreso}}
-                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">Ingreso: {{ingreso.descripcion}} </p>
-                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">Monto total: {{ingreso.montoTotal}}0 $ </p>
-                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">Fecha de Operacion: {{ingreso.fechaOperacion}} </p>
+                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">
+                            Ingreso: {{ingreso.descripcion}} </p>
+                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">Monto
+                            total: {{ingreso.montoTotal}}0 $ </p>
+                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">Fecha de
+                            Operacion: {{ingreso.fechaOperacion}} </p>
                     {{/if}}
 
                     <div class="" style="padding: 16px">
                         <div class="border" style="color: lightgray"></div>
-                        <p class="card-title display-8 text-center" style="margin-top: 16px; margin-bottom: 16px;">Presupuestos</p>
+                        <p class="card-title display-8 text-center" style="margin-top: 16px; margin-bottom: 16px;">
+                            Presupuestos</p>
 
                         {{#each presupuestos}}
-                            <p class="card-title display-10 text-center"> Proveedor {{proveedor.nombreApellidoRazon}}</p>
+                            <p class="card-title display-10 text-center">
+                                Proveedor {{proveedor.nombreApellidoRazon}}</p>
                             <p class="card-text"> Direccion Postal:  {{proveedor.direccionPostal}}</p>
                             <p class="card-text"> Presupuesto:  {{cantidad}} items de monto total {{total}} $</p>
                         {{else}}
@@ -117,9 +140,12 @@
             <p class="card-title text-center display-9"> Factura </p>
             {{#if tieneFile}}
                 <p class="card-text text-center display-10"> {{fileName}} </p>
-                <div class="d-flex justify-content-evenly" style="padding: 16px" >
-                    <a href="/files/{{fileName}}" class="btn btn-dark rounded-pill" download="{{fileName}}" style="font-size: 16px;">Descargar</a>
-                    <button onclick="window.open('../files/{{fileName}}')"  class="btn btn btn-dark rounded-pill">Ver Archivo</button>
+                <div class="d-flex justify-content-evenly" style="padding: 16px">
+                    <a href="/files/{{fileName}}" class="btn btn-dark rounded-pill" download="{{fileName}}"
+                       style="font-size: 16px;">Descargar</a>
+                    <button onclick="window.open('../files/{{fileName}}')" class="btn btn btn-dark rounded-pill">Ver
+                        Archivo
+                    </button>
                 </div>
             {{else}}
                 <p class="card-text text-center display-10"> Sin factura. </p>
@@ -127,7 +153,7 @@
             <div class="d-flex justify-content-end" style="padding-top: 8px">
                 <form action="/upload/{{egresoID}}" method="post" enctype="multipart/form-data">
                     <label for="myfile">
-                    <input type="file" id="myfile" name="myfile"/>
+                        <input type="file" id="myfile" name="myfile"/>
                     </label>
                     <div class="d-flex justify-content-en p-4">
                         <button class="btn btn-outline-dark" type="submit">Subir</button>
@@ -137,7 +163,6 @@
         </div>
     </div>
 </div>
-
 
 
 <div class="d-flex justify-content-center padding-button-home">

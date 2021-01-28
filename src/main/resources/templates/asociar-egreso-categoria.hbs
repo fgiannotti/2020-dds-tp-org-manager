@@ -106,14 +106,19 @@
                         <div class="space-evenly-vert align-items-start" style="margin-left: 8px">
                             <label for="cbox2">
                                 <input type="checkbox" id="cbox2" name="categoria" value="{{id}}">
-                                Descripcion:{{descripcion}}. Criterio {{criterio.nombre}}
+                                Descripcion:{{descripcion}}.{{#if criterio}} Criterio {{criterio.nombre}} {{else}} Sin Criterio{{/if}}
                             </label>
                         </div>
                     {{else}}
                         <p class="display-8 text-center"> Sin categorias.</p>
                     {{/each}}
                 </div>
-
+                <div class="d-flex justify-content-center m-4" style="padding-top: 64px;  width:-webkit-fill-available">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                            data-bs-target="#catModal">
+                        Agregar nueva Categoria
+                    </button>
+                </div>
             </div>
             <div class="justify-content-end d-flex" style="margin: 1rem">
                 <button class="btn btn-lg btn-dark rounded-pill" type="submit">Asociar</button>
@@ -123,17 +128,71 @@
     </form>
 
     <br>
-    <div class="d-flex justify-content-end" style="padding: 8px">
-        <form action="/cacheCategoria" method="post" class="form">
-            <input type="text" id="cbox2" name="newCategoria" placeholder="Nombre"/>
-            <button class="btn btn-dark" type="submit" style="padding-left: 8px">Crear Categoria</button>
-        </form>
-    </div>
+
 </div>
 
 <div class="d-flex justify-content-center">
     <button class="btn btn-xlg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home
     </button>
+</div>
+
+
+<div class="d-flex justify-content-center" style="padding: 8px">
+    <form action="/cacheCategoria" method="post" class="form">
+        <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true" id="catModal">
+            <div class="modal-dialog" style="max-width: 600px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar nueva Categoria </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="catModalBody">
+
+                        <div class="card" id="card0" style="margin:8px;max-width: 80%;margin-left: 10%;">
+                            <div class="card-body" id="cardBody">
+                                <div class="d-flex justify-content-around">
+                                    <p class="card-text">Descripcion:</p>
+                                    <input type="text" id="cbox2" name="newCategoria" required="required"
+                                           placeholder="Descripcion"/>
+                                </div>
+
+                                <div class="d-flex">
+                                    <span class="card-text">Asignar criterio: </span>
+                                </div>
+
+                                <div class="space-evenly-vert align-items-start" style="margin-left: 24px">
+                                    <div class="input-row">
+                                        <label for="cbox">
+                                            <input type="radio" id="cbox" name="criterio" value="0">
+                                            Sin Criterio.
+                                        </label>
+                                    </div>
+                                    {{#each criterios}}
+                                        <div class="input-row">
+                                            <label for="cbox">
+                                                <input type="radio" id="cbox" name="criterio" value="{{id}}">
+                                                {{nombre}}
+                                            </label>
+                                        </div>
+                                    {{else}}
+                                        <p class="display-8 text-center"> Sin Criterios.</p>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar
+                        </button>
+                        <button class="btn btn-primary d-flex justify-content-center" type="submit">Agregar Categoria
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 </body>
 </html>

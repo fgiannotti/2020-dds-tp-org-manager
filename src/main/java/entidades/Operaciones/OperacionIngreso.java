@@ -18,7 +18,7 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion {
     @Column
     private String descripcion;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinColumn(name = "ingreso_id")
     private List<OperacionEgreso> operacionesEgreso = new ArrayList<OperacionEgreso>();
 

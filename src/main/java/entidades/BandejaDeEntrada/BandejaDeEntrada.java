@@ -11,9 +11,9 @@ import java.util.List;
 @Entity
 @Table(name = "bandejas_de_entrada")
 public class BandejaDeEntrada extends EntidadPersistente {
-    @OneToMany(mappedBy = "bandeja", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bandeja", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private List<Resultado> resultados = new ArrayList<Resultado>();
-    @OneToMany(mappedBy = "bandeja", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bandeja", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private List<Filtro> filtros = new ArrayList<Filtro>();
 
     public BandejaDeEntrada(List<Filtro> filtros){

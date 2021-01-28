@@ -12,24 +12,15 @@ public class CriterioDeEmpresa extends EntidadPersistente {
     private String nombre;
     @Transient
     private List<CriterioDeEmpresa> criteriosHijos = new ArrayList<CriterioDeEmpresa>();
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "criterio_id")
-    private List<Categoria> categorias = new ArrayList<Categoria>();
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.REMOVE})
     @JoinColumn(name = "org_id")
     private Organizacion organizacion;
 
-    public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosMenoresOpcionales, List<Categoria> categoriasOpcionales) {
+
+    public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosMenoresOpcionales, Organizacion organizacion) {
         this.nombre = nombre;
         this.criteriosHijos = criteriosMenoresOpcionales != null ? criteriosMenoresOpcionales : this.criteriosHijos;
-        this.categorias = categoriasOpcionales != null ? categoriasOpcionales : this.categorias;
-    }
-
-    public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosHijos, List<Categoria> categorias, Organizacion organizacion) {
-        this.nombre = nombre;
-        this.criteriosHijos = criteriosHijos;
-        this.categorias = categorias;
         this.organizacion = organizacion;
     }
 
@@ -51,19 +42,8 @@ public class CriterioDeEmpresa extends EntidadPersistente {
         this.criteriosHijos = criteriosHijos;
     }
 
-    public List<Categoria> getCategorias() {
-        return categorias;
-    }
-
-    public void setCategorias(List<Categoria> categorias) {
-        this.categorias = categorias;
-    }
-
     public void agregarCriterio(CriterioDeEmpresa unCriterio){
         this.criteriosHijos.add(unCriterio);
     }
 
-    public void agregarCategoria(Categoria unaCategoria){
-        this.categorias.add(unaCategoria);
-    }
 }

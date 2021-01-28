@@ -20,7 +20,7 @@ public class Juridica extends Organizacion {
     protected DireccionPostal dirPostal;
     @Column(name="codigo_inscripcion")
     protected Integer codigoInscripcion;
-    @OneToMany(mappedBy = "entidadPadre", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "entidadPadre", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     protected List<Base> entidadesHijas = new ArrayList<Base>();
 
     public void addEntidadHija(Base... base){

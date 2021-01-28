@@ -15,14 +15,12 @@ public class Categoria extends EntidadPersistente {
 
     @Column
     private String descripcion;
-
-    @ManyToOne(cascade = {CascadeType.ALL})
+    //{CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.REMOVE}
+    @ManyToOne(cascade =  CascadeType.MERGE)
     @JoinColumn(name = "criterio_id", referencedColumnName = "id")
     private CriterioDeEmpresa criterio;
 
-    public Categoria() {
-    }
-
+    public Categoria() {}
 
     public Categoria(String descripcion) {
         this.descripcion = descripcion;

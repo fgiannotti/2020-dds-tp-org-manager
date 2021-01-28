@@ -29,11 +29,6 @@ public abstract class Organizacion {
     @Column(name="nombre_ficticio",unique = true)
     private String nombreFicticio;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "org_id")
-    private List<CriterioDeEmpresa> criterios = new ArrayList<CriterioDeEmpresa>();
-
-
     protected Organizacion() {}
 
     /*public String getJsonVincular(){
@@ -129,31 +124,6 @@ public abstract class Organizacion {
 
     public Organizacion(String nombreFicticio) {
         this.nombreFicticio = Objects.requireNonNull(nombreFicticio, "El nombre ficticio no puede ser nulo");
-    }
-
-
-    public void agregarCriterio(CriterioDeEmpresa criterio){  this.criterios.add(criterio); }
-
-
-    public void crearCriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosHijos, List<Categoria> categorias){
-        CriterioDeEmpresa nuevoCriterio = new CriterioDeEmpresa(nombre, criteriosHijos, categorias);
-        this.agregarCriterio(nuevoCriterio);
-    }
-
-    public void crearCategoria(CriterioDeEmpresa criterioDeEmpresa, String descripcion){
-        if(!this.criterios.contains(criterioDeEmpresa)){
-            throw new RuntimeException("No es uno de mis criterios");
-        }
-        Categoria categoria = new Categoria(descripcion);
-        criterioDeEmpresa.agregarCategoria(categoria);
-    }
-
-    public void setCriterios(List<CriterioDeEmpresa> criterios) {
-        this.criterios = criterios;
-    }
-
-    public List<CriterioDeEmpresa> getCriterios() {
-        return criterios;
     }
 
     public int getId() {

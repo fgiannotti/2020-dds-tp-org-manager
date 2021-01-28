@@ -23,9 +23,11 @@ public class EgresoBuilder {
     public void asignarPresupuestosPreliminares(List<Presupuesto> presupuestosPrelim) {
         unEgreso.setPresupuestosPreliminares(presupuestosPrelim);
     }
-    public void asignarDescripcion(String desc){
+
+    public void asignarDescripcion(String desc) {
         unEgreso.setDescripcion(desc);
     }
+
     public void asignarFechaPresupuestosMinYValor(LocalDate fecha, int presupuestos, int valor) {
         unEgreso.setFechaOperacion(fecha);
         unEgreso.setCantidadMinimaDePresupuestos(presupuestos);
@@ -49,9 +51,11 @@ public class EgresoBuilder {
     public void asignarCategorias(List<Categoria> cats) {
         unEgreso.setCategorias(cats);
     }
-    public void generarNroOperacion(){
-        unEgreso.setNumeroOperacion(UUID.randomUUID().hashCode()/1000);
+
+    public void generarNroOperacion() {
+        unEgreso.setNumeroOperacion(Math.abs(UUID.randomUUID().hashCode() / 1000));
     }
+
     public void asignarArticulo(Articulo unArticulo) {
         unEgreso.setArticulo(unArticulo);
     }

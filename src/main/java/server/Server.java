@@ -73,9 +73,9 @@ public class Server {
          MedioDePago efectivoTelas = new AccountMoney("efectivoTelas");
 
         //--  CRITERIOS DE EMPRESAS  --
-         CriterioDeEmpresa lugarAplicacion = new CriterioDeEmpresa("Lugar de aplicacion", null, null,eeafBA);
-         CriterioDeEmpresa causante = new CriterioDeEmpresa("Causante", null, null,eeafBA);
-         CriterioDeEmpresa gastosMantenimiento = new CriterioDeEmpresa("Gastos de Mantenimiento", new ArrayList<>(Arrays.asList(lugarAplicacion)), null,eeafBA);
+         CriterioDeEmpresa lugarAplicacion = new CriterioDeEmpresa("Lugar de aplicacion", null,eeafBA);
+         CriterioDeEmpresa causante = new CriterioDeEmpresa("Causante", null,eeafBA);
+         CriterioDeEmpresa gastosMantenimiento = new CriterioDeEmpresa("Gastos de Mantenimiento", new ArrayList<>(Arrays.asList(lugarAplicacion)),eeafBA);
         //--  CATEGORIAS  --
          Categoria fachada = new Categoria("Fachada", gastosMantenimiento);
          Categoria interior = new Categoria("Interior", lugarAplicacion);
@@ -162,6 +162,10 @@ public class Server {
         }
 
         EntityManagerHelper.beginTransaction();
+        for(Categoria cat:opSerrentino.getCategorias()){
+            EntityManagerHelper.persist(cat.getCriterio());
+            EntityManagerHelper.persist(cat);
+        }
         EntityManagerHelper.getEntityManager().persist(opSerrentino);
         EntityManagerHelper.commit();
 

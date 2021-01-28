@@ -3,6 +3,7 @@ package repositorios;
 import db.EntityManagerHelper;
 import entidades.Organizaciones.Categoria;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,14 @@ public class RepoCategorias {
     }
     public int persistCategoria(Categoria categoria){
         EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.persist(categoria);
+        try{
+            EntityManagerHelper.getEntityManager().persist(categoria);
+
+        }catch (PersistenceException e){
+            EntityManagerHelper.rollback();
+            EntityManagerHelper.beginTransaction();
+            EntityManagerHelper.getEntityManager().merge(categoria);
+        }
         EntityManagerHelper.commit();
         return categoria.getId();
     }

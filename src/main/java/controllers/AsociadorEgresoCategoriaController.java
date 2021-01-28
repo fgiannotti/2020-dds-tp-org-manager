@@ -1,8 +1,10 @@
 package controllers;
 
+import db.EntityManagerHelper;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import entidades.Organizaciones.Categoria;
+import entidades.Organizaciones.CriterioDeEmpresa;
 import entidades.Usuarios.Usuario;
 import repositorios.*;
 import server.Router;
@@ -25,16 +27,26 @@ public class AsociadorEgresoCategoriaController {
         Router.CheckIfAuthenticated(request, response);
         user = repoUsuarios.buscarPorNombre(request.cookie("user"));
 
+        List<CriterioDeEmpresa> criterioDeEmpresas = new ArrayList<>();
+        EntityManagerHelper.createQuery("FROM CriterioDeEmpresa WHERE org_id= '" + user.getOrganizacion().getId() + "'").getResultList().forEach((a) -> {
+            criterioDeEmpresas.add((CriterioDeEmpresa) a);
+        });
+
         Map<String, Object> parametros = new HashMap<>();
 
         List<Categoria> categorias = repoCategorias.getAll();
         List<OperacionEgreso> operacionesEgreso = new ArrayList<OperacionEgreso>(repoEgresos.getAllByOrg(user.getOrganizacionALaQuePertenece()));
-        List<Categoria> cats = categoriasCache.get(request.session().id());
-        if (cats != null) {
-            categorias.addAll(cats);
+
+        List<Categoria> cats = new ArrayList<>();
+        if (categoriasCache.get(request.session().id())!=null){
+            cats.addAll(categoriasCache.get(request.session().id()));
         }
+
+        categorias.addAll(cats);
         parametros.put("categorias", categorias);
         parametros.put("egresos", operacionesEgreso);
+        parametros.put("criterios", criterioDeEmpresas);
+
         return new ModelAndView(parametros, "asociar-egreso-categoria.hbs");
     }
 
@@ -48,7 +60,7 @@ public class AsociadorEgresoCategoriaController {
 
         ArrayList<Categoria> categorias = new ArrayList<>();
         ArrayList<OperacionEgreso> operacionesEgreso = new ArrayList<>();
-        //obtengo los ingresos y egresos del body
+        //obtengo las categorias
         for (String param : bodyParams) {
             String[] paramFieldValue = param.split("=");
             if (paramFieldValue[0].equals("categoria")) {
@@ -59,6 +71,7 @@ public class AsociadorEgresoCategoriaController {
                     Categoria categoriaFound = findCategoriaInCacheForUser(request.session().id(), categoriaID);
                     //revert id change to get an auto incremented one
                     categoriaFound.setId(0);
+                    //persisto en db la categoria que encontre de la cache
                     repoCategorias.persistCategoria(categoriaFound);
                     categorias.add(categoriaFound);
                 }
@@ -76,6 +89,8 @@ public class AsociadorEgresoCategoriaController {
             try {
                 repoEgresos.asociarCategorias(egreso, categorias);
             } catch (Exception e) {
+                System.err.println("FALLAMO ASOCIANDO Eg-Cat: "+e.getMessage()+"\n");
+                e.printStackTrace();
                 parametros.put("asociarECfail", true);
             }
         }
@@ -85,7 +100,13 @@ public class AsociadorEgresoCategoriaController {
 
     public ModelAndView agregarCategoria(Request request, Response response) throws UserNotFoundException {
         String nombreCat = request.queryParams("newCategoria");
-        Categoria categoria = new Categoria(nombreCat);
+        int criterioID = Integer.parseInt(request.queryParams("criterio"));
+        CriterioDeEmpresa crit = null;
+        if (criterioID != 0 ){
+            crit  = (CriterioDeEmpresa) EntityManagerHelper.createQuery("FROM CriterioDeEmpresa where id = '"+criterioID+"'").getSingleResult();
+        }
+
+        Categoria categoria = new Categoria(nombreCat,crit);
 
         List<Categoria> categoriasFound = categoriasCache.get(request.session().id());
         if (categoriasFound == null) {
