@@ -19,6 +19,7 @@ import entidades.Organizaciones.*;
 import entidades.Usuarios.Revisor;
 import entidades.Usuarios.User;
 import entidades.Usuarios.Usuario;
+import repositorios.RepoOperacionesEgresos;
 import spark.Spark;
 import spark.debug.DebugScreen;
 
@@ -28,6 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Server {
+    private static final RepoOperacionesEgresos repoEgresos = new RepoOperacionesEgresos();
     public static void main(String[] args) {
 
         int port;
@@ -160,14 +162,7 @@ public class Server {
             opSerrentino.getOrganizacion().setId(1);
             EntityManagerHelper.rollback();
         }
-
-        EntityManagerHelper.beginTransaction();
-        for(Categoria cat:opSerrentino.getCategorias()){
-            EntityManagerHelper.persist(cat.getCriterio());
-            EntityManagerHelper.persist(cat);
-        }
-        EntityManagerHelper.getEntityManager().persist(opSerrentino);
-        EntityManagerHelper.commit();
+        repoEgresos.agregar(opSerrentino);
 
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(aroco);

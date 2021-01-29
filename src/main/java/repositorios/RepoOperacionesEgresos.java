@@ -1,6 +1,8 @@
 package repositorios;
 
 import db.EntityManagerHelper;
+import entidades.MedioDePago.Credito;
+import entidades.MedioDePago.MedioDePago;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import entidades.Operaciones.Presupuesto;
@@ -55,6 +57,58 @@ public class RepoOperacionesEgresos {
     }
 
     public void agregar(OperacionEgreso nuevoEgreso) {
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        em.getTransaction().begin();
+        for (Categoria cat : nuevoEgreso.getCategorias()) {
+            em.persist(cat.getCriterio());
+            em.persist(cat);
+        }
+        //unsaved transient
+        //detached MP
+        MedioDePago mp = em.find(MedioDePago.class, nuevoEgreso.getMedioDePago().getId());
+        if (mp != null) {
+            nuevoEgreso.setMedioDePago(mp);
+            em.merge(mp);
+        }else{
+            em.persist(nuevoEgreso.getMedioDePago());
+        }
+
+        //detached Prov
+        List<Proveedor> proveedorModific = nuevoEgreso.getProveedores();
+        for (Proveedor prov : nuevoEgreso.getProveedores()) {
+            Proveedor provFound = em.find(Proveedor.class, prov.getId());
+            if (provFound != null) {
+                int indexfound = proveedorModific.indexOf(prov);
+                proveedorModific.remove(indexfound);
+                proveedorModific.add(indexfound, provFound);
+                em.merge(provFound);
+            }else{
+                em.persist(prov);
+            }
+        }
+
+        //detached Presus
+        List<Presupuesto> presusModific = nuevoEgreso.getPresupuestosPreliminares();
+        for (Presupuesto pres : nuevoEgreso.getPresupuestosPreliminares()) {
+            Presupuesto presuFound = em.find(Presupuesto.class, pres.getId());
+            if (presuFound != null) {
+                int indexfound = presusModific.indexOf(pres);
+                presusModific.remove(indexfound);
+                presusModific.add(indexfound, presuFound);
+                em.merge(presuFound);
+            }else{
+                em.persist(pres);
+            }
+        }
+        nuevoEgreso.setPresupuestosPreliminares(presusModific);
+
+
+        em.persist(nuevoEgreso);
+        em.getTransaction().commit();
+
+    }
+
+    public void agregar2(OperacionEgreso nuevoEgreso) {
         this.operaciones.add(nuevoEgreso);
         EntityManagerHelper.beginTransaction();
 
@@ -86,11 +140,26 @@ public class RepoOperacionesEgresos {
     }
 
     public OperacionEgreso get(int id) throws NoResultException {
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        OperacionEgreso eg = null;
+        try {
+            em.getTransaction().begin();
+
+            eg = em.find(OperacionEgreso.class, id);
+            em.close();
+        } catch (Exception e) {
+            System.err.println("fallo al getear egreso");
+            throw (e);
+        }
+        return eg;
+    }
+
+    public OperacionEgreso get2(int id) throws NoResultException {
         String query = "from OperacionEgreso where id = " + id;
         OperacionEgreso eg = null;
-        try{
+        try {
             eg = (OperacionEgreso) EntityManagerHelper.createQuery(query).getSingleResult();
-        }catch (Exception e){
+        } catch (Exception e) {
             eg = (OperacionEgreso) EntityManagerHelper.createQuery(query).getSingleResult();
         }
         return eg;

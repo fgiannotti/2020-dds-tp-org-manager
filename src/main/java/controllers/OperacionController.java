@@ -51,11 +51,11 @@ public class OperacionController {
         return cacheUsuarios.get(sessionID);
     }
     public ModelAndView verEgreso(Request request, Response response) {
-        String egresoID = request.params("id");
+        Integer egresoID = Integer.parseInt(request.params("id"));
         Map<String, Object> parametros = new HashMap<>();
         OperacionEgreso operacionEgreso = null;
         try {
-            operacionEgreso = repoOperacionesEgresos.get(new Integer(egresoID));
+            operacionEgreso = repoOperacionesEgresos.get(egresoID);
         }catch (Exception e){
             System.err.println("Error al traer egreso, reintentar");
             e.printStackTrace();
@@ -289,9 +289,20 @@ public class OperacionController {
     public Response postCargarComprobante(Request request, Response response) {
         String tipoComp = request.queryParams("tipoComprobante");
         int nroComp = Integer.parseInt(request.queryParams("numeroComprobante"));
-        String presupuestoID = request.queryParams("presupuestoID");
-
-        Presupuesto presuElegido = repoPresupuestos.find(Integer.parseInt(presupuestoID));
+         int presupuestoID = Integer.parseInt(request.queryParams("presupuestoID"));
+        //primero lo busco en cache
+        boolean foundInCache = false;
+        Presupuesto presuElegido = null;
+        List<Presupuesto> presupuestosCacheList = presupuestoCache.get(request.session().id());
+        for (Presupuesto p:presupuestosCacheList){
+            if (p.getId() == presupuestoID){
+                foundInCache = true;
+                presuElegido = p;
+            }
+        }
+        if (!foundInCache){
+            presuElegido = repoPresupuestos.find(presupuestoID);
+        }
         Comprobante comp = new Comprobante(nroComp,tipoComp,presuElegido.getItems());
 
         builder.unEgreso.setItems(presuElegido.getItems());

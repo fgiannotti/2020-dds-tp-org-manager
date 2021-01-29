@@ -21,7 +21,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Column
     private int numeroOperacion;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.REMOVE})
     private List<Proveedor> proveedores = new ArrayList<>();
 
     @Column(name = "fecha_operacion", columnDefinition = "DATE")
@@ -46,7 +46,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Transient
     private List<Item> items = new ArrayList<Item>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.REMOVE})
     private List<Presupuesto> presupuestosPreliminares = new ArrayList<Presupuesto>();
 
     @Transient
@@ -63,7 +63,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     @Column
     private Criterio criterio;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.REMOVE})
     @JoinTable(name = "egresos_x_categorias", joinColumns = @JoinColumn(name = "egreso_id", referencedColumnName = "id", unique = false),
             inverseJoinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "id", unique = false))
     private List<Categoria> categorias = new ArrayList<>();
