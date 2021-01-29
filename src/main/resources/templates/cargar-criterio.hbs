@@ -29,7 +29,7 @@
         <div class="space-around-horizontal navbar-nav ml-auto">
             <a class="navbar-brand" onclick="location.href='/home'">Home</a>
             <button type="button" class="btn btn-dark align-content-center"
-                    onclick="location.href='crearOperacionEgreso'">Seleccionar un Presupuesto
+                    onclick="location.href='/crearOperacionEgreso'">Seleccionar un Presupuesto
             </button>
             <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
                 Cargar Operacion de Ingreso
@@ -156,7 +156,7 @@
 
                                 <div class="space-evenly-vert align-items-start" style="margin-left: 24px">
                                     {{#each criterios}}
-                                        <div class="input-row" style="display: flex;width: -webkit-fill-available;justify-content: center;">
+                                        <div class="input-row" style="display: flex;width: -webkit-fill-available;margin-left: 30%;">
                                             <label for="cbox">
                                                 <input type="radio" id="cbox" name="criterio" value="{{id}}">
                                                 {{nombre}}

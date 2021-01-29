@@ -9,6 +9,7 @@ import entidades.Organizaciones.Categoria;
 import entidades.Organizaciones.Organizacion;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,9 +85,15 @@ public class RepoOperacionesEgresos {
 
     }
 
-    public OperacionEgreso get(int id) {
+    public OperacionEgreso get(int id) throws NoResultException {
         String query = "from OperacionEgreso where id = " + id;
-        return (OperacionEgreso) EntityManagerHelper.createQuery(query).getSingleResult();
+        OperacionEgreso eg = null;
+        try{
+            eg = (OperacionEgreso) EntityManagerHelper.createQuery(query).getSingleResult();
+        }catch (Exception e){
+            eg = (OperacionEgreso) EntityManagerHelper.createQuery(query).getSingleResult();
+        }
+        return eg;
     }
 
     public void asociarIngreso(OperacionEgreso egreso, OperacionIngreso ingreso) {

@@ -52,8 +52,16 @@ public class OperacionController {
     }
     public ModelAndView verEgreso(Request request, Response response) {
         String egresoID = request.params("id");
-        OperacionEgreso operacionEgreso = repoOperacionesEgresos.get(new Integer(egresoID));
         Map<String, Object> parametros = new HashMap<>();
+        OperacionEgreso operacionEgreso = null;
+        try {
+            operacionEgreso = repoOperacionesEgresos.get(new Integer(egresoID));
+        }catch (Exception e){
+            System.err.println("Error al traer egreso, reintentar");
+            e.printStackTrace();
+            parametros.put("getEgresoFail",true);
+            return new ModelAndView(parametros, "egreso.hbs");
+        }
         parametros.put("egreso", operacionEgreso);
         boolean tieneIngreso = operacionEgreso.getIngreso() != null;
         parametros.put("tiene-ingreso", tieneIngreso);
@@ -96,7 +104,7 @@ public class OperacionController {
             e.printStackTrace();
         }
 
-        System.out.println("File uploaded and saved.");
+        System.err.println("File uploaded and saved.");
         response.redirect("/egreso/" + egresoID);
         return response;
 
@@ -270,6 +278,9 @@ public class OperacionController {
         Map<String, Object> parametros = new HashMap<>();
         int proveedorID = proveedorElegidoCache.get(request.session().id()).getId();
         List<Presupuesto> presus = repoPresupuestos.findByProv(proveedorID);
+        if (presupuestoCache.get(request.session().id())!= null){
+            presus.addAll(presupuestoCache.get(request.session().id()));
+        }
 
         parametros.put("presupuestos",presus);
         return new ModelAndView(parametros, "cargar-comprobante.hbs");
