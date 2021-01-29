@@ -123,7 +123,7 @@
     <form action="/cacheCategoria2" method="post" class="form">
         <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true" id="catModal">
-            <div class="modal-dialog" style="max-width: 70%">
+            <div class="modal-dialog" style="max-width: 50%">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Agregar nueva Categoria </h5>
@@ -156,7 +156,7 @@
 
                                 <div class="space-evenly-vert align-items-start" style="margin-left: 24px">
                                     {{#each criterios}}
-                                        <div class="input-row">
+                                        <div class="input-row" style="display: flex;width: -webkit-fill-available;justify-content: center;">
                                             <label for="cbox">
                                                 <input type="radio" id="cbox" name="criterio" value="{{id}}">
                                                 {{nombre}}
