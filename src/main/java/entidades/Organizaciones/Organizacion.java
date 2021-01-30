@@ -29,6 +29,20 @@ public abstract class Organizacion {
     @Column(name="nombre_ficticio",unique = true)
     private String nombreFicticio;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Organizacion)) return false;
+        Organizacion that = (Organizacion) o;
+        return getId() == that.getId() &&
+                getNombreFicticio().equals(that.getNombreFicticio());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNombreFicticio());
+    }
+
     protected Organizacion() {}
 
     /*public String getJsonVincular(){

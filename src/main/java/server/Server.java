@@ -22,6 +22,7 @@ import entidades.Usuarios.Usuario;
 import spark.Spark;
 import spark.debug.DebugScreen;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -126,7 +127,7 @@ public class Server {
         //--  EGRESOS  --
          Comprobante compOpSerrentino = new Comprobante(itemsSerrentino);
          OperacionEgreso opSerrentino = new OperacionEgreso((float) 19949.7, "Egreso serrentino",
-                proveOpSerrentino, creditoSerrentino, LocalDate.of(2020, 10, 3), "", compOpSerrentino, itemsSerrentino,
+                pintureriaREX, creditoSerrentino, LocalDate.of(2020, 10, 3), "", compOpSerrentino, itemsSerrentino,
                 3, Criterio.MENOR_VALOR, eeafBA, preliminaresOpSerrentino, categoriasOpSerrentino);
 
          OperacionEgreso opEdesur;
@@ -151,33 +152,35 @@ public class Server {
         itemsOpSerr.addAll(itemsREX);
         itemsOpSerr.addAll(itemsSanJorge);
         itemsOpSerr.addAll(itemsREX);
-        EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.getEntityManager().persist(new CriterioDeEmpresa("test", null, null));
-        try {
-            EntityManagerHelper.getEntityManager().persist(opSerrentino.getOrganizacion());
-            EntityManagerHelper.commit();
-        }catch (Exception e){
-            opSerrentino.getOrganizacion().setId(1);
-            EntityManagerHelper.rollback();
-        }
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        em.getTransaction().begin();
+        em.persist(new CriterioDeEmpresa("test", null, null));
 
-        EntityManagerHelper.beginTransaction();
+        em.persist(opSerrentino.getOrganizacion());
+        em.getTransaction().commit();
+
+        em.getTransaction().begin();
+        em.persist(aroco);
+        em.getTransaction().commit();
+
+        /*EntityManagerHelper.beginTransaction();
         for(Categoria cat:opSerrentino.getCategorias()){
             EntityManagerHelper.persist(cat.getCriterio());
             EntityManagerHelper.persist(cat);
+        }*/
+        em.getTransaction().begin();
+        for(Proveedor p: proveOpSerrentino){
+            em.persist(p);
         }
-        EntityManagerHelper.getEntityManager().persist(opSerrentino);
-        EntityManagerHelper.commit();
+        em.persist(opSerrentino);
+        em.getTransaction().commit();
 
-        EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.getEntityManager().persist(aroco);
-        EntityManagerHelper.commit();
-
+    //persist ingresos
         for (OperacionIngreso ing: new ArrayList<>(Arrays.asList(ingresoDonacionTerceros,ingresoGranImperio,ingresoRimoli))){
             ing.getOrganizacion().setId(1);
-            EntityManagerHelper.beginTransaction();
-            EntityManagerHelper.getEntityManager().persist(ing);
-            EntityManagerHelper.commit();
+            em.getTransaction().begin();
+            em.persist(ing);
+            em.getTransaction().commit();
         }
     }
 }

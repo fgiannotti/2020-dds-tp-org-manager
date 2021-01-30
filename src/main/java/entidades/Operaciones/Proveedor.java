@@ -24,8 +24,7 @@ public class Proveedor extends EntidadPersistente {
         this.direccionPostal = Objects.requireNonNull(direccionPostal, "La direccion postal no puede ser nula");
     }
 
-    public Proveedor() {
-    }
+    public Proveedor() {}
 
     public String getNombreApellidoRazon() {
         return nombreApellidoRazon;
@@ -66,5 +65,20 @@ public class Proveedor extends EntidadPersistente {
                 ", documento='" + documento + '\'' +
                 ", direccionPostal='" + direccionPostal + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Proveedor)) return false;
+        Proveedor proveedor = (Proveedor) o;
+        return getNombreApellidoRazon().equals(proveedor.getNombreApellidoRazon()) &&
+                getDocumento().equals(proveedor.getDocumento()) &&
+                getDireccionPostal().equals(proveedor.getDireccionPostal());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNombreApellidoRazon(), getDocumento(), getDireccionPostal());
     }
 }

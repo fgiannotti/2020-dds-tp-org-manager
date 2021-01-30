@@ -32,4 +32,20 @@ public abstract class MedioDePago extends EntidadPersistente {
       this.numero = numero;
    }
 
+   @Override
+   public boolean equals(Object o) {
+      System.err.println("comparo "+o+"\n");
+      System.err.println("con " +this +"\n");
+
+      if (this == o) return true;
+      if (!(o instanceof MedioDePago)) return false;
+      MedioDePago that = (MedioDePago) o;
+      return getMedio().equals(that.getMedio()) &&
+              getNumero().equals(that.getNumero());
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hash(getMedio(), getNumero());
+   }
 }

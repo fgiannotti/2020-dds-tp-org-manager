@@ -18,69 +18,67 @@ import java.util.Objects;
 @Entity
 @Table(name = "egresos")
 public class OperacionEgreso extends EntidadPersistente implements Operacion {
+
     @Column
     private int numeroOperacion;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Proveedor> proveedores = new ArrayList<>();
+    @Column
+    private float montoTotal;
+    @Column
+    private String descripcion;
+    @Column
+    private String tipoDocumento;
+    @Column
+    private Integer cantidadMinimaDePresupuestos;
 
     @Column(name = "fecha_operacion", columnDefinition = "DATE")
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate fechaOperacion;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private MedioDePago medioDePago;
-
-    @Column
-    private String tipoDocumento;
-
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Comprobante comprobante;
 
-    @Column
-    private float montoTotal;
-
-    @Column
-    private String descripcion;
-
-    @Transient
-    private List<Item> items = new ArrayList<Item>();
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Presupuesto> presupuestosPreliminares = new ArrayList<Presupuesto>();
-
-    @Transient
-    private Articulo articulo;
-
-    @Column
-    private Integer cantidadMinimaDePresupuestos;
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "ingreso_id", referencedColumnName = "id")
-    private OperacionIngreso ingreso;
+    @JoinColumn(name = "proveedor_elegido_id")
+    private Proveedor proveedorElegido;
 
-    @Enumerated(EnumType.STRING)
-    @Column
-    private Criterio criterio;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(name = "egresos_x_categorias", joinColumns = @JoinColumn(name = "egreso_id", referencedColumnName = "id", unique = false),
-            inverseJoinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "id", unique = false))
-    private List<Categoria> categorias = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "medio_id")
+    private MedioDePago medioDePago;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
     private Organizacion organizacion;
 
-    public OperacionEgreso() {
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ingreso_id", referencedColumnName = "id")
+    private OperacionIngreso ingreso;
 
-    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores, MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos, Criterio criterio, List<Presupuesto> presupuestosPreliminaresOpcionales) {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Presupuesto> presupuestosPreliminares = new ArrayList<Presupuesto>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "egresos_x_categorias", joinColumns = @JoinColumn(name = "egreso_id", referencedColumnName = "id", unique = false),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "id", unique = false))
+    private List<Categoria> categorias = new ArrayList<>();
+
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private Criterio criterio;
+
+    @Transient
+    private List<Item> items = new ArrayList<Item>();
+    @Transient
+    private Articulo articulo;
+
+    public OperacionEgreso() {}
+
+    public OperacionEgreso(int montoTotal, String descripcion,  Proveedor proveedorElegido, MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos, Criterio criterio, List<Presupuesto> presupuestosPreliminaresOpcionales) {
         this.presupuestosPreliminares = presupuestosPreliminaresOpcionales != null ? presupuestosPreliminaresOpcionales : this.presupuestosPreliminares;
         this.numeroOperacion = getNuevoNumeroOperacion();
         this.montoTotal = montoTotal;
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
-        this.proveedores = Objects.requireNonNull(proveedores, "El proveedor no puede ser nulo");
+        this.proveedorElegido = proveedorElegido;
         this.medioDePago = Objects.requireNonNull(medioDePago, "El medio de pago no puede ser nulo");
         this.fechaOperacion = Objects.requireNonNull(fechaOperacion, "La fecha de operacion no puede ser nula");
         this.tipoDocumento = Objects.requireNonNull(tipoDocumento, "El tipo de documento no puede ser nulo");
@@ -98,7 +96,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.ingreso = ingreso;
     }
 
-    public OperacionEgreso(float montoTotal, String descripcion, List<Proveedor> proveedores,
+    public OperacionEgreso(float montoTotal, String descripcion, Proveedor proveedorElegido,
                            MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento,
                            Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,
                            Criterio criterio, Organizacion organizacion,
@@ -109,7 +107,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.numeroOperacion = getNuevoNumeroOperacion();
         this.montoTotal = montoTotal;
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
-        this.proveedores = Objects.requireNonNull(proveedores, "El proveedor no puede ser nulo");
+        this.proveedorElegido = proveedorElegido;
         this.medioDePago = Objects.requireNonNull(medioDePago, "El medio de pago no puede ser nulo");
         this.fechaOperacion = Objects.requireNonNull(fechaOperacion, "La fecha de operacion no puede ser nula");
         this.tipoDocumento = Objects.requireNonNull(tipoDocumento, "El tipo de documento no puede ser nulo");
@@ -140,7 +138,7 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     public String toString() {
         return "OperacionEgreso{" +
                 "numeroOperacion=" + numeroOperacion +
-                ", proveedores=" + proveedores +
+                ", proveedorElegido=" + proveedorElegido +
                 ", fechaOperacion=" + fechaOperacion +
                 ", medioDePago=" + medioDePago +
                 ", tipoDocumento='" + tipoDocumento + '\'' +
@@ -249,8 +247,8 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.numeroOperacion = numeroOperacion;
     }
 
-    public void setProveedores(List<Proveedor> proveedores) {
-        this.proveedores = proveedores;
+    public void setProveedorElegido(Proveedor proveedorElegido) {
+        this.proveedorElegido = proveedorElegido;
     }
 
     public LocalDate getFechaOperacion() {
@@ -289,8 +287,8 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.fechaOperacion = fechaOperacion;
     }
 
-    public List<Proveedor> getProveedores() {
-        return this.proveedores;
+    public Proveedor getProveedorElegido() {
+        return proveedorElegido;
     }
 
     public MedioDePago getMedioDePago() {

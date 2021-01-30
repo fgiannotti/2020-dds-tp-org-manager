@@ -13,7 +13,7 @@ public class CriterioDeEmpresa extends EntidadPersistente {
     @Transient
     private List<CriterioDeEmpresa> criteriosHijos = new ArrayList<CriterioDeEmpresa>();
 
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "org_id")
     private Organizacion organizacion;
 

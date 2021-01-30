@@ -6,17 +6,19 @@ import entidades.Operaciones.Presupuesto;
 import entidades.Organizaciones.Categoria;
 import entidades.Organizaciones.Organizacion;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RepoPresupuestos {
+    EntityManager em = EntityManagerHelper.getEntityManager();
     RepoOperacionesEgresos repoEgresos = new RepoOperacionesEgresos();
     public Presupuesto find(int id){
-        return (Presupuesto) EntityManagerHelper.createQuery("FROM Presupuesto WHERE id ='"+id+"'").getSingleResult();
+        return (Presupuesto) em.createQuery("FROM Presupuesto WHERE id ='"+id+"'").getSingleResult();
     }
 
     public List<Presupuesto> findByProv(int proveedorID){
-        return (List<Presupuesto>) EntityManagerHelper.createQuery("FROM Presupuesto WHERE proveedor_id ='"+proveedorID+"'").getResultList();
+        return (List<Presupuesto>) em.createQuery("FROM Presupuesto WHERE proveedor_id ='"+proveedorID+"'").getResultList();
     }
 
     public RepoPresupuestos() {

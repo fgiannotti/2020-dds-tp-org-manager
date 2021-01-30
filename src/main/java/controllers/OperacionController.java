@@ -21,6 +21,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
@@ -46,6 +47,7 @@ public class OperacionController {
     public Map<String, Usuario> cacheUsuarios = new HashMap<>();
     private Map<String, List<Categoria>> categoriasCache = new HashMap<>();
     private RepoCategorias repoCategorias = new RepoCategorias();
+    private EntityManager em = EntityManagerHelper.getEntityManager();
 
     private Usuario buscarEnCache(String sessionID) {
         return cacheUsuarios.get(sessionID);
@@ -117,7 +119,7 @@ public class OperacionController {
         List<Proveedor> proveedores = new ArrayList<Proveedor>();
 
         Map<String, Object> parametros = new HashMap<>();
-        EntityManagerHelper.createQuery("from Proveedor").getResultList().forEach((a) -> {
+        em.createQuery("from Proveedor").getResultList().forEach((a) -> {
             proveedores.add((Proveedor) a);
         });
 
@@ -129,7 +131,7 @@ public class OperacionController {
 
     public Response postProveedorFechaYCantMin(Request request, Response response) {
         String proveedor = request.queryParams("proveedor");
-        Proveedor unProveedorEntero = (Proveedor) EntityManagerHelper.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor + "'").getResultList().get(0);
+        Proveedor unProveedorEntero = (Proveedor) em.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor + "'").getResultList().get(0);
         builder.asignarProveedor(unProveedorEntero);
         proveedorElegidoCache.put(request.session().id(),unProveedorEntero);
         String fecha = request.queryParams("fecha");
@@ -151,8 +153,8 @@ public class OperacionController {
 
         Map<String, Object> parametros = new HashMap<>();
         List<Presupuesto> presupuestos = new ArrayList<>();
-        Proveedor proveedor = builder.unEgreso.getProveedores().get(0);
-        EntityManagerHelper.createQuery("FROM Presupuesto WHERE proveedor_id = '" + proveedor.getId() + "'").getResultList().forEach((a) -> {
+        Proveedor proveedor = builder.unEgreso.getProveedorElegido();
+        em.createQuery("FROM Presupuesto WHERE proveedor_id = '" + proveedor.getId() + "'").getResultList().forEach((a) -> {
             presupuestos.add((Presupuesto) a);
         });
         proveedorCache.put(request.session().id(), proveedor);
@@ -196,7 +198,7 @@ public class OperacionController {
         cacheUsuarios.put(request.session().id(), user);
         List<MedioDePago> mediosDePago = new ArrayList<>();
 
-        EntityManagerHelper.createQuery("FROM OperacionEgreso").getResultList().forEach((a) -> {
+        em.createQuery("FROM OperacionEgreso").getResultList().forEach((a) -> {
             OperacionEgreso op = (OperacionEgreso) a;
             if (op.getOrganizacion().getId() == user.getOrganizacion().getId()) {
                 mediosDePago.add(op.getMedioDePago());
@@ -258,7 +260,7 @@ public class OperacionController {
             }
         }
         if (medioDePagoEncontrado == null) {
-            medioDePagoEncontrado = (MedioDePago) EntityManagerHelper.createQuery("FROM MedioDePago WHERE id = '" + medioDePagoID + "'").getSingleResult();
+            medioDePagoEncontrado = (MedioDePago) em.createQuery("FROM MedioDePago WHERE id = '" + medioDePagoID + "'").getSingleResult();
         }
 
         builder.asignarMedioDePago(medioDePagoEncontrado);
@@ -313,7 +315,7 @@ public class OperacionController {
         }
 
         List<CriterioDeEmpresa> criterioDeEmpresas = new ArrayList<>();
-        EntityManagerHelper.createQuery("FROM CriterioDeEmpresa WHERE org_id= '" + user.getOrganizacion().getId() + "'").getResultList().forEach((a) -> {
+        em.createQuery("FROM CriterioDeEmpresa WHERE org_id= '" + user.getOrganizacion().getId() + "'").getResultList().forEach((a) -> {
             criterioDeEmpresas.add((CriterioDeEmpresa) a);
         });
 
@@ -322,7 +324,7 @@ public class OperacionController {
         if (catsCache != null){
             allCats.addAll(catsCache);
         }
-        EntityManagerHelper.createQuery("FROM Categoria").getResultList().forEach((a) -> {
+        em.createQuery("FROM Categoria").getResultList().forEach((a) -> {
             allCats.add((Categoria) a);
         });
 
@@ -333,7 +335,7 @@ public class OperacionController {
     }
 
     public ModelAndView postCargarCriterio(Request request, Response response) {
-        String nombreCriterio = request.queryParams("nombreCriterio");
+        //String nombreCriterio = request.queryParams("nombreCriterio");
         String[] bodyParams = request.body().split("&");
         List<Categoria> categorias = getCategoriasFromCheckbox(bodyParams,categoriasCache.getOrDefault(request.session().id(), new ArrayList<>()));
 
@@ -344,6 +346,7 @@ public class OperacionController {
             builder.confirmarEgreso();
         }catch (Exception e){
             System.err.println(e.getMessage());
+            e.printStackTrace();
             saveOK = false;
         }
 
@@ -359,7 +362,7 @@ public class OperacionController {
         }
         Map<String, Object> parametros = new HashMap<>();
         List<CriterioDeEmpresa> criterios = new ArrayList<CriterioDeEmpresa>();
-        EntityManagerHelper.createQuery("from CriterioDeEmpresa").getResultList().forEach((a) -> {
+        em.createQuery("from CriterioDeEmpresa").getResultList().forEach((a) -> {
             criterios.add((CriterioDeEmpresa) a);
         });
         parametros.put("criterios", criterios);
@@ -383,13 +386,13 @@ public class OperacionController {
         }
         Map<String, Object> parametros = new HashMap<>();
         List<Organizacion> organizaciones = new ArrayList<Organizacion>();
-        EntityManagerHelper.createQuery("from Organizacion").getResultList().forEach((a) -> {
+        em.createQuery("from Organizacion").getResultList().forEach((a) -> {
             organizaciones.add((Organizacion) a);
         });
         parametros.put("organizaciones", organizaciones);
 
         List<CriterioDeEmpresa> criterios = new ArrayList<CriterioDeEmpresa>();
-        EntityManagerHelper.createQuery("from CriterioDeEmpresa").getResultList().forEach((a) -> {
+        em.createQuery("from CriterioDeEmpresa").getResultList().forEach((a) -> {
             criterios.add((CriterioDeEmpresa) a);
         });
         parametros.put("criterios", criterios);
@@ -411,7 +414,7 @@ public class OperacionController {
 
     public ModelAndView agregarCategoria2(Request request, Response response) throws UserNotFoundException {
         String nombreCat = request.queryParams("newCategoria");
-        CriterioDeEmpresa criterio = (CriterioDeEmpresa) EntityManagerHelper.createQuery(
+        CriterioDeEmpresa criterio = (CriterioDeEmpresa) em.createQuery(
                 "From CriterioDeEmpresa where id = '" + Integer.parseInt(request.queryParams("criterio")) + "'").getSingleResult();
         Categoria categoriaNueva = new Categoria(nombreCat, criterio);
 
@@ -474,7 +477,7 @@ public class OperacionController {
             String[] paramFieldValue = param.split("=");
             if (paramFieldValue[0].equals("criterio")) {
                 Integer criterioID = Integer.parseInt(paramFieldValue[1]);
-                criterios.add((CriterioDeEmpresa) EntityManagerHelper.createQuery(
+                criterios.add((CriterioDeEmpresa) em.createQuery(
                         "From CriterioDeEmpresa where id = '" + Integer.parseInt(paramFieldValue[1]) + "'").getSingleResult()
                 );
 
@@ -494,7 +497,7 @@ public class OperacionController {
                 Integer categoriaID = Integer.parseInt(paramFieldValue[1]);
                 Categoria catFound = findCategoriaInCache(cache,categoriaID);
                 if (catFound == null){
-                    catFound = (Categoria) EntityManagerHelper.createQuery(
+                    catFound = (Categoria) em.createQuery(
                             "From Categoria where id = '" + categoriaID + "'").getSingleResult();
                 }
 
@@ -520,7 +523,7 @@ public class OperacionController {
 
         Map<String, Object> parametros = new HashMap<>();
         List<Proveedor> proveedores = new ArrayList<>();
-        EntityManagerHelper.createQuery("from Proveedor").getResultList().forEach((a) -> {
+        em.createQuery("from Proveedor").getResultList().forEach((a) -> {
             proveedores.add((Proveedor) a);
         });
         parametros.put("proveedores", proveedores);
@@ -533,7 +536,7 @@ public class OperacionController {
         }
         Map<String, Object> parametros = new HashMap<>();
         List<Articulo> articulos = new ArrayList<Articulo>();
-        EntityManagerHelper.createQuery("from Articulo").getResultList().forEach((a) -> {
+        em.createQuery("from Articulo").getResultList().forEach((a) -> {
             articulos.add((Articulo) a);
         });
         parametros.put("articulos", articulos);
@@ -542,7 +545,7 @@ public class OperacionController {
 
     public Response postSeleccionArticulos(Request request, Response response) {
         String nombre = request.queryParams("nombreArticulo");
-        Articulo articulo = (Articulo) EntityManagerHelper.createQuery("from Articulo where nombre = '" + nombre + "'").getResultList().get(0);
+        Articulo articulo = (Articulo) em.createQuery("from Articulo where nombre = '" + nombre + "'").getResultList().get(0);
         builder.asignarArticulo(articulo);
         response.redirect("/crearEgreso6");
         return response;

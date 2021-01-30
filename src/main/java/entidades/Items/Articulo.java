@@ -59,4 +59,19 @@ public class Articulo extends EntidadPersistente {
         this.descripcion = descripcion;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Articulo)) return false;
+        Articulo articulo = (Articulo) o;
+        return getNombre().equals(articulo.getNombre()) &&
+                getPrecioTotal().equals(articulo.getPrecioTotal()) &&
+                Objects.equals(getDescripcion(), articulo.getDescripcion());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNombre(), getPrecioTotal(), getDescripcion());
+    }
+
 }

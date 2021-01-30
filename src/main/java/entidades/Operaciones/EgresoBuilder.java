@@ -39,9 +39,7 @@ public class EgresoBuilder {
     }
 
     public void asignarProveedor(Proveedor proveedor) {
-        List<Proveedor> proveedores = new ArrayList<Proveedor>();
-        proveedores.add(proveedor);
-        unEgreso.setProveedores(proveedores);
+        unEgreso.setProveedorElegido(proveedor);
     }
 
     public void asignarMedioDePago(MedioDePago medio) {

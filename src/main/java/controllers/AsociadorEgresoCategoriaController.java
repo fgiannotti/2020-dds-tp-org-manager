@@ -12,6 +12,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.*;
 
@@ -22,13 +23,14 @@ public class AsociadorEgresoCategoriaController {
     private Usuario user;
     //cache de categorias creadas durante un session ID
     private Map<String, List<Categoria>> categoriasCache = new HashMap<>();
+    EntityManager em = EntityManagerHelper.getEntityManager();
 
     public ModelAndView inicio(Request request, Response response) throws UserNotFoundException {
         Router.CheckIfAuthenticated(request, response);
         user = repoUsuarios.buscarPorNombre(request.cookie("user"));
 
         List<CriterioDeEmpresa> criterioDeEmpresas = new ArrayList<>();
-        EntityManagerHelper.createQuery("FROM CriterioDeEmpresa WHERE org_id= '" + user.getOrganizacion().getId() + "'").getResultList().forEach((a) -> {
+        em.createQuery("FROM CriterioDeEmpresa WHERE org_id= '" + user.getOrganizacion().getId() + "'").getResultList().forEach((a) -> {
             criterioDeEmpresas.add((CriterioDeEmpresa) a);
         });
 
@@ -103,7 +105,7 @@ public class AsociadorEgresoCategoriaController {
         int criterioID = Integer.parseInt(request.queryParams("criterio"));
         CriterioDeEmpresa crit = null;
         if (criterioID != 0 ){
-            crit  = (CriterioDeEmpresa) EntityManagerHelper.createQuery("FROM CriterioDeEmpresa where id = '"+criterioID+"'").getSingleResult();
+            crit  = (CriterioDeEmpresa) em.createQuery("FROM CriterioDeEmpresa where id = '"+criterioID+"'").getSingleResult();
         }
 
         Categoria categoria = new Categoria(nombreCat,crit);

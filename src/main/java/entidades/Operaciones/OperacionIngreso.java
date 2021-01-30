@@ -116,5 +116,17 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion {
         this.organizacion = organizacion;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OperacionIngreso)) return false;
+        OperacionIngreso that = (OperacionIngreso) o;
+        return Float.compare(that.getMontoTotal(), getMontoTotal()) == 0 &&
+                getDescripcion().equals(that.getDescripcion());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMontoTotal(), getDescripcion());
+    }
 }

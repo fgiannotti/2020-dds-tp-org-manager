@@ -71,11 +71,10 @@ public class DBTest {
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
         items.add(aguitasDeCoco);
-        proveedores.add(proveedor);
         medioDePago = new Debito("Visa debito", "1000");
         OperacionIngreso ingreso = new OperacionIngreso(100, "desc", LocalDate.now(), orgBase);
         organizacion = new Empresa("La del claudio", "Claudio Perez", "1325011222", direccionPostal, 300, 5, new Comercio(), (float) 20000.0);
-        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedores, medioDePago, LocalDate.now(), "DNI", new Comprobante(items), items, 1, Criterio.MENOR_VALOR,new ArrayList<>());
+        operacion = new OperacionEgreso(1000, "Pago de AGUITA", proveedor, medioDePago, LocalDate.now(), "DNI", new Comprobante(items), items, 1, Criterio.MENOR_VALOR,new ArrayList<>());
         operacion.setIngreso(ingreso);
         operacion.setOrganizacion(organizacion);
 
@@ -86,13 +85,11 @@ public class DBTest {
         bandeja = new BandejaDeEntrada(filtros);
         bandeja2 = new BandejaDeEntrada(filtros);
 
-        List<Proveedor> proveedores = new ArrayList<Proveedor>();
-        proveedores.add(proveedor);
         proveedor = new Proveedor("jorgito-provides", "Docu", "calle-falsa123");
-        resultado1 = new Resultado(1, proveedores, true, true, true, false, LocalDate.now().minusDays(1), bandeja);
-        resultado2 = new Resultado(2, proveedores, true, true, true, false, LocalDate.now(), bandeja);
-        resultado3 = new Resultado(3, proveedores, true, true, true, true, LocalDate.now(), bandeja);
-        resultado4 = new Resultado(4, proveedores, true, true, false, true, LocalDate.now().minusDays(1), bandeja2);
+        resultado1 = new Resultado(1, proveedor, true, true, true, false, LocalDate.now().minusDays(1), bandeja);
+        resultado2 = new Resultado(2, proveedor, true, true, true, false, LocalDate.now(), bandeja);
+        resultado3 = new Resultado(3, proveedor, true, true, true, true, LocalDate.now(), bandeja);
+        resultado4 = new Resultado(4, proveedor, true, true, false, true, LocalDate.now().minusDays(1), bandeja2);
 
         bandeja.guardarResultado(resultado2);
         bandeja.guardarResultado(resultado1);

@@ -42,8 +42,6 @@ public class VerIngresoEgresoController {
 
         List<OperacionEgreso> egresos = this.repoEgresos.getAllByOrg(usuario.getOrganizacionALaQuePertenece());
 
-        List<OperacionIngreso> ingresos = this.repoIngresos.getAllByOrg(usuario.getOrganizacionALaQuePertenece());
-
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("egresos", egresos);
 

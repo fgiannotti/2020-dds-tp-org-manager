@@ -6,6 +6,7 @@ import db.Converters.EntidadPersistente;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static jdk.nashorn.internal.objects.NativeArray.length;
 
@@ -62,7 +63,19 @@ public class Comprobante extends EntidadPersistente {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Comprobante)) return false;
+        Comprobante that = (Comprobante) o;
+        return getNumeroComprobante() == that.getNumeroComprobante() &&
+                tipoComprobante.equals(that.tipoComprobante);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNumeroComprobante(), tipoComprobante);
+    }
 }
 
 

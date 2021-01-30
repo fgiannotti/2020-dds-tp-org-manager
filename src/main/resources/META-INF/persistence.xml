@@ -16,15 +16,18 @@
             <property name="hibernate.connection.username" value="root" />
             <property name="hibernate.connection.password" value="root" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+            <property name="hibernate.cache.use_query_cache" value="false"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="use_sql_comments" value="true" />
             <!--> <property name="hibernate.hbm2ddl.auto" value="update" /> </!-->
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <!--> <property name="hibernate.event.merge.entity_copy_observer" value="allow"/></!-->
 
-        </properties>
+       </properties>
 
-    </persistence-unit>
+   </persistence-unit>
 
 </persistence>

@@ -7,6 +7,7 @@ import db.Converters.EntidadPersistente;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name="presupuestos")
@@ -19,11 +20,11 @@ public class Presupuesto extends EntidadPersistente {
     @Column
     private Float total;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
     private Proveedor proveedor;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.ALL})
     @JoinTable(
             name = "presupuesto_x_categoria",
             joinColumns = { @JoinColumn(name = "presupuesto_id", referencedColumnName = "id") },
@@ -100,4 +101,20 @@ public class Presupuesto extends EntidadPersistente {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Presupuesto)) return false;
+        Presupuesto that = (Presupuesto) o;
+        return Objects.equals(getItems(), that.getItems()) &&
+                getCantidad().equals(that.getCantidad()) &&
+                getTotal().equals(that.getTotal()) &&
+                getProveedor().equals(that.getProveedor()) &&
+                Objects.equals(getCategorias(), that.getCategorias());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCantidad(), getTotal(), getProveedor());
+    }
 }

@@ -111,7 +111,7 @@ public class DatosPruebaTest {
     //--  EGRESOS  --
     public Comprobante compOpSerrentino = new Comprobante(itemsSerrentino);
     public OperacionEgreso opSerrentino = new OperacionEgreso((float) 19949.7, "Egreso serrentino",
-            proveOpSerrentino, creditoSerrentino, LocalDate.of(2020, 10, 3), "", compOpSerrentino, itemsSerrentino,
+            pintureriaREX, creditoSerrentino, LocalDate.of(2020, 10, 3), "", compOpSerrentino, itemsSerrentino,
             3, Criterio.MENOR_VALOR, eeafBA, preliminaresOpSerrentino, categoriasOpSerrentino);
 
     public OperacionEgreso opEdesur;
@@ -160,20 +160,21 @@ public class DatosPruebaTest {
 
     @Test
     public void persistiendoOperacionSERRENTINO() {
-        EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.getEntityManager().persist(new CriterioDeEmpresa("test", null, null));
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        em.getTransaction().begin();
+        em.persist(new CriterioDeEmpresa("test", null, null));
         try {
-            EntityManagerHelper.getEntityManager().persist(opSerrentino.getOrganizacion());
-            EntityManagerHelper.commit();
+            em.persist(opSerrentino.getOrganizacion());
+            em.getTransaction().commit();
         }catch (Exception e){
             opSerrentino.getOrganizacion().setId(1);
-            EntityManagerHelper.rollback();
+            em.getTransaction().rollback();
         }
-
-        EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.getEntityManager().persist(opSerrentino);
+        MedioDePago mp = opSerrentino.getMedioDePago();
+        em.getTransaction().begin();
+        OperacionEgreso op = new OperacionEgreso((int) 1111.0,"desc",pintureriaREX,mp,LocalDate.now(),"",null,itemsSerrentino,1,Criterio.MENOR_VALOR,preliminaresOpSerrentino);
+        EntityManagerHelper.getEntityManager().persist(op);
         EntityManagerHelper.commit();
-
     }
 
     @Test

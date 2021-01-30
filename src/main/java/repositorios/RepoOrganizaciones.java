@@ -3,10 +3,13 @@ package repositorios;
 import db.EntityManagerHelper;
 import entidades.Organizaciones.Organizacion;
 
+import javax.persistence.EntityManager;
+
 public class RepoOrganizaciones {
+    EntityManager em = EntityManagerHelper.getEntityManager();
     public int findOrgID(String nombreFicticio){
-        EntityManagerHelper.beginTransaction();
-        Organizacion org = (Organizacion) EntityManagerHelper.createQuery("FROM Organizacion where nombre_ficticio = '"+nombreFicticio+"'").getSingleResult();
+
+        Organizacion org = (Organizacion) em.createQuery("FROM Organizacion where nombre_ficticio = '"+nombreFicticio+"'").getSingleResult();
         return org.getId();
     }
 }

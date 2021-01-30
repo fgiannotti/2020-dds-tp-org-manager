@@ -7,6 +7,7 @@ import entidades.Operaciones.Presupuesto;
 import entidades.Operaciones.Proveedor;
 import entidades.Organizaciones.Categoria;
 import entidades.Organizaciones.Organizacion;
+import org.hibernate.PersistentObjectException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -16,6 +17,7 @@ import java.util.List;
 public class RepoOperacionesEgresos {
     private List<OperacionEgreso> operaciones = new ArrayList<OperacionEgreso>();
     private RepoOrganizaciones repoOrg;
+    EntityManager em = EntityManagerHelper.getEntityManager();
 
     public RepoOperacionesEgresos() {
         operaciones = new ArrayList<OperacionEgreso>();
@@ -25,7 +27,7 @@ public class RepoOperacionesEgresos {
     public ArrayList<OperacionEgreso> getAll() {
         String query = "from OperacionEgreso";
         ArrayList<OperacionEgreso> operaciones = new ArrayList<OperacionEgreso>();
-        EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> {
+        em.createQuery(query).getResultList().forEach((a) -> {
             operaciones.add((OperacionEgreso) a);
         });
         return operaciones;
@@ -34,7 +36,7 @@ public class RepoOperacionesEgresos {
     public ArrayList<OperacionEgreso> getAllByOrg(Organizacion org) {
         String query = "from OperacionEgreso WHERE organizacion_id = '" + org.getId() + "'";
         ArrayList<OperacionEgreso> operaciones = new ArrayList<OperacionEgreso>();
-        EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> {
+        em.createQuery(query).getResultList().forEach((a) -> {
             operaciones.add((OperacionEgreso) a);
         });
         return operaciones;
@@ -43,7 +45,7 @@ public class RepoOperacionesEgresos {
     public OperacionEgreso find(int id) {
         String query = "from OperacionEgreso";
         ArrayList<OperacionEgreso> operaciones = new ArrayList<OperacionEgreso>();
-        EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> {
+        em.createQuery(query).getResultList().forEach((a) -> {
             operaciones.add((OperacionEgreso) a);
         });
         for (OperacionEgreso operacion : operaciones) {
@@ -55,33 +57,31 @@ public class RepoOperacionesEgresos {
     }
 
     public void agregar(OperacionEgreso nuevoEgreso) {
-        this.operaciones.add(nuevoEgreso);
-        EntityManagerHelper.beginTransaction();
+        try{
+            em.getTransaction().begin();
+            em.persist(nuevoEgreso);
+            em.getTransaction().commit();
 
-
-        try {
-            for (Proveedor p : nuevoEgreso.getProveedores()) {
-                EntityManagerHelper.getEntityManager().merge(p);
+        }catch (Exception e){
+            em.getTransaction().rollback();
+            System.err.println("persist falló. Detached entity, mergeo todo");
+            em.getTransaction().begin();
+            em.merge(nuevoEgreso.getMedioDePago());
+            if (nuevoEgreso.getComprobante() != null){
+                em.merge(nuevoEgreso.getComprobante());
             }
-            EntityManagerHelper.getEntityManager().merge(nuevoEgreso);
-        } catch (Exception e) {
-            System.err.println("FAILED MERGING. TRYING TO PRESIST." + e.getMessage() + "\n");
-
-            try {
-                EntityManagerHelper.getEntityManager().merge(nuevoEgreso.getMedioDePago());
-                for (Proveedor p : nuevoEgreso.getProveedores()) {
-                    EntityManagerHelper.getEntityManager().merge(p);
-                }
-                for (Presupuesto p : nuevoEgreso.getPresupuestosPreliminares()) {
-                    EntityManagerHelper.getEntityManager().merge(p);
-                }
-            } catch (Exception e2) {
-                System.err.println("FAIL MERGEANDO MPAGO, PROVS Y PRESUS" + e2.getMessage());
+            for(Presupuesto p:nuevoEgreso.getPresupuestosPreliminares()){
+                em.merge(p);
             }
+            for(Categoria c:nuevoEgreso.getCategorias()){
+                em.merge(c);
+            }
+            em.merge(nuevoEgreso);
+            em.flush();
 
-            EntityManagerHelper.getEntityManager().persist(nuevoEgreso);
+            em.getTransaction().commit();
+
         }
-        EntityManagerHelper.commit();
 
     }
 
@@ -89,9 +89,10 @@ public class RepoOperacionesEgresos {
         String query = "from OperacionEgreso where id = " + id;
         OperacionEgreso eg = null;
         try{
-            eg = (OperacionEgreso) EntityManagerHelper.createQuery(query).getSingleResult();
+            eg = em.find(OperacionEgreso.class,id);
+
         }catch (Exception e){
-            eg = (OperacionEgreso) EntityManagerHelper.createQuery(query).getSingleResult();
+            eg = (OperacionEgreso) em.createQuery(query).getSingleResult();
         }
         return eg;
     }
@@ -102,16 +103,16 @@ public class RepoOperacionesEgresos {
         egreso.getOrganizacion().setId(orgID);
         ingreso.getOperacionesEgreso().add(egreso);
         try {
-            EntityManagerHelper.beginTransaction();
-            EntityManagerHelper.getEntityManager().merge(egreso);
-            EntityManagerHelper.commit();
+            em.getTransaction().begin();
+            em.merge(egreso);
+            em.getTransaction().commit();
         } catch (Exception e) {
             System.err.println("ERROR asociando egreso con ingreso: " + e.getMessage());
             throw (e);
         }
-        /*EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.getEntityManager().persist(ingreso);
-        EntityManagerHelper.commit();*/
+        /*em.beginTransaction();
+        em.persist(ingreso);
+        em.commit();*/
         //no es necesario creo, ingreso deberia traerte su lista sin necesidad de persistirlo
     }
 
@@ -122,31 +123,29 @@ public class RepoOperacionesEgresos {
         List<Categoria> categoriasTotales = egreso.getCategorias();
         categoriasTotales.addAll(categorias);
         egreso.setCategorias(categoriasTotales);
+        em.getTransaction().begin();
+
         try {
             for (Categoria c : categoriasTotales) {
-                EntityManagerHelper.getEntityManager().merge(c);
-                EntityManagerHelper.getEntityManager().merge(c.getCriterio());
+                em.merge(c);
+                em.merge(c.getCriterio());
             }
+            em.persist(egreso);
+            em.getTransaction().commit();
 
         } catch (Exception e) {
-            System.err.println("manqueada merge categorias a asociar" + e.getMessage() + "\n");
-        }
+            System.err.println("[egreso con categorias] ERROR persistiendo egreso con cats mergeadas, intentando al reves: " + e.getMessage());
+            em.getTransaction().rollback();
+            em.getTransaction().begin();
 
-        try {
-
-            EntityManagerHelper.beginTransaction();
-            EntityManagerHelper.getEntityManager().persist(egreso);
-            EntityManagerHelper.commit();
-
-        } catch (Exception e) {
-            System.err.println("[egreso con categorias] ERROR persistiendo, intentando merge: " + e.getMessage());
             try {
                 for (Categoria cat : categorias) {
-                    EntityManagerHelper.getEntityManager().persist(cat);
-                    EntityManagerHelper.getEntityManager().persist(cat.getCriterio());
+                    em.persist(cat);
+                    em.persist(cat.getCriterio());
                 }
+                em.merge(egreso);
+                em.getTransaction().commit();
 
-                EntityManagerHelper.getEntityManager().merge(egreso);
             } catch (Exception e1) {
                 System.err.println("[egreso con categorias] ERROR merge: " + e1.getMessage());
                 throw (e1);

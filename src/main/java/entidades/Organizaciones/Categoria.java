@@ -8,6 +8,7 @@ import entidades.Operaciones.Presupuesto;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "categorias")
@@ -16,7 +17,7 @@ public class Categoria extends EntidadPersistente {
     @Column
     private String descripcion;
     //{CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.REMOVE}
-    @ManyToOne(cascade =  CascadeType.MERGE)
+    @ManyToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "criterio_id", referencedColumnName = "id")
     private CriterioDeEmpresa criterio;
 
@@ -53,5 +54,20 @@ public class Categoria extends EntidadPersistente {
                 "descripcion='" + descripcion + '\'' +
                 ", criterio=" + criterio +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Categoria)) return false;
+        Categoria categoria = (Categoria) o;
+        return getDescripcion().equals(categoria.getDescripcion()) &&
+                Objects.equals(getCriterio(), categoria.getCriterio());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDescripcion(), getCriterio());
     }
 }

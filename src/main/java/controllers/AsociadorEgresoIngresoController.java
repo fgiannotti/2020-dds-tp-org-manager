@@ -150,7 +150,7 @@ public class AsociadorEgresoIngresoController {
         for (Revisor revisor : revisoresDeLaOrg) {
             for (OperacionIngreso ingreso : ingresos) {
                 for (OperacionEgreso egreso : ingreso.getOperacionesEgreso()) {
-                    Resultado egresoResultado = new Resultado(ingreso.getId(), egreso.getProveedores(), true, true, true, true, LocalDate.now(), revisor.getBandejaDeEntrada());
+                    Resultado egresoResultado = new Resultado(ingreso.getId(), egreso.getProveedorElegido(), true, true, true, true, LocalDate.now(), revisor.getBandejaDeEntrada());
                     resultados.add(egresoResultado);
                 }
             }
