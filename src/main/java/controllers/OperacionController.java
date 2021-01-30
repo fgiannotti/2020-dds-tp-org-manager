@@ -324,8 +324,10 @@ public class OperacionController {
         }
 
         List<CriterioDeEmpresa> criterioDeEmpresas = new ArrayList<>();
-        em.createQuery("FROM CriterioDeEmpresa WHERE org_id= '" + user.getOrganizacion().getId() + "'").getResultList().forEach((a) -> {
+        List<Integer> critIDs =new ArrayList<>();
+        em.createQuery("FROM CriterioDeEmpresa WHERE org_id= '" + user.getOrganizacion().getId() + "'OR org_id IS NULL").getResultList().forEach((a) -> {
             criterioDeEmpresas.add((CriterioDeEmpresa) a);
+            critIDs.add(((CriterioDeEmpresa) a).getId());
         });
 
         List<Categoria> allCats = new ArrayList<>();
@@ -333,9 +335,7 @@ public class OperacionController {
         if (catsCache != null) {
             allCats.addAll(catsCache);
         }
-        em.createQuery("FROM Categoria").getResultList().forEach((a) -> {
-            allCats.add((Categoria) a);
-        });
+        allCats.addAll(repoCategorias.getAllFromCritIDs(critIDs));
 
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("criterios", criterioDeEmpresas);
