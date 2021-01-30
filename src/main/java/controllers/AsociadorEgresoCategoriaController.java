@@ -97,6 +97,7 @@ public class AsociadorEgresoCategoriaController {
             }
         }
         parametros.put("refererAsociarEC", true);
+        this.categoriasCache.remove(request.session().id());
         return new ModelAndView(parametros, "index-menu-revisor.hbs");
     }
 

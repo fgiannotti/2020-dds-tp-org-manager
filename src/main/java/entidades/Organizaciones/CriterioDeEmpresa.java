@@ -5,6 +5,8 @@ import db.Converters.EntidadPersistente;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 @Entity
 @Table(name="criterios_empresas")
 public class CriterioDeEmpresa extends EntidadPersistente {
@@ -46,4 +48,16 @@ public class CriterioDeEmpresa extends EntidadPersistente {
         this.criteriosHijos.add(unCriterio);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CriterioDeEmpresa)) return false;
+        CriterioDeEmpresa that = (CriterioDeEmpresa) o;
+        return getNombre().equals(that.getNombre());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNombre());
+    }
 }

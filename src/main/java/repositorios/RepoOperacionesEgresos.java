@@ -8,6 +8,7 @@ import entidades.Operaciones.Proveedor;
 import entidades.Organizaciones.Categoria;
 import entidades.Organizaciones.Organizacion;
 import org.hibernate.PersistentObjectException;
+import org.hibernate.metamodel.source.annotations.entity.EntityClass;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -57,29 +58,35 @@ public class RepoOperacionesEgresos {
     }
 
     public void agregar(OperacionEgreso nuevoEgreso) {
-        try{
+        try {
             em.getTransaction().begin();
             em.persist(nuevoEgreso);
             em.getTransaction().commit();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             em.getTransaction().rollback();
-            System.err.println("persist falló. Detached entity, mergeo todo");
+            System.err.println("persist falló. Detached entity, mergeo todo: " + e.getMessage());
             em.getTransaction().begin();
             em.merge(nuevoEgreso.getMedioDePago());
-            if (nuevoEgreso.getComprobante() != null){
+            if (nuevoEgreso.getComprobante() != null) {
                 em.merge(nuevoEgreso.getComprobante());
             }
-            for(Presupuesto p:nuevoEgreso.getPresupuestosPreliminares()){
-                em.merge(p);
+            for (int i = 0; i < nuevoEgreso.getPresupuestosPreliminares().size(); i++) {
+                Presupuesto mergedEntity = em.merge(nuevoEgreso.getPresupuestosPreliminares().get(i));
+                nuevoEgreso.getPresupuestosPreliminares().get(i).setId(mergedEntity.getId());
             }
-            for(Categoria c:nuevoEgreso.getCategorias()){
-                em.merge(c);
+            for (int i = 0; i < nuevoEgreso.getCategorias().size(); i++) {
+                Categoria mergedEntity = em.merge(nuevoEgreso.getCategorias().get(i));
+                nuevoEgreso.getCategorias().get(i).setId(mergedEntity.getId());
             }
-            em.merge(nuevoEgreso);
-            em.flush();
 
             em.getTransaction().commit();
+
+            em.getTransaction().begin();
+            em.merge(nuevoEgreso);
+            em.flush();
+            em.getTransaction().commit();
+
 
         }
 
@@ -88,10 +95,10 @@ public class RepoOperacionesEgresos {
     public OperacionEgreso get(int id) throws NoResultException {
         String query = "from OperacionEgreso where id = " + id;
         OperacionEgreso eg = null;
-        try{
-            eg = em.find(OperacionEgreso.class,id);
+        try {
+            eg = em.find(OperacionEgreso.class, id);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             eg = (OperacionEgreso) em.createQuery(query).getSingleResult();
         }
         return eg;
@@ -130,15 +137,15 @@ public class RepoOperacionesEgresos {
                 em.merge(c);
                 em.merge(c.getCriterio());
             }
-            em.persist(egreso);
+            em.merge(egreso);
             em.getTransaction().commit();
 
         } catch (Exception e) {
-            System.err.println("[egreso con categorias] ERROR persistiendo egreso con cats mergeadas, intentando al reves: " + e.getMessage());
+            System.err.println("[egreso con categorias] ERROR merge todo, intentando persist: " + e.getMessage());
             em.getTransaction().rollback();
-            em.getTransaction().begin();
 
             try {
+                em.getTransaction().begin();
                 for (Categoria cat : categorias) {
                     em.persist(cat);
                     em.persist(cat.getCriterio());
@@ -147,6 +154,7 @@ public class RepoOperacionesEgresos {
                 em.getTransaction().commit();
 
             } catch (Exception e1) {
+                em.getTransaction().rollback();
                 System.err.println("[egreso con categorias] ERROR merge: " + e1.getMessage());
                 throw (e1);
             }

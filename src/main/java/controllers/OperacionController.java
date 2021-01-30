@@ -41,7 +41,7 @@ public class OperacionController {
     private Map<String, String> egresosFileName = new HashMap<>();
     private Map<String, Proveedor> proveedorCache = new HashMap<>();
     private Map<String, List<Presupuesto>> presupuestoCache = new HashMap<>();
-    private Map<String,Proveedor> proveedorElegidoCache = new HashMap<>();
+    private Map<String, Proveedor> proveedorElegidoCache = new HashMap<>();
 
     private Map<String, List<MedioDePago>> mediosDePagoCache = new HashMap<>();
     public Map<String, Usuario> cacheUsuarios = new HashMap<>();
@@ -52,16 +52,17 @@ public class OperacionController {
     private Usuario buscarEnCache(String sessionID) {
         return cacheUsuarios.get(sessionID);
     }
+
     public ModelAndView verEgreso(Request request, Response response) {
         String egresoID = request.params("id");
         Map<String, Object> parametros = new HashMap<>();
         OperacionEgreso operacionEgreso = null;
         try {
             operacionEgreso = repoOperacionesEgresos.get(new Integer(egresoID));
-        }catch (Exception e){
+        } catch (Exception e) {
             System.err.println("Error al traer egreso, reintentar");
             e.printStackTrace();
-            parametros.put("getEgresoFail",true);
+            parametros.put("getEgresoFail", true);
             return new ModelAndView(parametros, "egreso.hbs");
         }
         parametros.put("egreso", operacionEgreso);
@@ -133,7 +134,7 @@ public class OperacionController {
         String proveedor = request.queryParams("proveedor");
         Proveedor unProveedorEntero = (Proveedor) em.createQuery("from Proveedor where nombreApellidoRazon = '" + proveedor + "'").getResultList().get(0);
         builder.asignarProveedor(unProveedorEntero);
-        proveedorElegidoCache.put(request.session().id(),unProveedorEntero);
+        proveedorElegidoCache.put(request.session().id(), unProveedorEntero);
         String fecha = request.queryParams("fecha");
         int cantidadPresupuestos = Integer.parseInt(request.queryParams("cantidadMinima"));
         int valorTotal = Integer.parseInt(request.queryParams("valorTotal"));
@@ -188,6 +189,7 @@ public class OperacionController {
         response.redirect("/crearEgreso3");
         return response;
     }
+
     // /crearEgreso3
     public ModelAndView medioDePago(Request request, Response response) throws UserNotFoundException {
         if (!request.cookie("id").equals(request.session().id())) {
@@ -201,7 +203,14 @@ public class OperacionController {
         em.createQuery("FROM OperacionEgreso").getResultList().forEach((a) -> {
             OperacionEgreso op = (OperacionEgreso) a;
             if (op.getOrganizacion().getId() == user.getOrganizacion().getId()) {
-                mediosDePago.add(op.getMedioDePago());
+                //solo lo agrego si es uno nuevo...
+                boolean esNuevo = true;
+                for (MedioDePago mp : mediosDePago) {
+                    esNuevo = esNuevo && mp.getId() != op.getMedioDePago().getId();
+                }
+                if (esNuevo) {
+                    mediosDePago.add(op.getMedioDePago());
+                }
             }
         });
         List<MedioDePago> mpsCache = mediosDePagoCache.getOrDefault(request.session().id(), new ArrayList<>());
@@ -280,11 +289,11 @@ public class OperacionController {
         Map<String, Object> parametros = new HashMap<>();
         int proveedorID = proveedorElegidoCache.get(request.session().id()).getId();
         List<Presupuesto> presus = repoPresupuestos.findByProv(proveedorID);
-        if (presupuestoCache.get(request.session().id())!= null){
+        if (presupuestoCache.get(request.session().id()) != null) {
             presus.addAll(presupuestoCache.get(request.session().id()));
         }
 
-        parametros.put("presupuestos",presus);
+        parametros.put("presupuestos", presus);
         return new ModelAndView(parametros, "cargar-comprobante.hbs");
     }
 
@@ -294,7 +303,7 @@ public class OperacionController {
         String presupuestoID = request.queryParams("presupuestoID");
 
         Presupuesto presuElegido = repoPresupuestos.find(Integer.parseInt(presupuestoID));
-        Comprobante comp = new Comprobante(nroComp,tipoComp,presuElegido.getItems());
+        Comprobante comp = new Comprobante(nroComp, tipoComp, presuElegido.getItems());
 
         builder.unEgreso.setItems(presuElegido.getItems());
         builder.asignarComprobante(comp);
@@ -321,7 +330,7 @@ public class OperacionController {
 
         List<Categoria> allCats = new ArrayList<>();
         List<Categoria> catsCache = categoriasCache.get(request.session().id());
-        if (catsCache != null){
+        if (catsCache != null) {
             allCats.addAll(catsCache);
         }
         em.createQuery("FROM Categoria").getResultList().forEach((a) -> {
@@ -336,23 +345,32 @@ public class OperacionController {
 
     public ModelAndView postCargarCriterio(Request request, Response response) {
         //String nombreCriterio = request.queryParams("nombreCriterio");
+        String catID = request.queryParams("categoria");
         String[] bodyParams = request.body().split("&");
-        List<Categoria> categorias = getCategoriasFromCheckbox(bodyParams,categoriasCache.getOrDefault(request.session().id(), new ArrayList<>()));
+        ArrayList<String> params = new ArrayList<>();
+
+        if (bodyParams.length == 1) {
+            params.add("categoria=" + catID);
+        }
+        for (int i = 0; i < bodyParams.length - 1; i++) {
+            params.add(bodyParams[i]);
+        }
+        List<Categoria> categorias = getCategoriasFromCheckbox(params, categoriasCache.getOrDefault(request.session().id(), new ArrayList<>()));
 
         builder.asignarCategorias(categorias);
         builder.generarNroOperacion();
-        boolean saveOK =true;
+        boolean saveOK = true;
         try {
             builder.confirmarEgreso();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
             saveOK = false;
         }
-
+        flushAllCaches(request.session().id());
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("saveEgreso",true);
-        parametros.put("saveOK",saveOK);
+        parametros.put("saveEgreso", true);
+        parametros.put("saveOK", saveOK);
         return new ModelAndView(parametros, "index-menu-revisor.hbs");
     }
 
@@ -487,7 +505,7 @@ public class OperacionController {
         return criterios;
     }
 
-    private List<Categoria> getCategoriasFromCheckbox(String[] bodyParams, List<Categoria> cache) {
+    private List<Categoria> getCategoriasFromCheckbox(List<String> bodyParams, List<Categoria> cache) {
 
         ArrayList<Categoria> categorias = new ArrayList<>();
         //o lo geteo de cache o de db
@@ -495,8 +513,8 @@ public class OperacionController {
             String[] paramFieldValue = param.split("=");
             if (paramFieldValue[0].equals("categoria")) {
                 Integer categoriaID = Integer.parseInt(paramFieldValue[1]);
-                Categoria catFound = findCategoriaInCache(cache,categoriaID);
-                if (catFound == null){
+                Categoria catFound = findCategoriaInCache(cache, categoriaID);
+                if (catFound == null) {
                     catFound = (Categoria) em.createQuery(
                             "From Categoria where id = '" + categoriaID + "'").getSingleResult();
                 }
@@ -507,9 +525,10 @@ public class OperacionController {
 
         return categorias;
     }
-    private Categoria findCategoriaInCache(List<Categoria> cats, Integer idMatch){
-        for (Categoria cat:cats){
-            if (cat.getId() == idMatch){
+
+    private Categoria findCategoriaInCache(List<Categoria> cats, Integer idMatch) {
+        for (Categoria cat : cats) {
+            if (cat.getId() == idMatch) {
                 return cat;
             }
         }
@@ -551,6 +570,13 @@ public class OperacionController {
         return response;
     }
 
+    public void flushAllCaches(String sessionID) {
+        this.presupuestoCache.remove(sessionID);
+        this.mediosDePagoCache.remove(sessionID);
+        this.categoriasCache.remove(sessionID);
+        this.proveedorCache.remove(sessionID);
+        this.proveedorElegidoCache.remove(sessionID);
+    }
     /*public Response guardar(Request request, Response response){
         OperacionEgreso operacionEgreso = new OperacionEgreso();
         asignarAtributosA(operacionEgreso, request);
@@ -604,4 +630,6 @@ public class OperacionController {
         OperacionEgreso operacionEgreso = new OperacionEgreso();
         return response;
     }*/
+
+
 }

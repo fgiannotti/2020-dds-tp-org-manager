@@ -98,14 +98,19 @@
                         {{/each}}
                     </div>
                     <p class="card-text" style="margin-bottom: 8px;margin-top:8px">Comprobante: </p>
-                    <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Numero de
-                        comprobante: {{egreso.comprobante.numeroComprobante}}  </p>
-                    <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Items: </p>
-                    {{#each egreso.comprobante.items}}
-                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">{{inc @index}}.    {{nombre}}
-                            - {{descripcion}}.
-                        </p>
-                    {{/each}}
+                    {{#if egreso.comprobante}}
+                        <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Numero de
+                            comprobante: {{egreso.comprobante.numeroComprobante}}  </p>
+                        <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Items: </p>
+                        {{#each egreso.comprobante.items}}
+                            <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">{{inc @index}}
+                                .    {{nombre}}
+                                - {{descripcion}}.
+                            </p>
+                        {{/each}}
+                    {{else}}
+                        <p class="card-text text-center"> Sin Comprobante.</p>
+                    {{/if}}
 
                     <p class="card-text" style="margin-top: 16px">Presupuestos
                         Minimos: {{egreso.cantidadMinimaDePresupuestos}}
@@ -151,7 +156,8 @@
                 <p class="card-text text-center display-9"> Sin factura. </p>
             {{/if}}
             <div class="d-flex justify-content-end" style="padding-top: 8px">
-                <form action="/upload/{{egresoID}}" method="post" enctype="multipart/form-data" style="width: -webkit-fill-available;">
+                <form action="/upload/{{egresoID}}" method="post" enctype="multipart/form-data"
+                      style="width: -webkit-fill-available;">
                     <label for="myfile">
                         <input type="file" id="myfile" name="myfile"/>
                     </label>
@@ -171,7 +177,8 @@
 </div>
 
 {{#if getEgresoFail}}
-    <script>window.location = "/ver-egresos"; alert("Hubo un error buscando el egreso solicitado.")</script>
+    <script>window.location = "/ver-egresos";
+    alert("Hubo un error buscando el egreso solicitado.")</script>
 
 
 {{/if}}
