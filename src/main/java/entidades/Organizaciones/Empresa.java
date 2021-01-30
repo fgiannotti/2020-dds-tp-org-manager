@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 @Entity
 @DiscriminatorValue("empresa")
@@ -99,5 +100,22 @@ public class Empresa extends Juridica {
                 ", entidadesHijas=" + entidadesHijas +
                 ", nombreFicticio='" + this.getNombreFicticio() + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Empresa)) return false;
+        if (!super.equals(o)) return false;
+        Empresa empresa = (Empresa) o;
+        return getCantidadPersonal().equals(empresa.getCantidadPersonal()) &&
+                Float.compare(empresa.getPromedioVentas(), getPromedioVentas()) == 0 &&
+                Objects.equals(getActividad(), empresa.getActividad()) &&
+                getTipo() == empresa.getTipo();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getCantidadPersonal(), getActividad(), getPromedioVentas(), getTipo());
     }
 }

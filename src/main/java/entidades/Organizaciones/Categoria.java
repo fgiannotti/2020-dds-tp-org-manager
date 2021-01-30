@@ -62,12 +62,11 @@ public class Categoria extends EntidadPersistente {
         if (this == o) return true;
         if (!(o instanceof Categoria)) return false;
         Categoria categoria = (Categoria) o;
-        return getDescripcion().equals(categoria.getDescripcion()) &&
-                Objects.equals(getCriterio(), categoria.getCriterio());
+        return getDescripcion().equals(categoria.getDescripcion());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getDescripcion(), getCriterio());
+        return Objects.hash(getDescripcion());
     }
 }

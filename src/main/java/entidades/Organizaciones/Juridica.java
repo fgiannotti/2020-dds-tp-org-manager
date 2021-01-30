@@ -76,4 +76,20 @@ public class Juridica extends Organizacion {
     public void setEntidadesHijas(List<Base> entidadesHijas) {
         this.entidadesHijas = entidadesHijas;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Juridica)) return false;
+        if (!super.equals(o)) return false;
+        Juridica juridica = (Juridica) o;
+        return getRazonSocial().equals(juridica.getRazonSocial()) &&
+                getCuit().equals(juridica.getCuit()) &&
+                codigoInscripcion.equals(juridica.codigoInscripcion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getRazonSocial(), getCuit(), codigoInscripcion);
+    }
 }

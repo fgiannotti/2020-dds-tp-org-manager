@@ -89,7 +89,10 @@ public class AsociadorEgresoCategoriaController {
         System.out.println(categoriasCache);
         for (OperacionEgreso egreso : operacionesEgreso) {
             try {
-                repoEgresos.asociarCategorias(egreso, categorias);
+                List<Categoria> categoriasSantizadas = getCategoriasNoAsignadas(egreso,categorias);
+                if (categoriasSantizadas.size() > 0){
+                    repoEgresos.asociarCategorias(egreso, categoriasSantizadas);
+                }
             } catch (Exception e) {
                 System.err.println("FALLAMO ASOCIANDO Eg-Cat: "+e.getMessage()+"\n");
                 e.printStackTrace();
@@ -99,6 +102,11 @@ public class AsociadorEgresoCategoriaController {
         parametros.put("refererAsociarEC", true);
         this.categoriasCache.remove(request.session().id());
         return new ModelAndView(parametros, "index-menu-revisor.hbs");
+    }
+
+    private List<Categoria> getCategoriasNoAsignadas(OperacionEgreso egreso, ArrayList<Categoria> categoriasAsociar) {
+        categoriasAsociar.removeAll(egreso.getCategorias());
+        return categoriasAsociar;
     }
 
     public ModelAndView agregarCategoria(Request request, Response response) throws UserNotFoundException {

@@ -1,10 +1,8 @@
 package repositorios;
 
 import db.EntityManagerHelper;
-import entidades.Operaciones.OperacionEgreso;
-import entidades.Operaciones.OperacionIngreso;
-import entidades.Operaciones.Presupuesto;
-import entidades.Operaciones.Proveedor;
+import entidades.MedioDePago.MedioDePago;
+import entidades.Operaciones.*;
 import entidades.Organizaciones.Categoria;
 import entidades.Organizaciones.Organizacion;
 import org.hibernate.PersistentObjectException;
@@ -67,9 +65,13 @@ public class RepoOperacionesEgresos {
             em.getTransaction().rollback();
             System.err.println("persist falló. Detached entity, mergeo todo: " + e.getMessage());
             em.getTransaction().begin();
-            em.merge(nuevoEgreso.getMedioDePago());
+
+            MedioDePago mpMergeado = em.merge(nuevoEgreso.getMedioDePago());
+            nuevoEgreso.getMedioDePago().setId(mpMergeado.getId());
+
             if (nuevoEgreso.getComprobante() != null) {
-                em.merge(nuevoEgreso.getComprobante());
+                Comprobante mergedEntity = em.merge(nuevoEgreso.getComprobante());
+                nuevoEgreso.getComprobante().setId(mergedEntity.getId());
             }
             for (int i = 0; i < nuevoEgreso.getPresupuestosPreliminares().size(); i++) {
                 Presupuesto mergedEntity = em.merge(nuevoEgreso.getPresupuestosPreliminares().get(i));
@@ -77,12 +79,10 @@ public class RepoOperacionesEgresos {
             }
             for (int i = 0; i < nuevoEgreso.getCategorias().size(); i++) {
                 Categoria mergedEntity = em.merge(nuevoEgreso.getCategorias().get(i));
-                nuevoEgreso.getCategorias().get(i).setId(mergedEntity.getId());
+                nuevoEgreso.getCategorias().remove(i);
+                nuevoEgreso.getCategorias().add(i,mergedEntity);
             }
 
-            em.getTransaction().commit();
-
-            em.getTransaction().begin();
             em.merge(nuevoEgreso);
             em.flush();
             em.getTransaction().commit();
@@ -123,43 +123,13 @@ public class RepoOperacionesEgresos {
         //no es necesario creo, ingreso deberia traerte su lista sin necesidad de persistirlo
     }
 
-    public void asociarCategorias(OperacionEgreso egreso, ArrayList<Categoria> categorias) {
+    public void asociarCategorias(OperacionEgreso egreso, List<Categoria> categorias) {
         int orgID = repoOrg.findOrgID(egreso.getOrganizacion().getNombreFicticio());
         egreso.getOrganizacion().setId(orgID);
 
         List<Categoria> categoriasTotales = egreso.getCategorias();
         categoriasTotales.addAll(categorias);
         egreso.setCategorias(categoriasTotales);
-        em.getTransaction().begin();
-
-        try {
-            for (Categoria c : categoriasTotales) {
-                em.merge(c);
-                em.merge(c.getCriterio());
-            }
-            em.merge(egreso);
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            System.err.println("[egreso con categorias] ERROR merge todo, intentando persist: " + e.getMessage());
-            em.getTransaction().rollback();
-
-            try {
-                em.getTransaction().begin();
-                for (Categoria cat : categorias) {
-                    em.persist(cat);
-                    em.persist(cat.getCriterio());
-                }
-                em.merge(egreso);
-                em.getTransaction().commit();
-
-            } catch (Exception e1) {
-                em.getTransaction().rollback();
-                System.err.println("[egreso con categorias] ERROR merge: " + e1.getMessage());
-                throw (e1);
-            }
-            System.err.println("merge OK.");
-
-        }
+        agregar(egreso);
     }
 }
