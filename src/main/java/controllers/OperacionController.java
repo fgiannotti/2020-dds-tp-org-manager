@@ -299,7 +299,7 @@ public class OperacionController {
 
     public Response postCargarComprobante(Request request, Response response) {
         String tipoComp = request.queryParams("tipoComprobante");
-        int nroComp = Integer.parseInt(request.queryParams("numeroComprobante"));
+        String nroComp = request.queryParams("numeroComprobante");
         String presupuestoID = request.queryParams("presupuestoID");
 
         Presupuesto presuElegido = repoPresupuestos.find(Integer.parseInt(presupuestoID));

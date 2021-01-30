@@ -131,7 +131,7 @@ public class Server {
                 3, Criterio.MENOR_VALOR, eeafBA, preliminaresOpSerrentino, categoriasOpSerrentino);
 
          OperacionEgreso opEdesur;
-         OperacionEgreso opEdesur2;
+         //OperacionEgreso opEdesurCDIA = new OperacionEgreso(1100.0,"Egreso de CDIA con edesur",);
          OperacionEgreso opMetrogas;
          OperacionEgreso opMetrogas2;
          OperacionEgreso opMitoas;

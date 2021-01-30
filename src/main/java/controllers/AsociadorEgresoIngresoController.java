@@ -66,18 +66,23 @@ public class AsociadorEgresoIngresoController {
                 operacionesEgreso.add(this.repoEgresos.get(Integer.parseInt(splitIngresoEgreso[1])));
             }
         }
-        OperacionIngreso ingreso = operacionesIngreso.get(0);
 
-        if (operacionesIngreso.size() > 1) {
+
+        if (operacionesEgreso.size() != 1) {
             parametros.put("asociar-invalido", true);
         }
-
+        OperacionEgreso egreso = null;
         int asocFailCount = 0;
-        for (OperacionEgreso egreso : operacionesEgreso) {
-            try {
-                repoEgresos.asociarIngreso(egreso, ingreso);
-            } catch (Exception e) {
-                asocFailCount++;
+        if (!operacionesIngreso.isEmpty()) {
+            egreso = operacionesEgreso.get(0);
+
+            for (OperacionIngreso ingreso : operacionesIngreso) {
+
+                try {
+                    repoEgresos.asociarIngreso(egreso, ingreso);
+                } catch (Exception e) {
+                    asocFailCount++;
+                }
             }
         }
         parametros.put("asociarEIok", asocFailCount == 0);

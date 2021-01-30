@@ -115,7 +115,6 @@
                     <p class="card-text" style="margin-top: 16px">Presupuestos
                         Minimos: {{egreso.cantidadMinimaDePresupuestos}}
                     <p class="card-text">{{#if criterio}} Criterio: {{egreso.criterio}} {{/if}} </p>
-                    <p class="card-text">Ingreso Asociado: {{tiene-ingreso}}</p>
                     {{#if tiene-ingreso}}
                         <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">
                             Ingreso: {{ingreso.descripcion}} </p>
@@ -123,6 +122,8 @@
                             total: {{ingreso.montoTotal}}0 $ </p>
                         <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">Fecha de
                             Operacion: {{ingreso.fechaOperacion}} </p>
+                        {{else}}
+                    <p class="card-text" style="margin-bottom: 0; margin-left: 60px;"> Sin ingresos asociados </p>
                     {{/if}}
 
                     <div class="" style="padding: 16px">
@@ -132,10 +133,24 @@
 
                         {{#each presupuestos}}
                             <p class="card-title display-10 text-center">
-                                Proveedor {{proveedor.nombreApellidoRazon}}</p>
+                                Presupuesto {{inc @index}}</p>
+
+                            <p class="card-text"> Proveedor: {{proveedor.nombreApellidoRazon}}</p>
+
                             <p class="card-text"> Direccion Postal:  {{proveedor.direccionPostal}}</p>
                             <p class="card-text"> Presupuesto:  {{cantidad}} items de monto total {{total}} $</p>
+                                {{#each categorias}}
+                                    <p class="card-text"> Categorias: </p>
+                                    <div class="space-evenly-vert align-items-start" style="margin-left: 16px">
+                                        <p class="card-text">{{descripcion}}
+                                            {{#if criterio}}con criterio {{criterio.nombre}} {{else}} Sin Criterio{{/if}}
+                                        </p>
+                                    </div>
+                                {{else}}
+                                    <p class="card-text"> Sin categorias.</p>
+                                {{/each}}
                         {{else}}
+
                             <p class="card-text text-center"> Sin presupuestos. </p>
                         {{/each}}
                     </div>

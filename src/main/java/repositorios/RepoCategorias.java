@@ -2,6 +2,7 @@ package repositorios;
 
 import db.EntityManagerHelper;
 import entidades.Organizaciones.Categoria;
+import entidades.Organizaciones.CriterioDeEmpresa;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
@@ -33,5 +34,17 @@ public class RepoCategorias {
     }
 
     public RepoCategorias() {
+    }
+
+    public List<Categoria> getAllFromCritIDs(List<Integer> critIDs) {
+        String queryIN = "";
+        for(Integer id: critIDs){queryIN= queryIN+id+",";}
+        List<Categoria> categorias = new ArrayList<>();
+
+        queryIN = queryIN.substring(0,queryIN.length()-1);
+        em.createQuery("FROM Categoria where criterio_id IN (" + queryIN + ")").getResultList().forEach((a) -> {
+            categorias.add((Categoria) a);
+        });
+        return categorias;
     }
 }

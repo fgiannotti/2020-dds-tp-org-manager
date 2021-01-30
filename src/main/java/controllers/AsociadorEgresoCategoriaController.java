@@ -30,13 +30,15 @@ public class AsociadorEgresoCategoriaController {
         user = repoUsuarios.buscarPorNombre(request.cookie("user"));
 
         List<CriterioDeEmpresa> criterioDeEmpresas = new ArrayList<>();
-        em.createQuery("FROM CriterioDeEmpresa WHERE org_id= '" + user.getOrganizacion().getId() + "'").getResultList().forEach((a) -> {
+        List<Integer> critIDs =new ArrayList<>();
+        em.createQuery("FROM CriterioDeEmpresa WHERE org_id= '" + user.getOrganizacion().getId() + "'OR org_id IS NULL").getResultList().forEach((a) -> {
             criterioDeEmpresas.add((CriterioDeEmpresa) a);
+            critIDs.add(((CriterioDeEmpresa) a).getId());
         });
 
         Map<String, Object> parametros = new HashMap<>();
 
-        List<Categoria> categorias = repoCategorias.getAll();
+        List<Categoria> categorias = repoCategorias.getAllFromCritIDs(critIDs);
         List<OperacionEgreso> operacionesEgreso = new ArrayList<OperacionEgreso>(repoEgresos.getAllByOrg(user.getOrganizacionALaQuePertenece()));
 
         List<Categoria> cats = new ArrayList<>();
@@ -81,10 +83,6 @@ public class AsociadorEgresoCategoriaController {
             if (paramFieldValue[0].equals("egreso")) {
                 operacionesEgreso.add(this.repoEgresos.get(Integer.parseInt(paramFieldValue[1])));
             }
-        }
-        List<Categoria> cats = categoriasCache.get(request.session().id());
-        if (cats != null) {
-            categorias.addAll(cats);
         }
         System.out.println(categoriasCache);
         for (OperacionEgreso egreso : operacionesEgreso) {

@@ -15,7 +15,7 @@ import static jdk.nashorn.internal.objects.NativeArray.length;
 public class Comprobante extends EntidadPersistente {
 
     @Column(name = "numero_comprobante")
-    private int numeroComprobante;
+    private String numeroComprobante;
 
     @Column(name = "tipo_comprobante")
     private String tipoComprobante;
@@ -24,19 +24,19 @@ public class Comprobante extends EntidadPersistente {
     @JoinColumn(name = "comprobante_id")
     private List<Item> items = new ArrayList<Item>();
 
-    public Comprobante(int numeroComprobante, String tipoComprobante, List<Item> items) {
+    public Comprobante(String numeroComprobante, String tipoComprobante, List<Item> items) {
         this.numeroComprobante = numeroComprobante;
         this.tipoComprobante = tipoComprobante;
         this.items = items;
     }
 
     public Comprobante(List<Item> items) {
-        this.numeroComprobante = this.hashCode();
+        this.numeroComprobante = String.valueOf(this.hashCode());
         this.items = items;
     }
 
     public Comprobante() {
-        this.numeroComprobante = this.hashCode();
+        this.numeroComprobante = String.valueOf(this.hashCode());
     }
 
     public void setItems(List<Item> items) {
@@ -47,14 +47,6 @@ public class Comprobante extends EntidadPersistente {
         return items;
     }
 
-    public int getNumeroComprobante() {
-        return numeroComprobante;
-    }
-
-    public void setNumeroComprobante(int numeroComprobante) {
-        this.numeroComprobante = numeroComprobante;
-    }
-
     @Override
     public String toString() {
         return "Comprobante{" +
@@ -63,18 +55,34 @@ public class Comprobante extends EntidadPersistente {
                 '}';
     }
 
+    public String getNumeroComprobante() {
+        return numeroComprobante;
+    }
+
+    public void setNumeroComprobante(String numeroComprobante) {
+        this.numeroComprobante = numeroComprobante;
+    }
+
+    public String getTipoComprobante() {
+        return tipoComprobante;
+    }
+
+    public void setTipoComprobante(String tipoComprobante) {
+        this.tipoComprobante = tipoComprobante;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Comprobante)) return false;
         Comprobante that = (Comprobante) o;
-        return getNumeroComprobante() == that.getNumeroComprobante() &&
-                tipoComprobante.equals(that.tipoComprobante);
+        return getNumeroComprobante().equals(that.getNumeroComprobante()) &&
+                getTipoComprobante().equals(that.getTipoComprobante());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getNumeroComprobante(), tipoComprobante);
+        return Objects.hash(getNumeroComprobante(), getTipoComprobante());
     }
 }
 

@@ -106,7 +106,7 @@
                         <div class="space-evenly-vert align-items-start" style="margin-left: 8px">
                             <label for="cbox2">
                                 <input type="checkbox" id="cbox2" name="categoria" value="{{id}}">
-                                Descripcion:{{descripcion}}.{{#if criterio}} Criterio {{criterio.nombre}} {{else}} Sin Criterio{{/if}}
+                                {{descripcion}} {{#if criterio}}con criterio {{criterio.nombre}} {{/if}}
                             </label>
                         </div>
                     {{else}}
@@ -166,7 +166,7 @@
                                     <div class="input-row">
                                         <label for="cbox">
                                             <input type="radio" id="cbox" name="criterio" value="0">
-                                            Sin Criterio.
+                                            Sin Criterio
                                         </label>
                                     </div>
                                     {{#each criterios}}
