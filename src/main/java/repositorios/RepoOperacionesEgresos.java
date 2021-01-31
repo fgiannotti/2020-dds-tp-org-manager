@@ -93,12 +93,12 @@ public class RepoOperacionesEgresos {
     }
 
     public OperacionEgreso get(int id) throws NoResultException {
-        String query = "from OperacionEgreso where id = " + id;
         OperacionEgreso eg = null;
         try {
             eg = em.find(OperacionEgreso.class, id);
 
         } catch (Exception e) {
+            String query = "from OperacionEgreso where id = " + id;
             eg = (OperacionEgreso) em.createQuery(query).getSingleResult();
         }
         return eg;

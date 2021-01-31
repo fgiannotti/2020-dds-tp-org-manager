@@ -92,6 +92,9 @@ public class Router {
 
         Spark.post("/validar",validadorController::validar,Router.engine);
 
+        Spark.get("/vincular",asociadorEgresoIngresoController::inicioVincular,Router.engine);
+        Spark.post("/vincular",asociadorEgresoIngresoController::vincular,Router.engine);
+
         Spark.get("/CrearOperacionEgreso", operacionController::inicio, Router.engine);
         //Spark.get("/crearEgreso1", operacionController::fechaYCantidad, Router.engine);
         Spark.post("/crearEgreso1", operacionController::postProveedorFechaYCantMin);

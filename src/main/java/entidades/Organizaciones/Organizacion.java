@@ -45,12 +45,12 @@ public abstract class Organizacion {
 
     protected Organizacion() {}
 
-    /*public String getJsonVincular(){
-        JSONArray jsonIngreso= this.crearJsonIngreso();
-        JSONArray jsonEgreso= this.crearJsonEgreso();
+    public String getJsonVincular(){
+        //JSONArray jsonIngreso= this.crearJsonIngreso();
+        //JSONArray jsonEgreso= this.crearJsonEgreso();
         JSONObject json= new JSONObject();
-        json.put("Ingresos",jsonIngreso);
-        json.put("Egresos",jsonEgreso);
+        //json.put("Ingresos",jsonIngreso);
+        //json.put("Egresos",jsonEgreso);
         ConfiguracionApi configApi = new ConfiguracionApi();
         json.put("Configuracion",configApi.getJsonConfig());
         return json.toString();
@@ -61,24 +61,24 @@ public abstract class Organizacion {
         Configuracion config = new Configuracion();
         JSONObject response = vinculador.Post_JSON(this.getJsonVincular(), config.getApiVinculador());
         this.vincularRelaciones(response);
-    }*/
+    }
 
 
     protected String fechaToString(LocalDate fecha){
         return fecha.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
-    /*public void vincular(JSONObject jsonViculaciones){
+    public void vincular(JSONObject jsonViculaciones, List<OperacionIngreso> ingresos,List<OperacionEgreso> egresos){
         Integer idIngreso = (Integer) jsonViculaciones.get("IDIngreso");
         JSONArray jsonEgresos = (JSONArray) jsonViculaciones.get("IDSEgresos");
         Optional<OperacionIngreso> operacionIngreso;
 
-        operacionIngreso = this.getIngresos().stream().filter(operacion -> operacion.getId()==idIngreso).findFirst();
+        operacionIngreso = ingresos.stream().filter(operacion -> operacion.getId()==idIngreso).findFirst();
         OperacionIngreso operacionIngreso2 = operacionIngreso.get();
 
         jsonEgresos.forEach((jsonConId) -> {
             Optional<OperacionEgreso> operacionEgreso;
-            operacionEgreso = this.getEgresos().stream().filter(operacion -> operacion.getId()==Integer.parseInt(String.valueOf(jsonConId))).findFirst();
+            operacionEgreso = egresos.stream().filter(operacion -> operacion.getId()==Integer.parseInt(String.valueOf(jsonConId))).findFirst();
             OperacionEgreso operacionEgreso2 = operacionEgreso.get();
 
             operacionIngreso2.agregarOperacionEgreso(operacionEgreso2);
@@ -88,7 +88,7 @@ public abstract class Organizacion {
     public void vincularRelaciones(JSONObject jsonRelaciones){
         JSONArray jsonVinculos = (JSONArray) jsonRelaciones.get("Relaciones");
         jsonVinculos.forEach((jsonVinculo) -> {
-            this.vincular((JSONObject) jsonVinculo);
+            this.vincular((JSONObject) jsonVinculo,null,null);
         });
     }
 
@@ -120,7 +120,7 @@ public abstract class Organizacion {
         return jsonDeOperaciones;
     }
 
-    protected JSONArray crearJsonEgreso(){
+    /*protected JSONArray crearJsonEgreso(){
         return this.jsonOperacionalEgreso(this.getEgresos().stream());
     }
 

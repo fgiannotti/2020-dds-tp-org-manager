@@ -21,6 +21,7 @@ import spark.Request;
 import spark.Response;
 import utils.Vinculador.VinculadorApi;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -30,7 +31,7 @@ public class AsociadorEgresoIngresoController {
     private final RepoOperacionesEgresos repoEgresos = new RepoOperacionesEgresos();
     private final RepoOperacionesIngresos repoIngreso = new RepoOperacionesIngresos();
     private final RepoUsuarios repoUsuarios = new RepoUsuarios();
-
+    private EntityManager em = EntityManagerHelper.getEntityManager();
     private Usuario user;
 
     public ModelAndView inicio(Request request, Response response) throws UserNotFoundException {
@@ -93,10 +94,24 @@ public class AsociadorEgresoIngresoController {
         return new ModelAndView(parametros, "index-menu-revisor.hbs");
     }
 
-    public Response asociarIngresoEgreso2(Request request, Response response) {
-        if (!request.cookie("id").equals(request.session().id())) {
-            response.redirect("/");
-        }
+    public ModelAndView inicioVincular(Request request, Response response) throws UserNotFoundException {
+        Router.CheckIfAuthenticated(request, response);
+        String userName = request.cookie("user");
+        user = repoUsuarios.buscarPorNombre(userName);
+
+        Map<String, Object> parametros = new HashMap<>();
+
+        List<OperacionIngreso> operacionesIngreso = new ArrayList<OperacionIngreso>(repoIngreso.getAllByOrg(user.getOrganizacionALaQuePertenece()));
+        List<OperacionEgreso> operacionesEgreso = new ArrayList<OperacionEgreso>(repoEgresos.getAllByOrg(user.getOrganizacionALaQuePertenece()));
+
+        parametros.put("ingresos", operacionesIngreso);
+        parametros.put("egresos", operacionesEgreso);
+
+        return new ModelAndView(parametros, "vincular-egreso-ingreso.hbs");
+    }
+
+    public ModelAndView vincular(Request request, Response response) {
+        Router.CheckIfAuthenticated(request,response);
         String[] ingresosEgresos = request.body().split("&");
 
         ArrayList<Operacion> operacionIngresos = new ArrayList<>();
@@ -105,10 +120,10 @@ public class AsociadorEgresoIngresoController {
         for (String ingresoEgreso : ingresosEgresos) {
             String[] splitIngresoEgreso = ingresoEgreso.split("=");
             if (splitIngresoEgreso[0].equals("ingreso")) {
-                operacionIngresos.add(this.repoIngreso.find(Integer.parseInt(splitIngresoEgreso[1])));
+                operacionIngresos.add(this.repoIngreso.get(Integer.parseInt(splitIngresoEgreso[1])));
             }
             if (splitIngresoEgreso[0].equals("egreso")) {
-                operacionesEgresos.add(this.repoEgresos.find(Integer.parseInt(splitIngresoEgreso[1])));
+                operacionesEgresos.add(this.repoEgresos.get(Integer.parseInt(splitIngresoEgreso[1])));
             }
         }
         JSONArray jsonIngreso = this.jsonOperacional(operacionIngresos.stream());
@@ -121,7 +136,7 @@ public class AsociadorEgresoIngresoController {
 
         VinculadorApi vinculador = new VinculadorApi();
         Configuracion config = new Configuracion();
-        System.out.println(json.toString() + config.getApiVinculador());
+        System.out.println(json.toString()+"\n" + config.getApiVinculador());
 
         JSONObject responseVinculador = vinculador.Post_JSON(json.toString(), config.getApiVinculador());
         JSONArray jsonVinculos = (JSONArray) responseVinculador.get("Relaciones");
@@ -135,19 +150,17 @@ public class AsociadorEgresoIngresoController {
             Integer idIngreso = (Integer) jsonViculaciones.get("IDIngreso");
             JSONArray jsonEgresos = (JSONArray) jsonViculaciones.get("IDSEgresos");
 
-            Optional<Operacion> operacionIngresoResponse = Optional.ofNullable(this.repoIngreso.find(idIngreso));
-            OperacionIngreso operacionIngreso = (OperacionIngreso) operacionIngresoResponse.get();
+            OperacionIngreso ingreso = this.repoIngreso.get(idIngreso);
 
             //ahora los egresos para este ingreso
-            jsonEgresos.forEach((jsonConId) -> {
-                Optional<Operacion> operacionEgresoResponse;
-                operacionEgresoResponse = Optional.ofNullable(this.repoEgresos.find(Integer.parseInt(String.valueOf(jsonConId))));
-                OperacionEgreso operacionEgreso2 = (OperacionEgreso) operacionEgresoResponse.get();
+            jsonEgresos.forEach((idEgresos) -> {
+                OperacionEgreso operacionEgreso = this.repoEgresos.get(Integer.parseInt(String.valueOf(idEgresos)));
 
-                operacionIngreso.agregarOperacionEgreso(operacionEgreso2);
+                ingreso.agregarOperacionEgreso(operacionEgreso);
+                repoEgresos.asociarIngreso(operacionEgreso,ingreso);
             });
 
-            ingresos.add(operacionIngreso);
+            ingresos.add(ingreso);
         }
 
         //pongo todos estos ingresos vinculados en la bandeja de cada usuario revisor de la empresa
@@ -155,7 +168,7 @@ public class AsociadorEgresoIngresoController {
         for (Revisor revisor : revisoresDeLaOrg) {
             for (OperacionIngreso ingreso : ingresos) {
                 for (OperacionEgreso egreso : ingreso.getOperacionesEgreso()) {
-                    Resultado egresoResultado = new Resultado(ingreso.getId(), egreso.getProveedorElegido(), true, true, true, true, LocalDate.now(), revisor.getBandejaDeEntrada());
+                    Resultado egresoResultado = new Resultado(ingreso.getId(), egreso.getProveedorElegido(), true, true, true, false, LocalDate.now(), revisor.getBandejaDeEntrada());
                     resultados.add(egresoResultado);
                 }
             }
@@ -167,11 +180,11 @@ public class AsociadorEgresoIngresoController {
         }
 
         for (Resultado resultado : resultados) {
-            EntityManagerHelper.persist(resultado);
+            em.persist(resultado);
         }
-
-        response.redirect("/home"); //success
-        return response;
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("vincularOK",true);
+        return new ModelAndView(parametros, "index-menu-revisor.hbs");
     }
 
     protected String fechaToString(LocalDate fecha) {

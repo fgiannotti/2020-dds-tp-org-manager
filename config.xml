@@ -4,5 +4,7 @@
     <passwordLengthMinimo>8</passwordLengthMinimo>
     <intentosMaximos>2</intentosMaximos>
     <presupuestosMinimos>1</presupuestosMinimos>
-    <apiVinculador>https://api-vinculador.herokuapp.com/vincular</apiVinculador>
+    <apiVinculador>http://localhost:9001/vincular</apiVinculador>
+    <!--><apiVinculador>http://api-vinculador.herokuapp.com/vincular</apiVinculador><-->
+
 </General>

@@ -24,7 +24,7 @@ public class Resultado extends EntidadPersistente {
     private Boolean fueLeido;
     @Column(name = "fecha_validacion")
     private LocalDate fechaValidacion;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name = "bandeja_id", referencedColumnName = "id")
     private BandejaDeEntrada bandeja;
 
