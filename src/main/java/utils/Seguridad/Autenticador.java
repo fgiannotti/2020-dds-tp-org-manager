@@ -11,16 +11,16 @@ import com.nulabinc.zxcvbn.Strength;
 import com.nulabinc.zxcvbn.Zxcvbn;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Autenticador {
     private final UsuarioBuilder usuarioBuilder;
     private RepoUsuarios repoUsuarios;
-    private Map<String, Pair<Integer, LocalDateTime>> usuariosInfo = new HashMap<>();
+    private Map<String, List<Object>> usuariosInfo = new HashMap<>();
     private final Configuracion configuracion = new Configuracion();
 
-    private static final Pair<Integer,LocalDateTime> defaultPair = new Pair<>(0, LocalDateTime.MIN);
+    //private static final Pair<Integer,LocalDateTime> defaultPair = new Pair<>(0, LocalDateTime.MIN);
+    private static final List<Object> defaultPair = new ArrayList<>(Arrays.asList(0,LocalDateTime.MIN));
 
     public Autenticador(RepoUsuarios repo, UsuarioBuilder builder) {
         this.repoUsuarios = repo;
@@ -37,14 +37,14 @@ public class Autenticador {
         Usuario usuario = repoUsuarios.buscarPorNombre(nombre);
         System.out.print("mapa encontrado: ");
         System.out.print(usuariosInfo);
-        Pair<Integer,LocalDateTime> userInfo = usuariosInfo.getOrDefault(nombre, defaultPair);
+        List<Object> userInfo = usuariosInfo.getOrDefault(nombre, defaultPair);
         System.out.print("\n par encontrado: ");
         System.out.print(userInfo);
 
         //si supera cant intentos max OR fecha de bloqueo es posterior a la fecha actual
-        System.out.printf("\n \n Intentos: %d de %d \n",userInfo.getKey(),configuracion.getIntentosMaximos());
+        System.out.printf("\n \n Intentos: %d de %d \n",(Integer)userInfo.get(0),configuracion.getIntentosMaximos());
 
-        if (userInfo.getKey() > configuracion.getIntentosMaximos() || userInfo.getValue().isAfter(LocalDateTime.now())) {
+        if ((Integer)userInfo.get(0) > configuracion.getIntentosMaximos() || ((LocalDateTime)userInfo.get(1)).isAfter(LocalDateTime.now())) {
             bloquearUsuario(nombre);
             throw new UserBlockedException("Usuario bloqueado");
         }
@@ -59,7 +59,8 @@ public class Autenticador {
     }
 
     private void bloquearUsuario(String nombre){
-        usuariosInfo.replace(nombre, new Pair<>(0, LocalDateTime.now().plusMinutes(2)));
+        usuariosInfo.replace(nombre, new ArrayList<Object>(Arrays.asList(0, LocalDateTime.now().plusMinutes(2))) {
+        });
     }
 
     private void resetearIntentosDe(String nombre) {
@@ -67,10 +68,10 @@ public class Autenticador {
     }
 
     private void sumarUnIntento(String nombre) {
-        Pair<Integer,LocalDateTime> usuarioInfo = usuariosInfo.getOrDefault(nombre, defaultPair);
-        Integer intentos = usuarioInfo.getKey();
+        List<Object> usuarioInfo = usuariosInfo.getOrDefault(nombre, defaultPair);
+        Integer intentos = (Integer) usuarioInfo.get(0);
 
-        Pair<Integer,LocalDateTime> usuarioInfoActualizada =  new Pair<Integer,LocalDateTime>(intentos+1,LocalDateTime.now());
+        List<Object> usuarioInfoActualizada =  new ArrayList<>(Arrays.asList(intentos+1,LocalDateTime.now()));
 
         System.out.print("actualice la info a: ");
         System.out.print(usuarioInfoActualizada);
