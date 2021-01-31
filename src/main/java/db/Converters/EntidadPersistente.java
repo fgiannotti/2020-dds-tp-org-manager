@@ -1,14 +1,11 @@
 package db.Converters;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @MappedSuperclass
 public class EntidadPersistente {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Transient
     private String idCacheado;

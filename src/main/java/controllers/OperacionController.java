@@ -54,6 +54,7 @@ public class OperacionController {
     }
 
     public ModelAndView verEgreso(Request request, Response response) {
+        Integer posID = Integer.parseInt(request.queryParams("pos"));
         String egresoID = request.params("id");
         Map<String, Object> parametros = new HashMap<>();
         OperacionEgreso operacionEgreso = null;
@@ -75,6 +76,7 @@ public class OperacionController {
         parametros.put("presupuestos", operacionEgreso.getPresupuestosPreliminares());
         //GET FILE
         parametros.put("egresoID", egresoID);
+        parametros.put("posID", posID);
         Boolean tieneFile = egresosFileName.get(egresoID) != null;
         parametros.put("tieneFile", tieneFile);
         if (tieneFile) {

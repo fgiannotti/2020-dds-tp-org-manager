@@ -78,10 +78,10 @@
     <div class="distribute-cards-evenly">
 
         {{#each egresos}}
-            <div style="margin: 16px" onclick="window.location='/egreso/{{id}}';">
+            <div style="margin: 16px" onclick="window.location='/egreso/{{id}}?pos={{inc @index}}';">
                 <div class="card clickeable text-dark bg-light-tp mb-3"
                      style="min-height: 16rem; min-width: 22rem; max-height: 20rem;"
-                     onclick="location.href='/egreso/{{id}}">
+                     onclick="location.href='/egreso/{{id}}?pos={{inc @index}}">
                     <div class="card-header display-7 text-center"> Egreso {{inc @index}}</div>
                     <div class="card-body">
                         <div class="space-evenly-vert align-items-start">
