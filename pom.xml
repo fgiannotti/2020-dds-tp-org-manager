@@ -92,6 +92,15 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+        <plugin>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>0.0.2</version>
+            <configuration>
+                <mainClass>server.Server</mainClass>
+            </configuration>
+        </plugin>
+
         </plugins>
     </build>
 
@@ -180,6 +189,13 @@
             <artifactId>javafx</artifactId>
             <version>11</version>
             <type>pom</type>
+        </dependency>
+        <!-- https://stackoverflow.com/questions/15278215/maven-project-with-javafx-with-jar-file-in-lib -->
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>12.0.1</version>
         </dependency>
 
         <dependency>
