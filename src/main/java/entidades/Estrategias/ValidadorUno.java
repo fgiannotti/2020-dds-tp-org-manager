@@ -6,10 +6,9 @@ import entidades.Configuracion.*;
 import entidades.Items.Item;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.Presupuesto;
-import javafx.util.Pair;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +23,7 @@ public class ValidadorUno implements Validador {
     }
 
     @Override
-    public Pair<Boolean, String> validar(OperacionEgreso unEgreso){
+    public List<Object> validar(OperacionEgreso unEgreso){
         System.out.println("Validando...");
         boolean detalleCorrecto;
         boolean criterioCorrecto;
@@ -51,7 +50,7 @@ public class ValidadorUno implements Validador {
 
         System.out.println(carga && detalleCorrecto && criterioCorrecto);
         Boolean validarOK = carga && detalleCorrecto && criterioCorrecto;
-        return new Pair<>(validarOK,razonValidacion);
+        return new ArrayList<>(Arrays.asList(validarOK,razonValidacion));
     }
 
     @Override

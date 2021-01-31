@@ -7,16 +7,11 @@ import entidades.BandejaDeEntrada.Resultado;
 import entidades.Estrategias.Validador;
 import entidades.Estrategias.ValidadorUno;
 import entidades.Operaciones.OperacionEgreso;
-import entidades.Operaciones.OperacionIngreso;
-import entidades.Operaciones.Proveedor;
 import entidades.Usuarios.Revisor;
-import entidades.Usuarios.Usuario;
-import javafx.util.Pair;
 import repositorios.RepoOperacionesEgresos;
 import repositorios.RepoOperacionesIngresos;
 import repositorios.RepoUsuarios;
 import repositorios.UserNotFoundException;
-import scala.Int;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -44,13 +39,13 @@ public class ValidadorController {
         Validador validador = new ValidadorUno(usuario.getBandejaDeEntrada());
         Integer cargasInvalidas = 0;
         for (OperacionEgreso egreso: egresos){
-            Pair<Boolean,String> resultado = validador.validar(egreso);
-            Boolean validarOK = resultado.getKey();
+            List<Object> resultado = validador.validar(egreso);
+            Boolean validarOK = (Boolean) resultado.get(0);
             if (!validarOK){
                 cargasInvalidas++;
             }
         }
-        
+        //TODO: usar la desc para algo vió
 
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("validarDone",true);

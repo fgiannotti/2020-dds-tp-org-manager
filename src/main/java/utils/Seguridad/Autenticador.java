@@ -18,7 +18,6 @@ public class Autenticador {
     private Map<String, List<Object>> usuariosInfo = new HashMap<>();
     private final Configuracion configuracion = new Configuracion();
 
-    //private static final Pair<Integer,LocalDateTime> defaultPair = new Pair<>(0, LocalDateTime.MIN);
     private static final List<Object> defaultPair = new ArrayList<>(Arrays.asList(0,LocalDateTime.MIN));
 
     public Autenticador(RepoUsuarios repo, UsuarioBuilder builder) {
