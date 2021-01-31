@@ -300,9 +300,13 @@ public class OperacionController {
     public Response postCargarComprobante(Request request, Response response) {
         String tipoComp = request.queryParams("tipoComprobante");
         String nroComp = request.queryParams("numeroComprobante");
-        String presupuestoID = request.queryParams("presupuestoID");
-
-        Presupuesto presuElegido = repoPresupuestos.find(Integer.parseInt(presupuestoID));
+        int presupuestoID = Integer.parseInt(request.queryParams("presupuestoID"));
+        Presupuesto presuElegido;
+        try {
+            presuElegido = repoPresupuestos.find(presupuestoID);
+        } catch (NoResultException e) {
+            presuElegido = findPresupuestoInCache(presupuestoCache.get(request.session().id()), presupuestoID);
+        }
         Comprobante comp = new Comprobante(nroComp, tipoComp, presuElegido.getItems());
 
         builder.unEgreso.setItems(presuElegido.getItems());
@@ -324,7 +328,7 @@ public class OperacionController {
         }
 
         List<CriterioDeEmpresa> criterioDeEmpresas = new ArrayList<>();
-        List<Integer> critIDs =new ArrayList<>();
+        List<Integer> critIDs = new ArrayList<>();
         em.createQuery("FROM CriterioDeEmpresa WHERE org_id= '" + user.getOrganizacion().getId() + "'OR org_id IS NULL").getResultList().forEach((a) -> {
             criterioDeEmpresas.add((CriterioDeEmpresa) a);
             critIDs.add(((CriterioDeEmpresa) a).getId());
@@ -530,6 +534,15 @@ public class OperacionController {
         for (Categoria cat : cats) {
             if (cat.getId() == idMatch) {
                 return cat;
+            }
+        }
+        return null;
+    }
+
+    private Presupuesto findPresupuestoInCache(List<Presupuesto> pres, int idMatch) {
+        for (Presupuesto p : pres) {
+            if (p.getId() == idMatch) {
+                return p;
             }
         }
         return null;

@@ -78,6 +78,7 @@ public class RepoOperacionesEgresos {
                 nuevoEgreso.getPresupuestosPreliminares().get(i).setId(mergedEntity.getId());
             }
             for (int i = 0; i < nuevoEgreso.getCategorias().size(); i++) {
+                if (nuevoEgreso.getCategorias().get(i).getId()<0){nuevoEgreso.getCategorias().get(i).setId(0);};
                 Categoria mergedEntity = em.merge(nuevoEgreso.getCategorias().get(i));
                 nuevoEgreso.getCategorias().remove(i);
                 nuevoEgreso.getCategorias().add(i,mergedEntity);
