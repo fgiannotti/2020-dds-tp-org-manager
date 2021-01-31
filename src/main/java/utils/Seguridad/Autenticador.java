@@ -3,7 +3,6 @@ package utils.Seguridad;
 import entidades.Configuracion.Configuracion;
 import entidades.Organizaciones.Organizacion;
 import entidades.Usuarios.TipoUsuario;
-import javafx.util.Pair;
 import repositorios.RepoUsuarios;
 import entidades.Usuarios.Usuario;
 import repositorios.Builders.UsuarioBuilder;
