@@ -3,10 +3,7 @@ package controllers;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import entidades.Usuarios.Usuario;
-import repositorios.RepoOperaciones;
-import repositorios.RepoOperacionesEgresos;
-import repositorios.RepoOperacionesIngresos;
-import repositorios.RepoUsuarios;
+import repositorios.*;
 import server.Router;
 import spark.ModelAndView;
 import spark.Request;
@@ -23,7 +20,7 @@ public class VerIngresoEgresoController {
     private RepoUsuarios repoUsuarios = new RepoUsuarios();
 
 
-    public ModelAndView inicio(Request request, Response response){
+    public ModelAndView verIngreso(Request request, Response response) throws UserNotFoundException {
         Router.CheckIfAuthenticated(request, response);
 
         Usuario usuario = repoUsuarios.buscarPorNombre(request.cookie("user"));
@@ -33,26 +30,22 @@ public class VerIngresoEgresoController {
         List<OperacionIngreso> ingresos = this.repoIngresos.getAllByOrg(usuario.getOrganizacionALaQuePertenece());
 
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("egresos", egresos);
         parametros.put("ingresos", ingresos);
 
-        return new ModelAndView(parametros,"visualizar-egresos.hbs");
-
-
-        //List<Operacion> operaciones = new ArrayList<Operacion>();
-        //operaciones.addAll(this.repoOperacion.mostrarTodos());
-        //Map<String, Object> parametros = new HashMap<>();
-        //parametros.put("operaciones", operaciones);
-        //return new ModelAndView(parametros,"visualizar-egresos.hbs");
+        return new ModelAndView(parametros,"visualizar-ingresos.hbs");
     }
-    //public Response filtrarPorMayor(Request request, Response response){
-    //    List<OperacionEgreso> egresos = new ArrayList<OperacionEgreso>();
-    //    egresos.addAll(this.repoOperacion.esMayor());
-    //    return response;
-    //}
 
-    //public ModelAndView filtrar (Request request, Response response){
+    public ModelAndView verEgreso(Request request, Response response) throws UserNotFoundException {
+        Router.CheckIfAuthenticated(request, response);
 
-    //}
+        Usuario usuario = repoUsuarios.buscarPorNombre(request.cookie("user"));
+
+        List<OperacionEgreso> egresos = this.repoEgresos.getAllByOrg(usuario.getOrganizacionALaQuePertenece());
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("egresos", egresos);
+
+        return new ModelAndView(parametros,"visualizar-egresos.hbs");
+    }
 
 }

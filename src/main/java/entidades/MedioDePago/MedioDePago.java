@@ -14,22 +14,38 @@ public abstract class MedioDePago extends EntidadPersistente {
    protected String medio;
 
    @Column(name="numero")
-   protected int numero;
+   protected String numero;
 
    public String getMedio() {
       return medio;
    }
 
-   public int getNumero() {
+   public String getNumero() {
       return numero;
    }
 
    public MedioDePago() {
    }
 
-   public MedioDePago(String medio, int numero) {
+   public MedioDePago(String medio, String numero) {
       this.medio = Objects.requireNonNull(medio, "El medio no puede ser nulo");
       this.numero = numero;
    }
 
+   @Override
+   public boolean equals(Object o) {
+      System.err.println("comparo "+o+"\n");
+      System.err.println("con " +this +"\n");
+
+      if (this == o) return true;
+      if (!(o instanceof MedioDePago)) return false;
+      MedioDePago that = (MedioDePago) o;
+      return getMedio().equals(that.getMedio()) &&
+              getNumero().equals(that.getNumero());
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hash(getMedio(), getNumero());
+   }
 }

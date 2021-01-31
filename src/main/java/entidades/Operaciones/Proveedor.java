@@ -3,38 +3,43 @@ package entidades.Operaciones;
 import db.Converters.EntidadPersistente;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name="proveedores")
 public class Proveedor extends EntidadPersistente {
+
     @Column
-    private String nombre_apellido_razon;
+    private String nombreApellidoRazon;
     @Column
     private String documento;
     @Column
     private String direccionPostal;
-    @OneToOne(cascade = {CascadeType.ALL})
-    private Presupuesto presupuesto;
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "operacion_id", referencedColumnName = "id")
-    private OperacionEgreso egreso;
 
-    public Proveedor(String nombre_apellido_razon, String documento, String direccionPostal) {
-        this.nombre_apellido_razon = Objects.requireNonNull(nombre_apellido_razon, "El nombre_apellido_razon no puede ser nulo");
+    public Proveedor(String nombreApellidoRazon, String documento, String direccionPostal) {
+        this.nombreApellidoRazon = Objects.requireNonNull(nombreApellidoRazon, "El nombreApellidoRazon no puede ser nulo");
         this.documento = Objects.requireNonNull(documento, "El documento no puede ser nulo");
         this.direccionPostal = Objects.requireNonNull(direccionPostal, "La direccion postal no puede ser nula");
     }
 
-    public Proveedor() {
+    public Proveedor() {}
+
+    public String getNombreApellidoRazon() {
+        return nombreApellidoRazon;
     }
 
-    public String getNombre_apellido_razon() {
-        return nombre_apellido_razon;
+    public void setNombreApellidoRazon(String nombreApellidoRazon) {
+        this.nombreApellidoRazon = nombreApellidoRazon;
     }
 
-    public void setNombre_apellido_razon(String nombre_apellido_razon) {
-        this.nombre_apellido_razon = nombre_apellido_razon;
+    public String getnombreApellidoRazon() {
+        return nombreApellidoRazon;
+    }
+
+    public void setnombreApellidoRazon(String nombreApellidoRazon) {
+        this.nombreApellidoRazon = nombreApellidoRazon;
     }
 
     public String getDocumento() {
@@ -53,21 +58,27 @@ public class Proveedor extends EntidadPersistente {
         this.direccionPostal = direccionPostal;
     }
 
-    public Presupuesto getPresupuesto() {
-        return presupuesto;
-    }
-
-    public void setPresupuesto(Presupuesto presupuesto) {
-        this.presupuesto = presupuesto;
-    }
-
-
     @Override
     public String toString() {
         return "Proveedor{" +
-                "nombre_apellido_razon='" + nombre_apellido_razon + '\'' +
+                "nombreApellidoRazon='" + nombreApellidoRazon + '\'' +
                 ", documento='" + documento + '\'' +
                 ", direccionPostal='" + direccionPostal + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Proveedor)) return false;
+        Proveedor proveedor = (Proveedor) o;
+        return getNombreApellidoRazon().equals(proveedor.getNombreApellidoRazon()) &&
+                getDocumento().equals(proveedor.getDocumento()) &&
+                getDireccionPostal().equals(proveedor.getDireccionPostal());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNombreApellidoRazon(), getDocumento(), getDireccionPostal());
     }
 }

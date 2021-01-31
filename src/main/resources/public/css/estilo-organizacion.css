@@ -1,5 +1,6 @@
 body{
-background-image: url("https://wallpapercave.com/wp/wp6928859.png");
+background: white;
+  font-family: "Lato", sans-serif;
 }
 
 .titulo{
@@ -7,11 +8,50 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
   text-align: center;
 }
 
+.display-7 {
+  font-size: calc(1rem + 1vw);
+  font-weight: 300;
+  line-height: 1.2;
+}
+.display-8 {
+  font-size: calc(0.75rem + 0.75vw);
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.container-body-egresos-ingresos {
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: auto;
+  margin-left: 8px;
+}
+
 .nombre-titulo{
   font-size:3em;
   color: black;
   font-family:"Cambria";
   font-weight: lighter;
+}
+.btn-xlg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.5rem;
+  border-radius: 0.45rem;
+}
+
+.space-evenly-vert {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.container-egresos{
+  width: fit-content;
+  height: fit-content;
+  padding-right: 8%;
+  padding-left: 8%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .general{

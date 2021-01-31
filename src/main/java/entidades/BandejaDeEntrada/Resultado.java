@@ -5,6 +5,7 @@ import entidades.Operaciones.Proveedor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "resultados")
@@ -12,7 +13,7 @@ public class Resultado extends EntidadPersistente {
     @Column(name = "numero_operacion")
     private int numeroOperacion;
     @Transient
-    private List<Proveedor> proveedores;
+    private Proveedor proveedorElegido;
     @Column(name = "corresponde_carga_correcta")
     private Boolean correspondeCargaCorrecta;
     @Column(name = "corresponde_detalle")
@@ -23,13 +24,13 @@ public class Resultado extends EntidadPersistente {
     private Boolean fueLeido;
     @Column(name = "fecha_validacion")
     private LocalDate fechaValidacion;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name = "bandeja_id", referencedColumnName = "id")
     private BandejaDeEntrada bandeja;
 
-    public Resultado(int numeroOperacion, List<Proveedor> proveedores, Boolean correspondeCargaCorrecta, Boolean correspondeDetalle, Boolean correspondeCriterio, Boolean fueLeido, LocalDate fechaValidacion,BandejaDeEntrada bandeja) {
+    public Resultado(int numeroOperacion, Proveedor proveedorElegido, Boolean correspondeCargaCorrecta, Boolean correspondeDetalle, Boolean correspondeCriterio, Boolean fueLeido, LocalDate fechaValidacion,BandejaDeEntrada bandeja) {
         this.numeroOperacion = numeroOperacion;
-        this.proveedores = proveedores;
+        this.proveedorElegido = proveedorElegido;
         this.correspondeCargaCorrecta = correspondeCargaCorrecta;
         this.correspondeDetalle = correspondeDetalle;
         this.correspondeCriterio = correspondeCriterio;

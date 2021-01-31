@@ -3,50 +3,136 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
     <script src="/js/logic.js"></script>
-    <link rel="stylesheet" href="/css/estilos-cargar-egreso.css">
-    <title>Crear egreso</title>
+    <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
+    <!-- CSS only -->
+    <title>Ver Egresos</title>
 </head>
 <body>
-    <div class="titulo">
-    <h1 class="nombre-titulo">Creación de Operación de Egreso</h1>
-    </div>
-    <div class="general">
-      <br><br>
-      <div class="general-fecha">
-    <form action="/crearEgreso1" method="post" class="form-">
-    <h1 class="fecha">Fecha de Operación:</h1>
-       </div><br>
-       <div class="box-Fecha">
-     <input type="date" name="fecha" required>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="space-around-horizontal navbar-nav ml-auto">
+            <a class="navbar-brand" onclick="location.href='/home'">Home</a>
+            <button type="button" class="btn btn-dark align-content-center"
+                    onclick="location.href='/crearOperacionEgreso'">Crear Operacion de Egreso
+            </button>
+            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
+                Cargar Operacion de Ingreso
+            </button>
+
+            <div class="dropdown align-content-md-around">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Asociar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a>
+                    </li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria
+                        Presupuesto</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown align-content-center">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Visualizar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/ver-ingresos'">Ver Ingresos</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/ver-egresos'">Ver Egresos</a></li>
+                </ul>
+            </div>
         </div>
-        <br><br><br>
-        <div class="general-proveedor">
-      <h1 class="proveedor">Cantidad Minima de <br> Presupuestos:</h1>
-         </div><br>
-         <div class="box-proveedor">
-       <input type="text" name="cantidadMinima" required>
-       </div>
-       <br><br><br>
-       <div class="general-valor">
-     <h1 class="numero-valor">Valor Total:</h1>
-   </div><br>
-        <div class="box-valor">
-      <input type="text" name="valorTotal" required>
-      </div><br><br><br><br>
-       <div class="general-siguiente">
-     <button class="boton_siguiente" onclick="location.href='crear-medio-pago.html'">Siguiente</button>
-     </form>
-   </div>
-   <div class="general-siguiente2">
- <button class="boton_siguiente" onclick="location.href='crear-proveedor.html'">Volver</button>
-</div><br><br><br><br>
-       <div class="general-home">
-       <button class="boton_home" onclick="location.href='index-menu-revisor.html'">Volver a Home</button>
-       </div>
-       </div>
-  </body>
+
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-dark" onclick="location.href='ver-bandeja'">
+                Bandeja de Entrada
+            </button>
+            <form action="/logout" method="get" class="form">
+                <button class="btn btn-dark" onclick="location.href='index-login.html'" type="submit">Salir</button>
+            </form>
+        </div>
+
+
+    </div>
+</nav>
+<form action="/crearEgreso1" method="post" class="form">
+    <div class="d-flex justify-content-center" style="padding-top: 64px;padding-bottom: 16px">
+        <div class="card text-dark bg-light-tp mb-3"
+             style="min-height: 18rem; min-width: 36rem; max-width: 70%">
+            <div class="card-header display-7 text-center"> Creación de Operación de Egreso</div>
+            <div class="card-body" style="margin-top: 32px">
+                <div class="space-evenly-vert align-items-start">
+                    <div class="" style="padding-right: 0;width: -webkit-fill-available">
+                        <div class="d-flex justify-content-between">
+                            <p class="card-text">Descripcion:</p>
+                            <label>
+                                <input type="text" name="descripcion" required="required">
+                            </label>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <p class="card-text">Fecha de Operacion:</p>
+                            <label>
+                                <input type="date" name="fecha" required="required">
+                            </label>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <p class="card-text">Cantidad mínima de Presupuestos:</p>
+                            <label>
+                                <input type="text" name="cantidadMinima" required="required">
+                            </label>
+                        </div>
+
+
+                        <div class="d-flex justify-content-between">
+                            <p class="card-text">Valor Total:</p>
+                            <label>
+                                <input type="text" name="valorTotal" required="required">
+                            </label>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="card-text">Proveedor:</p>
+                            <select name="proveedor" required="required">
+                                {{#each proveedores}}
+                                    <option value='{{nombreApellidoRazon}}'>{{nombreApellidoRazon}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="d-flex justify-content-center padding-button-home">
+        <button class="btn btn-dark rounded-pill" type="submit">Siguiente</button>
+    </div>
+</form>
+
+<div class="d-flex justify-content-center padding-button-home">
+    <button class="btn btn-lg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home</button>
+</div>
+</div>
+
+</body>
 </html>

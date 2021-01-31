@@ -16,28 +16,20 @@ public class Articulo extends EntidadPersistente {
     private Float precioTotal;
     @Column
     private String descripcion;
-    @Transient
-    private Proveedor proveedor;
-
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "item_id", referencedColumnName = "id")
-    private Item item;
 
     public Articulo() {
     }
 
-    public Articulo(String nombre, Float precioTotal, String descripcion, Proveedor proveedor) {
+    public Articulo(String nombre, Float precioTotal, String descripcion) {
         this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
         this.precioTotal = Objects.requireNonNull(precioTotal, "El precio total no puede ser nulo");
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
-        this.proveedor = Objects.requireNonNull(proveedor, "El proovedor no puede ser nulo");
     }
 
     public Articulo(String nombre, int precioTotal, String descripcion, Proveedor proveedor) {
         this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
         this.precioTotal = Objects.requireNonNull((float) precioTotal, "El precio total no puede ser nulo");
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
-        this.proveedor = Objects.requireNonNull(proveedor, "El proovedor no puede ser nulo");
     }
 
     public Articulo(String nombre, Float precioTotal) {
@@ -67,11 +59,19 @@ public class Articulo extends EntidadPersistente {
         this.descripcion = descripcion;
     }
 
-    public Item getItem() {
-        return item;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Articulo)) return false;
+        Articulo articulo = (Articulo) o;
+        return getNombre().equals(articulo.getNombre()) &&
+                getPrecioTotal().equals(articulo.getPrecioTotal()) &&
+                Objects.equals(getDescripcion(), articulo.getDescripcion());
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNombre(), getPrecioTotal(), getDescripcion());
     }
+
 }

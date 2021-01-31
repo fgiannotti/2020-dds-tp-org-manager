@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class OSC extends Juridica {
 
     public OSC(){}
-    public OSC(String nombreFicticio, String razonSocial, Integer cuit, DireccionPostal dirPostal, Integer codigoInscripcion) {
+    public OSC(String nombreFicticio, String razonSocial, String cuit, DireccionPostal dirPostal, Integer codigoInscripcion) {
         super(nombreFicticio, razonSocial, cuit, dirPostal, codigoInscripcion, null);
     }
 

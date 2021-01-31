@@ -5,6 +5,8 @@ import db.Converters.EntidadPersistente;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 @Entity
 @Table(name="criterios_empresas")
 public class CriterioDeEmpresa extends EntidadPersistente {
@@ -12,18 +14,18 @@ public class CriterioDeEmpresa extends EntidadPersistente {
     private String nombre;
     @Transient
     private List<CriterioDeEmpresa> criteriosHijos = new ArrayList<CriterioDeEmpresa>();
-    @OneToMany(mappedBy = "criterio", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Categoria> categorias = new ArrayList<Categoria>();
 
     @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
+    @JoinColumn(name = "org_id")
     private Organizacion organizacion;
 
-    public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosMenores, List<Categoria> categorias) {
+
+    public CriterioDeEmpresa(String nombre, List<CriterioDeEmpresa> criteriosMenoresOpcionales, Organizacion organizacion) {
         this.nombre = nombre;
-        this.criteriosHijos = criteriosMenores;
-        this.categorias = categorias != null ? categorias : this.categorias;
+        this.criteriosHijos = criteriosMenoresOpcionales != null ? criteriosMenoresOpcionales : this.criteriosHijos;
+        this.organizacion = organizacion;
     }
+
     public CriterioDeEmpresa(){}
 
     public String getNombre() {
@@ -42,19 +44,20 @@ public class CriterioDeEmpresa extends EntidadPersistente {
         this.criteriosHijos = criteriosHijos;
     }
 
-    public List<Categoria> getCategorias() {
-        return categorias;
-    }
-
-    public void setCategorias(List<Categoria> categorias) {
-        this.categorias = categorias;
-    }
-
     public void agregarCriterio(CriterioDeEmpresa unCriterio){
         this.criteriosHijos.add(unCriterio);
     }
 
-    public void agregarCategoria(Categoria unaCategoria){
-        this.categorias.add(unaCategoria);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CriterioDeEmpresa)) return false;
+        CriterioDeEmpresa that = (CriterioDeEmpresa) o;
+        return getNombre().equals(that.getNombre());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNombre());
     }
 }

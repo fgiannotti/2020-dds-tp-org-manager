@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 @Entity
 @DiscriminatorValue("empresa")
@@ -22,19 +23,27 @@ public class Empresa extends Juridica {
     @Column(name="tipo_empresa")
     @Enumerated
     private TipoEmpresa tipo;
-    @Transient
-    private CategorizadorEmpresa categorizadorEmpresa;
 
-    public Empresa(String nombreFicticio, String razonSocial, Integer cuit, DireccionPostal dirPostal, Integer codigoInscripcion, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {
+    @Transient
+    private final CategorizadorEmpresa categorizadorEmpresa = new CategorizadorEmpresa();
+
+    public Empresa(String nombreFicticio, String razonSocial, String cuit, DireccionPostal dirPostal, Integer codigoInscripcion, Integer cantidadPersonal, Actividad actividad, Float promedioVentas) {
         super(nombreFicticio, razonSocial, cuit, dirPostal, codigoInscripcion, null);
         this.actividad = actividad;
-        this.categorizadorEmpresa = new CategorizadorEmpresa();
         try {
             this.tipo = this.categorizadorEmpresa.categorizar(cantidadPersonal, actividad, promedioVentas);
         }
         catch (RuntimeException e){
             throw (e);
         }
+    }
+
+    public Empresa(String nombreFicticio, String razonSocial, String cuit, DireccionPostal dirPostal, Integer codigoInscripcion, Base entidadHija, int cantidadPersonal, Actividad actividad, Float promedioVentas) {
+        super(nombreFicticio, razonSocial, cuit, dirPostal, codigoInscripcion, entidadHija);
+        this.cantidadPersonal = cantidadPersonal;
+        this.actividad = actividad;
+        this.promedioVentas = promedioVentas;
+        this.tipo = this.categorizadorEmpresa.categorizar(cantidadPersonal, actividad, promedioVentas);
     }
 
     public Empresa(){
@@ -77,14 +86,6 @@ public class Empresa extends Juridica {
         this.tipo = tipo;
     }
 
-    public CategorizadorEmpresa getCategorizadorEmpresa() {
-        return categorizadorEmpresa;
-    }
-
-    public void setCategorizadorEmpresa(CategorizadorEmpresa categorizadorEmpresa) {
-        this.categorizadorEmpresa = categorizadorEmpresa;
-    }
-
     @Override
     public String toString() {
         return "Empresa{" +
@@ -99,5 +100,22 @@ public class Empresa extends Juridica {
                 ", entidadesHijas=" + entidadesHijas +
                 ", nombreFicticio='" + this.getNombreFicticio() + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Empresa)) return false;
+        if (!super.equals(o)) return false;
+        Empresa empresa = (Empresa) o;
+        return getCantidadPersonal().equals(empresa.getCantidadPersonal()) &&
+                Float.compare(empresa.getPromedioVentas(), getPromedioVentas()) == 0 &&
+                Objects.equals(getActividad(), empresa.getActividad()) &&
+                getTipo() == empresa.getTipo();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getCantidadPersonal(), getActividad(), getPromedioVentas(), getTipo());
     }
 }

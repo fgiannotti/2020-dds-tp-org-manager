@@ -6,10 +6,12 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProveedorController {
+    EntityManager em = EntityManagerHelper.getEntityManager();
 
     public ModelAndView inicio(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
@@ -21,9 +23,9 @@ public class ProveedorController {
         String dni = request.queryParams("dni");
         String direccion = request.queryParams("direccion");
         Proveedor unProveedor = new Proveedor(nombreORazon, dni, direccion);
-        EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.getEntityManager().persist(unProveedor);
-        EntityManagerHelper.commit();
+        em.getTransaction().begin();
+        em.persist(unProveedor);
+        em.getTransaction().commit();
 
         response.redirect("/crearEgreso1"); //success
         return response;

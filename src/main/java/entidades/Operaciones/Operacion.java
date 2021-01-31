@@ -6,8 +6,8 @@ public interface Operacion {
 
     public int getId();
     public void realizarOperacion();
-    public int getMontoTotal();
-    public void setMontoTotal( int newMonto );
+    public float getMontoTotal();
+    public void setMontoTotal(float newMonto );
     public String getDescripcion();
     public void setDescripcion(String descripcion);
     public boolean isEgreso();

@@ -3,45 +3,182 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilo-categoria.css">
-    <title>Criterio</title>
+    <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
+
+    <!-- CSS only -->
+    <title>Categorias</title>
 </head>
-    <body>
-      <div class="titulo">
-      <h1 class="nombre-titulo">Creación de Criterio (Opcional)</h1>
-      </div>
-      <div class="general">
-        <br><br>
-        <div class="general-fecha">
-        <form action="/crearEgreso7" method="post" class="form-">
-      <h1 class="fecha">Nombre Criterio:</h1>
-         </div><br>
-         <div class="box-Fecha">
-       <input type="text" name="nombreCriterio">
-          </div>
-          <br><br><br>
-          <div class="general-proveedor">
-        <h1 class="proveedor">Categoria:</h1>
-           </div><br>
-           <div class="box-proveedor">
-          <input type="text" name="categoria">
-         </div>
-        <br><br><br><br>
-         <div class="general-siguiente">
-       <button class="boton_siguiente" type="submit">Siguiente</button>
-     </div>
-     </form>
-     <div class="general-siguiente2">
-     <button class="boton_siguiente" onclick="location.href='/crearEgreso6'">Volver</button>
-     </div>
-     <br><br><br>
-         <div class="general-home">
-         <button class="boton_home" onclick="location.href='/home'">Volver a Home</button>
-         </div>
-         </div>
-    </body>
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="space-around-horizontal navbar-nav ml-auto">
+            <a class="navbar-brand" onclick="location.href='/home'">Home</a>
+            <button type="button" class="btn btn-dark align-content-center"
+                    onclick="location.href='/crearOperacionEgreso'">Seleccionar un Presupuesto
+            </button>
+            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
+                Cargar Operacion de Ingreso
+            </button>
+
+            <div class="dropdown align-content-md-around">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Asociar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a>
+                    </li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria
+                        Presupuesto</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown align-content-center">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Visualizar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/ver-ingresos'">Ver Ingresos</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/ver-egresos'">Ver Egresos</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-dark" onclick="location.href='ver-bandeja'">
+                Bandeja de Entrada
+            </button>
+            <form action="/logout" method="get" class="form">
+                <button class="btn btn-dark" onclick="location.href='index-login.html'" type="submit">Salir</button>
+            </form>
+        </div>
+
+
+    </div>
+</nav>
+
+<form action="/crearEgreso7" method="post" class="form">
+    <div class="d-flex justify-content-center" style="padding-top: 64px;padding-bottom: 16px;">
+        <div class="card text-dark bg-light-tp mb-3"
+             style="min-height: 18rem; min-width: 36rem; max-width: 70%">
+            <div class="card-header display-7 text-center">Seleccionar Categorias</div>
+            <div class="card-body space-evenly-vert" style="margin-top: 32px">
+                <div class="space-evenly-vert align-items-start" style="width: -webkit-fill-available">
+                    <div class="" style="padding-right: 0;width: -webkit-fill-available">
+                        <div class="align-content-start">
+                            <p class="text-sm-start"> Este paso es opcional. </p>
+                        </div>
+                        <div class="container">
+                            {{#each categorias}}
+                                <div class="space-evenly-vert align-items-start" style="margin-left: 8px">
+                                    <label for="cbox">
+                                        <input type="checkbox" id="cbox" name="categoria" value="{{id}}">
+                                        {{descripcion}} con criterio "{{criterio.nombre}}"
+                                    </label>
+                                </div>
+                            {{else}}
+                                <p class="display-8 text-center"> Sin categorias.</p>
+                            {{/each}}
+                        </div>
+
+
+                    </div>
+                    <div class="d-flex justify-content-center m-4" style="padding-top: 64px;  width:-webkit-fill-available">
+                        <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                data-bs-target="#catModal">
+                            Agregar nueva Categoria
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-evenly padding-button-home">
+        <button  type="button" class="btn btn-dark rounded-pill" onclick="location.href='/crearEgreso3'">Volver</button>
+
+        <button class="btn btn-outline-dark rounded-pill" type="submit">Guardar Egreso</button>
+    </div>
+</form>
+
+<div class="d-flex justify-content-center" style="padding: 8px">
+    <form action="/cacheCategoria2" method="post" class="form">
+        <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true" id="catModal">
+            <div class="modal-dialog" style="max-width: 50%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar nueva Categoria </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="catModalBody">
+
+                        <div class="card" id="card0" style="margin:8px;max-width: 80%;margin-left: 10%;">
+                            <div class="card-body" id="cardBody">
+                                <div class="d-flex justify-content-around">
+                                    <p class="card-text">Descripcion:</p>
+                                    <input type="text" id="cbox2" name="newCategoria" required="required"
+                                           placeholder="Descripcion"/>
+                                </div>
+
+                                <div class="">
+                                    <div class="d-flex">
+                                        <span class="card-text">Asignar criterio (opcional): </span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <span class="text-sm-start" style="font-size: small">En caso de necesitar una categoria nueva con criterios
+                                            nuevos,</span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <p class="text-sm-start" style="font-size: small">por favor realizarlo desde "asociar --> egreso -
+                                            categoria"</p>
+                                    </div>
+                                </div>
+
+                                <div class="space-evenly-vert align-items-start" style="margin-left: 24px">
+                                    {{#each criterios}}
+                                        <div class="input-row" style="display: flex;width: -webkit-fill-available;margin-left: 30%;">
+                                            <label for="cbox">
+                                                <input type="radio" id="cbox" name="criterio" value="{{id}}">
+                                                {{nombre}}
+                                            </label>
+                                        </div>
+                                    {{else}}
+                                        <p class="display-8 text-center"> Sin Criterios.</p>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar
+                        </button>
+                        <button class="btn btn-primary d-flex justify-content-center" type="submit">Agregar Categoria
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
 </html>

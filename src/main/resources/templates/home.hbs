@@ -13,14 +13,21 @@
     <title>Home</title>
 </head>
  <body>
-    <div>
+    {{#if asociarEIok}}<script>alert("Se asociaron los {{totalECount}} ingreso al egreso elegido")</script>
+    {{else}}
+        {{#if asociarEIfail}}
+            <script>alert("Hubo un error asociando los ingresos al egreso elegido")</script>
+        {{/if}}
+    {{/if}}
+
+ <div>
     <h1 class="titulo">Proem</h1>
     </div>
       <div class="button-container">
         <form action="/logout" method="get" class="form-">
             <button class="boton_salir" onclick="location.href='index-login.html'" type="submit">Salir</button>
         </form>
-        <button class="boton_crearOPE" onclick="location.href='CrearOperacionEgreso';">
+        <button class="boton_crearOPE" onclick="location.href='/crearOperacionEgreso';">
             <p class="texto-operacion">Crear Operacion de Egreso</p>
         </button>
         <button class="boton_crearIN" onclick="location.href='asocEgresoPresupuestoACategoria'">
@@ -29,7 +36,7 @@
         <button class="boton_asociar" onclick="location.href='asocIngresoEgreso'">
             <p class="texto-asociar">Asociar Ingresos</p>
         </button>
-        <button class="boton_visualizacion" onclick="location.href='visualizacionIngresoEgresoPorCat'">
+        <button class="boton_visualizacion" onclick="location.href='ver-ingresos'">
             <p class="texto-visualizacion">Visualizar Egresos</p>
         </button>
     </div> <br><br><br><br><br><br><br><br>

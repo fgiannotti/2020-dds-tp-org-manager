@@ -16,44 +16,77 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="egresos")
+@Table(name = "egresos")
 public class OperacionEgreso extends EntidadPersistente implements Operacion {
+
     @Column
     private int numeroOperacion;
-
-    @OneToMany(mappedBy = "egreso", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private List<Proveedor> proveedores = new ArrayList<Proveedor>();
+    @Column
+    private float montoTotal;
+    @Column
+    private String descripcion;
+    @Column
+    private String tipoDocumento;
+    @Column
+    private Integer cantidadMinimaDePresupuestos;
 
     @Column(name = "fecha_operacion", columnDefinition = "DATE")
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate fechaOperacion;
 
-    @OneToOne(cascade=CascadeType.ALL)
-    private MedioDePago medioDePago;
-
-    @Column
-    private String tipoDocumento;
-
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Comprobante comprobante;
 
-    @Column
-    private int montoTotal;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "proveedor_elegido_id")
+    private Proveedor proveedorElegido;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "medio_id")
+    private MedioDePago medioDePago;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
+    private Organizacion organizacion;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ingreso_id", referencedColumnName = "id")
+    private OperacionIngreso ingreso;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Presupuesto> presupuestosPreliminares = new ArrayList<Presupuesto>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "egresos_x_categorias", joinColumns = @JoinColumn(name = "egreso_id", referencedColumnName = "id", unique = false),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "id", unique = false))
+    private List<Categoria> categorias = new ArrayList<>();
+
+
+    @Enumerated(EnumType.STRING)
     @Column
-    private String descripcion;
+    private Criterio criterio;
 
     @Transient
     private List<Item> items = new ArrayList<Item>();
-
-    @Transient
-    private List<Presupuesto> presupuestosPreliminares = new ArrayList<Presupuesto>();
-
     @Transient
     private Articulo articulo;
 
-    @Column
-    private Integer cantidadMinimaDePresupuestos;
+    public OperacionEgreso() {}
+
+    public OperacionEgreso(int montoTotal, String descripcion,  Proveedor proveedorElegido, MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos, Criterio criterio, List<Presupuesto> presupuestosPreliminaresOpcionales) {
+        this.presupuestosPreliminares = presupuestosPreliminaresOpcionales != null ? presupuestosPreliminaresOpcionales : this.presupuestosPreliminares;
+        this.numeroOperacion = getNuevoNumeroOperacion();
+        this.montoTotal = montoTotal;
+        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
+        this.proveedorElegido = proveedorElegido;
+        this.medioDePago = Objects.requireNonNull(medioDePago, "El medio de pago no puede ser nulo");
+        this.fechaOperacion = Objects.requireNonNull(fechaOperacion, "La fecha de operacion no puede ser nula");
+        this.tipoDocumento = Objects.requireNonNull(tipoDocumento, "El tipo de documento no puede ser nulo");
+        this.comprobante = comprobante;
+        this.items = Objects.requireNonNull(items, "Los items no pueden ser nulos");
+        this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
+        this.criterio = criterio;
+    }
 
     public OperacionIngreso getIngreso() {
         return ingreso;
@@ -63,43 +96,18 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.ingreso = ingreso;
     }
 
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "ingreso_id", referencedColumnName = "id")
-    private OperacionIngreso ingreso;
+    public OperacionEgreso(float montoTotal, String descripcion, Proveedor proveedorElegido,
+                           MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento,
+                           Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,
+                           Criterio criterio, Organizacion organizacion,
+                           List<Presupuesto> presupuestosPreliminaresOpcionales, List<Categoria> categoriasOpcionales) {
 
-    @Enumerated(EnumType.STRING)
-    @Column
-    private Criterio criterio;
-
-    @Transient
-    private List<Categoria> categorias = new ArrayList<Categoria>();
-
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
-    private Organizacion organizacion;
-
-    public OperacionEgreso(){ }
-
-    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores, MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos, Criterio criterio){
-        this.presupuestosPreliminares = new ArrayList<Presupuesto>();
+        this.categorias = categoriasOpcionales != null ? categoriasOpcionales : this.categorias;
+        this.presupuestosPreliminares = presupuestosPreliminaresOpcionales != null ? presupuestosPreliminaresOpcionales : this.presupuestosPreliminares;
         this.numeroOperacion = getNuevoNumeroOperacion();
         this.montoTotal = montoTotal;
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
-        this.proveedores = Objects.requireNonNull(proveedores, "El proveedor no puede ser nulo");
-        this.medioDePago = Objects.requireNonNull(medioDePago, "El medio de pago no puede ser nulo");
-        this.fechaOperacion = Objects.requireNonNull(fechaOperacion, "La fecha de operacion no puede ser nula");
-        this.tipoDocumento = Objects.requireNonNull(tipoDocumento, "El tipo de documento no puede ser nulo");
-        this.comprobante = comprobante;
-        this.items = Objects.requireNonNull(items, "Los items no pueden ser nulos");
-        this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
-        this.criterio = criterio;
-    }
-    public OperacionEgreso(int montoTotal, String descripcion, List<Proveedor> proveedores, MedioDePago medioDePago, LocalDate fechaOperacion, String tipoDocumento, Comprobante comprobante, List<Item> items, Integer cantidadMinimaDePresupuestos,Criterio criterio,Organizacion organizacion){
-        this.presupuestosPreliminares = new ArrayList<Presupuesto>();
-        this.numeroOperacion = getNuevoNumeroOperacion();
-        this.montoTotal = montoTotal;
-        this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
-        this.proveedores = Objects.requireNonNull(proveedores, "El proveedor no puede ser nulo");
+        this.proveedorElegido = proveedorElegido;
         this.medioDePago = Objects.requireNonNull(medioDePago, "El medio de pago no puede ser nulo");
         this.fechaOperacion = Objects.requireNonNull(fechaOperacion, "La fecha de operacion no puede ser nula");
         this.tipoDocumento = Objects.requireNonNull(tipoDocumento, "El tipo de documento no puede ser nulo");
@@ -126,16 +134,39 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.comprobante.setItems(this.items);                  //  Al adjuntar el comprobante al
     }                                                           //  documento ambos deben tener los mismos items
 
-    public void addItem(Item item){
+    @Override
+    public String toString() {
+        return "OperacionEgreso{" +
+                "numeroOperacion=" + numeroOperacion +
+                ", proveedorElegido=" + proveedorElegido +
+                ", fechaOperacion=" + fechaOperacion +
+                ", medioDePago=" + medioDePago +
+                ", tipoDocumento='" + tipoDocumento + '\'' +
+                ", comprobante=" + comprobante +
+                ", montoTotal=" + montoTotal +
+                ", descripcion='" + descripcion + '\'' +
+                ", items=" + items +
+                ", presupuestosPreliminares=" + presupuestosPreliminares +
+                ", articulo=" + articulo +
+                ", cantidadMinimaDePresupuestos=" + cantidadMinimaDePresupuestos +
+                ", ingreso=" + ingreso +
+                ", criterio=" + criterio +
+                ", categorias=" + categorias +
+                ", organizacion=" + organizacion +
+                '}';
+    }
+
+
+    public void addItem(Item item) {
         this.items.add(item);
     }
 
-    public void removeItem(Item item){
+    public void removeItem(Item item) {
         this.items.remove(item);
     }
-    
-    public void verItems(){
-        for (Item item: items) {
+
+    public void verItems() {
+        for (Item item : items) {
             System.out.println(item.toString());
         }
     }
@@ -144,15 +175,20 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         return this.getPresupuestosPreliminares().stream()
                 .noneMatch(presupuesto1 -> presupuesto1.getTotal() < presupuesto.getTotal());
     }
-    public void agregarCategoria(Categoria categoria){
+
+    public void agregarCategoria(Categoria categoria) {
         this.categorias.add(categoria);
     }
-    public void agregarPresupuesto(Presupuesto presupuesto){
+
+    public void agregarPresupuesto(Presupuesto presupuesto) {
         this.presupuestosPreliminares.add(presupuesto);
     }
 
-    public void realizarOperacion(){}
-    public void registrarEgreso(int numero_operacion, MedioDePago medio_pago){ }
+    public void realizarOperacion() {
+    }
+
+    public void registrarEgreso(int numero_operacion, MedioDePago medio_pago) {
+    }
 
 
     public Comprobante getDocumento() {
@@ -163,11 +199,17 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         return numeroOperacion;
     }
 
-    public Comprobante getComprobante() { return comprobante; }
+    public Comprobante getComprobante() {
+        return comprobante;
+    }
 
-    public List<Presupuesto> getPresupuestosPreliminares() { return presupuestosPreliminares; }
+    public List<Presupuesto> getPresupuestosPreliminares() {
+        return presupuestosPreliminares;
+    }
 
-    public void setPresupuestosPreliminares(List<Presupuesto> presupuestosPreliminares) { this.presupuestosPreliminares = presupuestosPreliminares; }
+    public void setPresupuestosPreliminares(List<Presupuesto> presupuestosPreliminares) {
+        this.presupuestosPreliminares = presupuestosPreliminares;
+    }
 
     public Integer getCantidadMinimaDePresupuestos() {
         return this.cantidadMinimaDePresupuestos;
@@ -201,27 +243,43 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.organizacion = organizacion;
     }
 
-    public void setNumeroOperacion(int numeroOperacion) { this.numeroOperacion = numeroOperacion; }
+    public void setNumeroOperacion(int numeroOperacion) {
+        this.numeroOperacion = numeroOperacion;
+    }
 
-    public void setProveedores(List<Proveedor> proveedores) { this.proveedores = proveedores; }
+    public void setProveedorElegido(Proveedor proveedorElegido) {
+        this.proveedorElegido = proveedorElegido;
+    }
 
-    public LocalDate getFechaOperacion() { return fechaOperacion; }
+    public LocalDate getFechaOperacion() {
+        return fechaOperacion;
+    }
 
-    public void setItems(List<Item> items) { this.items = items; }
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
 
-    public void setCantidadMinimaDePresupuestos(Integer cantidadMinimaDePresupuestos) { this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos; }
+    public void setCantidadMinimaDePresupuestos(Integer cantidadMinimaDePresupuestos) {
+        this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
+    }
 
-    public void setCriterio(Criterio criterio) { this.criterio = criterio; }
+    public void setCriterio(Criterio criterio) {
+        this.criterio = criterio;
+    }
 
-    public List<Categoria> getCategorias() { return categorias; }
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
 
-    public void setCategorias(List<Categoria> categorias) {this.categorias = categorias; }
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
 
     public void setComprobante(Comprobante comprobante) {
         this.comprobante = comprobante;
     }
 
-    public LocalDate getFecha(){
+    public LocalDate getFecha() {
         return this.fechaOperacion;
     }
 
@@ -229,17 +287,19 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         this.fechaOperacion = fechaOperacion;
     }
 
-    public List<Proveedor> getProveedores() {
-        return this.proveedores;
+    public Proveedor getProveedorElegido() {
+        return proveedorElegido;
     }
 
     public MedioDePago getMedioDePago() {
         return this.medioDePago;
     }
 
-    public void setMedioDePago(MedioDePago mp) { this.medioDePago = mp; }
+    public void setMedioDePago(MedioDePago mp) {
+        this.medioDePago = mp;
+    }
 
-    public List<Item> getItems(){
+    public List<Item> getItems() {
         return this.items;
     }
 
@@ -247,11 +307,11 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
         return this.hashCode();
     }
 
-    public int getMontoTotal(){
+    public float getMontoTotal() {
         return montoTotal;
     }
 
-    public void setMontoTotal( int newMonto ){
+    public void setMontoTotal(float newMonto) {
         montoTotal = newMonto;
     }
 

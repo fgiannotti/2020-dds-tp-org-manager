@@ -10,7 +10,7 @@ public class EmpresaBuilder {
 
     private String nombreFicticio;
     private String razonSocial;
-    private Long cuit;
+    private String cuit;
     private Integer dirPostal;
     private Integer codigoInscripcion;
     private Integer cantidadPersonal;
@@ -44,11 +44,11 @@ public class EmpresaBuilder {
         this.razonSocial = razonSocial;
     }
 
-    public Long getCuit() {
+    public String getCuit() {
         return cuit;
     }
 
-    public void setCuit(Long cuit) {
+    public void setCuit(String cuit) {
         this.cuit = cuit;
     }
 
@@ -126,7 +126,7 @@ public class EmpresaBuilder {
         return this;
     }
 
-    public EmpresaBuilder agregarCuit(Long cuit){
+    public EmpresaBuilder agregarCuit(String cuit){
         this.empresa.setCuit(cuit);
         return this;
     }

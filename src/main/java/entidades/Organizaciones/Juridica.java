@@ -15,25 +15,27 @@ public class Juridica extends Organizacion {
     @Column(name="razon_social")
     protected String razonSocial;
     @Column
-    protected long cuit;
+    protected String cuit;
     @OneToOne(cascade = {CascadeType.ALL})
     protected DireccionPostal dirPostal;
     @Column(name="codigo_inscripcion")
     protected Integer codigoInscripcion;
-    @OneToMany(mappedBy = "entidadPadre", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    protected List<Base> entidadesHijas;
+    @OneToMany(mappedBy = "entidadPadre", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    protected List<Base> entidadesHijas = new ArrayList<Base>();
 
     public void addEntidadHija(Base... base){
         entidadesHijas.addAll(Arrays.asList(base));
     }
 
-    public Juridica(String nombreFicticio, String razonSocial, Integer cuit, DireccionPostal dirPostal, Integer codigoInscripcion, Base _entidadHija) {
+    public Juridica(String nombreFicticio, String razonSocial, String cuit, DireccionPostal dirPostal, Integer codigoInscripcion, Base entidadHija) {
         super(nombreFicticio);
         this.razonSocial = Objects.requireNonNull(razonSocial, "La razon social no puede ser nula");
         this.cuit = Objects.requireNonNull(cuit, "El cuit no puede ser nulo");
         this.dirPostal = dirPostal;
         this.codigoInscripcion = Objects.requireNonNull(codigoInscripcion, "El codigo de inscripcion no puede ser nulo");
-        entidadesHijas = new ArrayList<Base>();
+        if (entidadHija != null){
+            entidadesHijas.add(entidadHija);
+        }
     }
 
     public Juridica(){
@@ -55,11 +57,11 @@ public class Juridica extends Organizacion {
         this.razonSocial = razonSocial;
     }
 
-    public Long getCuit() {
+    public String getCuit() {
         return cuit;
     }
 
-    public void setCuit(Long cuit) {
+    public void setCuit(String cuit) {
         this.cuit = cuit;
     }
 
@@ -73,5 +75,21 @@ public class Juridica extends Organizacion {
 
     public void setEntidadesHijas(List<Base> entidadesHijas) {
         this.entidadesHijas = entidadesHijas;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Juridica)) return false;
+        if (!super.equals(o)) return false;
+        Juridica juridica = (Juridica) o;
+        return getRazonSocial().equals(juridica.getRazonSocial()) &&
+                getCuit().equals(juridica.getCuit()) &&
+                codigoInscripcion.equals(juridica.codigoInscripcion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getRazonSocial(), getCuit(), codigoInscripcion);
     }
 }

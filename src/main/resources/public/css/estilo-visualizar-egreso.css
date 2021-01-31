@@ -1,140 +1,224 @@
-body{
-background-image: url("https://wallpapercave.com/wp/wp6928859.png");
+body {
+    background: white;
+    font-family: "Lato", sans-serif;
+    height: 100%;
+    min-height: 100%;
+}
+html{
+    height: 100%;
 }
 
-.titulo{
-  background: none;
-  text-align: center;
+.titulo {
+    background: none;
+    text-align: center;
 }
 
-.nombre-titulo{
-  font-size:3em;
-  color: black;
-  font-family:"Cambria";
-  font-weight: lighter;
+.padding-body-egreso {
+    padding: 16px;
+    min-width: 300px;
+    max-width: 400px;
+}
+input[type="file"] {
+    display: inline;
+}
+.padding-button-home {
+    padding: 8px;
 }
 
-.general{
-  background: white;
-  border-radius: 2em 2em;
-  align-self: center;
-  margin: 0 auto;
-  width: 500px;
-  height: 1000px;
+.container-body-egreso {
+    width: 70%;
+    padding-right: var(--bs-gutter-x, 0.75rem);
+    padding-left: var(--bs-gutter-x, 0.75rem);
+    margin-right: auto;
+    margin-left: 8px;
 }
 
-.general-medio{
-  background: none;
-  text-align: center;
-  width: 210px;
-  height: 70px;
-  float: left;
-}
-.general-visualizar-egreso-ingreso{
-  background: none;
-  text-align: center;
-  width: 400px;
-  height: 800px;
-  float: left;
+.nombre-titulo {
+    font-size: 3em;
+    color: black;
+    font-family: "Cambria";
+    font-weight: lighter;
 }
 
-.general-numero{
-  background: none;
-  text-align: center;
-  width: 210px;
-  height: 70px;
-  float: left;
+.general {
+    background: lightgrey;
+    border-radius: 2em 2em;
+    align-self: center;
+    margin: 0 auto;
+    width: 500px;
+    height: 1000px;
 }
 
-.general-siguiente{
-  background: none;
-  text-align: center;
-  width: 200px;
-  height: 40px;
-  float: right;
+.display-7 {
+    font-size: calc(1rem + 1vw);
+    font-weight: 300;
+    line-height: 1.2;
 }
 
-.general-home{
-  background: none;
-  text-align: center;
-  width: 500px;
-  height: 50px;
-  float: center;
+
+.display-9 {
+    font-size: calc(0.65rem + 0.75vw);
+    font-weight: 300;
+    line-height: 1.2;
 }
 
-.boton_siguiente{
-  border: none;
-  background: #A3ABAF;
-  width: 10em;
-  height: 2em;
-  text-align: center;
-  font-size: 15px;
-  font-family:"Segoe UI";
-  font-style:italic;
-  color: black;
+.display-10 {
+    font-size: calc(0.50rem + 0.75vw);
+    font-weight: 300;
+    line-height: 1.2;
+}
+.display-8 {
+    font-size: calc(0.75rem + 0.75vw);
+    font-weight: 300;
+    line-height: 1.2;
+}
+.space-evenly-vert {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.clickeable:hover{
+    box-shadow: 4px 8px 20px lightgrey;
+    background-color: lightgray
+}
+.clickeable:focus{
+    outline: 0;
+    box-shadow: 4px 8px 20px darkgrey;
+    background-color: darkgrey;
 }
 
-.boton_home{
-  border: none;
-  background: #A3ABAF;
-  width: 20em;
-  height: 3em;
-  text-align: center;
-  font-size: 15px;
-  font-family:"Segoe UI";
-  font-style:italic;
-  color: black;
+.bg-light-tp{
+    background-color: #f8f9fa;
+}
+.space-evenly-vert {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
-.box-Medio{
-  width: 200px;
-  height: 20px;
-  background:white;
-  float: right;
-  align-content: center;
+.distribute-cards-evenly{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
-.medio{
-  font-size: 20px;
-  font-family:"Cambria";
-  color: black;
+.general-medio {
+    background: none;
+    text-align: center;
+    width: 210px;
+    height: 70px;
+    float: left;
 }
 
-.numero{
-  font-size: 20px;
-  font-family:"Cambria";
-  color: black;
+.general-egresos {
+    background: lightgrey;
+    border-radius: 2em 2em;
+    align-self: center;
+    margin: 0 auto;
+    width: fit-content;
+    height: fit-content;
 }
 
-.box-numero{
-  width: 200px;
-  height: 20px;
-  background:white;
-  float: right;
-  align-content: center;
+.general-numero {
+    background: none;
+    text-align: center;
+    width: 210px;
+    height: 70px;
+    float: left;
 }
 
-.opcion-multiple{
-  width: 150px;
-  height: 20px;
+.general-siguiente {
+    background: none;
+    text-align: center;
+    width: 200px;
+    height: 40px;
+    float: right;
 }
 
-.boton_guardar{
-  border: none;
-  background: #A3ABAF;
-  width: 10em;
-  height: 2em;
-  text-align: center;
-  font-size: 15px;
-  font-family:"Segoe UI";
-  font-style:italic;
-  color: black;
+.general-home {
+    background: none;
+    text-align: center;
+    width: 500px;
+    height: 50px;
+    float: center;
 }
 
-.general-guardar{
-  background: none;
-  text-align: center;
-  width: 200px;
-  height: 40px;
-  float: left;
+.boton_siguiente {
+    border: none;
+    background: #A3ABAF;
+    width: 10em;
+    height: 2em;
+    text-align: center;
+    font-size: 15px;
+    font-family: "Segoe UI";
+    font-style: italic;
+    color: black;
+}
+
+.boton_home {
+    border: none;
+    background: #A3ABAF;
+    width: 20em;
+    height: 3em;
+    text-align: center;
+    font-size: 15px;
+    font-family: "Segoe UI";
+    font-style: italic;
+    color: black;
+}
+
+.box-Medio {
+    width: 200px;
+    height: 20px;
+    background: white;
+    float: right;
+    align-content: center;
+}
+
+.medio {
+    font-size: 20px;
+    font-family: "Cambria";
+    color: black;
+}
+
+.numero {
+    font-size: 20px;
+    font-family: "Cambria";
+    color: black;
+}
+
+.box-numero {
+    width: 200px;
+    height: 20px;
+    background: white;
+    float: right;
+    align-content: center;
+}
+
+.opcion-multiple {
+    width: 150px;
+    height: 20px;
+}
+
+.boton_guardar {
+    border: none;
+    background: #A3ABAF;
+    width: 10em;
+    height: 2em;
+    text-align: center;
+    font-size: 15px;
+    font-family: "Segoe UI";
+    font-style: italic;
+    color: black;
+}
+
+.general-guardar {
+    background: none;
+    text-align: center;
+    width: 200px;
+    height: 40px;
+    float: left;
 }

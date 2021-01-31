@@ -10,6 +10,7 @@ import entidades.Organizaciones.Organizacion;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import static java.util.Objects.isNull;
 
@@ -27,7 +28,7 @@ public class OperacionEgresoBuilder {
         this.operacionEgreso.setNumeroOperacion(numeroOperacion);
         return this;
     }
-    public OperacionEgresoBuilder agregarProveedor(Proveedor proveedor){
+    /*public OperacionEgresoBuilder agregarProveedor(Proveedor proveedor){
         List<Proveedor> proveedores = this.operacionEgreso.getProveedores();
         proveedores.add(proveedor);
         this.operacionEgreso.setProveedores(proveedores);
@@ -38,7 +39,7 @@ public class OperacionEgresoBuilder {
         proveedores.addAll(nuevosProveedores);
         this.operacionEgreso.setProveedores(proveedores);
         return this;
-    }
+    }*/
 
     public OperacionEgresoBuilder agregarFechaOperacion(LocalDate fecha){
         this.operacionEgreso.setFechaOperacion(fecha);
@@ -119,7 +120,7 @@ public class OperacionEgresoBuilder {
             throw new Exception("No se asigno el nombre");
         }
 
-        if ( isNull(this.operacionEgreso.getProveedores()) || this.operacionEgreso.getProveedores().size()==0) {
+        if ( isNull(this.operacionEgreso.getProveedorElegido())) {
             throw new Exception("No se asigno razon social");
         }
 
@@ -171,5 +172,9 @@ public class OperacionEgresoBuilder {
 
         return this.operacionEgreso;
 
+    }
+
+    public void generarNroOperacion() {
+        this.operacionEgreso.setNumeroOperacion(Math.abs(UUID.randomUUID().hashCode() / 1000));
     }
 }

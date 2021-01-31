@@ -14,25 +14,29 @@ import java.util.Objects;
 @Table(name="ingresos")
 public class OperacionIngreso extends EntidadPersistente implements Operacion {
     @Column(name="monto_total")
-    private int montoTotal;
+    private float montoTotal;
     @Column
     private String descripcion;
-    @OneToMany(mappedBy = "ingreso", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<OperacionEgreso> operacionEgresos = new ArrayList<OperacionEgreso>();
+
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ingreso_id")
+    private List<OperacionEgreso> operacionesEgreso = new ArrayList<OperacionEgreso>();
+
     @Column(name = "fecha_operacion", columnDefinition = "DATE")
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate fechaOperacion;
-    @ManyToOne(cascade = {CascadeType.ALL})
+
+    @ManyToOne
     @JoinColumn(name = "organizacion_id", referencedColumnName = "id")
     private Organizacion organizacion;
 
-    public OperacionIngreso(int montoTotal, String descripcion){
-        this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
+    public OperacionIngreso(float montoTotal, String descripcion){
+        this.montoTotal = montoTotal;
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
     }
 
-    public OperacionIngreso(int montoTotal, String descripcion,LocalDate fechaOperacion, Organizacion organizacion){
-        this.montoTotal = Objects.requireNonNull(montoTotal, "El monto total no puede ser nulo");
+    public OperacionIngreso(float montoTotal, String descripcion,LocalDate fechaOperacion, Organizacion organizacion){
+        this.montoTotal = montoTotal;
         this.descripcion = Objects.requireNonNull(descripcion, "La descripcion no puede ser nula");
         this.fechaOperacion = fechaOperacion;
         this.organizacion = organizacion;
@@ -41,11 +45,11 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion {
     public OperacionIngreso(){
     }
 
-    public int getMontoTotal(){
+    public float getMontoTotal(){
         return montoTotal;
     }
 
-    public void setMontoTotal( int newMonto ){
+    public void setMontoTotal(float newMonto ){
         montoTotal = newMonto;
     }
 
@@ -69,16 +73,27 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion {
 
     public void realizarOperacion(){}
 
-    public List<OperacionEgreso> getOperacionEgresos() {
-        return operacionEgresos;
+    public List<OperacionEgreso> getOperacionesEgreso() {
+        return operacionesEgreso;
     }
 
-    public void setOperacionEgresos(List<OperacionEgreso> operacionEgresos) {
-        this.operacionEgresos = operacionEgresos;
+    public void setOperacionesEgreso(List<OperacionEgreso> operacionEgresos) {
+        this.operacionesEgreso = operacionEgresos;
     }
 
-    public void agregarOperacionEgresos(OperacionEgreso unaOperacionEgresos) {
-        this.operacionEgresos.add(unaOperacionEgresos);
+    public void agregarOperacionEgreso(OperacionEgreso unaOperacionEgresos) {
+        this.operacionesEgreso.add(unaOperacionEgresos);
+    }
+
+    @Override
+    public String toString() {
+        return "OperacionIngreso{" +
+                "montoTotal=" + montoTotal +
+                ", descripcion='" + descripcion + '\'' +
+                ", operacionesEgreso=" + operacionesEgreso.size() +
+                ", fechaOperacion=" + fechaOperacion +
+                ", organizacion=" + organizacion +
+                '}';
     }
 
     public LocalDate getFecha() {
@@ -101,5 +116,17 @@ public class OperacionIngreso extends EntidadPersistente implements Operacion {
         this.organizacion = organizacion;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OperacionIngreso)) return false;
+        OperacionIngreso that = (OperacionIngreso) o;
+        return Float.compare(that.getMontoTotal(), getMontoTotal()) == 0 &&
+                getDescripcion().equals(that.getDescripcion());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMontoTotal(), getDescripcion());
+    }
 }

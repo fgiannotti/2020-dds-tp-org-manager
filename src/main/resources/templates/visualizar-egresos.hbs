@@ -3,51 +3,108 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
     <script src="/js/logic.js"></script>
     <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
-    <title>Login</title>
+    <!-- CSS only -->
+    <title>Ver Egresos</title>
 </head>
-  <body>
-      <div class="titulo">
-      <h1 class="nombre-titulo">Visualizar Egresos/Ingresos</h1>
-      </div>
-      <div class="general">
-        <br>
-        <div class="general-visualizar-egreso-ingreso">
-      <h1 class="medio">Criterio:</h1>
-            <div class="box-Medio">
-                <select class="opcion-multiple">
-                    <option value="value1"></option>
-                </select>
-                <br><br><br>
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="space-around-horizontal navbar-nav ml-auto">
+            <a class="navbar-brand" onclick="location.href='/home'">Home</a>
+            <button type="button" class="btn btn-dark align-content-center"
+                    onclick="location.href='/crearOperacionEgreso'">Crear Operacion de Egreso
+            </button>
+            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
+                Cargar Operacion de Ingreso
+            </button>
+
+            <div class="dropdown align-content-md-around">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Asociar
+                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria Presupuesto</a></li>
+                </ul>
             </div>
-            <br><br><br>
-            &emsp; &emsp;  &emsp; &emsp; <button class="boton_salir" onclick="location.href='/visualizacionIngresoEgresoPorCat'">Filtrar</button>
-            <br><br>
 
-            {{#each egresos}}
-                <h3> Egreso {{inc @index}}: </h3>
-                <p> &emsp; &emsp; id: {{numeroOperacion}}  -  desc:{{descripcion}}  -  fecha: {{fechaOperacion}}  -  monto:{{montoTotal}}</p>
-            {{else}}
-                <p> Sin egresos.</p>
-            {{/each}}
+            <div class="dropdown align-content-center">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Visualizar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/ver-ingresos'">Ver Ingresos</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/ver-egresos'">Ver Egresos</a></li>
+                </ul>
+            </div>
+        </div>
 
-            {{#each ingresos}}
-                <h3> Ingreso {{inc @index}}: </h3>
-                <p> &emsp; &emsp; id: {{id}}  -   desc:{{descripcion}}  -  fecha: {{fechaOperacion}}  -  monto:{{montoTotal}}</p>
-            {{else}}
-                <p> Sin egresos.</p>
-            {{/each}}
-         </div>
-          <br><br>
-          <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-          <br><br><br><br><br>
-         <div class="general-home">
-         <button class="boton_home" onclick="location.href='/home'">Volver a Home</button>
-         </div>
-         </div>
-    </body>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-dark" onclick="location.href='ver-bandeja'">
+                Bandeja de Entrada
+            </button>
+            <form action="/logout" method="get" class="form">
+                <button class="btn btn-dark" onclick="location.href='index-login.html'" type="submit">Salir</button>
+            </form>
+        </div>
+
+
+    </div>
+</nav>
+
+
+<div class="space-evenly-vert" style="align-items: stretch; overflow:auto; min-height: 80%; padding: 16px">
+
+    <div class="distribute-cards-evenly">
+
+        {{#each egresos}}
+            <div style="margin: 16px" onclick="window.location='/egreso/{{id}}';">
+                <div class="card clickeable text-dark bg-light-tp mb-3"
+                     style="min-height: 16rem; min-width: 22rem; max-height: 20rem;"
+                     onclick="location.href='/egreso/{{id}}">
+                    <div class="card-header display-7 text-center"> Egreso {{inc @index}}</div>
+                    <div class="card-body">
+                        <div class="space-evenly-vert align-items-start">
+                            <div class="container-body-egreso justify-content-start" style="padding-right: 0">
+                                <p class="card-text">Nro: {{numeroOperacion}}</p>
+                                <p class="card-text">Descripcion: {{descripcion}}</p>
+                                <p class="card-text">Fecha: {{fechaOperacion}}</p>
+                                <p class="card-text">Monto Total: {{montoTotal}}0 $</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{else}}
+            <p class="display-7"> Sin egresos.</p>
+        {{/each}}
+
+    </div>
+
+    <div class="d-flex justify-content-center padding-button-home">
+        <button class="btn btn-lg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home</button>
+    </div>
+</div>
+
+</body>
 </html>

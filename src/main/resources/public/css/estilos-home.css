@@ -1,157 +1,170 @@
-body{
-background-image: url("https://wallpapercave.com/wp/wp6928859.png");
+body {
+    background: white;
+    font-family: "Lato", sans-serif;
+}
+
+.row {
+    border: 1px dashed red /* demo */
 }
 
 .boton_crearOPE {
-  position: absolute;
-  left:10px;
-  top:120px;
-  padding: 0;
-  border: none;
-  background: #A3ABAF;
-  width: 19em;
-  height: 5em;
+    position: absolute;
+    left: 10px;
+    top: 120px;
+    padding: 0;
+    border: none;
+    background: #A3ABAF;
+    width: 19em;
+    height: 5em;
+}
+
+.container-body-home {
+    width: 70%;
+    padding-right: var(--bs-gutter-x, 0.75rem);
+    padding-left: var(--bs-gutter-x, 0.75rem);
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .boton_salir {
-  position: absolute;
-  left:10px;
-  top:10px;
-  padding: 0;
-  border: none;
-  background: #A3ABAF;
-  width: 10em;
-  height: 3em;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    padding: 0;
+    border: none;
+    background: #A3ABAF;
+    width: 10em;
+    height: 3em;
 }
 
 .boton_crearIN {
-  position: absolute;
-  left:278px;
-  top:120px;
-  padding: 0;
-  border: none;
-  background: #A3ABAF;
-  width: 19em;
-  height: 5em;
+    position: absolute;
+    left: 278px;
+    top: 120px;
+    padding: 0;
+    border: none;
+    background: #A3ABAF;
+    width: 19em;
+    height: 5em;
 }
 
 .boton_asociar {
-  position: absolute;
-  left:546px;
-  top:120px;
-  padding: 0;
-  border: none;
-  background: #A3ABAF;
-  width: 19em;
-  height: 5em;
+    position: absolute;
+    left: 546px;
+    top: 120px;
+    padding: 0;
+    border: none;
+    background: #A3ABAF;
+    width: 19em;
+    height: 5em;
 }
 
 .boton_visualizacion {
-  position: absolute;
-  left:814px;
-  top:120px;
-  padding: 0;
-  border: none;
-  background: #A3ABAF;
-  width: 19em;
-  height: 5em;
+    position: absolute;
+    left: 814px;
+    top: 120px;
+    padding: 0;
+    border: none;
+    background: #A3ABAF;
+    width: 19em;
+    height: 5em;
 }
 
 .boton_bandeja {
-  position: absolute;
-  left:1083px;
-  top:120px;
-  padding: 0;
-  border: none;
-  background: #A3ABAF;
-  width: 19em;
-  height: 5em;
+    position: absolute;
+    left: 1083px;
+    top: 120px;
+    padding: 0;
+    border: none;
+    background: #A3ABAF;
+    width: 19em;
+    height: 5em;
 }
 
-.texto-operacion{
-  font-size: 20px;
-  font-family:"Cambria";
-  color: white;
-  position: absolute;
-  left:20px;
-  top:20px;
+.texto-operacion {
+    font-size: 20px;
+    font-family: "Cambria";
+    color: white;
+    position: absolute;
+    left: 20px;
+    top: 20px;
 }
 
-.texto-ingreso{
-  font-size: 20px;
-  font-family:"Cambria";
-  color: white;
-  position: absolute;
-  left:15px;
-  top:20px;
+.texto-ingreso {
+    font-size: 20px;
+    font-family: "Cambria";
+    color: white;
+    position: absolute;
+    left: 15px;
+    top: 20px;
 }
 
-.texto-salir{
-  font-size: 20px;
-  font-family:"Cambria";
-  color: white;
-  position: absolute;
-  left:40px;
-  top:9px;
+.texto-salir {
+    font-size: 20px;
+    font-family: "Cambria";
+    color: white;
+    position: absolute;
+    left: 40px;
+    top: 9px;
 }
 
-.texto-asociar{
-  font-size: 20px;
-  font-family:"Cambria";
-  color: white;
-  position: absolute;
-  left:65px;
-  top:20px;
+.texto-asociar {
+    font-size: 20px;
+    font-family: "Cambria";
+    color: white;
+    position: absolute;
+    left: 65px;
+    top: 20px;
 }
 
-.texto-visualizacion{
-  font-size: 20px;
-  font-family:"Cambria";
-  color: white;
-  position: absolute;
-  left:60px;
-  top:20px;
+.texto-visualizacion {
+    font-size: 20px;
+    font-family: "Cambria";
+    color: white;
+    position: absolute;
+    left: 60px;
+    top: 20px;
 }
 
-.texto-bandeja{
-  font-size: 20px;
-  font-family:"Cambria";
-  color: white;
-  position: absolute;
-  left:60px;
-  top:20px;
+.texto-bandeja {
+    font-size: 20px;
+    font-family: "Cambria";
+    color: white;
+    position: absolute;
+    left: 60px;
+    top: 20px;
 }
 
-.titulo{
-  font-size:4em;
-  color: black;
-  font-family:"Cambria";
-  text-indent:560px;
-  font-weight: lighter;
+.titulo {
+    font-size: 4em;
+    color: black;
+    font-family: "Cambria";
+    text-indent: 560px;
+    font-weight: lighter;
 }
 
-.subtitulo{
-  font-size:3em;
-  color: black;
-  font-family:"Cambria";
-  font-weight: lighter;
-  position: absolute;
-  left:500px;
-  top:200px;
+.subtitulo {
+    font-size: 3em;
+    color: black;
+    font-family: "Cambria";
+    font-weight: lighter;
+    position: absolute;
+    left: 500px;
+    top: 200px;
 }
 
-.descripcion{
-  font-size:2em;
-  color: black;
-  font-family:"Cambria";
-  font-weight: lighter;
-  position: absolute;
-  left:100px;
-  top:300px;
-  text-align:center;
+.descripcion {
+    font-size: 2em;
+    color: black;
+    font-family: "Cambria";
+    font-weight: lighter;
+    position: absolute;
+    left: 100px;
+    top: 300px;
+    text-align: center;
 }
 
-.button-container{
-  text-align: center;
-  align: center;
+.button-container {
+    text-align: center;
+    align: center;
 }

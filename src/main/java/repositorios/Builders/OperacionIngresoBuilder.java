@@ -34,9 +34,9 @@ public class OperacionIngresoBuilder {
     }
 
     public OperacionIngresoBuilder agregarEgresos(List<OperacionEgreso> nuevosEgresos){
-        List<OperacionEgreso> egresos = this.operacionIngreso.getOperacionEgresos();
+        List<OperacionEgreso> egresos = this.operacionIngreso.getOperacionesEgreso();
         egresos.addAll(nuevosEgresos);
-        this.operacionIngreso.setOperacionEgresos(egresos);
+        this.operacionIngreso.setOperacionesEgreso(egresos);
 
         return this;
     }

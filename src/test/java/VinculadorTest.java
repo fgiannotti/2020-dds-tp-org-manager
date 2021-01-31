@@ -40,7 +40,7 @@ public class VinculadorTest {
     @BeforeAll
     public void Setup () {
         proveedorTest0.setDireccionPostal("6321456");
-        proveedorTest0.setNombre_apellido_razon("Jorge Guaymallen");
+        proveedorTest0.setnombreApellidoRazon("Jorge Guaymallen");
         proveedorTest0.setDireccionPostal("1714");
         articuloTest0 = new Articulo("Auriculares", 20, "Maximo sonido", proveedorTest0);
         articuloTest1 = new Articulo("Pendrive", 10, "Maxima capacidad", proveedorTest0);

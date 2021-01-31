@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <script src="/js/logic.js"></script>
+    <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
+    <!-- CSS only -->
+    <title>Ver Egreso</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="space-around-horizontal navbar-nav ml-auto">
+            <a class="navbar-brand" onclick="location.href='/home'">Home</a>
+            <button type="button" class="btn btn-dark align-content-center"
+                    onclick="location.href='/crearOperacionEgreso'">Crear Operacion de Egreso
+            </button>
+            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
+                Cargar Operacion de Ingreso
+            </button>
+
+            <div class="dropdown align-content-md-around">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Asociar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a>
+                    </li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria
+                        Presupuesto</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown align-content-center">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Visualizar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/ver-ingresos'">Ver Ingresos</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/ver-egresos'">Ver Egresos</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-dark" onclick="location.href='ver-bandeja'">
+                Bandeja de Entrada
+            </button>
+            <form action="/logout" method="get" class="form">
+                <button class="btn btn-dark" onclick="location.href='index-login.html'" type="submit">Salir</button>
+            </form>
+        </div>
+
+
+    </div>
+</nav>
+<div class="d-flex justify-content-center" style="padding: 32px">
+    <div class="card text-dark bg-light-tp mb-3"
+         style="min-height: 24rem; min-width: 32rem; max-width: 70%">
+        <div class="card-header display-7 text-center"> Egreso {{egresoID}}</div>
+        <div class="card-body">
+            <div class="space-evenly-vert align-items-start">
+                <div class="justify-content-start" style="padding-right: 0;width:-webkit-fill-available;">
+                    <p class="card-title">Numero de operacion: {{egreso.numeroOperacion}}</p>
+                    <p class="card-text">Descripcion: {{egreso.descripcion}}</p>
+                    <p class="card-text">Fecha: {{egreso.fechaOperacion}}</p>
+                    <p class="card-text">Monto Total: {{egreso.montoTotal}}0 $ </p>
+                    <p class="card-text">Categorias:</p>
+
+                    <div class="container">
+                        {{#each egreso.categorias}}
+                            <div class="space-evenly-vert align-items-start" style="margin-left: 16px">
+                                <p class="card-text">Descripcion:{{descripcion}}.
+                                    {{#if criterio}} Criterio {{criterio.nombre}} {{else}} Sin Criterio{{/if}}
+                                </p>
+                            </div>
+                        {{else}}
+                            <p class="display-9 text-center"> Sin categorias.</p>
+                        {{/each}}
+                    </div>
+                    <p class="card-text" style="margin-bottom: 8px;margin-top:8px">Comprobante: </p>
+                    {{#if egreso.comprobante}}
+                        <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Numero de
+                            comprobante: {{egreso.comprobante.numeroComprobante}}  </p>
+                        <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Items: </p>
+                        {{#each egreso.comprobante.items}}
+                            <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">{{inc @index}}
+                                .    {{nombre}}
+                                - {{descripcion}}.
+                            </p>
+                        {{/each}}
+                    {{else}}
+                        <p class="card-text text-center"> Sin Comprobante.</p>
+                    {{/if}}
+
+                    <p class="card-text" style="margin-top: 16px">Presupuestos
+                        Minimos: {{egreso.cantidadMinimaDePresupuestos}}
+                    <p class="card-text">{{#if criterio}} Criterio: {{egreso.criterio}} {{/if}} </p>
+                    {{#if tiene-ingreso}}
+                        <p class="card-text" style="margin-bottom: 0;">
+                            Ingreso: {{ingreso.descripcion}} </p>
+                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">Monto
+                            total: {{ingreso.montoTotal}}0 $ </p>
+                        <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">Fecha de
+                            Operacion: {{ingreso.fechaOperacion}} </p>
+                        {{else}}
+                    <p class="card-text" style="margin-bottom: 0; margin-left: 60px;"> Sin ingresos asociados </p>
+                    {{/if}}
+
+                    <div class="" style="padding: 16px">
+                        <div class="border" style="color: lightgray"></div>
+                        <p class="card-title display-8 text-center" style="margin-top: 16px; margin-bottom: 16px;">
+                            Presupuestos</p>
+
+                        {{#each presupuestos}}
+                            <p class="card-title display-10 text-center">
+                                Presupuesto {{inc @index}}</p>
+
+                            <p class="card-text"> Proveedor: {{proveedor.nombreApellidoRazon}}</p>
+
+                            <p class="card-text"> Direccion Postal:  {{proveedor.direccionPostal}}</p>
+                            <p class="card-text"> Presupuesto:  {{cantidad}} items de monto total {{total}} $</p>
+                                {{#each categorias}}
+                                    <p class="card-text"> Categorias: </p>
+                                    <div class="space-evenly-vert align-items-start" style="margin-left: 16px">
+                                        <p class="card-text">{{descripcion}}
+                                            {{#if criterio}}con criterio {{criterio.nombre}} {{else}} Sin Criterio{{/if}}
+                                        </p>
+                                    </div>
+                                {{else}}
+                                    <p class="card-text"> Sin categorias.</p>
+                                {{/each}}
+                        {{else}}
+
+                            <p class="card-text text-center"> Sin presupuestos. </p>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <div class="border" style="color: lightgray"></div>
+            <p class="card-title text-center display-9" style="margin-top: 8px"> Factura </p>
+            {{#if tieneFile}}
+                <p class="card-text text-center display-10"> {{fileName}} </p>
+                <div class="d-flex justify-content-evenly" style="padding: 16px">
+                    <a href="/files/{{fileName}}" class="btn btn-dark rounded-pill" download="{{fileName}}"
+                       style="font-size: 16px;">Descargar</a>
+                    <button onclick="window.open('../files/{{fileName}}')" class="btn btn btn-dark rounded-pill">Ver
+                        Archivo
+                    </button>
+                </div>
+            {{else}}
+                <p class="card-text text-center display-9"> Sin factura. </p>
+            {{/if}}
+            <div class="d-flex justify-content-end" style="padding-top: 8px">
+                <form action="/upload/{{egresoID}}" method="post" enctype="multipart/form-data"
+                      style="width: -webkit-fill-available;">
+                    <label for="myfile">
+                        <input type="file" id="myfile" name="myfile"/>
+                    </label>
+                    <div class="d-flex justify-content-center p-4">
+                        <button class="btn btn-outline-dark" type="submit" style="width: 50%">Subir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="d-flex justify-content-center padding-button-home">
+    <button class="btn btn-lg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home</button>
+</div>
+</div>
+
+{{#if getEgresoFail}}
+    <script>window.location = "/ver-egresos";
+    alert("Hubo un error buscando el egreso solicitado.")</script>
+
+
+{{/if}}
+</body>
+</html>

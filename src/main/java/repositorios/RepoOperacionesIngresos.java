@@ -1,14 +1,17 @@
 package repositorios;
 
 import db.EntityManagerHelper;
+import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import entidades.Organizaciones.Organizacion;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RepoOperacionesIngresos {
     private List<OperacionIngreso> operaciones = new ArrayList<OperacionIngreso>();
+    EntityManager em = EntityManagerHelper.getEntityManager();
 
     public RepoOperacionesIngresos () {
         operaciones = new ArrayList<OperacionIngreso>();
@@ -17,22 +20,27 @@ public class RepoOperacionesIngresos {
     public ArrayList<OperacionIngreso> getAll() {
         String query = "from OperacionIngreso";
         ArrayList<OperacionIngreso> operaciones = new ArrayList<OperacionIngreso>();
-        EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
+        em.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
         return operaciones;
     }
 
     public ArrayList<OperacionIngreso> getAllByOrg(Organizacion org) {
         String query = "from OperacionIngreso WHERE organizacion_id = '" + org.getId() +  "'";
         ArrayList<OperacionIngreso> operaciones = new ArrayList<OperacionIngreso>();
-        EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
+        em.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
         return operaciones;
     }
-    
+
+    public OperacionIngreso get(int id) {
+        String query = "from OperacionIngreso where id = " + id;
+        return (OperacionIngreso) em.createQuery(query).getSingleResult();
+    }
+
     public OperacionIngreso find(int id) {
         String query = "from OperacionIngreso";
         ArrayList<OperacionIngreso> operaciones = new ArrayList<OperacionIngreso>();
 
-        EntityManagerHelper.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
+        em.createQuery(query).getResultList().forEach((a) -> { operaciones.add((OperacionIngreso)a); });
         for (OperacionIngreso operacion : operaciones) {
             System.out.println("Busco ID:"+String.valueOf(id)+ "contra: "+String.valueOf(operacion.getId()));
             if (operacion.getId() == id){
@@ -44,8 +52,8 @@ public class RepoOperacionesIngresos {
 
     public void guardar(OperacionIngreso nuevoIngreso) {
 
-        EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.getEntityManager().persist(nuevoIngreso);
-        EntityManagerHelper.commit();
+        em.getTransaction().begin();
+        em.persist(nuevoIngreso);
+        em.getTransaction().commit();
     }
 }

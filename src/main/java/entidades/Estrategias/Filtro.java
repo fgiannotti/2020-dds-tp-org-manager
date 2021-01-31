@@ -13,6 +13,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Filtro extends EntidadPersistente {
     @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "bandeja_id")
     public BandejaDeEntrada bandeja;
 
     public Filtro(BandejaDeEntrada bandeja){ this.bandeja = bandeja;}
