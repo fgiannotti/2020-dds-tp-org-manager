@@ -6,33 +6,51 @@
              version="2.0">
 
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
         <properties>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.username" value="postgres"/>
+            <property name="hibernate.connection.password" value="postgres"/>
+            <property name="hibernate.connection.url" value="postgres://ugpwhklhjnlnqu:737dc27cc9eaeef0fca1b477cffc9f79ad315f0ff622797ccc4a39f5db82c7bd@ec2-3-232-92-90.compute-1.amazonaws.com:5432/d4bu1uqu3tshve" />
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hbm2ddl.auto" value="create"/>
+
+            <property name="show_sql" value="true"/>
+            <property name="use_sql_comments" value="true" />
+            <property name="hibernate.format_sql" value="true" />
             <property name="hibernate.archive.autodetection" value="class"/>
 
-            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />
-           <!--> <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tp-dds?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" /><-->
-            <property name="hibernate.connection.url" value="jdbc:mysql://b368eb90b9c9b1:8ca3e2e9@us-cdbr-east-02.cleardb.com/heroku_4a77a3eedcfe1de?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;reconnect=true&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;maxReconnects=10" />
 
-            <!--><property name="hibernate.connection.username" value="root" /><-->
-            <property name="hibernate.connection.username" value="b368eb90b9c9b1" />
-            <property name="hibernate.connection.password" value="8ca3e2e9" />
-            <!--> <property name="hibernate.connection.password" value="root" /><-->
-
-             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-             <property name="hibernate.cache.use_query_cache" value="false"/>
-             <property name="hibernate.cache.use_second_level_cache" value="false"/>
-
-             <property name="hibernate.show_sql" value="true" />
-             <property name="hibernate.format_sql" value="true" />
-             <property name="use_sql_comments" value="true" />
-             <!--> <property name="hibernate.hbm2ddl.auto" value="update" /> </!-->
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-            <!--> <property name="hibernate.event.merge.entity_copy_observer" value="allow"/></!-->
-
-       </properties>
+        </properties>
 
    </persistence-unit>
 
 </persistence>
+
+<!-->
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/fgiannotti" />
+
+
+            heroku run echo \$JDBC_DATABASE_URL<property name="connection_pool_size" value="1"/>
+
+            <property name="hibernate.cache.use_query_cache" value="false"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />
+
+            ºº<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tp-dds?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://b368eb90b9c9b1:8ca3e2e9@us-cdbr-east-02.cleardb.com/heroku_4a77a3eedcfe1de?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;reconnect=true&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;maxReconnects=10" />
+
+            <property name="hibernate.connection.username" value="root" />
+            <property name="hibernate.connection.username" value="b368eb90b9c9b1" />
+
+            <property name="hibernate.connection.password" value="8ca3e2e9" />
+            <property name="hibernate.connection.password" value="root" />
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+
+
+<-->

@@ -177,7 +177,6 @@ public class Server {
 
     //persist ingresos
         for (OperacionIngreso ing: new ArrayList<>(Arrays.asList(ingresoDonacionTerceros,ingresoGranImperio,ingresoRimoli))){
-            ing.getOrganizacion().setId(1);
             em.getTransaction().begin();
             em.persist(ing);
             em.getTransaction().commit();
