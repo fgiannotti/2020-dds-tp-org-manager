@@ -13,3 +13,4 @@ buildNumber.properties
 .*
 lib/
 src/main/resources/public/files/
+*.iml
