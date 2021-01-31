@@ -1,4 +1,4 @@
-import controllers.AsociadorEgresoIngresoController;
+/*import controllers.AsociadorEgresoIngresoController;
 import db.EntityManagerHelper;
 import entidades.BandejaDeEntrada.BandejaDeEntrada;
 import entidades.BandejaDeEntrada.Resultado;
@@ -219,4 +219,4 @@ public class DatosPruebaTest {
         repoPresupuestos.asociarCategorias(prepSerrentino, (ArrayList<Categoria>) categoriasOpSerrentino);
 
     }
-}
+}*/

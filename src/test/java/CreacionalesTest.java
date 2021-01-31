@@ -100,7 +100,7 @@ public class CreacionalesTest<nuevaEmpresa> {
     public void testCreacionMedioDePago(){
         this.setup();
         Debito tarjetaDeDebito = new Debito("Tarjeta Debito ICBC", "12204210");
-        assertEquals(12204210, tarjetaDeDebito.getNumero());
+        assertEquals("12204210", tarjetaDeDebito.getNumero());
     }
 
     @Test
@@ -185,7 +185,7 @@ public class CreacionalesTest<nuevaEmpresa> {
         Assertions.assertNotNull(nuevaEmpresa);
         assertEquals("pepito", nuevaEmpresa.getNombreFicticio());
         assertEquals("Jorge Lopez", nuevaEmpresa.getRazonSocial());
-        assertEquals("20302030", nuevaEmpresa.getCuit());
+        assertEquals("20302030L", nuevaEmpresa.getCuit());
         assertEquals(unaDireccionPostalDePrueba, nuevaEmpresa.getDirPostal());
         assertEquals(30, nuevaEmpresa.getCantidadPersonal());
         assertEquals("Agropecuario" , nuevaEmpresa.getActividad().getNombre());

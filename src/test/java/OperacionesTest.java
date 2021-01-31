@@ -31,6 +31,7 @@ public class OperacionesTest {
     @BeforeAll
     public void setup(){
         proveedor = new Proveedor("Nachito deliveries", "123123", "Calle falsa 123");
+        proveedores.add(proveedor);
         double price = 50.0;
         Articulo articulo = new Articulo("CocoWater", (int)price, "Agua de coco 500 ml", proveedor);
         articulos = new ArrayList<Articulo>();

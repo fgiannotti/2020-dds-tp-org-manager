@@ -1,4 +1,4 @@
-import db.EntityManagerHelper;
+/*import db.EntityManagerHelper;
 import entidades.BandejaDeEntrada.BandejaDeEntrada;
 import entidades.BandejaDeEntrada.Resultado;
 import entidades.DatosGeograficos.*;
@@ -187,3 +187,4 @@ public class DBTest {
     }
 
 }
+*/

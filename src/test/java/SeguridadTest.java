@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.BeforeAll;
+/*import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import repositorios.UserNotFoundException;
 import utils.Seguridad.Login;
@@ -66,4 +66,4 @@ public class SeguridadTest {
         });
     }
 
-}
+}*/

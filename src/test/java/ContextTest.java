@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.Test;
+/*import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
@@ -17,4 +17,4 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
     public void contextUpWithTransaction() throws Exception {
         withTransaction(() -> {});
     }
-}
+}*/
