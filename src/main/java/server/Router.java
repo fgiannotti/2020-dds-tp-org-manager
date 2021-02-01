@@ -32,7 +32,7 @@ public class Router {
         BasicConfigurator.configure(); //te lo deja con debug
         Logger.getRootLogger().setLevel(Level.INFO);
         Router.initEngine();
-        Spark.staticFileLocation("/public");
+        Spark.externalStaticFileLocation("src/main/resources/public/");
         System.out.println("Configure");
         Router.configure();
     }
