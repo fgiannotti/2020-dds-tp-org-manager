@@ -192,13 +192,14 @@
 
     function addItem2() {
         let itemCard = document.getElementById('itemCard'+itemsCount);
+        console.log('itemCard'+itemsCount);
         let itemCard2 = itemCard.cloneNode(true);
         //set new ID
+        itemsCount += 1;
         itemCard2.setAttribute('id', itemCard2.attributes.item(1).value.slice(0,-1) + itemsCount);
 
         //card --> card-body --> []dflex con los inputs (solo en pos impar)
         let dflexs = itemCard2.childNodes.item(1).childNodes;
-        itemsCount += 1;
         for (let i = 3; i < dflexs.length; i++) {
             if (i % 2 === 0){
                 continue;
