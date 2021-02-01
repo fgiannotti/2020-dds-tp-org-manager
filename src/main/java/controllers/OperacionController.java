@@ -138,7 +138,8 @@ public class OperacionController {
         builder.asignarProveedor(unProveedorEntero);
         proveedorElegidoCache.put(request.session().id(), unProveedorEntero);
         String fecha = request.queryParams("fecha");
-        int cantidadPresupuestos = Integer.parseInt(request.queryParams("cantidadMinima"));
+            int cantidadPresupuestos = Integer.parseInt(request.queryParams("cantidadMinima"));
+
         int valorTotal = Integer.parseInt(request.queryParams("valorTotal"));
 
         String desc = request.queryParams("descripcion");
