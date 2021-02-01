@@ -62,7 +62,12 @@ public class RepoOperacionesEgresos {
             em.getTransaction().commit();
 
         } catch (Exception e) {
-            em.getTransaction().rollback();
+            try {
+                em.getTransaction().rollback();
+            }catch (Exception e2){
+                System.err.println("excepcion rollbackeando: "+ e2.getMessage());
+            }
+
             System.err.println("persist falló. Detached entity, mergeo todo: " + e.getMessage());
             em.getTransaction().begin();
 
