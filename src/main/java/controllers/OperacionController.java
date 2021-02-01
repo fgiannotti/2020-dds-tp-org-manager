@@ -26,12 +26,11 @@ import javax.persistence.NoResultException;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
 import javax.servlet.http.Part;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
+
+import static utils.Scheduler.ValidadorJob.egreso;
 
 public class OperacionController {
     private RepoOperacionesEgresos repoOperacionesEgresos = new RepoOperacionesEgresos();
@@ -89,6 +88,7 @@ public class OperacionController {
 
     public Response upload(Request req, Response response) throws ServletException, IOException {
         Map<String, Object> parametros = new HashMap<>();
+        int posID = Integer.parseInt(req.queryParams("pos"));
         req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("src/main/resources/public/files/"));
         Part filePart;
         try {
@@ -98,9 +98,21 @@ public class OperacionController {
             throw (e);
         }
         String egresoID = req.params("id");
+        //delete old file
+        String oldFileName = egresosFileName.get(egresoID);
+        if (oldFileName!= null){
+            File file = new File("src/main/resources/public/files/" + oldFileName);
+            if (file.delete()) {
+                System.out.println("Deleted the file: " + file.getName());
+            } else {
+                System.out.println("Failed to delete the file.");
+            }
+        }
+        //save new file
         try (InputStream inputStream = filePart.getInputStream()) {
             String fileName = filePart.getSubmittedFileName();
             OutputStream outputStream = new FileOutputStream("src/main/resources/public/files/" + fileName);
+
             egresosFileName.put(egresoID, fileName);
 
             IOUtils.copy(inputStream, outputStream);
@@ -110,7 +122,7 @@ public class OperacionController {
         }
 
         System.err.println("File uploaded and saved.");
-        response.redirect("/egreso/" + egresoID);
+        response.redirect("/egreso/" + egresoID+"?pos="+posID);
         return response;
 
     }
