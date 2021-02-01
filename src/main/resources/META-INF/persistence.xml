@@ -8,7 +8,7 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
 
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://ugpwhklhjnlnqu:737dc27cc9eaeef0fca1b477cffc9f79ad315f0ff622797ccc4a39f5db82c7bd@ec2-3-232-92-90.compute-1.amazonaws.com:5432/d4bu1uqu3tshve" />
+            <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-3-232-92-90.compute-1.amazonaws.com:5432/d4bu1uqu3tshve?password=737dc27cc9eaeef0fca1b477cffc9f79ad315f0ff622797ccc4a39f5db82c7bd&amp;sslmode=require&amp;user=ugpwhklhjnlnqu" />
 
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.connection.username" value="postgres"/>
@@ -32,7 +32,7 @@
 </persistence>
 
 <!-->
-            <property name="hibernate.connection.url" value="postgres://ugpwhklhjnlnqu:737dc27cc9eaeef0fca1b477cffc9f79ad315f0ff622797ccc4a39f5db82c7bd@ec2-3-232-92-90.compute-1.amazonaws.com:5432/d4bu1uqu3tshve" />
+            <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-3-232-92-90.compute-1.amazonaws.com:5432/d4bu1uqu3tshve?password=737dc27cc9eaeef0fca1b477cffc9f79ad315f0ff622797ccc4a39f5db82c7bd&amp;sslmode=require&amp;user=ugpwhklhjnlnqu" />
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/fgiannotti" />
 
 
