@@ -107,7 +107,7 @@ public class AsociadorEgresoIngresoController {
         parametros.put("ingresos", operacionesIngreso);
         parametros.put("egresos", operacionesEgreso);
 
-        return new ModelAndView(parametros, "vincular-egreso-ingreso.hbs.hbs");
+        return new ModelAndView(parametros, "vincular-egreso-ingreso.hbs");
     }
 
     public ModelAndView vincular(Request request, Response response) {
