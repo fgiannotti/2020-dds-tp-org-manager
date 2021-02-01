@@ -45,7 +45,7 @@ public class ValidadorController {
                 cargasInvalidas++;
             }
         }
-        //TODO: usar la desc para algo vió
+        //TODO: usar la desc para no-borrar vió
 
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("validarDone",true);

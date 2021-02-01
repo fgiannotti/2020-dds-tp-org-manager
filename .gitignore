@@ -12,5 +12,4 @@ buildNumber.properties
 .idea/
 .*
 lib/
-src/main/resources/public/files/
 *.iml
