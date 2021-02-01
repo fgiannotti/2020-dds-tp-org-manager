@@ -368,7 +368,7 @@ public class OperacionController {
         String[] bodyParams = request.body().split("&");
         ArrayList<String> params = new ArrayList<>();
 
-        if (bodyParams.length == 1) {
+        if (bodyParams.length == 2) {
             params.add("categoria=" + catID);
         }
         for (int i = 0; i < bodyParams.length - 1; i++) {
