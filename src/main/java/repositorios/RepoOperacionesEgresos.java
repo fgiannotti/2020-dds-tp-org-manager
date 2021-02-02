@@ -1,6 +1,8 @@
 package repositorios;
 
 import db.EntityManagerHelper;
+import entidades.Items.Articulo;
+import entidades.Items.Item;
 import entidades.MedioDePago.MedioDePago;
 import entidades.Operaciones.*;
 import entidades.Organizaciones.Categoria;
@@ -62,13 +64,14 @@ public class RepoOperacionesEgresos {
             em.getTransaction().commit();
 
         } catch (Exception e) {
+            System.err.println("persist falló. rollbackeo mergeo todo: " + e.getMessage());
+
             try {
                 em.getTransaction().rollback();
             }catch (Exception e2){
                 System.err.println("excepcion rollbackeando: "+ e2.getMessage());
             }
 
-            System.err.println("persist falló. Detached entity, mergeo todo: " + e.getMessage());
             em.getTransaction().begin();
 
             MedioDePago mpMergeado = em.merge(nuevoEgreso.getMedioDePago());
@@ -76,8 +79,22 @@ public class RepoOperacionesEgresos {
 
             if (nuevoEgreso.getComprobante() != null) {
                 Comprobante mergedEntity = em.merge(nuevoEgreso.getComprobante());
-                nuevoEgreso.getComprobante().setId(mergedEntity.getId());
+                //---DEEP COPY COMPROBANTE ITEMS-----
+                ArrayList<Item> itemsClonados = new ArrayList<>();
+                for (Item it: mergedEntity.getItems()){
+                    ArrayList<Articulo> artClonados = new ArrayList<>();
+                    for (Articulo art: it.getArticulos()){
+                        Articulo clon2 = new Articulo(art.getNombre(),art.getPrecioTotal(),art.getDescripcion());
+                        artClonados.add(clon2);
+                    }
+                    Item clon = new Item(it.getDescripcion(),it.getNombre(),artClonados);
+                    itemsClonados.add(clon);
+                }
+
+                mergedEntity.setItems(itemsClonados);
+                nuevoEgreso.setComprobante(mergedEntity);
             }
+
             for (int i = 0; i < nuevoEgreso.getPresupuestosPreliminares().size(); i++) {
                 Presupuesto mergedEntity = em.merge(nuevoEgreso.getPresupuestosPreliminares().get(i));
                 nuevoEgreso.getPresupuestosPreliminares().get(i).setId(mergedEntity.getId());
@@ -90,7 +107,6 @@ public class RepoOperacionesEgresos {
             }
 
             em.merge(nuevoEgreso);
-            em.flush();
             em.getTransaction().commit();
 
 

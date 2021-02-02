@@ -101,7 +101,7 @@ public class Router {
 
         Spark.get("/crearEgreso2", operacionController::seleccionarPresupuesto, Router.engine);
         Spark.post("/cachePresupuestos",operacionController::cachePresupuesto,Router.engine);
-        Spark.post("/crearEgreso2", operacionController::postSeleccionarPresupuesto);
+        Spark.post("/crearEgreso2", operacionController::postSeleccionarPresupuestos);
 
         Spark.get("/crearEgreso3", operacionController::medioDePago, Router.engine);
         Spark.post("/cacheMedioDePago",operacionController::agregarMedioPago,Router.engine);

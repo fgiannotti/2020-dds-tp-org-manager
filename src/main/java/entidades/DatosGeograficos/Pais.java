@@ -16,13 +16,14 @@ public class Pais {
 
     @Override
     public String toString() {
-        return "\nPais\n{\n" +
-                "id='" + id + '\'' + "\n" +
-                "name='" + name + '\'' + "\n" +
-                "locale='" + locale + '\'' + "\n" +
-                "currency_id='" + currency_id + '\'' + "\n" +
+        return "Pais{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", locale='" + locale + '\'' +
+                ", currency_id='" + currency_id + '\'' +
                 '}';
     }
+
     public String getName(){
         return this.name;
     }

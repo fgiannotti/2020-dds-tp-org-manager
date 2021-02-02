@@ -5,6 +5,7 @@ import entidades.Items.Articulo;
 import entidades.MedioDePago.MedioDePago;
 import entidades.Organizaciones.Categoria;
 import entidades.Organizaciones.Organizacion;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import repositorios.RepoOperacionesEgresos;
 
 import java.time.LocalDate;
@@ -64,6 +65,7 @@ public class EgresoBuilder {
 
     public void confirmarEgreso() {
         repoEgreso.agregar(unEgreso);
+        System.err.println("EGRESO PERSISTIDO: \n"+ unEgreso.toString());
     }
 
     /*public void asignarCriterio(CriterioDeEmpresa unCriterio) {

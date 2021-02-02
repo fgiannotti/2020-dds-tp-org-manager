@@ -84,12 +84,8 @@
                     <div class="" style="padding-right: 0;width: -webkit-fill-available">
 
                         <div class="d-flex justify-content-between">
-                            <span class="card-text"
-                                  style="padding-top: 4px">Prespuestos de {{proveedorElegido.nombreApellidoRazon}}:
-                            </span>
-                            <select name="presupuestoID" style="padding: 4px">
                                 {{#each presupuestos}}
-                                    <option value='{{id}}'>{{cantidad}} item/s de monto total {{total}}</option>
+                                    <input type="checkbox" name="presupuesto" value='{{id}}'>{{cantidad}} item/s de monto total {{total}}</input>
                                 {{/each}}
                             </select>
                         </div>

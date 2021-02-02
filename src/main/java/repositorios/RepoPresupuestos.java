@@ -7,8 +7,7 @@ import entidades.Organizaciones.Categoria;
 import entidades.Organizaciones.Organizacion;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class RepoPresupuestos {
     EntityManager em = EntityManagerHelper.getEntityManager();
@@ -37,11 +36,11 @@ public class RepoPresupuestos {
     }
 
     public ArrayList<Presupuesto> getAllByOrg(Organizacion organizacion) {
-        ArrayList<Presupuesto> result = new ArrayList<>();
+        Set<Presupuesto> result = new HashSet<>();
         ArrayList<OperacionEgreso> egresos = repoEgresos.getAllByOrg(organizacion);
         for(OperacionEgreso e : egresos){
             result.addAll(e.getPresupuestosPreliminares());
         }
-        return result;
+        return new ArrayList<>(result);
     }
 }

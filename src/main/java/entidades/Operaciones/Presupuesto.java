@@ -24,7 +24,7 @@ public class Presupuesto extends EntidadPersistente {
     @JoinColumn(name = "proveedor_id")
     private Proveedor proveedor;
 
-    @ManyToMany(cascade = { CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER,cascade = { CascadeType.ALL})
     @JoinTable(
             name = "presupuesto_x_categoria",
             joinColumns = { @JoinColumn(name = "presupuesto_id", referencedColumnName = "id") },
