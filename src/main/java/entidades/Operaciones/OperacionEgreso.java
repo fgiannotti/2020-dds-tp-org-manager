@@ -173,7 +173,12 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
 
     public Boolean presupuestoMenorValor(Presupuesto presupuesto) {
         return this.getPresupuestosPreliminares().stream()
-                .noneMatch(presupuesto1 -> presupuesto1.getTotal() < presupuesto.getTotal());
+                .noneMatch(presupuesto1 -> presupuesto1.getTotal() <= presupuesto.getTotal());
+    }
+
+    public Boolean presupuestoMayorValor(Presupuesto presupuesto) {
+        return this.getPresupuestosPreliminares().stream()
+                .noneMatch(presupuesto1 -> presupuesto1.getTotal() >= presupuesto.getTotal());
     }
 
     public void agregarCategoria(Categoria categoria) {

@@ -80,17 +80,15 @@
              style="min-height: 18rem; min-width: 36rem; max-width: 70%">
             <div class="card-header display-7 text-center">Seleccionar Presupuesto</div>
             <div class="card-body space-evenly-vert" style="margin-top: 32px">
-                <div class="space-evenly-vert align-items-start" style="width: -webkit-fill-available">
-                    <div class="" style="padding-right: 0;width: -webkit-fill-available">
-
-                        <div class="d-flex justify-content-between">
+                <div class="space-evenly-vert align-content-start" style="margin-left: 16px">
                                 {{#each presupuestos}}
-                                    <input type="checkbox" name="presupuesto" value='{{id}}'>{{cantidad}} item/s de monto total {{total}}</input>
+                                    <div class="d-flex" style="align-content: start;width: -webkit-fill-available">
+                                        <label>
+                                            <input type="checkbox" name="presupuesto" value='{{id}}'>
+                                            ({{id}}º) {{cantidad}} item/s de monto total {{total}} de {{proveedor.nombreApellidoRazon}}
+                                        </label>
+                                    </div>
                                 {{/each}}
-                            </select>
-                        </div>
-
-                    </div>
                 </div>
                 <div class="d-flex justify-content-center m-4">
                     <button type="button" class="btn btn-dark" data-bs-toggle="modal"

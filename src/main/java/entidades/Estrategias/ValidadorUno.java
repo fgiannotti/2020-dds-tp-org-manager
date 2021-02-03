@@ -48,7 +48,7 @@ public class ValidadorUno implements Validador {
 
         this.guardarResultados(unEgreso,carga,detalleCorrecto,criterioCorrecto);
 
-        System.out.println(carga && detalleCorrecto && criterioCorrecto);
+        System.out.println(razonValidacion);
         Boolean validarOK = carga && detalleCorrecto && criterioCorrecto;
         return new ArrayList<>(Arrays.asList(validarOK,razonValidacion));
     }
@@ -62,17 +62,20 @@ public class ValidadorUno implements Validador {
     }
 
     @Override
-    public Boolean compararDetalles(OperacionEgreso unEgreso, Presupuesto presupuesto) {
-        ArrayList<Item> articulosDeEgresos = (ArrayList<Item>) unEgreso.getItems();
-        return articulosDeEgresos.stream().allMatch(item ->
-                item.estoyEnEstosItemsDelPresupuesto(presupuesto.getItems())
-        && articulosDeEgresos.size() == presupuesto.getItems().size());
+    public Boolean compararDetalles(    OperacionEgreso unEgreso, Presupuesto presupuesto) {
+        List<Item> itemsEgreso = unEgreso.getItems();
+
+        //todos los items del egreso, tienen que ser igual a alguno dle presupuesto
+        return itemsEgreso.stream().allMatch(itemEg ->
+                presupuesto.getItems().stream().anyMatch(
+                        itemPresu -> itemPresu.equals(itemEg)))
+                && itemsEgreso.size() == presupuesto.getItems().size();
     }
 
     @Override
     public Boolean elegirPorCriterio(OperacionEgreso unEgreso, Presupuesto presupuesto) {
         return unEgreso.getCriterio() == Criterio.MENOR_VALOR ?
-                unEgreso.presupuestoMenorValor(presupuesto) : true;
+                unEgreso.presupuestoMenorValor(presupuesto) : unEgreso.presupuestoMayorValor(presupuesto);
     }
     @Override
     public void guardarResultados(OperacionEgreso unEgreso, Boolean carga, Boolean detalle, Boolean criterio ) {

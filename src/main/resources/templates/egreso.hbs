@@ -101,13 +101,14 @@
                     {{#if egreso.comprobante}}
                         <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Numero de
                             comprobante: {{egreso.comprobante.numeroComprobante}}  </p>
+                        <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Proveedor: {{egreso.proveedorElegido.nombreApellidoRazon}}  </p>
                         <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Items: </p>
                         {{#each egreso.comprobante.items}}
-                            <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">{{inc @index}}
-                                .    {{nombre}}
-                                - {{descripcion}}.
+                            <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">
+                                {{inc @index}}.{{nombre}} - {{descripcion}}.  <!--/>({{../item.length}})<-->
                             </p>
                         {{/each}}
+
                     {{else}}
                         <p class="card-text text-center"> Sin Comprobante.</p>
                     {{/if}}
@@ -172,13 +173,13 @@
             {{/if}}
             <div class="d-flex justify-content-end" style="padding-top: 8px">
                 <form action="/upload/{{egresoID}}?pos={{posID}}" method="post" enctype="multipart/form-data"
-                      style="width: -webkit-fill-available;">
-                    <label for="myfile">
-                        <input type="file" id="myfile" name="myfile"/>
-                    </label>
-                    <div class="d-flex justify-content-center p-4">
-                        <button class="btn btn-outline-dark" type="submit" style="width: 50%">Subir</button>
-                    </div>
+                style="width: -webkit-fill-available;">
+                <label for="myfile">
+                    <input type="file" id="myfile" name="myfile"/>
+                </label>
+                <div class="d-flex justify-content-center p-4">
+                    <button class="btn btn-outline-dark" type="submit" style="width: 50%">Subir</button>
+                </div>
                 </form>
             </div>
         </div>
