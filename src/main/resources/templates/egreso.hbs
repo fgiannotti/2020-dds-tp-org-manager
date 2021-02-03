@@ -133,16 +133,16 @@
                             Presupuestos</p>
 
                         {{#each presupuestos}}
-                            <p class="card-title display-10 text-center">
+                            <p class="card-title display-9 text-center">
                                 Presupuesto {{inc @index}}</p>
 
                             <p class="card-text"> Proveedor: {{proveedor.nombreApellidoRazon}}</p>
 
                             <p class="card-text"> Direccion Postal:  {{proveedor.direccionPostal}}</p>
-                            <p class="card-text"> Presupuesto:  {{cantidad}} items de monto total {{total}} $</p>
+                            <p class="card-text" style="margin-top: 16px"> Presupuesto:  {{cantidad}} items de monto total {{total}} $</p>
                             {{#each categorias}}
-                                <p class="card-text"> Categorias: </p>
-                                <div class="space-evenly-vert align-items-start" style="margin-left: 16px">
+                                <span class="card-text"> Categorias: </span>
+                                <div class="space-evenly-vert align-items-start" style="margin-left: 32px">
                                     <p class="card-text">{{descripcion}}
                                         {{#if criterio}}con criterio {{criterio.nombre}} {{else}} Sin Criterio{{/if}}
                                     </p>
