@@ -3,48 +3,129 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
     <script src="/js/logic.js"></script>
-    <link rel="icon" href="/img/logosolo.png">
-    <link rel="stylesheet" href="/css/estilos.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
-    <title>Home</title>
+    <link rel="stylesheet" href="/css/estilo-visualizar-egreso.css">
+    <!-- CSS only -->
+    <title>Ver Bandeja</title>
 </head>
-<!-- Home -->
-    <!-- Bootstrap -->
-<img src="/img/Login.jpg" alt="fondo" class="fondo">
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="space-around-horizontal navbar-nav ml-auto">
+            <a class="navbar-brand" onclick="location.href='/home'">Home</a>
+            <button type="button" class="btn btn-dark align-content-center"
+                    onclick="location.href='/crearOperacionEgreso'">Crear Operacion de Egreso
+            </button>
+            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
+                Cargar Operacion de Ingreso
+            </button>
 
-<div style="background-color:#99b0e8;
-			border:1px solid black;
-			width: 1300px;
-  			height: 600px;
-  			position: absolute;
-  			left: 50%;
-  			top: 50%;
-  			transform: translate(-50%, -50%);">
+            <div class="dropdown align-content-md-around">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Asociar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/asocIngresoEgreso'">Ingreso Egreso</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaEgreso'">Categoria Egreso</a>
+                    </li>
+                    <li><a class="dropdown-item" onclick="location.href='/asocCategoriaPresupuesto'">Categoria
+                        Presupuesto</a></li>
+                </ul>
+            </div>
 
-	<h1> &emsp; &emsp; Veamos nuestros mensajes: </h1>
+            <div class="dropdown align-content-center">
+                <button class="btn btn-dark align-content-center dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    Visualizar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" onclick="location.href='/ver-ingresos'">Ver Ingresos</a></li>
+                    <li><a class="dropdown-item" onclick="location.href='/ver-egresos'">Ver Egresos</a></li>
+                </ul>
+            </div>
+        </div>
 
-		<div style="background-color:#b0c1eb;
-			border:1px solid black;
-			width: 1250px;
-  			height: 450px;
-  			position: absolute;
-  			left: 50%;
-  			top: 50%;
-  			transform: translate(-50%, -50%);">
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-dark" onclick="location.href='ver-bandeja'">
+                Bandeja de Entrada
+            </button>
+            <form action="/logout" method="get" class="form">
+                <button class="btn btn-dark" onclick="location.href='index-login.html'" type="submit">Salir</button>
+            </form>
+        </div>
+
+
+    </div>
+</nav>
+<div class="d-flex justify-content-center" style="padding: 32px">
+    <div class="card text-dark bg-light-tp mb-3"
+         style="min-height: 24rem; min-width: 32rem; max-width: 90%">
+        <div class="card-header display-7 text-center"> Bandeja de entrada</div>
+        <div class="card-body">
             {{#each resultados}}
-                <h3>  &emsp; &emsp; Mensaje &emsp; {{inc @index}}: </h3>
-                <p> &emsp; &emsp;  &emsp; &emsp;  &emsp; &emsp; {{this}}</p>
+                <div class="card text-dark bg-light-tp m-3" style="background-color: #F8F9FF">
+                    <div class="card-body" style="display: flex;flex-wrap: wrap;">
+                        <div class="input-row">
+                            <p class="card-text"> Mensaje {{inc @index}}: </p>
+                            <div class="d-flex">
+                                <span class="card-text"> Numero de Operación: {{numeroOperacion}} </span>
+                            </div>
+                            <div class="d-flex">
+                                <span class="card-text"> Descripción: {{descripcion}}</span>
+                            </div>
+                            <div class="d-flex">
+                                <span class="card-text"> Fecha: {{fechaValidacion}}</span>
+                            </div>
+                            <div class="d-flex">
+                                <span class="card-text"> Carga Correcta: {{#if correspondeCargaCorrecta}}
+                                    OK {{else}} NO {{/if}} </span>
+                            </div>
+
+                            <div class="d-flex">
+                                <span class="card-text"> Corresponde Detalle: {{#if correspondeDetalle}}
+                                    OK {{else}} NO {{/if}} </span>
+                            </div>
+
+                            <div class="d-flex">
+                                <span class="card-text"> Carga Correcta: {{#if correspondeCriterio}}
+                                    OK {{else}} NO {{/if}} </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             {{else}}
-                <p> &emsp; &emsp; Sin mensajes.</p>
+                <p class="card-text text-center p-3"> Sin mensajes.</p>
             {{/each}}
 
         </div>
-
-	  	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	  	<button type="button" onclick="location.href='home';" style="width: 200px; height: 30px; position: relative; left:25px"> Volver a Home</button>
+    </div>
 </div>
+<div class="d-flex justify-content-center padding-button-home">
+    <button class="btn btn-lg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home</button>
+</div>
+
+{{#if getEgresoFail}}
+    <script>window.location = "/ver-egresos";
+    alert("Hubo un error buscando el egreso solicitado.")</script>
+
+
+{{/if}}
+</body>
+</html>

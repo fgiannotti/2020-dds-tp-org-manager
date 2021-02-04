@@ -1,9 +1,11 @@
 package entidades.Usuarios;
 
 import entidades.BandejaDeEntrada.BandejaDeEntrada;
+import entidades.BandejaDeEntrada.Resultado;
 import entidades.Organizaciones.Organizacion;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("revisor")
@@ -31,8 +33,8 @@ public class Revisor extends Usuario {
     }
 
 
-    public void verMensajes(){
-        bandejaDeEntrada.mostrarMensajes();
+    public List<Resultado> verMensajes(){
+        return bandejaDeEntrada.mostrarMensajes();
     }
     public Revisor(){}
     public String toString(){return "revisor";}

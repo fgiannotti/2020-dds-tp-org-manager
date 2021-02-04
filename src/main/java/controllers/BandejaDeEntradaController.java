@@ -10,26 +10,23 @@ import spark.Response;
 
 import server.Router;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BandejaDeEntradaController {
     private final RepoUsuarios repoUsuarios = new RepoUsuarios();
 
     public ModelAndView inicio(Request request, Response response){
-
         Router.CheckIfAuthenticated(request, response);
 
         String usuario = request.cookie("user");
         Revisor user = repoUsuarios.buscarRevisorPorNombre(usuario);
-        BandejaDeEntrada bandeja = user.getBandejaDeEntrada();
-        List<Resultado> resultados = bandeja.getResultadosFiltrados();
+        List<Resultado> resultados = user.verMensajes();
+        List<Resultado> resultadosDup = new ArrayList<>();
 
+        resultados.forEach(r -> {resultadosDup.add(new Resultado(r.getNumeroOperacion(),r.getProveedorElegido(),r.getCorrespondeCargaCorrecta(),r.getCorrespondeDetalle(),r.getCorrespondeCriterio(),r.getFueLeido(),r.getFechaValidacion(),r.getDescripcion(),r.getBandeja()));});
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("resultados",resultados);
 
+        parametros.put("resultados",resultadosDup);
         System.out.println(Arrays.toString(resultados.toArray()));
 
         return new ModelAndView(parametros,"bandeja.hbs");

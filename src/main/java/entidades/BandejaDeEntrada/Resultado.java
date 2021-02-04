@@ -12,8 +12,6 @@ import java.util.List;
 public class Resultado extends EntidadPersistente {
     @Column(name = "numero_operacion")
     private int numeroOperacion;
-    @Transient
-    private Proveedor proveedorElegido;
     @Column(name = "corresponde_carga_correcta")
     private Boolean correspondeCargaCorrecta;
     @Column(name = "corresponde_detalle")
@@ -24,11 +22,16 @@ public class Resultado extends EntidadPersistente {
     private Boolean fueLeido;
     @Column(name = "fecha_validacion")
     private LocalDate fechaValidacion;
+    @Column
+    private String descripcion;
     @ManyToOne
     @JoinColumn(name = "bandeja_id", referencedColumnName = "id")
     private BandejaDeEntrada bandeja;
 
-    public Resultado(int numeroOperacion, Proveedor proveedorElegido, Boolean correspondeCargaCorrecta, Boolean correspondeDetalle, Boolean correspondeCriterio, Boolean fueLeido, LocalDate fechaValidacion,BandejaDeEntrada bandeja) {
+    @Transient
+    private Proveedor proveedorElegido;
+
+    public Resultado(int numeroOperacion, Proveedor proveedorElegido, Boolean correspondeCargaCorrecta, Boolean correspondeDetalle, Boolean correspondeCriterio, Boolean fueLeido, LocalDate fechaValidacion,String descripcion,BandejaDeEntrada bandeja) {
         this.numeroOperacion = numeroOperacion;
         this.proveedorElegido = proveedorElegido;
         this.correspondeCargaCorrecta = correspondeCargaCorrecta;
@@ -36,24 +39,88 @@ public class Resultado extends EntidadPersistente {
         this.correspondeCriterio = correspondeCriterio;
         this.fueLeido = fueLeido;
         this.fechaValidacion = fechaValidacion;
+        this.descripcion = descripcion;
         this.bandeja = bandeja;
     }
     public Resultado(){}
-    public void mostrarResultado() {
-        this.fueLeido = true;
-        System.out.println("Numero Operacion: "+numeroOperacion+
-                " Carga Correcta: "+ String.valueOf(correspondeCargaCorrecta)+
-                " Corresponde Detalle: "+ String.valueOf(correspondeDetalle)+
-                " Corresponde Criterio: "+ String.valueOf(correspondeCriterio)+
-                " Fecha de Validacion: "+fechaValidacion.toString());
-    }
+
     public Boolean getFueLeido(){ return this.fueLeido; }
-    public String toString(){
-        return "Numero Operacion: "+numeroOperacion+
-            "\n Carga Correcta: "+ String.valueOf(correspondeCargaCorrecta)+
-            "\n Corresponde Detalle: "+ String.valueOf(correspondeDetalle)+
-            "\n Corresponde Criterio: "+ String.valueOf(correspondeCriterio)+
-            "\n Fecha de Validacion: "+fechaValidacion.toString();
+
+    @Override
+    public String toString() {
+        return "{" +
+                "numeroOperacion=" + numeroOperacion +
+                ", correspondeCargaCorrecta=" + correspondeCargaCorrecta +
+                ", correspondeDetalle=" + correspondeDetalle +
+                ", correspondeCriterio=" + correspondeCriterio +
+                ", fueLeido=" + fueLeido +
+                ", fechaValidacion=" + fechaValidacion +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
     }
     public LocalDate getFechaValidacion() { return fechaValidacion; }
+
+    public int getNumeroOperacion() {
+        return numeroOperacion;
+    }
+
+    public void setNumeroOperacion(int numeroOperacion) {
+        this.numeroOperacion = numeroOperacion;
+    }
+
+    public Boolean getCorrespondeCargaCorrecta() {
+        return correspondeCargaCorrecta;
+    }
+
+    public void setCorrespondeCargaCorrecta(Boolean correspondeCargaCorrecta) {
+        this.correspondeCargaCorrecta = correspondeCargaCorrecta;
+    }
+
+    public Boolean getCorrespondeDetalle() {
+        return correspondeDetalle;
+    }
+
+    public void setCorrespondeDetalle(Boolean correspondeDetalle) {
+        this.correspondeDetalle = correspondeDetalle;
+    }
+
+    public Boolean getCorrespondeCriterio() {
+        return correspondeCriterio;
+    }
+
+    public void setCorrespondeCriterio(Boolean correspondeCriterio) {
+        this.correspondeCriterio = correspondeCriterio;
+    }
+
+    public void setFueLeido(Boolean fueLeido) {
+        this.fueLeido = fueLeido;
+    }
+
+    public void setFechaValidacion(LocalDate fechaValidacion) {
+        this.fechaValidacion = fechaValidacion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public BandejaDeEntrada getBandeja() {
+        return bandeja;
+    }
+
+    public void setBandeja(BandejaDeEntrada bandeja) {
+        this.bandeja = bandeja;
+    }
+
+    public Proveedor getProveedorElegido() {
+        return proveedorElegido;
+    }
+
+    public void setProveedorElegido(Proveedor proveedorElegido) {
+        this.proveedorElegido = proveedorElegido;
+    }
 }

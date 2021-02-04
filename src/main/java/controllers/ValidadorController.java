@@ -16,6 +16,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class ValidadorController {
         //List<OperacionIngreso> ingresos = repoOperacionesIngresos.getAllByOrg(usuario.getOrganizacion());
 
         Validador validador = new ValidadorUno(usuario.getBandejaDeEntrada());
-        Integer cargasInvalidas = 0;
+        int cargasInvalidas = 0;
         for (OperacionEgreso egreso: egresos){
             List<Object> resultado = validador.validar(egreso);
             Boolean validarOK = (Boolean) resultado.get(0);
@@ -45,7 +46,6 @@ public class ValidadorController {
                 cargasInvalidas++;
             }
         }
-        //TODO: usar la desc para no-borrar vió
 
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("validarDone",true);

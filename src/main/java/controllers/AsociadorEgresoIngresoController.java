@@ -168,7 +168,7 @@ public class AsociadorEgresoIngresoController {
         for (Revisor revisor : revisoresDeLaOrg) {
             for (OperacionIngreso ingreso : ingresos) {
                 for (OperacionEgreso egreso : ingreso.getOperacionesEgreso()) {
-                    Resultado egresoResultado = new Resultado(ingreso.getId(), egreso.getProveedorElegido(), true, true, true, false, LocalDate.now(), revisor.getBandejaDeEntrada());
+                    Resultado egresoResultado = new Resultado(ingreso.getId(), egreso.getProveedorElegido(), true, true, true, false, LocalDate.now(),"Vinculación de ingreso '"+ingreso.getId()+"' con el egreso '"+egreso.getNumeroOperacion()+"'", revisor.getBandejaDeEntrada());
                     resultados.add(egresoResultado);
                 }
             }

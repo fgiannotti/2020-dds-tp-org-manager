@@ -21,12 +21,12 @@ public class BandejaDeEntrada extends EntidadPersistente {
         this.filtros = filtros;
     }
     public BandejaDeEntrada(){}
-    public void mostrarMensajes() {
+    public List<Resultado> mostrarMensajes() {
         List<Resultado> resultadosFiltrados = resultados;
         for(Filtro f: filtros){
             resultadosFiltrados = f.filtrar(resultadosFiltrados);
         }
-        resultadosFiltrados.forEach(resultado -> resultado.mostrarResultado());
+        return resultadosFiltrados;
     }
 
     public void guardarResultado(Resultado resultado){

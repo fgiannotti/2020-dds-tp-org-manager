@@ -1,11 +1,14 @@
 package entidades.Estrategias;
 
+import db.EntityManagerHelper;
 import entidades.BandejaDeEntrada.BandejaDeEntrada;
 import entidades.BandejaDeEntrada.Resultado;
 import entidades.Configuracion.*;
 import entidades.Items.Item;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.Presupuesto;
+
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,54 +18,56 @@ import java.util.stream.Collectors;
 public class ValidadorUno implements Validador {
     int presupuestosNecesarios;
     private BandejaDeEntrada bandejaDeEntrada;
+    private EntityManager em = EntityManagerHelper.getEntityManager();
 
     public ValidadorUno(BandejaDeEntrada bandejaDeEntrada) {
         this.bandejaDeEntrada = bandejaDeEntrada;
         Configuracion configuracion = new Configuracion();
-        this.presupuestosNecesarios = configuracion.getPresupuestosMinimos();;
+        this.presupuestosNecesarios = configuracion.getPresupuestosMinimos();
+        ;
     }
 
     @Override
-    public List<Object> validar(OperacionEgreso unEgreso){
+    public List<Object> validar(OperacionEgreso unEgreso) {
         System.out.println("Validando...");
         boolean detalleCorrecto;
         boolean criterioCorrecto;
         boolean carga = this.cargaCorrecta(unEgreso);
         String razonValidacion = "Validacion OK.";
         List<Presupuesto> presupuestosFiltrados = unEgreso.getPresupuestosPreliminares().stream().filter(presupuesto ->
-                this.compararDetalles(unEgreso,presupuesto)).collect(Collectors.toList());
+                this.compararDetalles(unEgreso, presupuesto)).collect(Collectors.toList());
 
-        if (presupuestosFiltrados.size() == 0){
+        if (presupuestosFiltrados.size() == 0) {
             detalleCorrecto = false;
             criterioCorrecto = false;
             //ITEMS DIERON DISTINTO
             razonValidacion = "Inconsistencias al comparar detalles entre los presupuestos y el egreso.";
-        }else{
+        } else {
             detalleCorrecto = true;
             criterioCorrecto = presupuestosFiltrados.stream()
                     .anyMatch(presupuesto -> this.elegirPorCriterio(unEgreso, presupuesto));
-            if (!criterioCorrecto){
+            if (!criterioCorrecto) {
                 razonValidacion = "El presupuesto no fue elegido correctamente en base a nuestros criterios.";
             }
         }
 
-        this.guardarResultados(unEgreso,carga,detalleCorrecto,criterioCorrecto);
+        this.guardarResultados(unEgreso, carga, detalleCorrecto, criterioCorrecto, razonValidacion);
 
         System.out.println(razonValidacion);
         Boolean validarOK = carga && detalleCorrecto && criterioCorrecto;
-        return new ArrayList<>(Arrays.asList(validarOK,razonValidacion));
+        return new ArrayList<>(Arrays.asList(validarOK, razonValidacion));
     }
 
     @Override
     public Boolean cargaCorrecta(OperacionEgreso unEgreso) {
-        if(null != unEgreso.getCantidadMinimaDePresupuestos()) {
+        if (null != unEgreso.getCantidadMinimaDePresupuestos()) {
             return unEgreso.getCantidadMinimaDePresupuestos() >= this.presupuestosNecesarios;
         }
         return false;
     }
 
     @Override
-    public Boolean compararDetalles(    OperacionEgreso unEgreso, Presupuesto presupuesto) {
+    public Boolean compararDetalles(OperacionEgreso unEgreso, Presupuesto presupuesto) {
         List<Item> itemsEgreso = unEgreso.getItems();
 
         //todos los items del egreso, tienen que ser igual a alguno dle presupuesto
@@ -77,8 +82,9 @@ public class ValidadorUno implements Validador {
         return unEgreso.getCriterio() == Criterio.MENOR_VALOR ?
                 unEgreso.presupuestoMenorValor(presupuesto) : unEgreso.presupuestoMayorValor(presupuesto);
     }
+
     @Override
-    public void guardarResultados(OperacionEgreso unEgreso, Boolean carga, Boolean detalle, Boolean criterio ) {
+    public void guardarResultados(OperacionEgreso unEgreso, Boolean carga, Boolean detalle, Boolean criterio, String descripcion) {
         Resultado resultado = new Resultado(
                 unEgreso.getNumeroOperacion(),
                 unEgreso.getProveedorElegido(),
@@ -87,9 +93,16 @@ public class ValidadorUno implements Validador {
                 criterio,
                 false,
                 LocalDate.now(),
+                descripcion,
                 this.bandejaDeEntrada);
         this.bandejaDeEntrada.guardarResultado(resultado);
+
+        em.getTransaction().begin();
+        em.persist(resultado);
+        em.getTransaction().commit();
     }
 
-    public void setPresupuestosNecesarios(int presupuestosNecesarios) { this.presupuestosNecesarios = presupuestosNecesarios; }
+    public void setPresupuestosNecesarios(int presupuestosNecesarios) {
+        this.presupuestosNecesarios = presupuestosNecesarios;
+    }
 }

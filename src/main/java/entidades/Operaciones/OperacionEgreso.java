@@ -172,13 +172,14 @@ public class OperacionEgreso extends EntidadPersistente implements Operacion {
     }
 
     public Boolean presupuestoMenorValor(Presupuesto presupuesto) {
+        float totalRounded = (float) Math.round(presupuesto.getTotal()*10)/10;
         return this.getPresupuestosPreliminares().stream()
-                .noneMatch(presupuesto1 -> presupuesto1.getTotal() <= presupuesto.getTotal());
+                .noneMatch(presupuesto1 -> presupuesto1.getTotal() > totalRounded);
     }
 
     public Boolean presupuestoMayorValor(Presupuesto presupuesto) {
         return this.getPresupuestosPreliminares().stream()
-                .noneMatch(presupuesto1 -> presupuesto1.getTotal() >= presupuesto.getTotal());
+                .noneMatch(presupuesto1 -> presupuesto1.getTotal() <= presupuesto.getTotal());
     }
 
     public void agregarCategoria(Categoria categoria) {
