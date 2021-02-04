@@ -10,6 +10,7 @@ import entidades.Operaciones.Presupuesto;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -92,13 +93,13 @@ public class ValidadorUno implements Validador {
                 detalle,
                 criterio,
                 false,
-                LocalDate.now(),
-                descripcion,
-                this.bandejaDeEntrada);
+                LocalDateTime.now(),
+                descripcion);
+
         this.bandejaDeEntrada.guardarResultado(resultado);
 
         em.getTransaction().begin();
-        em.persist(resultado);
+        em.merge(this.bandejaDeEntrada);
         em.getTransaction().commit();
     }
 

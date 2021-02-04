@@ -23,7 +23,7 @@ public class BandejaDeEntradaController {
         List<Resultado> resultados = user.verMensajes();
         List<Resultado> resultadosDup = new ArrayList<>();
 
-        resultados.forEach(r -> {resultadosDup.add(new Resultado(r.getNumeroOperacion(),r.getProveedorElegido(),r.getCorrespondeCargaCorrecta(),r.getCorrespondeDetalle(),r.getCorrespondeCriterio(),r.getFueLeido(),r.getFechaValidacion(),r.getDescripcion(),r.getBandeja()));});
+        resultados.forEach(r -> {resultadosDup.add(new Resultado(r.getNumeroOperacion(),r.getProveedorElegido(),r.getCorrespondeCargaCorrecta(),r.getCorrespondeDetalle(),r.getCorrespondeCriterio(),r.getFueLeido(),r.getFechaValidacion(),r.getDescripcion()));});
         Map<String, Object> parametros = new HashMap<>();
 
         parametros.put("resultados",resultadosDup);

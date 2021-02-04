@@ -25,6 +25,7 @@ public class ValidadorController {
     private RepoOperacionesEgresos repoOperacionesEgresos = new RepoOperacionesEgresos();
     private RepoOperacionesIngresos repoOperacionesIngresos = new RepoOperacionesIngresos();
     private RepoUsuarios repoUsuarios = new RepoUsuarios();
+    private EntityManager em = EntityManagerHelper.getEntityManager();
     private HomeController homeController = new HomeController();
     /*public ModelAndView inicio(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
@@ -39,20 +40,19 @@ public class ValidadorController {
 
         Validador validador = new ValidadorUno(usuario.getBandejaDeEntrada());
         int cargasInvalidas = 0;
-        for (OperacionEgreso egreso: egresos){
+        for (OperacionEgreso egreso : egresos) {
             List<Object> resultado = validador.validar(egreso);
             Boolean validarOK = (Boolean) resultado.get(0);
-            if (!validarOK){
+            if (!validarOK) {
                 cargasInvalidas++;
             }
         }
-
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("validarDone",true);
-        parametros.put("cargasValidas",egresos.size() - cargasInvalidas);
-        parametros.put("cargasTotales",egresos.size());
+        parametros.put("validarDone", true);
+        parametros.put("cargasValidas", egresos.size() - cargasInvalidas);
+        parametros.put("cargasTotales", egresos.size());
 
         homeController.setParametrosAuxiliares(parametros);
-        return homeController.inicio(request,response);
+        return homeController.inicio(request, response);
     }
 }

@@ -53,7 +53,8 @@ public class CriterioDeEmpresa extends EntidadPersistente {
         if (this == o) return true;
         if (!(o instanceof CriterioDeEmpresa)) return false;
         CriterioDeEmpresa that = (CriterioDeEmpresa) o;
-        return getNombre().equals(that.getNombre());
+        return getNombre().equals(that.getNombre()) &&
+                Objects.equals(organizacion, that.organizacion);
     }
 
     @Override

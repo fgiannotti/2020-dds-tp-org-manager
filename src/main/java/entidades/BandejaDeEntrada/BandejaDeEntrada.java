@@ -11,9 +11,11 @@ import java.util.List;
 @Entity
 @Table(name = "bandejas_de_entrada")
 public class BandejaDeEntrada extends EntidadPersistente {
-    @OneToMany(mappedBy = "bandeja", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "bandeja_id")
     private List<Resultado> resultados = new ArrayList<Resultado>();
-    @OneToMany(mappedBy = "bandeja", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "bandeja_id")
     private List<Filtro> filtros = new ArrayList<Filtro>();
 
     public BandejaDeEntrada(List<Filtro> filtros){
@@ -32,7 +34,9 @@ public class BandejaDeEntrada extends EntidadPersistente {
     public void guardarResultado(Resultado resultado){
         resultados.add(resultado);
     }
-
+    public void guardarResultados(List<Resultado> resultadosA){
+        resultados.addAll(resultadosA);
+    }
     public List<Resultado> getResultadosFiltrados() {
         List<Resultado> resultadosFiltrados = resultados;
         for(Filtro f: filtros){

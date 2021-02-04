@@ -7,15 +7,16 @@ import entidades.BandejaDeEntrada.Resultado;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
 public class FiltroPorFecha extends Filtro{
     @Convert(converter = LocalDateAttributeConverter.class)
-    private  LocalDate fecha;
+    private LocalDateTime fecha;
 
-    public FiltroPorFecha(LocalDate fecha, BandejaDeEntrada bandejaDeEntrada){
+    public FiltroPorFecha(LocalDateTime fecha, BandejaDeEntrada bandejaDeEntrada){
         super(bandejaDeEntrada);
         this.fecha = fecha;
     }

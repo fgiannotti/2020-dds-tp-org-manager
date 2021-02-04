@@ -5,6 +5,7 @@ import entidades.Operaciones.Proveedor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
@@ -21,17 +22,14 @@ public class Resultado extends EntidadPersistente {
     @Column(name = "fue_leido")
     private Boolean fueLeido;
     @Column(name = "fecha_validacion")
-    private LocalDate fechaValidacion;
+    private LocalDateTime fechaValidacion;
     @Column
     private String descripcion;
-    @ManyToOne
-    @JoinColumn(name = "bandeja_id", referencedColumnName = "id")
-    private BandejaDeEntrada bandeja;
 
     @Transient
     private Proveedor proveedorElegido;
 
-    public Resultado(int numeroOperacion, Proveedor proveedorElegido, Boolean correspondeCargaCorrecta, Boolean correspondeDetalle, Boolean correspondeCriterio, Boolean fueLeido, LocalDate fechaValidacion,String descripcion,BandejaDeEntrada bandeja) {
+    public Resultado(int numeroOperacion, Proveedor proveedorElegido, Boolean correspondeCargaCorrecta, Boolean correspondeDetalle, Boolean correspondeCriterio, Boolean fueLeido, LocalDateTime fechaValidacion,String descripcion) {
         this.numeroOperacion = numeroOperacion;
         this.proveedorElegido = proveedorElegido;
         this.correspondeCargaCorrecta = correspondeCargaCorrecta;
@@ -40,8 +38,8 @@ public class Resultado extends EntidadPersistente {
         this.fueLeido = fueLeido;
         this.fechaValidacion = fechaValidacion;
         this.descripcion = descripcion;
-        this.bandeja = bandeja;
     }
+
     public Resultado(){}
 
     public Boolean getFueLeido(){ return this.fueLeido; }
@@ -58,7 +56,7 @@ public class Resultado extends EntidadPersistente {
                 ", descripcion='" + descripcion + '\'' +
                 '}';
     }
-    public LocalDate getFechaValidacion() { return fechaValidacion; }
+    public LocalDateTime getFechaValidacion() { return fechaValidacion; }
 
     public int getNumeroOperacion() {
         return numeroOperacion;
@@ -96,7 +94,7 @@ public class Resultado extends EntidadPersistente {
         this.fueLeido = fueLeido;
     }
 
-    public void setFechaValidacion(LocalDate fechaValidacion) {
+    public void setFechaValidacion(LocalDateTime fechaValidacion) {
         this.fechaValidacion = fechaValidacion;
     }
 
@@ -106,14 +104,6 @@ public class Resultado extends EntidadPersistente {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public BandejaDeEntrada getBandeja() {
-        return bandeja;
-    }
-
-    public void setBandeja(BandejaDeEntrada bandeja) {
-        this.bandeja = bandeja;
     }
 
     public Proveedor getProveedorElegido() {

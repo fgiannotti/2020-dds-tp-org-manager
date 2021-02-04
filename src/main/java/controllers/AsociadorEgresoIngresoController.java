@@ -23,6 +23,7 @@ import utils.Vinculador.VinculadorApi;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Stream;
@@ -156,7 +157,6 @@ public class AsociadorEgresoIngresoController {
             jsonEgresos.forEach((idEgresos) -> {
                 OperacionEgreso operacionEgreso = this.repoEgresos.get(Integer.parseInt(String.valueOf(idEgresos)));
 
-                ingreso.agregarOperacionEgreso(operacionEgreso);
                 repoEgresos.asociarIngreso(operacionEgreso,ingreso);
             });
 
@@ -165,20 +165,20 @@ public class AsociadorEgresoIngresoController {
 
         //pongo todos estos ingresos vinculados en la bandeja de cada usuario revisor de la empresa
         List<Revisor> revisoresDeLaOrg = repoUsuarios.buscarRevisoresPorOrganizacion(user.getOrganizacionALaQuePertenece().getId());
-        for (Revisor revisor : revisoresDeLaOrg) {
             for (OperacionIngreso ingreso : ingresos) {
                 for (OperacionEgreso egreso : ingreso.getOperacionesEgreso()) {
-                    Resultado egresoResultado = new Resultado(ingreso.getId(), egreso.getProveedorElegido(), true, true, true, false, LocalDate.now(),"Vinculación de ingreso '"+ingreso.getId()+"' con el egreso '"+egreso.getNumeroOperacion()+"'", revisor.getBandejaDeEntrada());
+                    Resultado egresoResultado = new Resultado(ingreso.getId(), egreso.getProveedorElegido(), true, true, true, false, LocalDateTime.now(),"Vinculación de ingreso '"+ingreso.getId()+"' con el egreso '"+egreso.getNumeroOperacion()+"'");
                     resultados.add(egresoResultado);
                 }
             }
-
+        for (Revisor revisor : revisoresDeLaOrg) {
+            revisor.getBandejaDeEntrada().guardarResultados(resultados);
         }
 
         if (ingresos.size() != 0) {
             System.out.println("operacion ingreso vinculada con " + ingresos.get(0).toString() + " con " + ingresos.get(0).getOperacionesEgreso().size() + " egresos");
         }
-
+        System.err.println(resultados);
         for (Resultado resultado : resultados) {
             em.persist(resultado);
         }
