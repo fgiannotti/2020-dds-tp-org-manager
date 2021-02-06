@@ -154,7 +154,6 @@ public class Server {
         itemsOpSerr.addAll(itemsREX);
         EntityManager em = EntityManagerHelper.getEntityManager();
         em.getTransaction().begin();
-        em.persist(new CriterioDeEmpresa("test", null, null));
 
         em.persist(opSerrentino.getOrganizacion());
         em.getTransaction().commit();

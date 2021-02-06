@@ -81,14 +81,14 @@
             <div class="card-header display-7 text-center">Seleccionar Presupuesto</div>
             <div class="card-body space-evenly-vert" style="margin-top: 32px">
                 <div class="space-evenly-vert align-content-start" style="margin-left: 16px">
-                                {{#each presupuestos}}
-                                    <div class="d-flex" style="align-content: start;width: -webkit-fill-available">
-                                        <label>
-                                            <input type="checkbox" name="presupuesto" value='{{id}}'>
-                                            ({{id}}º) {{cantidad}} item/s de monto total {{total}} de {{proveedor.nombreApellidoRazon}}
-                                        </label>
-                                    </div>
-                                {{/each}}
+                    {{#each presupuestos}}
+                        <div class="d-flex" style="align-content: start;width: -webkit-fill-available">
+                            <label>
+                                <input type="checkbox" name="presupuesto" value='{{id}}'>
+                                {{cantidad}} item/s de monto total {{total}} de {{proveedor.nombreApellidoRazon}}
+                            </label>
+                        </div>
+                    {{/each}}
                 </div>
                 <div class="d-flex justify-content-center m-4">
                     <button type="button" class="btn btn-dark" data-bs-toggle="modal"
@@ -100,28 +100,38 @@
         </div>
     </div>
     <div class="d-flex justify-content-evenly padding-button-home">
-        <button type="button" class="btn btn-dark rounded-pill" onclick="location.href='/CrearOperacionEgreso'">Volver</button>
+        <button type="button" class="btn btn-dark rounded-pill" onclick="location.href='/CrearOperacionEgreso'">Volver
+        </button>
 
         <button class="btn btn-dark rounded-pill" type="submit">Siguiente</button>
     </div>
 </form>
 
 <div class="d-flex justify-content-center padding-button-home">
-    <button type="button" class="btn btn-lg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home</button>
+    <button type="button" class="btn btn-lg btn-dark rounded-pill" onclick="location.href='/home'">Volver a Home
+    </button>
 </div>
 <!-- Modal -->
 <form action="/cachePresupuestos" method="post" class="form">
     <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true" id="presupuestoModal">
         <div class="modal-dialog" style="max-width: 70%">
-            <div class="modal-content">
+            <div class="modal-content" style="min-width: fit-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Crear nuevo Presupuesto</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="presupuestoModalBody">
-                    <p>Items del presupuesto: </p>
+                    <div class="d-flex justify-content-between" style="margin-left: 10%;width: 70%;justify-content: space-between">
+                        <p class="card-text">Proveedor: </p>
+                        <select class="opcion-multiple" name="proveedor">
+                            {{#each proveedores}}
+                                <option value='{{id}}'>{{nombreApellidoRazon}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <p style="margin-left: 10%;width: 70%">Items del presupuesto: </p>
 
                     <div class="card" id="itemCard0" style="margin:8px;max-width: 80%;margin-left: 10%;">
                         <div class="card-body" id="itemCardBody">
@@ -155,7 +165,9 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-sm btn-dark" type="button" onclick="addItem2()" style="margin:8px"> Agregar Item</button>
+                        <button class="btn btn-sm btn-dark" type="button" onclick="addItem2()" style="margin:8px">
+                            Agregar Item
+                        </button>
                     </div>
 
 
@@ -164,7 +176,8 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar
                     </button>
                     <input type="text" hidden="hidden" name="itemCount" id="itemCount">
-                    <button class="btn btn-primary d-flex justify-content-center" onclick="setItemCount()" type="submit">Agregar
+                    <button class="btn btn-primary d-flex justify-content-center" onclick="setItemCount()"
+                            type="submit">Agregar
                         Presupuesto
                     </button>
                 </div>
@@ -176,26 +189,30 @@
 <script>
     let itemsCount = 0;
 
-    function getCount(){return itemsCount;}
-    function setItemCount(){
-        document.getElementById("itemCount").setAttribute('value',getCount());
+    function getCount() {
+        return itemsCount;
     }
+
+    function setItemCount() {
+        document.getElementById("itemCount").setAttribute('value', getCount());
+    }
+
     function resetCount() {
         itemsCount = 0;
     }
 
     function addItem2() {
-        let itemCard = document.getElementById('itemCard'+itemsCount);
-        console.log('itemCard'+itemsCount);
+        let itemCard = document.getElementById('itemCard' + itemsCount);
+        console.log('itemCard' + itemsCount);
         let itemCard2 = itemCard.cloneNode(true);
         //set new ID
         itemsCount += 1;
-        itemCard2.setAttribute('id', itemCard2.attributes.item(1).value.slice(0,-1) + itemsCount);
+        itemCard2.setAttribute('id', itemCard2.attributes.item(1).value.slice(0, -1) + itemsCount);
 
         //card --> card-body --> []dflex con los inputs (solo en pos impar)
         let dflexs = itemCard2.childNodes.item(1).childNodes;
         for (let i = 3; i < dflexs.length; i++) {
-            if (i % 2 === 0){
+            if (i % 2 === 0) {
                 continue;
             }
             //dflex getea un label que getea un input
@@ -203,7 +220,7 @@
 
             input.setAttribute('type', 'text');
             input.setAttribute('value', ' ');
-            input.setAttribute('name', input.name.slice(0,-1)+itemsCount);
+            input.setAttribute('name', input.name.slice(0, -1) + itemsCount);
 
         }
 

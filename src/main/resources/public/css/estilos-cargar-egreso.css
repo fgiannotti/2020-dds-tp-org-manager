@@ -106,7 +106,7 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 
 .box-Fecha{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -132,7 +132,7 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 
 .box-proveedor{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -140,7 +140,7 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 
 .box-valor{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -148,5 +148,5 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 
 .opcion-multiple{
   width: 150px;
-  height: 20px;
+  height: 24px;
 }

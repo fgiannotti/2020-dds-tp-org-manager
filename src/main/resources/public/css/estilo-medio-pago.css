@@ -90,7 +90,7 @@ body{
 
 .box-Medio{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -110,7 +110,7 @@ body{
 
 .box-numero{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -118,5 +118,5 @@ body{
 
 .opcion-multiple{
   width: 150px;
-  height: 20px;
+  height: 24px;
 }

@@ -115,7 +115,7 @@ html{
 
 .box-Fecha{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -141,7 +141,7 @@ html{
 
 .box-proveedor{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -149,7 +149,7 @@ html{
 
 .box-valor{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -157,5 +157,5 @@ html{
 
 .opcion-multiple{
   width: 150px;
-  height: 20px;
+  height: 24px;
 }

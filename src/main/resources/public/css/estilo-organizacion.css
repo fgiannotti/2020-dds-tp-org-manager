@@ -129,7 +129,7 @@ background: white;
 
 .box-Medio{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -149,7 +149,7 @@ background: white;
 
 .box-numero{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -157,7 +157,7 @@ background: white;
 
 .opcion-multiple{
   width: 150px;
-  height: 20px;
+  height: 24px;
 }
 
 .boton_guardar{

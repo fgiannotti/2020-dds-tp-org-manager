@@ -161,9 +161,14 @@ public class OperacionController {
         cacheUsuarios.put(request.session().id(), user);
         Map<String, Object> parametros = new HashMap<>();
         List<Presupuesto> presupuestos = new ArrayList<>(repoPresupuestos.getAllByOrg(user.getOrganizacion()));
+        Set<Proveedor> proveedoresOrg = new HashSet<>();
+        for(Presupuesto p:presupuestos){
+            proveedoresOrg.add(p.getProveedor());
+        }
         List<Presupuesto> presupuestosCacheList = (List<Presupuesto>) presupuestoCache.getOrDefault(request.session().id(), new ArrayList<Presupuesto>());
         presupuestos.addAll(presupuestosCacheList);
 
+        parametros.put("proveedores", proveedoresOrg);
         parametros.put("presupuestos", presupuestos);
 
         return new ModelAndView(parametros, "index-seleccionar-proveedores.hbs");
@@ -460,6 +465,7 @@ public class OperacionController {
         List<Item> items = new ArrayList<>();
 
         Integer itemCount = request.queryParams("itemCount") != null ? Integer.parseInt(request.queryParams("itemCount")) + 1 : 1;
+        String proveedorID = request.queryParams("proveedor") != null ? request.queryParams("proveedor")  : "";
         System.err.println("items al presu:" + itemCount);
         Integer i = 0;
         float valorTotalPresu = 0;
@@ -481,7 +487,7 @@ public class OperacionController {
             i++;
         }
 
-        Proveedor proveedor = proveedorCache.get(request.session().id());
+        Proveedor proveedor = em.find(Proveedor.class,Integer.parseInt(proveedorID));
 
         Presupuesto presupuesto = new Presupuesto(items, items.size(), valorTotalPresu, proveedor, null);
         presupuesto.setId(UUID.randomUUID().hashCode());

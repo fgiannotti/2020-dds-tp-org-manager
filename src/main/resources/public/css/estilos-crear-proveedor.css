@@ -117,7 +117,7 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 
 .box-Nombre{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -125,7 +125,7 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 
 .box-presupuesto{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -157,7 +157,7 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 
 .box-numero{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -165,7 +165,7 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 
 .box-postal{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;

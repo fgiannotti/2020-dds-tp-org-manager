@@ -81,7 +81,7 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 
 .box-Medio{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -101,7 +101,7 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 
 .box-numero{
   width: 200px;
-  height: 20px;
+  height: 24px;
   background:white;
   float: right;
   align-content: center;
@@ -109,7 +109,7 @@ background-image: url("https://wallpapercave.com/wp/wp6928859.png");
 
 .opcion-multiple{
   width: 150px;
-  height: 20px;
+  height: 24px;
 }
 
 .boton_guardar{

@@ -65,7 +65,11 @@ public class EgresoBuilder {
 
     public void confirmarEgreso() {
         repoEgreso.agregar(unEgreso);
-        System.err.println("EGRESO PERSISTIDO: \n"+ unEgreso.toString());
+        try {
+            System.err.println("EGRESO PERSISTIDO: \n" + unEgreso.toString());
+        }catch (Exception e){
+            System.out.println("fallo mostrar egreso");
+        }
     }
 
     /*public void asignarCriterio(CriterioDeEmpresa unCriterio) {
