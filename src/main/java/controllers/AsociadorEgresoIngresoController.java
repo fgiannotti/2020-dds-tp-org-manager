@@ -70,15 +70,15 @@ public class AsociadorEgresoIngresoController {
         }
 
 
-        if (operacionesEgreso.size() != 1) {
+        if (operacionesIngreso.size() != 1) {
             parametros.put("asociar-invalido", true);
         }
-        OperacionEgreso egreso = null;
+        OperacionIngreso ingreso = null;
         int asocFailCount = 0;
-        if (!operacionesIngreso.isEmpty()) {
-            egreso = operacionesEgreso.get(0);
+        if (!operacionesEgreso.isEmpty()) {
+            ingreso = operacionesIngreso.get(0);
 
-            for (OperacionIngreso ingreso : operacionesIngreso) {
+            for (OperacionEgreso egreso : operacionesEgreso) {
 
                 try {
                     repoEgresos.asociarIngreso(egreso, ingreso);

@@ -103,8 +103,10 @@ public class AsociadorEgresoCategoriaController {
     }
 
     private List<Categoria> getCategoriasNoAsignadas(OperacionEgreso egreso, ArrayList<Categoria> categoriasAsociar) {
-        categoriasAsociar.removeAll(egreso.getCategorias());
-        return categoriasAsociar;
+        Set<Categoria> catsSet = new HashSet<>(categoriasAsociar);
+        catsSet.removeAll(egreso.getCategorias());
+
+        return new ArrayList<>(catsSet);
     }
 
     public ModelAndView agregarCategoria(Request request, Response response) throws UserNotFoundException {
@@ -117,10 +119,8 @@ public class AsociadorEgresoCategoriaController {
 
         Categoria categoria = new Categoria(nombreCat,crit);
 
-        List<Categoria> categoriasFound = categoriasCache.get(request.session().id());
-        if (categoriasFound == null) {
-            categoriasFound = new ArrayList<>();
-        }
+        List<Categoria> categoriasFound = categoriasCache.getOrDefault(request.session().id(), new ArrayList<>());
+
         //seteo un id unico para encontrarlo dsp
         categoria.setId(UUID.randomUUID().hashCode());
         categoriasFound.add(categoria);

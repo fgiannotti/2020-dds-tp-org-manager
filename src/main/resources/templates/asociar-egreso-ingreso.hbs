@@ -85,11 +85,10 @@
                 <div class="container">
                     {{#each egresos}}
                         <div class="space-evenly-vert align-items-start"  style="margin-left: 8px;">
-                            <label for="cbox1">
-                                <input type="radio" id="cbox1" name="egreso" value="{{id}}">
-                                Nro: {{id}} Descripcion:{{descripcion}}
-                            </label> <label
-                                for="cbox2"></label>
+                            <label for="cbox{{@index}}">
+                                <input type="checkbox" id="cbox{{@index}}" name="egreso" value="{{id}}">
+                                Nro: {{numeroOperacion}} "{{descripcion}}"
+                            </label>
                         </div>
                     {{else}}
                         <p class="display-8 text-center"> Sin egresos.</p>
@@ -102,9 +101,9 @@
                 <div class="container">
                     {{#each ingresos}}
                         <div class="space-evenly-vert align-items-start" style="margin-left: 8px">
-                            <label for="cbox2">
-                                <input type="checkbox" id="cbox2" name="ingreso" value="{{id}}">
-                                Nro: {{id}} Descripcion:{{descripcion}}
+                            <label for="cboxx{{@index}}">
+                                <input type="radio" id="cboxx{{@index}}" name="ingreso" value="{{id}}">
+                                Nro: {{id}} "{{descripcion}}"
                             </label>
                         </div>
                     {{else}}

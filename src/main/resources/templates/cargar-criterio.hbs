@@ -90,8 +90,8 @@
                         <div class="container">
                             {{#each categorias}}
                                 <div class="space-evenly-vert align-items-start" style="margin-left: 8px">
-                                    <label for="cbox">
-                                        <input type="checkbox" id="cbox" name="categoria" value="{{id}}">
+                                    <label for="cbox{{@index}}">
+                                        <input type="checkbox" id="cbox{{@index}}" name="categoria" value="{{id}}">
                                         {{descripcion}} con criterio "{{criterio.nombre}}"
                                     </label>
                                 </div>
