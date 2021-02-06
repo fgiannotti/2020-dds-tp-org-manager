@@ -85,8 +85,8 @@
                 <div class="container">
                     {{#each egresos}}
                         <div class="space-evenly-vert align-items-start"  style="margin-left: 8px;">
-                            <label for="cbox1">
-                                <input type="checkbox" id="cbox1" name="egreso" checked="checked" disabled="disabled" value="{{id}}">
+                            <label for="cbox{{@index}}">
+                                <input type="checkbox" id="cbox{{@index}}" name="egreso" checked="checked" disabled="disabled" value="{{id}}">
                                 Nro: {{id}} Descripcion:{{descripcion}}
                                 <input type="hidden" id="hidden-check1" name="egreso" value="{{id}}" />
                             </label>
@@ -102,8 +102,8 @@
                 <div class="container">
                     {{#each ingresos}}
                         <div class="space-evenly-vert align-items-start" style="margin-left: 8px">
-                            <label for="cbox2">
-                                <input type="checkbox" id="cbox2" name="ingreso" checked="checked" disabled="disabled" value="{{id}}">
+                            <label for="cbox{{@index}}">
+                                <input type="checkbox" id="cbox{{@index}}" name="ingreso" checked="checked" disabled="disabled" value="{{id}}">
                                 Nro: {{id}} Descripcion:{{descripcion}}
                                 <input type="hidden" id="hidden-check2" name="ingreso" value="{{id}}" />
                             </label>

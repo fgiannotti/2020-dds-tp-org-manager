@@ -87,8 +87,8 @@
                 <div class="container">
                     {{#each egresos}}
                         <div class="space-evenly-vert align-items-start" style="margin-left: 8px;">
-                            <label for="cbox1">
-                                <input type="checkbox" id="cbox1" name="egreso" value="{{id}}">
+                            <label for="cbox{{@index}}">
+                                <input type="checkbox" id="cbox{{@index}}" name="egreso" value="{{id}}">
                                 Nro: {{numeroOperacion}} Descripcion:{{descripcion}}
                             </label> <label
                                 for="cbox2"></label>
@@ -104,8 +104,8 @@
                 <div class="container">
                     {{#each categorias}}
                         <div class="space-evenly-vert align-items-start" style="margin-left: 8px">
-                            <label for="cbox2">
-                                <input type="checkbox" id="cbox2" name="categoria" value="{{id}}">
+                            <label for="cbox{{@index}}">
+                                <input type="checkbox" id="cbox{{@index}}" name="categoria" value="{{id}}">
                                 {{descripcion}} {{#if criterio}}con criterio {{criterio.nombre}} {{/if}}
                             </label>
                         </div>
