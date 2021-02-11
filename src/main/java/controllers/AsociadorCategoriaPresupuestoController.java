@@ -1,9 +1,11 @@
 package controllers;
 
+import db.EntityManagerHelper;
 import entidades.Operaciones.OperacionEgreso;
 import entidades.Operaciones.OperacionIngreso;
 import entidades.Operaciones.Presupuesto;
 import entidades.Organizaciones.Categoria;
+import entidades.Organizaciones.CriterioDeEmpresa;
 import entidades.Usuarios.Usuario;
 import repositorios.*;
 import server.Router;
@@ -11,6 +13,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +26,7 @@ public class AsociadorCategoriaPresupuestoController {
 
     private final RepoCategorias repoCategorias = new RepoCategorias();
     private final RepoPresupuestos repoPresupuestos = new RepoPresupuestos();
-
+    private final EntityManager em = EntityManagerHelper.getEntityManager();
     private Usuario user;
 
     public ModelAndView inicio(Request request, Response response) throws UserNotFoundException {
@@ -33,8 +36,14 @@ public class AsociadorCategoriaPresupuestoController {
 
         Map<String, Object> parametros = new HashMap<>();
 
-        List<Categoria> categorias = repoCategorias.getAll();
+        List<Integer> critIDs =new ArrayList<>();
+        em.createQuery("FROM CriterioDeEmpresa WHERE org_id= '" + user.getOrganizacion().getId() + "'OR org_id IS NULL").getResultList().forEach((a) -> {
+            critIDs.add(((CriterioDeEmpresa) a).getId());
+        });
+
+        List<Categoria> categorias = repoCategorias.getAllFromCritIDs(critIDs);
         List<Presupuesto> presupuestos = repoPresupuestos.getAllByOrg(user.getOrganizacion());
+
         parametros.put("categorias", categorias);
         parametros.put("presupuestos", presupuestos);
 

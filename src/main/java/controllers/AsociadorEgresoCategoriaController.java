@@ -112,7 +112,13 @@ public class AsociadorEgresoCategoriaController {
     public ModelAndView agregarCategoria(Request request, Response response) throws UserNotFoundException {
         String nombreCat = request.queryParams("newCategoria");
         String nombreCrit = request.queryParams("criterioName");
-        int criterioID = Integer.parseInt(request.queryParams("criterio"));
+        int criterioID = 0;
+        try {
+            criterioID = Integer.parseInt(request.queryParams("criterio"));
+        }catch (NumberFormatException e){
+            System.err.println(e);
+        }
+
         boolean creaCriterio = Boolean.parseBoolean(request.queryParams("creaCriterio"));
         CriterioDeEmpresa crit = null;
 
