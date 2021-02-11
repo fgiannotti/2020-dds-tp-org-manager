@@ -44,7 +44,7 @@ public class RepoUsuarios {
     public Revisor buscarRevisorPorNombre(String nombre) {
         Revisor unUsuario;
         String query = "from Usuario where nombre = '" + nombre + "' and DTYPE = 'revisor'";
-        unUsuario = (Revisor) em.createQuery(query).getResultList().get(0);
+        unUsuario = (Revisor) em.createQuery(query).getSingleResult();
         return unUsuario;
     }
 

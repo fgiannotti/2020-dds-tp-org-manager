@@ -124,6 +124,7 @@ public class AsociadorEgresoCategoriaController {
 
         if (creaCriterio) {
             crit = new CriterioDeEmpresa(nombreCrit,null,user.getOrganizacion());
+            em.persist(crit);
         }
         if (criterioID != 0 ){
             crit  = (CriterioDeEmpresa) em.createQuery("FROM CriterioDeEmpresa where id = '"+criterioID+"'").getSingleResult();
