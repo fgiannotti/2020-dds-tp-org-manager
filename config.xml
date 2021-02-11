@@ -3,10 +3,12 @@
     <passwordScoreMinimo>2</passwordScoreMinimo>
     <passwordLengthMinimo>8</passwordLengthMinimo>
     <intentosMaximos>2</intentosMaximos>
-    <presupuestosMinimos>1</presupuestosMinimos>
+    <presupuestosMinimos>0</presupuestosMinimos>
+    <apiVinculador>http://localhost:9001/vincular</apiVinculador>
+
+    <!-->
+    <apiVinculador>http://localhost:9001/vincular</apiVinculador>
     <apiVinculador>http://vinculador-dds.herokuapp.com/vincular</apiVinculador>
 
-    <!--><apiVinculador>http://localhost:9001/vincular</apiVinculador><-->
-    <!--> <apiVinculador>http://vinculador-dds.herokuapp.com/vincular</apiVinculador><-->
-
+    <-->
  </General>

@@ -161,14 +161,15 @@ public class OperacionController {
         cacheUsuarios.put(request.session().id(), user);
         Map<String, Object> parametros = new HashMap<>();
         List<Presupuesto> presupuestos = new ArrayList<>(repoPresupuestos.getAllByOrg(user.getOrganizacion()));
-        Set<Proveedor> proveedoresOrg = new HashSet<>();
-        for(Presupuesto p:presupuestos){
-            proveedoresOrg.add(p.getProveedor());
-        }
+        Set<Proveedor> proveedoresAll = new HashSet<>();
+        em.createQuery("from Proveedor").getResultList().forEach((a) -> {
+            proveedoresAll.add((Proveedor) a);
+        });
+        em.createQuery("FROM Proveedor").getResultList();
         List<Presupuesto> presupuestosCacheList = (List<Presupuesto>) presupuestoCache.getOrDefault(request.session().id(), new ArrayList<Presupuesto>());
         presupuestos.addAll(presupuestosCacheList);
 
-        parametros.put("proveedores", proveedoresOrg);
+        parametros.put("proveedores", proveedoresAll);
         parametros.put("presupuestos", presupuestos);
 
         return new ModelAndView(parametros, "index-seleccionar-proveedores.hbs");

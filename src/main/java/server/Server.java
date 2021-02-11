@@ -87,15 +87,27 @@ public class Server {
         CriterioDeEmpresa lugarAplicacion = new CriterioDeEmpresa("Lugar de aplicacion", null, eeafBA);
         CriterioDeEmpresa causante = new CriterioDeEmpresa("Causante", null, eeafBA);
         CriterioDeEmpresa gastosMantenimiento = new CriterioDeEmpresa("Gastos de Mantenimiento", new ArrayList<>(Arrays.asList(lugarAplicacion)), eeafBA);
+        CriterioDeEmpresa gastosGenerales = new CriterioDeEmpresa("Gastos generales", new ArrayList<>(Arrays.asList(lugarAplicacion)), eeafBA);
+        CriterioDeEmpresa elementosOficina = new CriterioDeEmpresa("Elementos de oficina", null, eeafBA);
+        CriterioDeEmpresa momentoUtilizacion = new CriterioDeEmpresa("Momento de utilización", null, eeafBA);
+        CriterioDeEmpresa tipoProducto = new CriterioDeEmpresa("Tipo de producto", null, eeafBA);
 
         CriterioDeEmpresa critServicios = new CriterioDeEmpresa("Servicio", null, eeafBA);
-        CriterioDeEmpresa gtjgtgggj = new CriterioDeEmpresa("Causante", null, eeCDIA);
-        CriterioDeEmpresa tlkgfm = new CriterioDeEmpresa("Gastos de Mantenimiento", new ArrayList<>(Arrays.asList(lugarAplicacion)), eeafBA);
+
+        CriterioDeEmpresa critServiciosCDIA = new CriterioDeEmpresa("Servicio", null, eeCDIA);
+        CriterioDeEmpresa critElementosInternos = new CriterioDeEmpresa("Elementos de uso Interno", null, eeCDIA);
+        List<CriterioDeEmpresa> allcrits= new ArrayList<>(Arrays.asList(critServicios,critServiciosCDIA,tipoProducto,gastosGenerales,momentoUtilizacion));
         //--  CATEGORIAS  --
         Categoria fachada = new Categoria("Fachada", gastosMantenimiento);
         Categoria interior = new Categoria("Interior", lugarAplicacion);
         Categoria humedad = new Categoria("Humedad", causante);
         List<Categoria> categoriasOpSerrentino = new ArrayList<>(Arrays.asList(fachada, interior, humedad));
+
+        Categoria servLuz = new Categoria("Servicios de Luz", critServiciosCDIA);
+        Categoria servGas = new Categoria("Servicios de Gas", critServiciosCDIA);
+        Categoria necesarios = new Categoria("Necesarios", critElementosInternos);
+        List<Categoria> catsOpTelasZN = new ArrayList<>(Arrays.asList(necesarios));
+        List<Categoria> allCats = new ArrayList<>(Arrays.asList(fachada,interior,humedad,servLuz,servGas,necesarios));
 
         //--  PROVEEDORES  --
         Proveedor pintureriaREX = new Proveedor("Pinturerias REX", "", "Av. Gral. Las Heras 2140");
@@ -106,8 +118,11 @@ public class Server {
         Proveedor ingenieriaComercialSRL = new Proveedor("Ingenieria Comercial SRL", "", "Av. Boedo 1091");
         Proveedor corralonLaprida = new Proveedor("Corralon Laprida", "", "Correa 1052");
         Proveedor telasZN = new Proveedor("Telas ZN", "","Gorriti 3500");
-
+        Proveedor edesur = new Proveedor("Edesur","","Av del Libertador 867, Merlo");
+        Proveedor metrogas = new Proveedor("Edesur","","Av del Libertador 700, Merlo");
         List<Proveedor> proveOpSerrentino = new ArrayList<>(Arrays.asList(pintureriaREX, pintureriasSanJorge, pintureriasSerrentino));
+        List<Proveedor> allProveedores = new ArrayList<>(Arrays.asList(pintureriaREX,pintureriasSanJorge,pintureriasSerrentino,casaDelAudio
+        ,garbarino,ingenieriaComercialSRL,corralonLaprida,edesur,metrogas));
 
         //--  PRESUPUESTOS  --
         Articulo artRex20L = new Articulo("Pintura Z10 LATEX 20L", (float) 9900.80, "pinturas 20L");
@@ -154,7 +169,9 @@ public class Server {
         OperacionEgreso opEdesur;
 
         Comprobante compOPTelas = new Comprobante("12-12-40","factura",itemsTelasZN);
-        OperacionEgreso opTelas = new OperacionEgreso((float) 4200.0, "Egreso con Telas ZN",telasZN,efectivoTelas,LocalDate.of(2020,9,25),"",compOPTelas,itemsTelasZN,0,Criterio.MENOR_VALOR,eeCDIA,null,null);
+        OperacionEgreso opTelas = new OperacionEgreso((float) 4200.0, "Egreso con Telas ZN",
+                telasZN,efectivoTelas,LocalDate.of(2020,9,25),"",compOPTelas,itemsTelasZN,
+                0,Criterio.MENOR_VALOR,eeCDIA,null,catsOpTelasZN);
 
         //OperacionEgreso opEdesurCDIA = new OperacionEgreso(1100.0, "Egreso de CDIA con edesur",);
         OperacionEgreso opMetrogas;
@@ -167,6 +184,7 @@ public class Server {
         OperacionIngreso ingresoDonacionTerceros = new OperacionIngreso((float) 20000.0, "Donacion de terceros.", LocalDate.of(2020, 2, 25), eeafBA);
         OperacionIngreso ingresoRimoli = new OperacionIngreso((float) 10000.0, "Donacion de Rimoli SA.", LocalDate.of(2020, 5, 2), eeafBA);
         OperacionIngreso ingresoGranImperio = new OperacionIngreso((float) 10000.0, "Donacion de Gran Imperio.", LocalDate.of(2020, 8, 3), eeafBA);
+        OperacionIngreso ingresoGabino = new OperacionIngreso((float) 10000.0, "Donacion de Gabino SRL.", LocalDate.of(2020, 1, 10), eeCDIA);
 
         //--  USUARIOS  --
         Usuario aroco = new Revisor("aroco", "aroco20", eeafBA, bandejaRevisores);
@@ -192,20 +210,24 @@ public class Server {
         em.persist(jazul);
         em.getTransaction().commit();
 
-        /*EntityManagerHelper.beginTransaction();
-        for(Categoria cat:opSerrentino.getCategorias()){
-            EntityManagerHelper.persist(cat.getCriterio());
-            EntityManagerHelper.persist(cat);
-        }*/
         em.getTransaction().begin();
-        for (Proveedor p : proveOpSerrentino) {
+        for(Categoria cat:allCats){
+            em.persist(cat);
+            em.persist(cat);
+        }
+        for(CriterioDeEmpresa crit:allcrits){
+            em.persist(crit);
+        }
+        for (Proveedor p : allProveedores) {
             em.persist(p);
         }
         em.persist(opSerrentino);
+
+        em.persist(opTelas);
         em.getTransaction().commit();
 
         //persist ingresos
-        for (OperacionIngreso ing : new ArrayList<>(Arrays.asList(ingresoDonacionTerceros, ingresoGranImperio, ingresoRimoli))) {
+        for (OperacionIngreso ing : new ArrayList<>(Arrays.asList(ingresoDonacionTerceros, ingresoGranImperio, ingresoRimoli,ingresoGabino))) {
             em.getTransaction().begin();
             em.persist(ing);
             em.getTransaction().commit();

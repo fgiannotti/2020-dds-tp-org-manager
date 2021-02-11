@@ -35,6 +35,11 @@ public class ValidadorUno implements Validador {
         boolean criterioCorrecto;
         boolean carga = this.cargaCorrecta(unEgreso);
         String razonValidacion = "Validacion OK.";
+        if (unEgreso.getPresupuestosPreliminares().isEmpty()){
+            System.out.println(razonValidacion);
+            this.guardarResultados(unEgreso, carga, true, true, razonValidacion);
+            return new ArrayList<>(Arrays.asList(true, razonValidacion));
+        }
         List<Presupuesto> presupuestosFiltrados = unEgreso.getPresupuestosPreliminares().stream().filter(presupuesto ->
                 this.compararDetalles(unEgreso, presupuesto)).collect(Collectors.toList());
 
@@ -61,10 +66,18 @@ public class ValidadorUno implements Validador {
 
     @Override
     public Boolean cargaCorrecta(OperacionEgreso unEgreso) {
-        if (null != unEgreso.getCantidadMinimaDePresupuestos()) {
-            return unEgreso.getCantidadMinimaDePresupuestos() >= this.presupuestosNecesarios;
+        boolean respetaPresusMinimosEgreso = true;
+        boolean respetaPresusMinimosConfig = true;
+
+        if (unEgreso.getPresupuestosPreliminares() != null) {
+            respetaPresusMinimosEgreso = unEgreso.getCantidadMinimaDePresupuestos() >= unEgreso.getPresupuestosPreliminares().size();
+            respetaPresusMinimosConfig = this.presupuestosNecesarios <= unEgreso.getPresupuestosPreliminares().size()
+                    && this.presupuestosNecesarios <= unEgreso.getCantidadMinimaDePresupuestos();
+        }else{
+            respetaPresusMinimosConfig = this.presupuestosNecesarios <= unEgreso.getCantidadMinimaDePresupuestos();
         }
-        return false;
+
+        return respetaPresusMinimosConfig && respetaPresusMinimosEgreso;
     }
 
     @Override

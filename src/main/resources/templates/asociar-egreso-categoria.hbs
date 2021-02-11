@@ -179,6 +179,16 @@
                                     {{else}}
                                         <p class="display-8 text-center"> Sin Criterios.</p>
                                     {{/each}}
+                                    <div class="input-row">
+                                        <span class="card-text">Nuevo Criterio? </span>
+                                        <select name="creaCriterio" required="required" style="margin:4px">
+                                            <option value='false'>no</option>
+                                            <option value='true'>si</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-row">
+                                            <input type="text" id="cbox" placeholder="Criterio" name="criterioName" value="-1">
+                                    </div>
                                 </div>
                             </div>
                         </div>
