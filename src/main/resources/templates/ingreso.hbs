@@ -29,7 +29,7 @@
             <button type="button" class="btn btn-dark align-content-center"
                     onclick="location.href='/crearOperacionEgreso'">Crear Operacion de Egreso
             </button>
-            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
+            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='/ingreso'">
                 Cargar Operacion de Ingreso
             </button>
 
@@ -74,14 +74,13 @@
 <div class="d-flex justify-content-center" style="padding: 64px">
     <div class="card text-dark bg-light-tp mb-3"
          style="min-height: 20rem; min-width: 24rem; max-width: 70%">
-        <div class="card-header display-7 text-center"> Ingreso {{ingresoID}}</div>
+        <div class="card-header display-7 text-center"> Ingreso </div>
         <div class="card-body" style="margin-top: 32px">
             <div class="space-evenly-vert align-items-start">
                 <div class="justify-content-start" style="padding-right: 0">
                     <p class="card-text">Descripcion: {{ingreso.descripcion}}</p>
                     <p class="card-text">Fecha: {{ingreso.fechaOperacion}}</p>
                     <p class="card-text">Monto Total: {{ingreso.montoTotal}}0 $ </p>
-                    {{ingreso}}
                 </div>
             </div>
         </div>

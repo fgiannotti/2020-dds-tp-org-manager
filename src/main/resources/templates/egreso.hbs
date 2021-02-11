@@ -29,7 +29,7 @@
             <button type="button" class="btn btn-dark align-content-center"
                     onclick="location.href='/crearOperacionEgreso'">Crear Operacion de Egreso
             </button>
-            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='ingreso'">
+            <button type="button" class="btn btn-dark align-content-center" onclick="location.href='/ingreso'">
                 Cargar Operacion de Ingreso
             </button>
 
@@ -101,7 +101,8 @@
                     {{#if egreso.comprobante}}
                         <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Numero de
                             comprobante: {{egreso.comprobante.numeroComprobante}}  </p>
-                        <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Proveedor: {{egreso.proveedorElegido.nombreApellidoRazon}}  </p>
+                        <p class="card-text" style="margin-bottom: 0;margin-left: 24px">
+                            Proveedor: {{egreso.proveedorElegido.nombreApellidoRazon}}  </p>
                         <p class="card-text" style="margin-bottom: 0;margin-left: 24px">Items: </p>
                         {{#each egreso.comprobante.items}}
                             <p class="card-text" style="margin-bottom: 0; margin-left: 60px;">
@@ -133,23 +134,28 @@
                             Presupuestos</p>
 
                         {{#each presupuestos}}
-                            <p class="card-title display-9 text-center">
-                                Presupuesto {{inc @index}}</p>
+                            <div class="card text-dark bg-light-tp mb-3">
 
-                            <p class="card-text"> Proveedor: {{proveedor.nombreApellidoRazon}}</p>
+                                <p class="card-title display-9 text-center">
+                                    Presupuesto {{inc @index}}</p>
 
-                            <p class="card-text"> Direccion Postal:  {{proveedor.direccionPostal}}</p>
-                            <p class="card-text" style="margin-top: 16px"> Presupuesto:  {{cantidad}} items de monto total {{total}} $</p>
-                            {{#each categorias}}
-                                <span class="card-text"> Categorias: </span>
-                                <div class="space-evenly-vert align-items-start" style="margin-left: 32px">
-                                    <p class="card-text">{{descripcion}}
-                                        {{#if criterio}}con criterio {{criterio.nombre}} {{else}} Sin Criterio{{/if}}
-                                    </p>
-                                </div>
-                            {{else}}
-                                <p class="card-text"> Sin categorias.</p>
-                            {{/each}}
+                                <p class="card-text"> Proveedor: {{proveedor.nombreApellidoRazon}}</p>
+
+                                <p class="card-text"> Direccion Postal:  {{proveedor.direccionPostal}}</p>
+                                <p class="card-text" style="margin-top: 16px"> Presupuesto:  {{cantidad}} items de monto
+                                    total {{total}} $</p>
+                                {{#each categorias}}
+                                    <span class="card-text"> Categorias: </span>
+                                    <div class="space-evenly-vert align-items-start" style="margin-left: 32px">
+                                        <p class="card-text">{{descripcion}}
+                                            {{#if criterio}}
+                                                con criterio {{criterio.nombre}} {{else}} Sin Criterio{{/if}}
+                                        </p>
+                                    </div>
+                                {{else}}
+                                    <p class="card-text"> Sin categorias.</p>
+                                {{/each}}
+                            </div>
                         {{else}}
 
                             <p class="card-text text-center"> Sin presupuestos. </p>
