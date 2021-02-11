@@ -32,13 +32,18 @@ public class Server {
     public static void main(String[] args) {
 
         int port;
-        try{ port = Integer.parseInt(System.getenv("PORT"));
-        } catch( NumberFormatException e){ port=9000; }
+        try {
+            port = Integer.parseInt(System.getenv("PORT"));
+        } catch (NumberFormatException e) {
+            port = 9000;
+        }
 
         System.out.println("Puerto Encontrado:");
         System.out.println(port);
 
-        if (port == 0) { port=9000; }
+        if (port == 0) {
+            port = 9000;
+        }
         Spark.port(port);
         persistirInicial();
         //DebugScreen.enableDebugScreen();
@@ -47,107 +52,128 @@ public class Server {
 
     }
 
-    public static void persistirInicial(){
-         BandejaDeEntrada bandejaRevisores = new BandejaDeEntrada();
-         BandejaDeEntrada bandeja2;
+    public static void persistirInicial() {
+        BandejaDeEntrada bandejaRevisores = new BandejaDeEntrada();
+        BandejaDeEntrada bandejaRevisoresCDIA = new BandejaDeEntrada();
+
+        BandejaDeEntrada bandeja2;
 
         //-- DIRECCIONES  --
         Ciudad caba = new Ciudad("CABA");
         Provincia provCABA = new Provincia("CABA");
         Pais arg = new Pais("Argentina", "AR");
 
-        DireccionPostal dirEeafBA = new DireccionPostal(
-                new Direccion("Medrano", 951, 0),
-                caba, provCABA, arg);
+        DireccionPostal dirEeafBA = new DireccionPostal(new Direccion("Medrano", 951, 0), caba, provCABA, arg);
+
+        DireccionPostal dirCDIA = new DireccionPostal(new Direccion("Jeronimo Salguero", 2800, 0), caba, provCABA, arg);
         //-- ORGANIZACIONES  --
 
-         Organizacion eeafBA = new Empresa("EAAF Oficina Central BA", "EAAF BA", "30152698572",
+        Organizacion eeafBA = new Empresa("EAAF Oficina Central BA", "EAAF BA", "30152698572",
                 dirEeafBA, 1, null, 150, new Construccion(), (float) 600000000.00);
+        Organizacion eeCDIA = new Empresa("Derechos de infancia y adolescencia", "Surcos CS", "30258888978",
+                dirCDIA, 2, null, 8, new Construccion(), (float) 8000000.00);
+
         //--  MEDIOS DE PAGO  --
-         MedioDePago creditoSerrentino = new Credito("CreditoSerrentino", "4509953555233704");
-         MedioDePago debitoMitoas = new Debito("DebitoMitoas", "5031755734530604");
-         MedioDePago efectivoEdesur = new AccountMoney("efectivoEdesur");
-         MedioDePago efectivoMetro = new AccountMoney("efectivoMetro");
-         MedioDePago efectivoMitoas = new AccountMoney("efectivoMitoas");
-         MedioDePago efectivoIngCom = new AccountMoney("efectivoIngCom");
-         MedioDePago efectivoLaprida = new AccountMoney("efectivoLaprida");
-         MedioDePago efectivoTelas = new AccountMoney("efectivoTelas");
+        MedioDePago creditoSerrentino = new Credito("CreditoSerrentino", "4509953555233704");
+        MedioDePago debitoMitoas = new Debito("DebitoMitoas", "5031755734530604");
+        MedioDePago efectivoEdesur = new AccountMoney("efectivoEdesur");
+        MedioDePago efectivoMetro = new AccountMoney("efectivoMetro");
+        MedioDePago efectivoMitoas = new AccountMoney("efectivoMitoas");
+        MedioDePago efectivoIngCom = new AccountMoney("efectivoIngCom");
+        MedioDePago efectivoLaprida = new AccountMoney("efectivoLaprida");
+        MedioDePago efectivoTelas = new AccountMoney("efectivoTelas");
 
         //--  CRITERIOS DE EMPRESAS  --
-         CriterioDeEmpresa lugarAplicacion = new CriterioDeEmpresa("Lugar de aplicacion", null,eeafBA);
-         CriterioDeEmpresa causante = new CriterioDeEmpresa("Causante", null,eeafBA);
-         CriterioDeEmpresa gastosMantenimiento = new CriterioDeEmpresa("Gastos de Mantenimiento", new ArrayList<>(Arrays.asList(lugarAplicacion)),eeafBA);
+        CriterioDeEmpresa lugarAplicacion = new CriterioDeEmpresa("Lugar de aplicacion", null, eeafBA);
+        CriterioDeEmpresa causante = new CriterioDeEmpresa("Causante", null, eeafBA);
+        CriterioDeEmpresa gastosMantenimiento = new CriterioDeEmpresa("Gastos de Mantenimiento", new ArrayList<>(Arrays.asList(lugarAplicacion)), eeafBA);
+
+        CriterioDeEmpresa critServicios = new CriterioDeEmpresa("Servicio", null, eeafBA);
+        CriterioDeEmpresa gtjgtgggj = new CriterioDeEmpresa("Causante", null, eeCDIA);
+        CriterioDeEmpresa tlkgfm = new CriterioDeEmpresa("Gastos de Mantenimiento", new ArrayList<>(Arrays.asList(lugarAplicacion)), eeafBA);
         //--  CATEGORIAS  --
-         Categoria fachada = new Categoria("Fachada", gastosMantenimiento);
-         Categoria interior = new Categoria("Interior", lugarAplicacion);
-         Categoria humedad = new Categoria("Humedad", causante);
-         List<Categoria> categoriasOpSerrentino = new ArrayList<>(Arrays.asList(fachada, interior, humedad));
+        Categoria fachada = new Categoria("Fachada", gastosMantenimiento);
+        Categoria interior = new Categoria("Interior", lugarAplicacion);
+        Categoria humedad = new Categoria("Humedad", causante);
+        List<Categoria> categoriasOpSerrentino = new ArrayList<>(Arrays.asList(fachada, interior, humedad));
 
         //--  PROVEEDORES  --
-         Proveedor pintureriaREX = new Proveedor("Pinturerias REX", "", "Av. Gral. Las Heras 2140");
-         Proveedor pintureriasSanJorge = new Proveedor("Pinturerias San Jorge", "", "  Av. Libertador 270");
-         Proveedor pintureriasSerrentino = new Proveedor("Pinturerias Serrentino", "", "  Ayacucho 3056");
-         Proveedor casaDelAudio = new Proveedor("La casa del Audio", "", "Av. Rivadavia 12090");
-         Proveedor garbarino = new Proveedor("Garbarino", "", "Av. Chiclana 553");
-         Proveedor ingenieriaComercialSRL = new Proveedor("Ingenieria Comercial SRL", "", "Av. Boedo 1091");
-         Proveedor corralonLaprida = new Proveedor("Corralon Laprida", "", "Correa 1052");
-         List<Proveedor> proveOpSerrentino = new ArrayList<>(Arrays.asList(pintureriaREX, pintureriasSanJorge, pintureriasSerrentino));
+        Proveedor pintureriaREX = new Proveedor("Pinturerias REX", "", "Av. Gral. Las Heras 2140");
+        Proveedor pintureriasSanJorge = new Proveedor("Pinturerias San Jorge", "", "  Av. Libertador 270");
+        Proveedor pintureriasSerrentino = new Proveedor("Pinturerias Serrentino", "", "  Ayacucho 3056");
+        Proveedor casaDelAudio = new Proveedor("La casa del Audio", "", "Av. Rivadavia 12090");
+        Proveedor garbarino = new Proveedor("Garbarino", "", "Av. Chiclana 553");
+        Proveedor ingenieriaComercialSRL = new Proveedor("Ingenieria Comercial SRL", "", "Av. Boedo 1091");
+        Proveedor corralonLaprida = new Proveedor("Corralon Laprida", "", "Correa 1052");
+        Proveedor telasZN = new Proveedor("Telas ZN", "","Gorriti 3500");
+
+        List<Proveedor> proveOpSerrentino = new ArrayList<>(Arrays.asList(pintureriaREX, pintureriasSanJorge, pintureriasSerrentino));
 
         //--  PRESUPUESTOS  --
-         Articulo artRex20L = new Articulo("Pintura Z10 LATEX 20L", (float) 9900.80, "pinturas 20L");
-         Articulo artRex10L = new Articulo("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", (float) 7200.00, "pinturas 10L");
-         Articulo artRex4L = new Articulo("PINTURA BRIKOL PISOS NEGRO 4L", (float) 4350.80, "pinturas 4L");
+        Articulo artRex20L = new Articulo("Pintura Z10 LATEX 20L", (float) 9900.80, "pinturas 20L");
+        Articulo artRex10L = new Articulo("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", (float) 7200.00, "pinturas 10L");
+        Articulo artRex4L = new Articulo("PINTURA BRIKOL PISOS NEGRO 4L", (float) 4350.80, "pinturas 4L");
 
-         Item pinturaREX20L = new Item("PINTURA Z10 LATEX SUPERCUBRITIVO 20L", "Pintura Z10 LATEX 20L", new ArrayList<>(Arrays.asList(artRex20L)));
-         Item pinturaREX10L = new Item("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", "Pintura LOXON FTES 10L", new ArrayList<>(Arrays.asList(artRex10L)));
-         Item pinturaREX4l = new Item("PINTURA BRIKOL PISOS NEGRO 4L", "Pintura BRIKOL PISOS 4L", new ArrayList<>(Arrays.asList(artRex4L)));
-         List<Item> itemsREX = new ArrayList<Item>(Arrays.asList(pinturaREX20L, pinturaREX10L, pinturaREX4l));
-         Presupuesto prepREX = new Presupuesto(itemsREX, 3, (float) 19949.69, pintureriaREX, null);
+        Item pinturaREX20L = new Item("PINTURA Z10 LATEX SUPERCUBRITIVO 20L", "Pintura Z10 LATEX 20L", new ArrayList<>(Arrays.asList(artRex20L)));
+        Item pinturaREX10L = new Item("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", "Pintura LOXON FTES 10L", new ArrayList<>(Arrays.asList(artRex10L)));
+        Item pinturaREX4l = new Item("PINTURA BRIKOL PISOS NEGRO 4L", "Pintura BRIKOL PISOS 4L", new ArrayList<>(Arrays.asList(artRex4L)));
+        List<Item> itemsREX = new ArrayList<Item>(Arrays.asList(pinturaREX20L, pinturaREX10L, pinturaREX4l));
+        Presupuesto prepREX = new Presupuesto(itemsREX, 3, (float) 19949.69, pintureriaREX, null);
 
-         Articulo artSJ20L = new Articulo("Pintura Z10 LATEX 20L", (float) 9610.50, "pinturas 20L");
-         Articulo artSJ10L = new Articulo("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", (float) 6590.30, "pinturas 10L");
-         Articulo artSJ4L = new Articulo("PINTURA BRIKOL PISOS NEGRO 4L", (float) 4100.00, "pinturas 4L");
-         Item pinturaSJ20L = new Item("PINTURA Z10 LATEX SUPERCUBRITIVO 20L", "Pintura Z10 LATEX 20L", new ArrayList<>(Arrays.asList(artSJ20L)));
-         Item pinturaSJ10L = new Item("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", "Pintura LOXON FTES 10L", new ArrayList<>(Arrays.asList(artSJ10L)));
-         Item pinturaSJ4l = new Item("PINTURA BRIKOL PISOS NEGRO 4L", "Pintura BRIKOL PISOS 4L", new ArrayList<>(Arrays.asList(artSJ4L)));
-         List<Item> itemsSanJorge = new ArrayList<Item>(Arrays.asList(pinturaSJ20L, pinturaSJ10L, pinturaSJ4l));
-         Presupuesto prepSanJorge = new Presupuesto(itemsSanJorge, 3, (float) 20300.8, pintureriasSanJorge, null);
+        Articulo artSJ20L = new Articulo("Pintura Z10 LATEX 20L", (float) 9610.50, "pinturas 20L");
+        Articulo artSJ10L = new Articulo("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", (float) 6590.30, "pinturas 10L");
+        Articulo artSJ4L = new Articulo("PINTURA BRIKOL PISOS NEGRO 4L", (float) 4100.00, "pinturas 4L");
+        Item pinturaSJ20L = new Item("PINTURA Z10 LATEX SUPERCUBRITIVO 20L", "Pintura Z10 LATEX 20L", new ArrayList<>(Arrays.asList(artSJ20L)));
+        Item pinturaSJ10L = new Item("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", "Pintura LOXON FTES 10L", new ArrayList<>(Arrays.asList(artSJ10L)));
+        Item pinturaSJ4l = new Item("PINTURA BRIKOL PISOS NEGRO 4L", "Pintura BRIKOL PISOS 4L", new ArrayList<>(Arrays.asList(artSJ4L)));
+        List<Item> itemsSanJorge = new ArrayList<Item>(Arrays.asList(pinturaSJ20L, pinturaSJ10L, pinturaSJ4l));
+        Presupuesto prepSanJorge = new Presupuesto(itemsSanJorge, 3, (float) 20300.8, pintureriasSanJorge, null);
 
-         Articulo artSerr20L = new Articulo("Pintura Z10 LATEX 20L", (float) 9625.00, "pinturas 20L");
-         Articulo artSerr10L = new Articulo("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", (float) 6589.40, "pinturas 10L");
-         Articulo artSerr4L = new Articulo("PINTURA BRIKOL PISOS NEGRO 4L", (float) 3738.29, "pinturas 4L");
-         Item pinturaSerr20L = new Item("PINTURA Z10 LATEX SUPERCUBRITIVO 20L", "Pintura Z10 LATEX 20L", new ArrayList<>(Arrays.asList(artSerr20L)));
-         Item pinturaSerr10L = new Item("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", "Pintura LOXON FTES 10L", new ArrayList<>(Arrays.asList(artSerr10L)));
-         Item pinturaSerr4l = new Item("PINTURA BRIKOL PISOS NEGRO 4L", "Pintura BRIKOL PISOS 4L", new ArrayList<>(Arrays.asList(artSerr4L)));
-         List<Item> itemsSerrentino = new ArrayList<>(Arrays.asList(pinturaSerr20L, pinturaSerr10L, pinturaSerr4l));
-         Presupuesto prepSerrentino = new Presupuesto(itemsSerrentino, 3, (float) 19952.69, pintureriasSerrentino, null);
-         List<Presupuesto> preliminaresOpSerrentino = new ArrayList<>(Arrays.asList(prepREX, prepSanJorge, prepSerrentino));
+        Articulo artSerr20L = new Articulo("Pintura Z10 LATEX 20L", (float) 9625.00, "pinturas 20L");
+        Articulo artSerr10L = new Articulo("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", (float) 6589.40, "pinturas 10L");
+        Articulo artSerr4L = new Articulo("PINTURA BRIKOL PISOS NEGRO 4L", (float) 3738.29, "pinturas 4L");
+        Item pinturaSerr20L = new Item("PINTURA Z10 LATEX SUPERCUBRITIVO 20L", "Pintura Z10 LATEX 20L", new ArrayList<>(Arrays.asList(artSerr20L)));
+        Item pinturaSerr10L = new Item("PINTURA LOXON FTES IMPERMEABILIZANTE 10L", "Pintura LOXON FTES 10L", new ArrayList<>(Arrays.asList(artSerr10L)));
+        Item pinturaSerr4l = new Item("PINTURA BRIKOL PISOS NEGRO 4L", "Pintura BRIKOL PISOS 4L", new ArrayList<>(Arrays.asList(artSerr4L)));
+        List<Item> itemsSerrentino = new ArrayList<>(Arrays.asList(pinturaSerr20L, pinturaSerr10L, pinturaSerr4l));
+        Presupuesto prepSerrentino = new Presupuesto(itemsSerrentino, 3, (float) 19952.69, pintureriasSerrentino, null);
+        List<Presupuesto> preliminaresOpSerrentino = new ArrayList<>(Arrays.asList(prepREX, prepSanJorge, prepSerrentino));
+
+        Articulo artBlackout = new Articulo("Cortinas blackout vinilico 2 paños", (float) 1000.0, "cortinas 2 paños");
+        Item itemBlackout = new Item("Cortinas blackout vinilico 2 años", "cortina item", new ArrayList<>(Arrays.asList(artBlackout)));
+        List<Item> itemsTelasZN = new ArrayList<>(Arrays.asList(itemBlackout));
 
 
         //--  EGRESOS  --
-         Comprobante compOpSerrentino = new Comprobante(itemsSerrentino);
-         OperacionEgreso opSerrentino = new OperacionEgreso((float) 19949.7, "Egreso serrentino",
+        Comprobante compOpSerrentino = new Comprobante("120-120","facturaB",itemsSerrentino);
+
+        OperacionEgreso opSerrentino = new OperacionEgreso((float) 19949.7, "Egreso serrentino",
                 pintureriaREX, creditoSerrentino, LocalDate.of(2020, 10, 3), "", compOpSerrentino, itemsSerrentino,
                 3, Criterio.MENOR_VALOR, eeafBA, preliminaresOpSerrentino, categoriasOpSerrentino);
 
-         OperacionEgreso opEdesur;
-         //OperacionEgreso opEdesurCDIA = new OperacionEgreso(1100.0,"Egreso de CDIA con edesur",);
-         OperacionEgreso opMetrogas;
-         OperacionEgreso opMetrogas2;
-         OperacionEgreso opMitoas;
-         OperacionEgreso opLap1;
-         OperacionEgreso opLap2;
-         OperacionEgreso opTelas;
+        OperacionEgreso opEdesur;
+
+        Comprobante compOPTelas = new Comprobante("12-12-40","factura",itemsTelasZN);
+        OperacionEgreso opTelas = new OperacionEgreso((float) 4200.0, "Egreso con Telas ZN",telasZN,efectivoTelas,LocalDate.of(2020,9,25),"",compOPTelas,itemsTelasZN,0,Criterio.MENOR_VALOR,eeCDIA,null,null);
+
+        //OperacionEgreso opEdesurCDIA = new OperacionEgreso(1100.0, "Egreso de CDIA con edesur",);
+        OperacionEgreso opMetrogas;
+        OperacionEgreso opMetrogas2;
+        OperacionEgreso opMitoas;
+        OperacionEgreso opLap1;
+        OperacionEgreso opLap2;
 
         //--  INGRESOS  --
-         OperacionIngreso ingresoDonacionTerceros = new OperacionIngreso((float) 20000.0,"Donacion de terceros.",LocalDate.of(2020,2,25),eeafBA);
-         OperacionIngreso ingresoRimoli = new OperacionIngreso((float) 10000.0,"Donacion de Rimoli SA.",LocalDate.of(2020,5,2),eeafBA);
-         OperacionIngreso ingresoGranImperio = new OperacionIngreso((float) 10000.0,"Donacion de Gran Imperio.",LocalDate.of(2020,8,3),eeafBA);
+        OperacionIngreso ingresoDonacionTerceros = new OperacionIngreso((float) 20000.0, "Donacion de terceros.", LocalDate.of(2020, 2, 25), eeafBA);
+        OperacionIngreso ingresoRimoli = new OperacionIngreso((float) 10000.0, "Donacion de Rimoli SA.", LocalDate.of(2020, 5, 2), eeafBA);
+        OperacionIngreso ingresoGranImperio = new OperacionIngreso((float) 10000.0, "Donacion de Gran Imperio.", LocalDate.of(2020, 8, 3), eeafBA);
 
         //--  USUARIOS  --
-         Usuario aroco = new Revisor("aroco","aroco20",eeafBA,bandejaRevisores);
+        Usuario aroco = new Revisor("aroco", "aroco20", eeafBA, bandejaRevisores);
+        Usuario jazul = new Revisor("jazul", "jazul_", eeCDIA, bandejaRevisoresCDIA);
+
         //--  EXTRAS  --
-         List<Item> itemsOpSerr = new ArrayList<>();
+        List<Item> itemsOpSerr = new ArrayList<>();
 
         itemsOpSerr.addAll(itemsREX);
         itemsOpSerr.addAll(itemsSanJorge);
@@ -162,20 +188,24 @@ public class Server {
         em.persist(aroco);
         em.getTransaction().commit();
 
+        em.getTransaction().begin();
+        em.persist(jazul);
+        em.getTransaction().commit();
+
         /*EntityManagerHelper.beginTransaction();
         for(Categoria cat:opSerrentino.getCategorias()){
             EntityManagerHelper.persist(cat.getCriterio());
             EntityManagerHelper.persist(cat);
         }*/
         em.getTransaction().begin();
-        for(Proveedor p: proveOpSerrentino){
+        for (Proveedor p : proveOpSerrentino) {
             em.persist(p);
         }
         em.persist(opSerrentino);
         em.getTransaction().commit();
 
-    //persist ingresos
-        for (OperacionIngreso ing: new ArrayList<>(Arrays.asList(ingresoDonacionTerceros,ingresoGranImperio,ingresoRimoli))){
+        //persist ingresos
+        for (OperacionIngreso ing : new ArrayList<>(Arrays.asList(ingresoDonacionTerceros, ingresoGranImperio, ingresoRimoli))) {
             em.getTransaction().begin();
             em.persist(ing);
             em.getTransaction().commit();

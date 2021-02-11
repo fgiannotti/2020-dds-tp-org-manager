@@ -29,7 +29,7 @@ public class EgresoBuilder {
         unEgreso.setDescripcion(desc);
     }
 
-    public void asignarFechaPresupuestosMinYValor(LocalDate fecha, int presupuestos, int valor) {
+    public void asignarFechaPresupuestosMinYValor(LocalDate fecha, int presupuestos, float valor) {
         unEgreso.setFechaOperacion(fecha);
         unEgreso.setCantidadMinimaDePresupuestos(presupuestos);
         unEgreso.setMontoTotal(valor);

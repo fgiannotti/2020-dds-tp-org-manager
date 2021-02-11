@@ -143,7 +143,7 @@ public class OperacionController {
     public Response postProveedorFechaYCantMin(Request request, Response response) {
         String fecha = request.queryParams("fecha");
         int cantidadPresupuestos = Integer.parseInt(request.queryParams("cantidadMinima"));
-        int valorTotal = Integer.parseInt(request.queryParams("valorTotal"));
+        float valorTotal = Float.parseFloat(request.queryParams("valorTotal"));
         String desc = request.queryParams("descripcion");
         LocalDate unaFecha = LocalDate.parse(fecha);
 
